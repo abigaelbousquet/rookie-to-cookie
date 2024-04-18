@@ -2,7 +2,9 @@ package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.server.Endpoints.AddRecipeHandler;
+import edu.brown.cs.student.main.server.Endpoints.AddDislikedRecipeHandler;
+import edu.brown.cs.student.main.server.Endpoints.AddLikedRecipeHandler;
+import edu.brown.cs.student.main.server.Endpoints.AddMealPlanHandler;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
@@ -27,9 +29,11 @@ public class Server {
     try {
       firebaseUtils = new FirebaseUtilities();
 
-      Spark.get("add-recipe", new AddRecipeHandler(firebaseUtils));
+      Spark.get("add-liked-recipe", new AddLikedRecipeHandler(firebaseUtils));
+      Spark.get("add-disliked-recipe", new AddDislikedRecipeHandler(firebaseUtils));
+      Spark.get("add-mealplan", new AddMealPlanHandler(firebaseUtils));
 
-      Spark.notFound(
+        Spark.notFound(
           (request, response) -> {
             response.status(404); // Not Found
             System.out.println("ERROR");
@@ -38,7 +42,7 @@ public class Server {
       Spark.init();
       Spark.awaitInitialization();
 
-      System.out.println("Endpoints.Server started at http://localhost:" + port);
+      System.out.println("Server started at http://localhost:" + port);
     } catch (IOException e) {
       e.printStackTrace();
       System.err.println(

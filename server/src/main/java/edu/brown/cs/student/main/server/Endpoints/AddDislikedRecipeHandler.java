@@ -2,17 +2,18 @@ package edu.brown.cs.student.main.server.Endpoints;
 
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
-import java.util.HashMap;
-import java.util.Map;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class AddRecipeHandler implements Route {
+import java.util.HashMap;
+import java.util.Map;
+
+public class AddDislikedRecipeHandler implements Route {
 
   public StorageInterface storageHandler;
 
-  public AddRecipeHandler(StorageInterface storageHandler) {
+  public AddDislikedRecipeHandler(StorageInterface storageHandler) {
     this.storageHandler = storageHandler;
   }
 
@@ -44,7 +45,7 @@ public class AddRecipeHandler implements Route {
       System.out.println("adding recipeId: " + recipeId + " for user: " + uid);
 
       // use the storage handler to add the document to the database
-      this.storageHandler.addDocument(uid, "recipes", recipe, data);
+      this.storageHandler.addDocument(uid, "disliked recipes", recipe, data);
 
       responseMap.put("response_type", "success");
       responseMap.put("recipe", recipe);
