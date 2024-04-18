@@ -1,6 +1,9 @@
 import { useState } from "react";
 import "../styles/App.css";
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./Navbar";
+import Home from "./Home/Home";
 import { initializeApp } from "firebase/app";
 import AuthRoute from "./Login/AuthRoute";
 
@@ -18,14 +21,31 @@ import AuthRoute from "./Login/AuthRoute";
 /**
  * This is the highest level component!
  */
+// function App() {
+//   return (
+//     //Yes, by putting the Navbar component in the App component, you ensure that the navigation bar appears on every page of your application, as long as those pages are rendered within the App component's context. This is a common pattern for creating a consistent layout across multiple pages in a React application.
+//     <div className="App">
+//       <p className="App-header">
+//         <h2>Rookie To Cookie</h2>
+//       </p>
+//       {/* <AuthRoute /> */}
+//     </div>
+//   );
+// }
+
+// export default App;
+
 function App() {
   return (
-    <div className="App">
-      <p className="App-header">
-        <h2>Rookie To Cookie</h2>
-      </p>
-      {/* <AuthRoute /> */}
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* Add more routes as needed */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
