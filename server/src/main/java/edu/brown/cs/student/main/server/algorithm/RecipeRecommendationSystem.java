@@ -31,12 +31,20 @@ public class RecipeRecommendationSystem {
      * 4. return
      */
 
-    public RecipeRecommendationSystem(List<Recipe> allRecipes, StorageInterface firebaseData, String uid) {
+    public RecipeRecommendationSystem(List<Recipe> allRecipes, StorageInterface firebaseData, String uid, int numDays) {
         this.allRecipes = allRecipes;
         this.removeDuplicates(allRecipes, firebaseData, uid);
         this.dislikedRecipes = null; //should take the disliked recipe jsons from firebase (perhaps store as an object?)
         this.likedRecipes = null;//should take the liked recipe jsons from firebase
-        this.recommendRecipes(null, 7);
+        if (this.likedRecipes == null && this.dislikedRecipes == null) {
+            this.pickTop(allRecipes, numDays);
+        }
+        this.recommendRecipes(this.likedRecipes.get(0), numDays);
+    }
+
+    private List<Recipe> pickTop(List<Recipe> sortedOptions, int numRecommendations){
+        //select top n from this.allRecipes
+        return sortedOptions.subList(0, Math.min(numRecommendations, sortedOptions.size()));
     }
 
     /**
@@ -57,7 +65,7 @@ public class RecipeRecommendationSystem {
         Set<Ingredient> ingredients2 = recipe2.getIngredients();
 
         // Calculate the intersection (overlap) of ingredients
-        Set<Set<Ingredient>> intersection = new HashSet<>().add(ingredients1);
+        Set<Ingredient> intersection = new HashSet<>(ingredients1);
         intersection.retainAll(ingredients2);
 
         // Calculate the Jaccard similarity coefficient
@@ -84,6 +92,6 @@ public class RecipeRecommendationSystem {
                 calculateSimilarity(targetRecipe, r1)));
 
         // Return the top N recommended recipes
-        return recommendedRecipes.subList(0, Math.min(numRecommendations, recommendedRecipes.size()));
+        return pickTop(recommendedRecipes, numRecommendations);
     }
 }

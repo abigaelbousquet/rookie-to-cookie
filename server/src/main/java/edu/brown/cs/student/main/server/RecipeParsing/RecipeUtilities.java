@@ -10,8 +10,10 @@ import edu.brown.cs.student.main.server.RecipeParsing.Recipe.Recipe;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A class for useful utility static methods involved in converting between Recipe objects and
@@ -259,7 +261,7 @@ public class RecipeUtilities {
 
     List<String> rawIngredientsList =
         listStringAdapter.fromJson(rawRecipe.get("extendedIngredients"));
-    List<Ingredient> deserializedIngredientsList = new ArrayList<>();
+    Set<Ingredient> deserializedIngredientsList = new HashSet();
     for (String rawIngredient : rawIngredientsList) {
       deserializedIngredientsList.add(deserializeIngredient(rawIngredient));
     }
