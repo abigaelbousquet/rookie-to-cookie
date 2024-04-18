@@ -8,11 +8,11 @@ import spark.Route;
 import storage.StorageInterface;
 import storage.Utils;
 
-public class AddWordHandler implements Route {
+public class AddRecipeHandler implements Route {
 
   public StorageInterface storageHandler;
 
-  public AddWordHandler(StorageInterface storageHandler) {
+  public AddRecipeHandler(StorageInterface storageHandler) {
     this.storageHandler = storageHandler;
   }
 
@@ -29,22 +29,25 @@ public class AddWordHandler implements Route {
     try {
       // collect parameters from the request
       String uid = request.queryParams("uid");
-      String word = request.queryParams("word");
+      String recipe = request.queryParams("recipeId");
+      int recipeId = 0;
+
+      try {
+        recipeId = Integer.parseInt(recipe);
+      } catch (Exception e) {
+        System.out.println("Recipe ID not properly entered");
+      }
 
       Map<String, Object> data = new HashMap<>();
-      data.put("word", word);
+      data.put("recipeId", recipeId);
 
-      System.out.println("adding word: " + word + " for user: " + uid);
-
-      // get the current word count to make a unique word_id by index.
-      int wordCount = this.storageHandler.getCollection(uid, "words").size();
-      String wordId = "word-" + wordCount;
+      System.out.println("adding recipeId: " + recipeId + " for user: " + uid);
 
       // use the storage handler to add the document to the database
-      this.storageHandler.addDocument(uid, "words", wordId, data);
+      this.storageHandler.addDocument(uid, "recipes", recipe, data);
 
       responseMap.put("response_type", "success");
-      responseMap.put("word", word);
+      responseMap.put("recipe", recipe);
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();

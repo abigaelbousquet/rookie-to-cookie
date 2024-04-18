@@ -1,12 +1,11 @@
-package Endpoints;
-
 import static spark.Spark.after;
 
-import storage.StorageInterface;
-import storage.FirebaseUtilities;
+import Endpoints.AddRecipeHandler;
 import java.io.IOException;
 import spark.Filter;
 import spark.Spark;
+import storage.FirebaseUtilities;
+import storage.StorageInterface;
 
 /** Top Level class for our project, utilizes spark to create and maintain our server. */
 public class Server {
@@ -26,8 +25,7 @@ public class Server {
     try {
       firebaseUtils = new FirebaseUtilities();
 
-      Spark.get("add-word", new AddWordHandler(firebaseUtils));
-
+      Spark.get("add-word", new AddRecipeHandler(firebaseUtils));
 
       Spark.notFound(
           (request, response) -> {
