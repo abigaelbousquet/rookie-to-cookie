@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoginLogout from "./LoginLogout";
 import React from "react";
-import Home from "../Home";
+import Home from "../Home/Home";
 import { AccountCreation } from "./AccountCreation";
 
 function AuthRoute() {
