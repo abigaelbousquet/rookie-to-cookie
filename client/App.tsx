@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import "../styles/App.css";
 import AuthRoute from "./AuthRoute";
-import React from "react";
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
