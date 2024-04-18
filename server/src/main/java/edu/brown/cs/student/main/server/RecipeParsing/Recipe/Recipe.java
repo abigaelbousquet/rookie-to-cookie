@@ -1,6 +1,7 @@
 package edu.brown.cs.student.main.server.RecipeParsing.Recipe;
 
 import java.util.List;
+import java.util.Set;
 
 /** A class describing a recipe. */
 public class Recipe {
@@ -22,7 +23,7 @@ public class Recipe {
   private boolean vegetarian;
 
   /* Details */
-  private List<Ingredient> ingredients;
+  private Set<Ingredient> ingredients;
   private List<Instruction> instructions;
 
   /**
@@ -58,7 +59,7 @@ public class Recipe {
       boolean ketogenic,
       boolean vegan,
       boolean vegetarian,
-      List<Ingredient> ingredients,
+      Set<Ingredient> ingredients,
       List<Instruction> instructions) {
     this.title = title;
     this.imageLink = imageLink;
@@ -77,5 +78,11 @@ public class Recipe {
   }
 
   // TODO: add toString, getters
+
+  public Set<Ingredient> getIngredients() {
+    return this.ingredients;
+
+    // TODO: return defensive copy
+  }
 
 }
