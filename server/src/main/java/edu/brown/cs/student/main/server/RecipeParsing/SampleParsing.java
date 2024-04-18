@@ -1,6 +1,6 @@
-package RecipeParsing;
+package edu.brown.cs.student.main.server.RecipeParsing;
 
-import RecipeParsing.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecipeParsing.Recipe.Recipe;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

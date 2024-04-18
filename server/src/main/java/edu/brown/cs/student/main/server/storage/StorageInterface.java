@@ -1,4 +1,4 @@
-package storage;
+package edu.brown.cs.student.main.server.storage;
 
 import java.util.List;
 import java.util.Map;

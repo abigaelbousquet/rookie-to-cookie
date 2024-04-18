@@ -1,4 +1,4 @@
-package RecipeParsing.Recipe;
+package edu.brown.cs.student.main.server.RecipeParsing.Recipe;
 
 /** A class describing a measurement. */
 public class Measurement {

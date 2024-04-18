@@ -1,12 +1,12 @@
-package RecipeParsing;
+package edu.brown.cs.student.main.server.RecipeParsing;
 
-import RecipeParsing.Recipe.Ingredient;
-import RecipeParsing.Recipe.Instruction;
-import RecipeParsing.Recipe.Measurement;
-import RecipeParsing.Recipe.Recipe;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.server.RecipeParsing.Recipe.Ingredient;
+import edu.brown.cs.student.main.server.RecipeParsing.Recipe.Instruction;
+import edu.brown.cs.student.main.server.RecipeParsing.Recipe.Measurement;
+import edu.brown.cs.student.main.server.RecipeParsing.Recipe.Recipe;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;

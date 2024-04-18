@@ -1,11 +1,13 @@
+package edu.brown.cs.student.main.server;
+
 import static spark.Spark.after;
 
-import Endpoints.AddRecipeHandler;
+import edu.brown.cs.student.main.server.Endpoints.AddRecipeHandler;
+import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
+import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
 import spark.Filter;
 import spark.Spark;
-import storage.FirebaseUtilities;
-import storage.StorageInterface;
 
 /** Top Level class for our project, utilizes spark to create and maintain our server. */
 public class Server {
@@ -25,7 +27,7 @@ public class Server {
     try {
       firebaseUtils = new FirebaseUtilities();
 
-      Spark.get("add-word", new AddRecipeHandler(firebaseUtils));
+      Spark.get("add-recipe", new AddRecipeHandler(firebaseUtils));
 
       Spark.notFound(
           (request, response) -> {

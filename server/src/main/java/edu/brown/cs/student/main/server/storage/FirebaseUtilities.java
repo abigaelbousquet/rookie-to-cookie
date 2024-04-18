@@ -1,4 +1,4 @@
-package storage;
+package edu.brown.cs.student.main.server.storage;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;

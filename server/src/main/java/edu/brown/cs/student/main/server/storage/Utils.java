@@ -1,4 +1,4 @@
-package storage;
+package edu.brown.cs.student.main.server.storage;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;

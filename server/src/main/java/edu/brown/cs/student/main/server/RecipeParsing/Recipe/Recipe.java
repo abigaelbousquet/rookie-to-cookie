@@ -1,4 +1,4 @@
-package RecipeParsing.Recipe;
+package edu.brown.cs.student.main.server.RecipeParsing.Recipe;
 
 import java.util.List;
 
