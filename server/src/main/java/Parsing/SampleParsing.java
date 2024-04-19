@@ -1,8 +1,8 @@
 package Parsing;
 
-import Parsing.Recipe.SpoonacularRecipeDatasource;
-import Parsing.Recipe.SpoonacularRecipeDatasource.MealInstructions;
-import Parsing.Recipe.SpoonacularRecipeDatasource.Recipe;
+import Parsing.Recipe.SpoonacularRecipeUtilities;
+import Parsing.Recipe.SpoonacularRecipeUtilities.MealInstructions;
+import Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,7 +15,6 @@ public class SampleParsing {
    * @param args n/a
    */
   public static void main(String[] args) {
-    SpoonacularRecipeDatasource dataSrc = new SpoonacularRecipeDatasource();
 
     /** PARSE RECIPE */
     System.out.println("PARSING EXAMPLE RECIPE JSON ---------------------------------");
@@ -36,7 +35,7 @@ public class SampleParsing {
 
       // ****************** DESERIALIZING *******************
       System.out.println("Beginning to deserialize read String.");
-      Recipe deserializedRecipe = dataSrc.deserializeRecipe(fileString);
+      Recipe deserializedRecipe = SpoonacularRecipeUtilities.deserializeRecipe(fileString);
       System.out.println("Done deserializing read String.\n");
 
     } catch (IOException | IllegalArgumentException e) {
@@ -64,7 +63,7 @@ public class SampleParsing {
 
       // ****************** DESERIALIZING *******************
       System.out.println("Beginning to deserialize read String.");
-      MealInstructions deserializedInstructions = dataSrc.deserializeMealInstructions(fileString);
+      MealInstructions deserializedInstructions = SpoonacularRecipeUtilities.deserializeMealInstructions(fileString);
       System.out.println("Done deserializing read String.\n");
 
     } catch (IOException | IllegalArgumentException e) {
