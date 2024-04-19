@@ -1,13 +1,14 @@
 .form {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Adjust to your preference */
+  justify-content: space-evenly; /* Adjust to your preference */
   /* Vertically center the form items */
   margin-inline: 10%;
   height: 320px;
 }
 .popup-inmost {
-  justify-content: space-between;
+  align-self: space-evenly;
+  align-items: center;
   margin: 5%;
   background-color: rgb(255, 250, 236);
   height: 80vh;
@@ -52,7 +53,6 @@ legend {
   height: 80vh;
   width: 65%;
   margin: auto;
-  padding: 0px;
   border-radius: 5%;
 }
 .butt:hover {
@@ -72,48 +72,46 @@ legend {
 .tag-item {
   display: inline-flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   margin: 2px;
-  height: 26px;
   padding: 0;
+  height: 26px;
   line-height: 26px;
   cursor: default;
 }
-.tag-title {
+.tag-item .title {
   display: block;
   position: relative;
   font-size: 16px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  margin-left: 8px;
+  margin: 0 8px;
 }
-.rem-btn {
+.tag-item .rem-btn {
+  display: block;
   position: relative;
   border: none;
   background-color: unset;
   cursor: pointer;
-  text-align: center;
-  width: 10px;
-  height: auto;
+  width: 26px;
+  height: 100%;
   line-height: 22px;
-
-  font-size: 1.5rem;
+  text-align: center;
+  font-size: 1.2rem;
 }
 .color-default {
-  color: rgb(190, 220, 190);
+  color: darkseagreen;
   background-color: seagreen;
 }
 .color-default button.rem-btn {
-  color: rgb(176, 215, 176);
+  color: darkseagreen;
+  background-color: darkgreen;
 }
 .tag-input {
   color: #495057;
   flex: 1;
   background: transparent;
   border: none;
-}
-.tag-input:focus {
-  outline: none;
 }
