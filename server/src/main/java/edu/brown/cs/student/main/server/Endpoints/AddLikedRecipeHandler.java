@@ -1,5 +1,6 @@
 package edu.brown.cs.student.main.server.Endpoints;
 
+import edu.brown.cs.student.main.server.Server;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
 import java.util.HashMap;
@@ -29,30 +30,24 @@ public class AddLikedRecipeHandler implements Route {
     try {
       // collect parameters from the request
       String uid = request.queryParams("uid");
-      String recipe = request.queryParams("recipeId");
-      int recipeId = 0;
+      String recipeId = request.queryParams("recipeId");
 
       /**
        *  essentially make a call to another endpoint with this data and then put the
-       *  data into the firebase as an object
+       *  data into the firebase as an object; means spoonacular call should always happen
        */
 
-      try {
-        recipeId = Integer.parseInt(recipe);
-      } catch (Exception e) {
-        System.out.println("Recipe ID not properly entered");
-      }
 
       Map<String, Object> data = new HashMap<>();
-      data.put("recipeId", recipeId);
+      data.put(recipeId, Server.currRecipe); //puts recipeId
 
       System.out.println("adding recipeId: " + recipeId + " for user: " + uid);
 
       // use the storage handler to add the document to the database
-      this.storageHandler.addDocument(uid, "liked recipes", recipe, data);
+      this.storageHandler.addDocument(uid, "liked recipes", recipeId, data);
 
       responseMap.put("response_type", "success");
-      responseMap.put("recipe", recipe);
+      responseMap.put(recipeId, Server.currRecipe);
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();

@@ -6,6 +6,7 @@ import edu.brown.cs.student.main.server.Endpoints.AddDislikedRecipeHandler;
 import edu.brown.cs.student.main.server.Endpoints.AddLikedRecipeHandler;
 import edu.brown.cs.student.main.server.Endpoints.AddMealPlanHandler;
 import edu.brown.cs.student.main.server.Endpoints.SpoonacularHandler;
+import edu.brown.cs.student.main.server.RecipeParsing.Recipe.Recipe;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
@@ -15,8 +16,11 @@ import spark.Spark;
 /** Top Level class for our project, utilizes spark to create and maintain our server. */
 public class Server {
 
+  public static Recipe currRecipe;
+
   public static void setUpServer() {
     int port = 3232;
+
     Spark.port(port);
 
     after(

@@ -2,6 +2,7 @@ package edu.brown.cs.student.main.server.Endpoints;
 
 import edu.brown.cs.student.main.server.RecipeParsing.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeParsing.RecipeUtilities;
+import edu.brown.cs.student.main.server.Server;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -13,6 +14,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,10 +42,15 @@ public class SpoonacularHandler implements Route {
 
         try {
             // Sends a request to the API and receives JSON back
-            String recipeJson = this.sendRequest(cuisine);
+//            String recipeJson = this.sendRequest(cuisine);
+
+            String recipePath = "C:\\Users\\Faizah\\Documents\\Brown Sophomore Year\\CS0320\\term-project-mshaffe3-ddedona-ffnaqvi-abousque\\server\\data\\exampleRecipe.json";
+
+            String recipeJson = new String(Files.readAllBytes(Paths.get(recipePath)));
 
             // Deserializes JSON into a recipe
             Recipe returnedRecipe = RecipeUtilities.deserializeRecipe(recipeJson);
+            Server.currRecipe = returnedRecipe;
 
             // Adds results to the responseMap
             responseMap.put("result", "success");
