@@ -5,7 +5,6 @@ import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +16,8 @@ public class SpoonacularRecipeDatasource {
   private static final JsonAdapter<Recipe> recipeAdapter = moshi.adapter(Recipe.class);
   private static final JsonAdapter<RecipeInstructions> instructionsAdapter = moshi.adapter(
       RecipeInstructions.class);
+  private static final Type setRecipeInstructions = Types.newParameterizedType(Set.class, RecipeInstructions.class);
+  private static final JsonAdapter<Set<RecipeInstructions>> mealInstructionsAdapter = moshi.adapter(setRecipeInstructions);
 
   /**
    * Deserializes a raw recipe json into Recipe object.
@@ -44,23 +45,17 @@ public class SpoonacularRecipeDatasource {
    * @throws IllegalArgumentException if rawJson describes a MealInstructions with no recipes or a recipe with no steps
    */
   public MealInstructions deserializeMealInstructions(String rawJson) throws IOException, IllegalArgumentException {
-    Type setOfString = Types.newParameterizedType(Set.class, String.class);
-    JsonAdapter<Set<String>> setOfStringAdapter = moshi.adapter(setOfString);
-    Set<String> rawSubRecipes = setOfStringAdapter.fromJson(rawJson);
-    if (rawSubRecipes.isEmpty()) {
+    Set<RecipeInstructions> mealInstructions = mealInstructionsAdapter.fromJson(rawJson);
+    if (mealInstructions.isEmpty()) {
       throw new IllegalArgumentException("Error parsing: Given instructions json without any recipe instructions. Raw json: " + rawJson);
     }
 
-    MealInstructions fullInstructionsDeserialized = new MealInstructions(new HashSet<>());
-    for (String rawSubRecipe : rawSubRecipes) {
-      RecipeInstructions instructions = instructionsAdapter.fromJson(rawSubRecipe);
-      if (instructions.steps.isEmpty()) {
+    for (RecipeInstructions rawSubRecipe : mealInstructions) {
+      if (rawSubRecipe.steps.isEmpty()) {
         throw new IllegalArgumentException("Error parsing: Given invalid instructions json where a recipe has no steps. Raw (sub)recipe json: " + rawSubRecipe);
-      } else {
-        fullInstructionsDeserialized.subRecipes.add(instructions);
       }
     }
-    return fullInstructionsDeserialized;
+    return new MealInstructions(mealInstructions);
   }
 
   /**
