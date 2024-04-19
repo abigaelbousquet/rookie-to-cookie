@@ -8,7 +8,7 @@ import okio.Buffer;
 import java.util.List;
 import java.util.Set;
 
-public class SpoonacularRecipeSource {
+public class SpoonacularRecipeSource implements RecipeDatasource {
 
   /**
    * Queries Spoonacular recipe database for a certain number of recipes fitting the criteria specified by parameters.
