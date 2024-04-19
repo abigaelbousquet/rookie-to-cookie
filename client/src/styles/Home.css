@@ -1,0 +1,53 @@
+/* Global styles */
+.Home {
+  display: grid;
+  grid-template-areas:
+    "title title"
+    "days-of-the-week-prompt days-of-the-week-buttons"
+    "cuisine-prompt cuisine-options";
+  gap: 20px;
+}
+
+/* Title */
+h1 {
+  grid-area: title;
+}
+
+/* Section of days of the week prompt */
+.days-of-the-week-prompt-text {
+  grid-area: days-of-the-week-prompt;
+}
+
+/* Section of cuisine prompt */
+.cuisine-prompt-text {
+  grid-area: cuisine-prompt;
+}
+
+/* Section of days of the week buttons */
+.days-of-the-week-buttons {
+  grid-area: days-of-the-week-buttons;
+  display: flex;
+  align-items: center;
+}
+
+/* Circular button styles */
+.circular-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none; /* Remove border */
+  margin: 5px;
+  background-color: transparent; /* Initial background color */
+  color: #333;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Selected circular button */
+.selected.circular-button {
+  background-color: #974ab1; /* Filled color on click */
+  color: #fff; /* Text color on click */
+}
