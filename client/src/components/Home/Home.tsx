@@ -105,12 +105,12 @@ const Home: React.FC = () => {
         </button>
       </div>
 
-      {/* Section of days of the week prompt */}
+      {/* Section of cuisine prompt */}
       <div className="cuisine-prompt-text">
         Select the type of cuisine that you would like to see:
       </div>
 
-      {/* Box with options (dropdown) */}
+      {/* Section of cuisine dropdown box */}
       <div
         className="cuisine-options-box"
         onClick={() => setShowOptions(!showOptions)}

@@ -1,118 +1,38 @@
 /* Global styles */
-.form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-inline: 10%;
-  height: 300px;
+.Home {
+  display: grid;
+  grid-template-areas:
+    "title title"
+    "days-of-the-week-prompt days-of-the-week-buttons"
+    "cuisine-prompt cuisine-options";
+  gap: 20px;
 }
 
-.input-box {
-  width: 300px;
-  padding: 12px 20px;
-  margin: 8px 0;
-  border-radius: 4px;
-  box-sizing: border-box;
-  border: 1px solid #ccc; /* Add border to input boxes */
+/* Title */
+h1 {
+  grid-area: title;
 }
 
-.input-box:focus {
-  border: 2px solid #555;
-}
-
-select {
-  width: 100%;
-  padding: 16px 20px;
-  border: none;
-  border-radius: 4px;
-  background-color: #f1f1f1;
-}
-
-/* Popup styles */
-.popup-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-#account-header {
-  margin-left: 35%;
-}
-
-.x-button {
-  margin-left: auto;
-  margin-right: 5%;
-}
-
-.popup-inner {
-  background-color: wheat;
-  height: 80vh;
-  width: 65%;
-  margin: auto;
-  border-radius: 8%;
-}
-
-.selected {
-  background-color: #974ab1;
-  color: white;
-}
-
-/* Days of the week container */
-.days-of-the-week-selection-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
+/* Section of days of the week prompt */
 .days-of-the-week-prompt-text {
-  margin-right: 10px;
+  grid-area: days-of-the-week-prompt;
 }
 
+/* Section of cuisine prompt */
+.cuisine-prompt-text {
+  grid-area: cuisine-prompt;
+}
+
+/* Section of days of the week buttons */
 .days-of-the-week-buttons {
+  grid-area: days-of-the-week-buttons;
   display: flex;
   align-items: center;
 }
 
-/* Circular button styles */
-.circular-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  margin: 5px;
-  background-color: transparent;
-  color: #333;
-  font-size: 16px;
-  cursor: pointer;
+/* Box with options (dropdown) */
+.cuisine-options-box {
+  grid-area: cuisine-options;
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-.circular-button.selected {
-  background-color: #974ab1;
-  color: #fff;
-}
-
-/* New container styles */
-.new-container {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-}
-
-.new-container-prompt-text {
-  margin-right: 10px;
-}
-
-.options-box {
-  width: 150px;
-  height: 40px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  cursor: pointer;
 }
