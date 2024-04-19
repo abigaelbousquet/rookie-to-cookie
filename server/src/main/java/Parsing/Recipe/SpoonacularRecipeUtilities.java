@@ -95,6 +95,8 @@ public class SpoonacularRecipeUtilities {
   public record Measurement(USMeasurement us) {}
   public record USMeasurement(double amount, String unitLong) {}
 
+  // TODO: link the instructions to recipe once integrated with Spoonacular API
+
   /**
    * Inner record classes describing instructions (pertaining to a Recipe).
    */
