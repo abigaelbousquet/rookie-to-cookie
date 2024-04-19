@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * A class describing a Spoonacular recipe source.
+ * A class describing a Spoonacular recipe source with utility methods for using associated types.
  */
-public class SpoonacularRecipeDatasource {
+public class SpoonacularRecipeUtilities {
   private static final Moshi moshi = new Moshi.Builder().build();
   private static final JsonAdapter<Recipe> recipeAdapter = moshi.adapter(Recipe.class);
   private static final JsonAdapter<RecipeInstructions> instructionsAdapter = moshi.adapter(
@@ -27,12 +27,24 @@ public class SpoonacularRecipeDatasource {
    * @throws IOException if moshi is unable to deserialize rawJson into a Recipe
    * @throws IllegalArgumentException if rawJson describes a recipe without a title
    */
-  public Recipe deserializeRecipe(String rawJson) throws IOException, IllegalArgumentException {
+  public static Recipe deserializeRecipe(String rawJson) throws IOException, IllegalArgumentException {
     Recipe recipe = recipeAdapter.fromJson(rawJson);
     if ((recipe.title == null) || (recipe.title.isEmpty())) {
       throw new IllegalArgumentException("Error parsing: Given invalid recipe json with no title. Raw json: " + rawJson);
     }
     return recipe;
+  }
+
+  /**
+   * TODO: IMPLEMENT ONCE WE KNOW WHAT /complexSearch RESULTS SCHEMA LOOKS LIKE FROM SPOONACULAR
+   *
+   * @param rawJson
+   * @return
+   * @throws IOException
+   * @throws IllegalArgumentException
+   */
+  public static Set<Recipe> deserializeRecipeList(String rawJson) throws IOException, IllegalArgumentException {
+    return null;
   }
 
   /**
@@ -44,7 +56,7 @@ public class SpoonacularRecipeDatasource {
    * @throws IOException if moshi is unable to deserialize rawJson into a MealInstructions object
    * @throws IllegalArgumentException if rawJson describes a MealInstructions with no recipes or a recipe with no steps
    */
-  public MealInstructions deserializeMealInstructions(String rawJson) throws IOException, IllegalArgumentException {
+  public static MealInstructions deserializeMealInstructions(String rawJson) throws IOException, IllegalArgumentException {
     Set<RecipeInstructions> mealInstructions = mealInstructionsAdapter.fromJson(rawJson);
     if (mealInstructions.isEmpty()) {
       throw new IllegalArgumentException("Error parsing: Given instructions json without any recipe instructions. Raw json: " + rawJson);
@@ -67,7 +79,7 @@ public class SpoonacularRecipeDatasource {
    * @throws IOException if moshi is unable to deserialize rawJson into a RecipeInstructions object
    * @throws IllegalArgumentException if rawJson describes a RecipeInstructions with no steps
    */
-  public RecipeInstructions deserializeInstructions(String rawJson) throws IOException, IllegalArgumentException {
+  public static RecipeInstructions deserializeInstructions(String rawJson) throws IOException, IllegalArgumentException {
     RecipeInstructions instructions = instructionsAdapter.fromJson(rawJson);
     if (instructions.steps.isEmpty()) {
       throw new IllegalArgumentException("Error parsing: Given invalid instructions json where >= 1 recipe has no steps. Raw json: " + rawJson);
