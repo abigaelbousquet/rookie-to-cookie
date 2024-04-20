@@ -1,4 +1,4 @@
-package Parsing.Recipe;
+package edu.brown.cs.student.main.server.Parsing.Recipe;
 
 /**
  * This exception communicates that something went wrong with a requested datasource. It _wraps_ the

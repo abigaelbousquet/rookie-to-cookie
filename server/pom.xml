@@ -23,11 +23,6 @@
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>33.0.0-jre</version>
-    </dependency>
 
     <!--
            We use Moshi for serialization/deserialization of JSON data.
@@ -52,6 +47,7 @@
            Spark is a lightweight framework for creating web applications.
            Spark is most commonly used to create APIs and websites.
     -->
+
     <dependency>
       <groupId>com.sparkjava</groupId>
       <artifactId>spark-core</artifactId>
@@ -67,6 +63,11 @@
       <version>RELEASE</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>com.google.firebase</groupId>
+      <artifactId>firebase-admin</artifactId>
+      <version>9.2.0</version>
+    </dependency>
 
     <!--
            JUnit is a unit testing library for Java.
@@ -77,9 +78,7 @@
       <version>5.4.0</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
-
   <build>
     <plugins>
       <!--
@@ -243,7 +242,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.4.0</version>
         <configuration>
-          <mainClass>edu.brown.cs.student.main.server.csv.Main</mainClass>
+          <mainClass>edu.brown.cs.student.main.Main</mainClass>
           <arguments/>
         </configuration>
         <executions>
@@ -339,11 +338,4 @@
       </plugin>
     </plugins>
   </reporting>
-
-  <repositories>
-    <repository>
-      <id>central</id>
-      <url>https://repo.maven.apache.org/maven2</url>
-    </repository>
-  </repositories>
 </project>

@@ -1,13 +1,14 @@
-package Parsing.Recipe;
+package edu.brown.cs.student.main.server.Parsing.Recipe;
 
-import Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
-import Parsing.Recipe.SpoonacularRecipeUtilities.SearchResult;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.*;
+
+import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
+import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.SearchResult;
 
 public class SpoonacularRecipeSource implements RecipeDatasource {
 

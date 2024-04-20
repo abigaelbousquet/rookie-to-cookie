@@ -1,7 +1,8 @@
-package Parsing.Recipe;
+package edu.brown.cs.student.main.server.Parsing.Recipe;
 
-import Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
 import java.util.List;
+
+import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
 
 /** A class representing a mocked source of Recipes. */
 public class MockedRecipeSource implements RecipeDatasource {

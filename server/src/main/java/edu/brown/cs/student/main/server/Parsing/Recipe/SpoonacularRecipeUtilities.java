@@ -1,4 +1,4 @@
-package Parsing.Recipe;
+package edu.brown.cs.student.main.server.Parsing.Recipe;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;

@@ -1,16 +1,17 @@
-package Parsing;
+package edu.brown.cs.student.main.server.Parsing;
 
-import Parsing.Recipe.DatasourceException;
-import Parsing.Recipe.SpoonacularRecipeSource;
-import Parsing.Recipe.SpoonacularRecipeUtilities;
-import Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
-import Parsing.Recipe.SpoonacularRecipeUtilities.SearchResult;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+
+import edu.brown.cs.student.main.server.Parsing.Recipe.DatasourceException;
+import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeSource;
+import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities;
+import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
+import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.SearchResult;
 
 public class SampleParsing {
 
