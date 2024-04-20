@@ -1,9 +1,21 @@
 package Parsing.Recipe;
 
 import Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
-import java.util.List;
+import Parsing.Recipe.SpoonacularRecipeUtilities.SearchResult;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.*;
 
 public class SpoonacularRecipeSource implements RecipeDatasource {
+
+  /** TEMPORARILY HOLDING API KEYS HERE, DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+  private final String SPOONACULAR_API_KEY = "";
+
+  private final String SPOONACULAR_HOST = "";
+  /** DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 
   /**
    * Queries Spoonacular recipe database for a certain number of recipes fitting the criteria
@@ -56,19 +68,27 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
     parameters += "sort=random";
     // TODO: any other constant params?
 
-    //    try {
-    //      // TODO: fill in to integrate with spoonacular!
-    //
-    //      URL requestURL = new URL("https", "api.weather.gov", "/points/"+lat+","+lon);
-    //      HttpURLConnection clientConnection = connect(requestURL);
-    //
-    //      Set<Recipe> recipeResults = SpoonacularRecipeUtilities.deserializeRecipeList(new
-    // Buffer().readFrom(clientConnection.getInputStream()));
-    //      clientConnection.disconnect();
-    //    } catch (IOException | IllegalArgumentException e) {
-    //      throw new DatasourceException(e.getMessage());
-    //    }
-    return null;
+    try {
+      HttpRequest request =
+          HttpRequest.newBuilder()
+              .uri(
+                  URI.create(
+                      "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?"
+                          + "query=%20&" // TEMPORARY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                          + parameters))
+              .header("X-RapidAPI-Key", SPOONACULAR_API_KEY)
+              .header("X-RapidAPI-Host", SPOONACULAR_HOST)
+              .method("GET", HttpRequest.BodyPublishers.noBody())
+              .build();
+      HttpResponse<String> response =
+          HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+      SearchResult recipeResults = SpoonacularRecipeUtilities.deserializeSearchResult(response.body());
+//      System.out.println(response.body());
+      return recipeResults.results();
+
+    } catch (IOException | IllegalArgumentException | InterruptedException e) {
+      throw new DatasourceException(e.getMessage());
+    }
   }
 
   /**
