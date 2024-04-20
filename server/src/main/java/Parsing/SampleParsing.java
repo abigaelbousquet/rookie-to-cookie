@@ -3,12 +3,14 @@ package Parsing;
 import Parsing.Recipe.DatasourceException;
 import Parsing.Recipe.SpoonacularRecipeSource;
 import Parsing.Recipe.SpoonacularRecipeUtilities;
+import Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
 import Parsing.Recipe.SpoonacularRecipeUtilities.SearchResult;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class SampleParsing {
 
@@ -22,8 +24,19 @@ public class SampleParsing {
     /** QUERYING SPOONACULAR API */
     try {
       SpoonacularRecipeSource spoonacular = new SpoonacularRecipeSource();
-      spoonacular.queryRecipes(5, null, null, null, null, null, 60);
-    } catch (DatasourceException e) {
+      List<Recipe> results = spoonacular.queryRecipes(2, null, null, null, null, null, null, 60);
+
+      // NOTE: as of 3:45, 4/20 the below is not erroring but is producing an empty file :(
+
+      // ********************* SAVING ***********************
+      System.out.println("Beginning to save read String.");
+      FileWriter jsonWriter = new FileWriter("data/exampleQuery2RecipeResults.txt");
+      BufferedWriter bw = new BufferedWriter(jsonWriter);
+      String serializedResults = SpoonacularRecipeUtilities.LIST_RECIPE_JSON_ADAPTER.toJson(results);
+      bw.write(serializedResults);
+      jsonWriter.close();
+      System.out.println("Done saving read String.\n");
+    } catch (IOException | IllegalArgumentException | DatasourceException e) {
       System.out.println(e.getMessage());
     }
 
