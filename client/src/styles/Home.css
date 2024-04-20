@@ -4,7 +4,9 @@
   grid-template-areas:
     "title title"
     "days-of-the-week-prompt days-of-the-week-buttons"
-    "cuisine-prompt cuisine-options";
+    "cuisine-prompt cuisine-options"
+    "generate-button generate-button"
+    "week-calendar week-calendar";
   gap: 20px;
 }
 
@@ -50,4 +52,82 @@ h1 {
 .selected.circular-button {
   background-color: #974ab1; /* Filled color on click */
   color: #fff; /* Text color on click */
+}
+
+.generate-button-container {
+  grid-area: generate-button;
+}
+
+/* Generate button styles */
+.generate-button {
+  width: 200px; /* Set width to make it large */
+  height: 60px; /* Set height to make it large */
+  background-color: #974ab1; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none; /* Remove border */
+  border-radius: 10px; /* Add border radius */
+  font-size: 20px; /* Increase font size */
+  cursor: pointer;
+  margin-top: 20px; /* Add margin top to position lower down */
+}
+
+/* Container for week calendar view */
+.week-calendar-container {
+  grid-area: week-calendar;
+}
+
+/* Styling for the grid */
+.top-grid,
+.bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0; /* Remove the gap between grid items */
+}
+
+.week-name-grid-cell {
+  background-color: #ffffff00;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc; /* Add border */
+}
+
+.grid-cell {
+  background-color: #ffffff00;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc; /* Add border */
+  height: 400px; /* Increase the height visually */
+}
+
+.left-week-name-grid-cell {
+  background-color: #ffffff00;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc; /* Add border */
+  border-top-left-radius: 10px; /* Round top left corner */
+}
+.right-week-name-grid-cell {
+  background-color: #ffffff00;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc; /* Add border */
+
+  border-top-right-radius: 10px; /* Round top right corner */
+}
+
+.left-grid-cell {
+  background-color: #ffffff00;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc; /* Add border */
+  height: 400px; /* Increase the height visually */
+  border-bottom-left-radius: 10px; /* Round bottom left corner */
+}
+.right-grid-cell {
+  background-color: #ffffff00;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc; /* Add border */
+  height: 400px; /* Increase the height visually */
+  border-bottom-right-radius: 10px; /* Round bottom right corner */
 }
