@@ -33,11 +33,10 @@ public class AddLikedRecipeHandler implements Route {
       String recipeId = request.queryParams("recipeId");
 
       /**
-       * essentially make a call to another endpoint with this data and then put the data into the
-       * firebase as an object; means spoonacular call should always happen
+       * essentially access the firebase datastore and add the recipe with the given
+       * id to the liked recipe list
        */
       Map<String, Object> data = new HashMap<>();
-      data.put(recipeId, Server.currRecipe); // puts recipeId
 
       System.out.println("adding recipeId: " + recipeId + " for user: " + uid);
 

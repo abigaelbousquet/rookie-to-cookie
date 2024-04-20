@@ -22,9 +22,9 @@ public class SpoonacularRecipeUtilities {
       MOSHI.adapter(SET_RECIPE_INSTRUCTIONS);
   public static final JsonAdapter<SearchResult> SEARCH_RESULT_JSON_ADAPTER =
       MOSHI.adapter(SearchResult.class);
-  public static final Type LIST_RECIPES =
-      Types.newParameterizedType(List.class, Recipe.class);
-  public static final JsonAdapter<List<Recipe>> LIST_RECIPE_JSON_ADAPTER = MOSHI.adapter(LIST_RECIPES);
+  public static final Type LIST_RECIPES = Types.newParameterizedType(List.class, Recipe.class);
+  public static final JsonAdapter<List<Recipe>> LIST_RECIPE_JSON_ADAPTER =
+      MOSHI.adapter(LIST_RECIPES);
 
   /**
    * Deserializes a raw search result json into a SearchResult object. This method should be used to
@@ -138,6 +138,7 @@ public class SpoonacularRecipeUtilities {
   public record MealInstructions(List<RecipeInstructions> subRecipes) {}
 
   public record RecipeInstructions(String name, List<Step> steps) {}
+  public record MealPlan(Recipe Monday, Recipe Tuesday, Recipe Wednesday, Recipe Thursday, Recipe Friday) {}
 
   public record Step(int number, String step) {}
 }

@@ -30,18 +30,11 @@ public class AddDislikedRecipeHandler implements Route {
       // collect parameters from the request
       String uid = request.queryParams("uid");
       String recipe = request.queryParams("recipeId");
-      int recipeId = 0;
-
-      try {
-        recipeId = Integer.parseInt(recipe);
-      } catch (Exception e) {
-        System.out.println("Recipe ID not properly entered");
-      }
 
       Map<String, Object> data = new HashMap<>();
-      data.put("recipeId", recipeId);
+      data.put("recipeId", recipe);
 
-      System.out.println("adding recipeId: " + recipeId + " for user: " + uid);
+      System.out.println("adding recipeId: " + recipe + " for user: " + uid);
 
       // use the storage handler to add the document to the database
       this.storageHandler.addDocument(uid, "disliked recipes", recipe, data);

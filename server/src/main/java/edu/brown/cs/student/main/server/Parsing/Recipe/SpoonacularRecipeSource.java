@@ -1,5 +1,7 @@
 package edu.brown.cs.student.main.server.Parsing.Recipe;
 
+import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
+import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.SearchResult;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -7,15 +9,11 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.*;
 
-import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
-import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.SearchResult;
-
 public class SpoonacularRecipeSource implements RecipeDatasource {
 
   /** TEMPORARILY HOLDING API KEYS HERE, DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
   private final String SPOONACULAR_API_KEY = "";
   /** DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-
   private final String SPOONACULAR_HOST = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
 
   /**
@@ -32,7 +30,8 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
    * @param intolerances a comma-separated String of the intolerances to ban from results (options:
    *     https://spoonacular.com/food-api/docs#Intolerances)
    * @param excludeIngredients a comma-separated String of specific ingredients to ban from results
-   * @param includeIngredients a comma-separated String of specific ingredients to look for in recipes
+   * @param includeIngredients a comma-separated String of specific ingredients to look for in
+   *     recipes
    * @param maxReadyTime the maximum prep plus cooking time to filter results with; 0 will be
    *     interpreted as having no preference
    * @return a randomly ordered List of numRecipes Recipes of main courses fitting the criteria
@@ -86,8 +85,9 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
               .build();
       HttpResponse<String> response =
           HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-      SearchResult recipeResults = SpoonacularRecipeUtilities.deserializeSearchResult(response.body());
-//      System.out.println(response.body());
+      SearchResult recipeResults =
+          SpoonacularRecipeUtilities.deserializeSearchResult(response.body());
+      //      System.out.println(response.body());
       return recipeResults.results();
 
     } catch (IOException | IllegalArgumentException | InterruptedException e) {
@@ -108,7 +108,8 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
    * @param intolerances a comma-separated String of the intolerances to ban from results (options:
    *     https://spoonacular.com/food-api/docs#Intolerances)
    * @param excludeIngredients a comma-separated String of specific ingredients to ban from results
-   * @param includeIngredients a comma-separated String of specific ingredients to look for in recipes
+   * @param includeIngredients a comma-separated String of specific ingredients to look for in
+   *     recipes
    * @param maxReadyTime the maximum prep plus cooking time to filter results with
    * @return the formatted, lowercase concatenation of the parameters for an API endpoint request
    */
