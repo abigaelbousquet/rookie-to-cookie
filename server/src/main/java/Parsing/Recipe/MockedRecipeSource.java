@@ -31,6 +31,7 @@ public class MockedRecipeSource implements RecipeDatasource {
    *     https://spoonacular.com/food-api/docs#Intolerances) (unused in this mocked version)
    * @param excludeIngredients a comma-separated String of specific ingredients to ban from results
    *     (unused in this mocked version)
+   * @param includeIngredients a comma-separated String of specific ingredients to look for in recipes (unused in this mocked version)
    * @param maxReadyTime the maximum prep plus cooking time to filter results with (unused in this
    *     mocked version)
    * @return the List of Recipes of mocked data that this MockedRecipeSource was instantiated with
@@ -42,6 +43,7 @@ public class MockedRecipeSource implements RecipeDatasource {
       String diet,
       String intolerances,
       String excludeIngredients,
+      String includeIngredients,
       int maxReadyTime) {
     return this.mockedRecipes;
   }

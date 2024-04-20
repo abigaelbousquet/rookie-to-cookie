@@ -14,6 +14,7 @@ public interface RecipeDatasource {
       String diet,
       String intolerances,
       String excludeIngredients,
+      String includeIngredients,
       int maxReadyTime)
       throws DatasourceException;
 }

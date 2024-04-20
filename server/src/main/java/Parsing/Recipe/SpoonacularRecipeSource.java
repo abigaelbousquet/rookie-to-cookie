@@ -13,9 +13,9 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
 
   /** TEMPORARILY HOLDING API KEYS HERE, DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
   private final String SPOONACULAR_API_KEY = "";
-
-  private final String SPOONACULAR_HOST = "";
   /** DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+
+  private final String SPOONACULAR_HOST = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
 
   /**
    * Queries Spoonacular recipe database for a certain number of recipes fitting the criteria
@@ -31,6 +31,7 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
    * @param intolerances a comma-separated String of the intolerances to ban from results (options:
    *     https://spoonacular.com/food-api/docs#Intolerances)
    * @param excludeIngredients a comma-separated String of specific ingredients to ban from results
+   * @param includeIngredients a comma-separated String of specific ingredients to look for in recipes
    * @param maxReadyTime the maximum prep plus cooking time to filter results with; 0 will be
    *     interpreted as having no preference
    * @return a randomly ordered List of numRecipes Recipes of main courses fitting the criteria
@@ -44,6 +45,7 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
       String diet,
       String intolerances,
       String excludeIngredients,
+      String includeIngredients,
       int maxReadyTime)
       throws IllegalArgumentException, DatasourceException {
     if ((numRecipes < 1) || (numRecipes > 100)) {
@@ -59,14 +61,15 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
             diet,
             intolerances,
             excludeIngredients,
+            includeIngredients,
             maxReadyTime);
     // adding other constant, non-user-set parameters
     parameters += "type=main%20course&";
     parameters += "instructionsRequired=true&";
     parameters += "addRecipeInformation=true&";
+    parameters += "fillIngredients=true&";
     parameters += "addRecipeInstructions=true&";
     parameters += "sort=random";
-    // TODO: any other constant params?
 
     try {
       HttpRequest request =
@@ -74,7 +77,7 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
               .uri(
                   URI.create(
                       "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?"
-                          + "query=%20&" // TEMPORARY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                          + "query=%20&"
                           + parameters))
               .header("X-RapidAPI-Key", SPOONACULAR_API_KEY)
               .header("X-RapidAPI-Host", SPOONACULAR_HOST)
@@ -104,6 +107,7 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
    * @param intolerances a comma-separated String of the intolerances to ban from results (options:
    *     https://spoonacular.com/food-api/docs#Intolerances)
    * @param excludeIngredients a comma-separated String of specific ingredients to ban from results
+   * @param includeIngredients a comma-separated String of specific ingredients to look for in recipes
    * @param maxReadyTime the maximum prep plus cooking time to filter results with
    * @return the formatted, lowercase concatenation of the parameters for an API endpoint request
    */
@@ -114,6 +118,7 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
       String diet,
       String intolerances,
       String excludeIngredients,
+      String includeIngredients,
       int maxReadyTime) {
     String parameters = "number=" + numRecipes + "&";
     if ((cuisine != null) && !cuisine.isEmpty()) {
@@ -131,6 +136,10 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
     if ((excludeIngredients != null) && !excludeIngredients.isEmpty()) {
       parameters +=
           ("excludeIngredients=" + excludeIngredients.toLowerCase().replaceAll(" ", "%20") + "&");
+    }
+    if ((includeIngredients != null) && !includeIngredients.isEmpty()) {
+      parameters +=
+          ("includeIngredients=" + includeIngredients.toLowerCase().replaceAll(" ", "%20") + "&");
     }
     if (maxReadyTime != 0) {
       parameters += ("maxReadyTime=" + maxReadyTime + "&");
