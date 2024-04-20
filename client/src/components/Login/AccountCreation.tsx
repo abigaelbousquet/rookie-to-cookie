@@ -96,8 +96,8 @@ export function AccountCreation() {
                 options={diets}
                 isMulti
                 onChange={() => {
-                  console.log(allergen);
-                  (opt) => setAllergen(opt.map((tag) => tag.label));
+                  console.log(diet);
+                  (opt) => setDiet(opt.map((tag) => tag.label));
                 }}
               />
             </div>
@@ -106,7 +106,10 @@ export function AccountCreation() {
               <Creatable
                 options={intolerance}
                 isMulti
-                onChange={(opt, meta) => console.log(opt, meta)}
+                onChange={() => {
+                  console.log(allergen);
+                  (opt) => setAllergen(opt.map((tag) => tag.label));
+                }}
               />
             </div>
 
