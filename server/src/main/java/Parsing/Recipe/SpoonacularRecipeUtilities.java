@@ -17,7 +17,20 @@ public class SpoonacularRecipeUtilities {
   private static final JsonAdapter<RecipeInstructions> instructionsAdapter = moshi.adapter(
       RecipeInstructions.class);
   private static final Type setRecipeInstructions = Types.newParameterizedType(Set.class, RecipeInstructions.class);
-  private static final JsonAdapter<Set<RecipeInstructions>> mealInstructionsAdapter = moshi.adapter(setRecipeInstructions);
+  private static final JsonAdapter<List<RecipeInstructions>> mealInstructionsAdapter = moshi.adapter(setRecipeInstructions);
+  public static final JsonAdapter<SearchResult> searchResultAdapter = moshi.adapter(SearchResult.class);
+
+  /**
+   * Deserializes a raw search result json into a SearchResult object. This method should be used to
+   * deserialize any successful responses from the Spoonacular /complexSearch endpoint.
+   *
+   * @param rawJson the raw search result json to deserialize
+   * @return a SearchResult, the deserialized version of rawJson
+   * @throws IOException if moshi is unable to deserialize rawJson into a SearchResult object
+   */
+  public static SearchResult deserializeSearchResult(String rawJson) throws IOException {
+    return searchResultAdapter.fromJson(rawJson);
+  }
 
   /**
    * Deserializes a raw recipe json into Recipe object.
@@ -36,18 +49,6 @@ public class SpoonacularRecipeUtilities {
   }
 
   /**
-   * TODO: IMPLEMENT ONCE WE KNOW WHAT /complexSearch RESULTS SCHEMA LOOKS LIKE FROM SPOONACULAR
-   *
-   * @param rawJson
-   * @return
-   * @throws IOException
-   * @throws IllegalArgumentException
-   */
-  public static Set<Recipe> deserializeRecipeList(String rawJson) throws IOException, IllegalArgumentException {
-    return null;
-  }
-
-  /**
    * Deserializes a raw instruction set json (for a meal - could be multiple sub-recipes) into MealInstructions object.
    * NOTE: WILL NEED TO BE INTEGRATED INTO RECIPE OBJECT EVENTUALLY, MAY BECOME OBSOLETE.
    *
@@ -57,7 +58,7 @@ public class SpoonacularRecipeUtilities {
    * @throws IllegalArgumentException if rawJson describes a MealInstructions with no recipes or a recipe with no steps
    */
   public static MealInstructions deserializeMealInstructions(String rawJson) throws IOException, IllegalArgumentException {
-    Set<RecipeInstructions> mealInstructions = mealInstructionsAdapter.fromJson(rawJson);
+    List<RecipeInstructions> mealInstructions = mealInstructionsAdapter.fromJson(rawJson);
     if (mealInstructions.isEmpty()) {
       throw new IllegalArgumentException("Error parsing: Given instructions json without any recipe instructions. Raw json: " + rawJson);
     }
@@ -72,7 +73,6 @@ public class SpoonacularRecipeUtilities {
 
   /**
    * Deserializes a raw instruction set json (for a single recipe) into RecipeInstructions object.
-   * NOTE: WILL NEED TO BE INTEGRATED INTO RECIPE OBJECT EVENTUALLY, MAY BECOME OBSOLETE.
    *
    * @param rawJson the raw instructions json to deserialize
    * @return a RecipeInstructions, the deserialized version of rawJson
@@ -87,20 +87,25 @@ public class SpoonacularRecipeUtilities {
     return instructions;
   }
 
+  /////////////////////////////////////// DATA RECORDS ///////////////////////////////////////////
+
+  /**
+   * Inner record classes describing a search result.
+   */
+  public record SearchResult(int number, int totalResults, List<Recipe> results) {}
+
   /**
    * Inner record classes describing a Recipe object.
    */
-  public record Recipe(int id, String title, String image, int servings, int readyInMinutes, double spoonacularScore, Set<String> cuisines, Set<String> diets, boolean dairyFree, boolean glutenFree, boolean ketogenic, boolean vegan, boolean vegetarian, Set<Ingredient> extendedIngredients) {}
+  public record Recipe(int id, String creditsText, String title, String image, int servings, int readyInMinutes, double spoonacularScore, Set<String> cuisines, Set<String> diets, boolean dairyFree, boolean glutenFree, boolean vegan, boolean vegetarian, Set<Ingredient> extendedIngredients, List<RecipeInstructions> analyzedInstructions) {}
   public record Ingredient(Measurement measures, List<String> meta, String name) {}
   public record Measurement(USMeasurement us) {}
   public record USMeasurement(double amount, String unitLong) {}
 
-  // TODO: link the instructions to recipe once integrated with Spoonacular API
-
   /**
    * Inner record classes describing instructions (pertaining to a Recipe).
    */
-  public record MealInstructions(Set<RecipeInstructions> subRecipes) {}
+  public record MealInstructions(List<RecipeInstructions> subRecipes) {}
   public record RecipeInstructions(String name, List<Step> steps) {}
   public record Step(int number, Set<Equipment> equipment, Set<IngredientName> ingredients, String step) {}
   public record Equipment(String name) {}
