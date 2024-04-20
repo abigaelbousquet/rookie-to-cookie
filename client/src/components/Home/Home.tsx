@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import Select from "react-select";
 
 import RecipeCard from "../RecipeCard/RecipeCard";
-import Popup from "../RecipeCard/InfoView";
+import InfoView from "../RecipeCard/InfoView";
 import Recipe from "../RecipeCard/Recipe";
 
 const Home: React.FC = () => {
   // Define the options array for the dropdown
-  const CuisineOptions = [
+  const aquaticCreatures = [
     { label: "Option 1", value: "Option 1" },
     { label: "Option 2", value: "Option 2" },
     { label: "Option 3", value: "Option 3" },
@@ -29,6 +29,9 @@ const Home: React.FC = () => {
   const [selectedOptions, setSelectedOptions] = useState<
     { label: string; value: string }[]
   >([]);
+
+  // State to control the visibility of the popup
+  const [showPopup, setShowPopup] = useState<boolean>(false);
 
   // Function to handle button click
   const handleButtonClick = (buttonName: string) => {
@@ -137,7 +140,7 @@ const Home: React.FC = () => {
       {/* Section of cuisine dropdown box */}
       <div className="cuisine-options-box">
         <Select
-          options={CuisineOptions}
+          options={aquaticCreatures}
           value={selectedOptions}
           onChange={handleMultiSelectChange}
           isMulti // Enable multi-select
@@ -161,13 +164,11 @@ const Home: React.FC = () => {
           <div className="week-name-grid-cell">Thursday</div>
           <div className="week-name-grid-cell">Friday</div>
           <div className="right-week-name-grid-cell">Saturday</div>
-          {/* Add other days similarly */}
         </div>
         <div className="bottom-grid">
           {/* Bottom part of the grid */}
           <div className="left-grid-cell">
-            {/* Content for Sunday */}
-            <RecipeCard recipe={recipe} />
+            <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
           </div>
           <div className="grid-cell"></div>
           <div className="grid-cell"></div>
@@ -175,8 +176,22 @@ const Home: React.FC = () => {
           <div className="grid-cell"></div>
           <div className="grid-cell"></div>
           <div className="right-grid-cell"></div>
-          {/* You can populate this part with different data */}
         </div>
+      </div>
+
+      {/* Show the popup if showPopup is true */}
+      {showPopup && (
+        <InfoView recipe={recipe} onClose={() => setShowPopup(false)} />
+      )}
+
+      {/* Button for regenerating */}
+      <div className="regenerate-button-container">
+        <button className="regenerate-button">Regenerate</button>
+      </div>
+
+      {/* Button for saving data */}
+      <div className="save-data-button-container">
+        <button className="save-button">Save</button>
       </div>
     </div>
   );

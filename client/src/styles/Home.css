@@ -6,7 +6,8 @@
     "days-of-the-week-prompt days-of-the-week-buttons"
     "cuisine-prompt cuisine-options"
     "generate-button generate-button"
-    "week-calendar week-calendar";
+    "week-calendar week-calendar"
+    "regenerate-button save-button";
   gap: 20px;
 }
 
@@ -37,7 +38,7 @@ h1 {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: none; /* Remove border */
+  border: 1px solid #ccc; /* Add border */
   margin: 5px;
   background-color: transparent; /* Initial background color */
   color: #333;
@@ -69,6 +70,10 @@ h1 {
   font-size: 20px; /* Increase font size */
   cursor: pointer;
   margin-top: 20px; /* Add margin top to position lower down */
+}
+
+.generate-button:hover {
+  background-color: #7d3c8e;
 }
 
 /* Container for week calendar view */
@@ -130,4 +135,35 @@ h1 {
   border: 1px solid #ccc; /* Add border */
   height: 400px; /* Increase the height visually */
   border-bottom-right-radius: 10px; /* Round bottom right corner */
+}
+
+.regenerate-button-container {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: flex-end; /* Align content to the left */
+}
+
+.save-data-button-container {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: flex-start; /* Align content to the right */
+}
+
+.regenerate-button,
+.save-button {
+  width: 310px; /* Set a fixed width for both buttons */
+  height: 50px;
+  padding: 12px 0; /* Adjust padding to center the text vertically */
+  background-color: #974ab1;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.regenerate-button:hover,
+.save-button:hover {
+  background-color: #7d3c8e; /* Darker shade on hover */
 }
