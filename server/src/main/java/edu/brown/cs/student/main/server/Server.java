@@ -5,6 +5,7 @@ import static spark.Spark.after;
 import edu.brown.cs.student.main.server.Endpoints.AddDislikedRecipeHandler;
 import edu.brown.cs.student.main.server.Endpoints.AddLikedRecipeHandler;
 import edu.brown.cs.student.main.server.Endpoints.AddMealPlanHandler;
+import edu.brown.cs.student.main.server.Endpoints.AddUserHandler;
 import edu.brown.cs.student.main.server.Endpoints.SpoonacularHandler;
 import edu.brown.cs.student.main.server.RecipeParsing.Recipe.Recipe;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
@@ -38,7 +39,7 @@ public class Server {
       Spark.get("add-disliked-recipe", new AddDislikedRecipeHandler(firebaseUtils));
       Spark.get("add-mealplan", new AddMealPlanHandler(firebaseUtils));
       Spark.get("spoonacular", new SpoonacularHandler());
-
+      Spark.get("add-user", new AddUserHandler(firebaseUtils));
 
       Spark.notFound(
           (request, response) -> {
