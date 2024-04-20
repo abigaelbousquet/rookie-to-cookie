@@ -3,16 +3,17 @@ package edu.brown.cs.student.main.server.Endpoints;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class AddRecipeHandler implements Route {
+public class AddDislikedRecipeHandler implements Route {
 
   public StorageInterface storageHandler;
 
-  public AddRecipeHandler(StorageInterface storageHandler) {
+  public AddDislikedRecipeHandler(StorageInterface storageHandler) {
     this.storageHandler = storageHandler;
   }
 
@@ -29,25 +30,32 @@ public class AddRecipeHandler implements Route {
     try {
       // collect parameters from the request
       String uid = request.queryParams("uid");
-      String recipe = request.queryParams("recipeId");
-      int recipeId = 0;
-
-      try {
-        recipeId = Integer.parseInt(recipe);
-      } catch (Exception e) {
-        System.out.println("Recipe ID not properly entered");
-      }
+      String recipeId = request.queryParams("recipeId");
 
       Map<String, Object> data = new HashMap<>();
-      data.put("recipeId", recipeId);
+      List<Map<String, Object>> mealPlans = this.storageHandler.getCollection(uid, "Mealplans");
+
+      // Check each meal plan for the recipe
+      for (Map<String, Object> mealPlan : mealPlans) {
+        List<Map<String, Object>> recipes = (List<Map<String, Object>>) mealPlan.get("recipes");
+        for (Map<String, Object> recipe : recipes) {
+          if (recipe.get("id").equals(recipeId)) {
+            data.put(recipeId, recipe.get("id"));
+            break;
+          }
+        }
+      }
+      
 
       System.out.println("adding recipeId: " + recipeId + " for user: " + uid);
+      this.storageHandler.getCollection(uid, "Mealplans");
+
 
       // use the storage handler to add the document to the database
-      this.storageHandler.addDocument(uid, "recipes", recipe, data);
+      this.storageHandler.addDocument(uid, "disliked recipes", recipeId, data);
 
       responseMap.put("response_type", "success");
-      responseMap.put("recipe", recipe);
+      responseMap.put("recipe", recipeId);
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();
