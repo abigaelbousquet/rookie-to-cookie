@@ -5,13 +5,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
+import com.google.api.client.json.Json;
+
 import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeSource;
 import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities;
 import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.Ingredient;
 import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.MealPlan;
 import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
+import edu.brown.cs.student.main.server.storage.Utils;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,14 +42,16 @@ public class RecipeRecommendationSystem {
      * 4. return
      * @throws ExecutionException 
      * @throws InterruptedException 
+     * @throws IOException 
+     * @throws IllegalArgumentException 
      */
 
-    public RecipeRecommendationSystem(List<Recipe> allRecipes, StorageInterface firebaseData, String uid, int numDays) throws InterruptedException, ExecutionException {
+    public RecipeRecommendationSystem(List<Recipe> allRecipes, StorageInterface firebaseData, String uid, int numDays) throws InterruptedException, ExecutionException, IllegalArgumentException, IOException {
         this.allRecipes = allRecipes;
         this.removeDuplicates(allRecipes, firebaseData, uid);
-        // this.dislikedRecipes = firebaseData.getCollection(uid, "liked recipes"); // should take the disliked recipe jsons from firebase (perhaps store as an
-        //                              // object?)
-        // this.likedRecipes = firebaseData.getCollection(uid, "liked recipes");// should take the liked recipe jsons from firebase
+        this.dislikedRecipes = this.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes")); // should take the disliked recipe jsons from firebase (perhaps store as an
+                                     // object?)
+        this.likedRecipes = this.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));// should take the liked recipe jsons from firebase
         if (this.likedRecipes == null && this.dislikedRecipes == null) {
             this.pickTop(allRecipes, numDays);
         }
@@ -53,17 +59,19 @@ public class RecipeRecommendationSystem {
         this.addToFirebase(uid, firebaseData, mealPlan);
     }
 
-    // private List<Recipe> convertFirebaseData(List<Map<String, Object>> firebaseData) {
-    //     List<Recipe> recipes = new ArrayList<>();
-    //     for (Map<String, Object> recipeData : firebaseData) {
-    //         // Deserialize each map entry into a Recipe object
-    //         Recipe recipe = SpoonacularRecipeUtilities.deserializeRecipe(recipeData);
-    //         if (recipe != null) {
-    //             recipes.add(recipe);
-    //         }
-    //     }
-    //     return recipes;
-    // }
+    private List<Recipe> convertFirebaseData(List<Map<String, Object>> firebaseData) throws IllegalArgumentException, IOException {
+        List<Recipe> recipes = new ArrayList<>();
+        for (Map<String, Object> recipeData : firebaseData) {
+            // Deserialize each map entry into a Recipe object
+            String recipeJson = Utils.toMoshiJson(recipeData);
+
+            Recipe recipe = SpoonacularRecipeUtilities.deserializeRecipe(recipeJson);
+            if (recipe != null) {
+                recipes.add(recipe);
+            }
+        }
+        return recipes;
+    }
 
     private MealPlan createMealPlan(int numDays) {
         ArrayList<Recipe> toMealPlan = this.recommendRecipes(this.likedRecipes.get(0), numDays);
