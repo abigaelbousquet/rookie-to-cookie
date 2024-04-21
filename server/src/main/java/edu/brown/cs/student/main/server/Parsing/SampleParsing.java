@@ -3,7 +3,7 @@ package edu.brown.cs.student.main.server.Parsing;
 import edu.brown.cs.student.main.server.Parsing.Recipe.DatasourceException;
 import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeSource;
 import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities;
-import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
+import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

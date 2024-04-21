@@ -9,14 +9,13 @@ import com.google.api.client.json.Json;
 
 import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeSource;
 import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities;
-import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.Ingredient;
-import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.MealPlan;
-import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities.Recipe;
+import edu.brown.cs.student.main.server.Parsing.Recipe.Ingredient;
+import edu.brown.cs.student.main.server.Parsing.MealPlan;
+import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,11 +24,11 @@ public class RecipeRecommendationSystem {
 
     // private final moshi adapter to derialize Meal plans and Recipes
 
-    private List<SpoonacularRecipeUtilities.Recipe> allRecipes; // is a list of 30 recipes based on Spoonacular
+    private List<Recipe> allRecipes; // is a list of 30 recipes based on Spoonacular
                                                                 // /complexSearch query with
     // sort=random for user preferences; duplicates have not been removed
-    private List<SpoonacularRecipeUtilities.Recipe> likedRecipes;
-    private List<SpoonacularRecipeUtilities.Recipe> dislikedRecipes;
+    private List<Recipe> likedRecipes;
+    private List<Recipe> dislikedRecipes;
 
     /**
      * If we get here, we are asserting our user has a uid in firebase (rather than
@@ -49,10 +48,9 @@ public class RecipeRecommendationSystem {
     public RecipeRecommendationSystem(List<Recipe> allRecipes, StorageInterface firebaseData, String uid, int numDays) throws InterruptedException, ExecutionException, IllegalArgumentException, IOException {
         this.allRecipes = allRecipes;
         this.removeDuplicates(allRecipes, firebaseData, uid);
-        this.dislikedRecipes = this.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes")); // should take the disliked recipe jsons from firebase (perhaps store as an
-                                     // object?)
-        this.likedRecipes = this.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));// should take the liked recipe jsons from firebase
-        if (this.likedRecipes == null && this.dislikedRecipes == null) {
+        this.dislikedRecipes = this.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+        this.likedRecipes = this.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+        if (this.likedRecipes.size() == 0) {
             this.pickTop(allRecipes, numDays);
         }
         MealPlan mealPlan = this.createMealPlan(numDays);
@@ -74,7 +72,9 @@ public class RecipeRecommendationSystem {
     }
 
     private MealPlan createMealPlan(int numDays) {
-        ArrayList<Recipe> toMealPlan = this.recommendRecipes(this.likedRecipes.get(0), numDays);
+        ArrayList<Recipe> toMealPlan = (ArrayList<Recipe>) this.allRecipes;
+
+//        ArrayList<Recipe> toMealPlan = this.recommendRecipes(this.likedRecipes.get(0), numDays);
         // Here, you pass the parameters directly to the MealPlan constructor
         return new MealPlan(
             toMealPlan.get(0),
@@ -127,8 +127,8 @@ public class RecipeRecommendationSystem {
 
     private double calculateSimilarity(Recipe recipe1, Recipe recipe2) {
         // Method to calculate dissimilarity based on ingredient overlap
-        Set<Ingredient> ingredients1 = recipe1.extendedIngredients();
-        Set<Ingredient> ingredients2 = recipe2.extendedIngredients();
+        List<Ingredient> ingredients1 = recipe1.getExtendedIngredients();
+        List<Ingredient> ingredients2 = recipe2.getExtendedIngredients();
 
         // Calculate the intersection (overlap) of ingredients
         Set<Ingredient> intersection = new HashSet<>(ingredients1);

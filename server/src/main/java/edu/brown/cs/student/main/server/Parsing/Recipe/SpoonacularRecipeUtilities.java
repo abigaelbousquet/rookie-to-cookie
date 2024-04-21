@@ -49,7 +49,7 @@ public class SpoonacularRecipeUtilities {
   public static Recipe deserializeRecipe(String rawJson)
       throws IOException, IllegalArgumentException {
     Recipe recipe = RECIPE_JSON_ADAPTER.fromJson(rawJson);
-    if ((recipe.title == null) || (recipe.title.isEmpty())) {
+    if ((recipe.getTitle() == null) || (recipe.getTitle().isEmpty())) {
       throw new IllegalArgumentException(
           "Error parsing: Given invalid recipe json with no title. Raw json: " + rawJson);
     }
@@ -77,7 +77,7 @@ public class SpoonacularRecipeUtilities {
     }
 
     for (RecipeInstructions rawSubRecipe : mealInstructions) {
-      if (rawSubRecipe.steps.isEmpty()) {
+      if (rawSubRecipe.getSteps().isEmpty()) {
         throw new IllegalArgumentException(
             "Error parsing: Given invalid instructions json where a recipe has no steps. Raw (sub)recipe json: "
                 + rawSubRecipe);
@@ -97,7 +97,7 @@ public class SpoonacularRecipeUtilities {
   public static RecipeInstructions deserializeInstructions(String rawJson)
       throws IOException, IllegalArgumentException {
     RecipeInstructions instructions = INSTRUCTIONS_JSON_ADAPTER.fromJson(rawJson);
-    if (instructions.steps.isEmpty()) {
+    if (instructions.getSteps().isEmpty()) {
       throw new IllegalArgumentException(
           "Error parsing: Given invalid instructions json where >= 1 recipe has no steps. Raw json: "
               + rawJson);
@@ -107,38 +107,4 @@ public class SpoonacularRecipeUtilities {
 
   /////////////////////////////////////// DATA RECORDS ///////////////////////////////////////////
 
-  /** Inner record classes describing a search result. */
-  public record SearchResult(int number, int totalResults, List<Recipe> results) {}
-
-  /** Inner record classes describing a Recipe object. */
-  public record Recipe(
-      int id,
-      String creditsText,
-      String title,
-      String image,
-      int servings,
-      int readyInMinutes,
-      double spoonacularScore,
-      Set<String> cuisines,
-      Set<String> diets,
-      boolean dairyFree,
-      boolean glutenFree,
-      boolean vegan,
-      boolean vegetarian,
-      Set<Ingredient> extendedIngredients,
-      List<RecipeInstructions> analyzedInstructions) {}
-
-  public record Ingredient(Measurement measures, List<String> meta, String name) {}
-
-  public record Measurement(USMeasurement us) {}
-
-  public record USMeasurement(double amount, String unitLong) {}
-
-  /** Inner record classes describing instructions (pertaining to a Recipe). */
-  public record MealInstructions(List<RecipeInstructions> subRecipes) {}
-
-  public record RecipeInstructions(String name, List<Step> steps) {}
-  public record MealPlan(Recipe Sunday, Recipe Monday, Recipe Tuesday, Recipe Wednesday, Recipe Thursday, Recipe Friday, Recipe Saturday) {}
-
-  public record Step(int number, String step) {}
 }

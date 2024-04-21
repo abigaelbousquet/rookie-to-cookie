@@ -17,7 +17,7 @@ public class ProfileUtilities {
    * @throws IOException if moshi is unable to deserialize rawJson into a Recipe
    * @throws IllegalArgumentException if rawJson describes a recipe without a title
    */
-  public static Profile deserializeRecipe(String rawJson)
+  public static Profile deserializeProfile(String rawJson)
       throws IOException, IllegalArgumentException {
     Profile profile = PROFILE_JSON_ADAPTER.fromJson(rawJson);
     if (profile == null || (profile.getName() == null)) {
