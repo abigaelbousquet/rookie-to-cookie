@@ -2,50 +2,66 @@ package edu.brown.cs.student.main.server.Parsing;
 
 import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MealPlan {
-    private Recipe Sunday;
-    private Recipe Monday;
-    private Recipe Tuesday;
-    private Recipe Wednesday;
-    private Recipe Thursday;
-    private Recipe Friday;
-    private Recipe Saturday;
+    private Recipe sunday;
+    private Recipe monday;
+    private Recipe tuesday;
+    private Recipe wednesday;
+    private Recipe thursday;
+    private Recipe friday;
+    private Recipe saturday;
 
     public MealPlan(Recipe sunday, Recipe monday, Recipe tuesday, Recipe wednesday, Recipe thursday, Recipe friday, Recipe saturday) {
-        this.Sunday = sunday;
-        this.Monday = monday;
-        this.Tuesday = tuesday;
-        this.Wednesday = wednesday;
-        this.Thursday = thursday;
-        this.Friday = friday;
-        this.Saturday = saturday;
+        this.sunday = sunday;
+        this.monday = monday;
+        this.tuesday = tuesday;
+        this.wednesday = wednesday;
+        this.thursday = thursday;
+        this.friday = friday;
+        this.saturday = saturday;
     }
 
+    public List<Recipe> getRecipes(){
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+        recipeList.add(this.sunday);
+        recipeList.add(this.monday);
+        recipeList.add(this.tuesday);
+        recipeList.add(this.wednesday);
+        recipeList.add(this.thursday);
+        recipeList.add(this.friday);
+        recipeList.add(this.saturday);
+        return recipeList;
+    }
     public Recipe getSunday() {
-        return Sunday;
+        return sunday;
     }
 
     public Recipe getMonday() {
-        return Monday;
+        return monday;
     }
 
     public Recipe getTuesday() {
-        return Tuesday;
+        return tuesday;
     }
 
     public Recipe getWednesday() {
-        return Wednesday;
+        return wednesday;
     }
 
     public Recipe getThursday() {
-        return Thursday;
+        return thursday;
     }
 
     public Recipe getFriday() {
-        return Friday;
+        return friday;
     }
 
     public Recipe getSaturday() {
-        return Saturday;
+        return saturday;
     }
+
+
 }

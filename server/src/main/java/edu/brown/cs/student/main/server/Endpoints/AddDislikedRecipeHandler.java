@@ -2,6 +2,8 @@ package edu.brown.cs.student.main.server.Endpoints;
 
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,18 +33,33 @@ public class AddDislikedRecipeHandler implements Route {
       // collect parameters from the request
       String uid = request.queryParams("uid");
       String recipeId = request.queryParams("recipeId");
+      int recipeIdInt = Integer.parseInt(recipeId);
 
       Map<String, Object> data = new HashMap<>();
       List<Map<String, Object>> mealPlans = this.storageHandler.getCollection(uid, "Mealplans");
 
       // Check each meal plan for the recipe
       for (Map<String, Object> mealPlan : mealPlans) {
-        List<Map<String, Object>> recipes = (List<Map<String, Object>>) mealPlan.get("recipes");
-        for (Map<String, Object> recipe : recipes) {
-          if (recipe.get("id").equals(recipeId)) {
-            data.put(recipeId, recipe.get("id"));
-            break;
+        Collection<Object> recipes = mealPlan.values();
+        for (Object recipe : recipes) {
+          if (recipe instanceof Map) { // Check if the recipe is a map
+            Map<?, ?> mealMap = (Map<?, ?>) recipe;
+            Collection<?> recipeList = mealMap.values();
+            for (Object day : recipeList) {
+              if (day instanceof Map<?, ?>) {
+                Map<?, ?> recipeMap = (Map<?, ?>) day;
+                System.out.println(recipeMap.get("id").getClass());
+                Long toCompare = (Long) recipeMap.get("id");
+                if (toCompare.equals((long) recipeIdInt)) {
+                  data.put(recipeId, day);
+                  break;
+                }
+
+              }
+
+            }
           }
+
         }
       }
       

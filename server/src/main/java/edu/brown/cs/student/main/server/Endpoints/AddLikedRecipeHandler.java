@@ -1,6 +1,9 @@
 package edu.brown.cs.student.main.server.Endpoints;
 
+import edu.brown.cs.student.main.server.Parsing.MealPlan;
+import edu.brown.cs.student.main.server.Parsing.MealPlanParsing;
 import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
+import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities;
 import edu.brown.cs.student.main.server.Server;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
@@ -52,25 +55,36 @@ public class AddLikedRecipeHandler implements Route {
 
       // Check each meal plan for the recipe
       for (Map<String, Object> mealPlan : mealPlans) {
-        Collection<Object> recipes = mealPlan.values();
-        for (Object recipe : recipes) {
-          if (recipe instanceof Map) { // Check if the recipe is a map
-            Map<?, ?> mealMap = (Map<?, ?>) recipe;
-            Collection<?> recipeList = mealMap.values();
-            for (Object day : recipeList) {
-              if (day instanceof Map<?, ?>) {
-                Map<?, ?> recipeMap = (Map<?, ?>) day;
-                System.out.println(recipeMap.get("id").getClass());
-                Long toCompare = (Long) recipeMap.get("id");
-                if (toCompare.equals((long) recipeIdInt)) {
-                  data.put(recipeId, day);
-                  break;
-                }
+        String mealJson = Utils.toMoshiJson(mealPlan);
 
-              }
-
-            }
+        MealPlan plan = MealPlanParsing.deserializePlan(mealJson);
+        List<Recipe> recipeList = plan.getRecipes();
+        for (Recipe recipe : recipeList) {
+          if (recipe != null && recipe.getId() == recipeIdInt) {
+            data.put(recipeId, recipe);
+            break;
           }
+        }
+
+//        Collection<Object> recipes = mealPlan.values();
+//        for (Object recipe : recipes) {
+//          if (recipe instanceof Map) { // Check if the recipe is a map
+//            Map<?, ?> mealMap = (Map<?, ?>) recipe;
+//            Collection<?> recipeList = mealMap.values();
+//            for (Object day : recipeList) {
+//              if (day instanceof Map<?, ?>) {
+//                Map<?, ?> recipeMap = (Map<?, ?>) day;
+//                System.out.println(recipeMap.get("id").getClass());
+//                Long toCompare = (Long) recipeMap.get("id");
+//                if (toCompare.equals((long) recipeIdInt)) {
+//                  data.put(recipeId, day);
+//                  break;
+//                }
+//
+//              }
+//
+//            }
+//          }
 
         }
 
@@ -81,7 +95,7 @@ public class AddLikedRecipeHandler implements Route {
 
         responseMap.put("response_type", "success");
         // responseMap.put(recipeId, Server.currRecipe);
-      }
+//      }
     }
 
     catch (Exception e) {

@@ -2,7 +2,6 @@ package edu.brown.cs.student.main.server.Parsing;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import edu.brown.cs.student.main.server.Endpoints.Profile;
 
 import java.io.IOException;
 
