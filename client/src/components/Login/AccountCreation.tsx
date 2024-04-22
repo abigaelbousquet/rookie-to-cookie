@@ -6,7 +6,8 @@ import Select from "react-select";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { ControlledInput } from "./ControlledInput";
 import Creatable from "react-select/creatable";
-interface profileProps {
+import { addUser } from "../../utils/api";
+export interface profileProps {
   name: string;
   exp: string;
   diet: string[];
@@ -46,9 +47,10 @@ export function AccountCreation() {
   ];
   const handleSubmit = async (props: profileProps) => {
     // Handle form submission here, e.g., send data to server
-    await fetch(
-      "http://localhost:3232/name=" +
-        props.name +
+    await addUser(props);
+    console.log(
+      "?name=",
+      props.name +
         "&exp=" +
         props.exp +
         "&diet=" +
@@ -56,7 +58,6 @@ export function AccountCreation() {
         "&intolerances=" +
         props.intolerances.toString()
     );
-    console.log("Form submitted:", props);
   };
 
   return (
@@ -95,9 +96,8 @@ export function AccountCreation() {
               <Select
                 options={diets}
                 isMulti
-                onChange={() => {
-                  console.log(diet);
-                  (opt) => setDiet(opt.map((tag) => tag.label));
+                onChange={(opt) => {
+                  setDiet(opt.map((tag) => tag.label));
                 }}
               />
             </div>
@@ -106,9 +106,9 @@ export function AccountCreation() {
               <Creatable
                 options={intolerance}
                 isMulti
-                onChange={() => {
+                onChange={(opt) => {
                   console.log(allergen);
-                  (opt) => setAllergen(opt.map((tag) => tag.label));
+                  setAllergen(opt.map((tag) => tag.value));
                 }}
               />
             </div>
