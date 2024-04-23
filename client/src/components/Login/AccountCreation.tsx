@@ -10,7 +10,7 @@ import { addUser } from "../../utils/api";
 export interface profileProps {
   name: string;
   exp: string;
-  diet: string[];
+  diet: string;
   intolerances: string[];
 }
 interface acctProps {
@@ -95,7 +95,7 @@ export const AccountCreation: React.FC<acctProps> = ({ onClose }) => {
             </div>
             <div>
               <legend>Diet:</legend>
-              <Select options={diets} onChange={(opt) => setDiet(opt.label)} />
+              <Select options={diets} onChange={(opt) => setDiet(opt!.label)} />
             </div>
             <div>
               <legend>Intolerances:</legend>
