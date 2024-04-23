@@ -4,40 +4,42 @@ import Select from "react-select";
 
 import RecipeCard from "../RecipeCard/RecipeCard";
 import InfoView from "../RecipeCard/InfoView";
+import MultiSelectInput from "../SelectionTypes/MultiSelectInput";
+import IntegerInputBox from "../SelectionTypes/IntegerInput";
 import Recipe from "../RecipeCard/Recipe";
 
 const Home: React.FC = () => {
   // Define the options array for the dropdown
   const cuisineOptions = [
-    { label: "african", value: "Option 1" },
-    { label: "chinese", value: "Option 2" },
-    { label: "japanese", value: "Option 3" },
-    { label: "korean", value: "Option 4" },
-    { label: "vietnamese", value: "Option 5" },
-    { label: "thai", value: "Option 6" },
-    { label: "indian", value: "Option 6" },
-    { label: "british", value: "Option 6" },
-    { label: "irish", value: "Option 6" },
-    { label: "french", value: "Option 6" },
-    { label: "italian", value: "Option 6" },
-    { label: "mexican", value: "Option 6" },
-    { label: "spanish", value: "Option 6" },
-    { label: "middle eastern", value: "Option 6" },
-    { label: "jewish", value: "Option 6" },
-    { label: "american", value: "Option 6" },
-    { label: "cajun", value: "Option 6" },
-    { label: "southern", value: "Option 6" },
-    { label: "greek", value: "Option 6" },
-    { label: "german", value: "Option 6" },
-    { label: "nordic", value: "Option 6" },
-    { label: "eastern european", value: "Option 6" },
-    { label: "caribbean", value: "Option 6" },
-    { label: "latin american", value: "Option 6" },
+    { label: "african", value: "african" },
+    { label: "chinese", value: "chinese" },
+    { label: "japanese", value: "japanese" },
+    { label: "korean", value: "korean" },
+    { label: "vietnamese", value: "vietnamese" },
+    { label: "thai", value: "thai" },
+    { label: "indian", value: "indian" },
+    { label: "british", value: "british" },
+    { label: "irish", value: "irish" },
+    { label: "french", value: "french" },
+    { label: "italian", value: "italian" },
+    { label: "mexican", value: "mexican" },
+    { label: "spanish", value: "spanish" },
+    { label: "middle eastern", value: "middle eastern" },
+    { label: "jewish", value: "jewish" },
+    { label: "american", value: "american" },
+    { label: "cajun", value: "cajun" },
+    { label: "southern", value: "southern" },
+    { label: "greek", value: "greek" },
+    { label: "german", value: "german" },
+    { label: "nordic", value: "nordic" },
+    { label: "eastern european", value: "eastern european" },
+    { label: "caribbean", value: "caribbean" },
+    { label: "latin american", value: "latin american" },
   ];
 
-  const algorithmType = [
-    { label: "minimize food waste", value: "minimize food waste" },
-    { label: "use personalized taste", value: "use personalized taste" },
+  const intoleranceOptions = [
+    { label: "intolerance 1", value: "intolerance 1" },
+    { label: "intolerance 2", value: "intolerance 2" },
   ];
 
   const recipe = {
@@ -52,12 +54,14 @@ const Home: React.FC = () => {
   const [selectedOptionsCuisine, setSelectedOptionsCuisine] = useState<
     { label: string; value: string }[]
   >([]);
-  const [selectedOptionsAlg, setSelectedOptionsAlg] = useState<
+  const [selectedOptionsIntolerance, setSelectedOptionsIntolerance] = useState<
     { label: string; value: string }[]
   >([]);
-
+  // State to hold the selected option
+  const [selectedAlg, setSelectedAlg] = useState("");
   // State to control the visibility of the popup
   const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [numberOfPeople, setNumberOfPeople] = useState(1);
 
   // Function to handle button click
   const handleButtonClick = (buttonName: string) => {
@@ -67,6 +71,7 @@ const Home: React.FC = () => {
       setSelectedButtons([...selectedButtons, buttonName]);
     }
   };
+  const [excludedIngredients, setExcludedIngredients] = useState("");
 
   // Function to handle option selection for multi-select
   const handleMultiSelectChangeCuisine = (
@@ -76,10 +81,18 @@ const Home: React.FC = () => {
   };
 
   // Function to handle option selection for multi-select
-  const handleMultiSelectChangeAlg = (
-    selectedOptionsAlg: { label: string; value: string }[]
+  const handleMultiSelectChangeIntolerance = (
+    selectedOptionsIntolerance: { label: string; value: string }[]
   ) => {
-    setSelectedOptionsAlg(selectedOptionsAlg);
+    setSelectedOptionsIntolerance(selectedOptionsIntolerance);
+  };
+
+  // Function to handle changes to the radio button selection
+  const handleAlgChange = (event) => {
+    setSelectedAlg(event.target.value);
+  };
+  const handleExcludedIngredientsChange = (selectedToExclude) => {
+    setExcludedIngredients(selectedToExclude.map((option) => option.value));
   };
 
   return (
@@ -181,7 +194,6 @@ const Home: React.FC = () => {
         />
       </div>
 
-      {/* TODO!!! change this to be a souble sided button */}
       {/* Section of algorithm prompt */}
       <div className="algorithm-prompt-text">
         Select the type of algorithm that you would like to use:
@@ -189,15 +201,63 @@ const Home: React.FC = () => {
 
       {/* Section of cuisine dropdown box */}
       <div className="algorithm-options-box">
+        <div>
+          <input
+            type="radio"
+            id="minimize_foodwaste"
+            name="algorithm"
+            value="minimize_foodwaste"
+            checked={selectedAlg === "minimize_foodwaste"} // Check if this option is selected
+            onChange={handleAlgChange} // Call function to update state on change
+          />
+          <label htmlFor="id_minimize_foodwaste">Minimize Food Waste</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="prioritize user taste"
+            name="algorithm"
+            value="prioritize user taste"
+            checked={selectedAlg === "prioritize user taste"} // Check if this option is selected
+            onChange={handleAlgChange} // Call function to update state on change
+          />
+          <label htmlFor="prioritize user taste">Prioritize User Tatse</label>
+        </div>
+      </div>
+
+      {/* Section of intolerances prompt */}
+      <div className="intolerances-prompt-text">
+        Select any food intolerances:
+      </div>
+
+      {/* Section of cuisine dropdown box */}
+      <div className="cuisine-options-box">
         <Select
-          options={algorithmType}
-          value={selectedOptionsAlg}
-          onChange={handleMultiSelectChangeAlg}
+          options={intoleranceOptions}
+          value={selectedOptionsIntolerance}
+          onChange={handleMultiSelectChangeIntolerance}
           isMulti // Enable multi-select
           placeholder="Select option(s)"
         />
       </div>
-      {/* TODO!!! */}
+
+      {/* Section of excluded ingredients prompt */}
+      <div className="exclude-prompt-text">
+        Specify any ingredients to exclude:
+      </div>
+
+      {/* Section of excluded ingredients input box */}
+      <div className="excluded-options-box">
+        <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
+      </div>
+
+      {/* Section of max time prompt */}
+      <div className="max-time-prompt-text">Specify max cooking time:</div>
+
+      {/* Section of max time integer input */}
+      <div className="max-time-options-box">
+        <IntegerInputBox value={numberOfPeople} onChange={setNumberOfPeople} />
+      </div>
 
       {/* Button for generating */}
       <div className="generate-button-container">

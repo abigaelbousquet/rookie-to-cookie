@@ -4,8 +4,8 @@
   grid-template-areas:
     "title title"
     "days-of-the-week-prompt days-of-the-week-buttons"
-    "cuisine-prompt cuisine-options"
-    "algorithm-prompt algorithm-options"
+    "cuisine-prompt algorithm-prompt"
+    "cuisine-options algorithm-options"
     "generate-button generate-button"
     "week-calendar week-calendar"
     "regenerate-button save-button";
@@ -27,11 +27,17 @@ h1 {
   grid-area: cuisine-prompt;
 }
 
+/* Section of cuisine prompt */
+.algorithm-prompt-text {
+  grid-area: algorithm-prompt;
+}
+
 /* Section of days of the week buttons */
 .days-of-the-week-buttons {
   grid-area: days-of-the-week-buttons;
   display: flex;
   align-items: center;
+  justify-content: center; /* Add this line to horizontally center items */
 }
 
 /* Circular button styles */
