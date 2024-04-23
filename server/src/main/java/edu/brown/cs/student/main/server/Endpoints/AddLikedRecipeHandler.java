@@ -8,10 +8,7 @@ import edu.brown.cs.student.main.server.Server;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 import spark.Request;
@@ -43,6 +40,8 @@ public class AddLikedRecipeHandler implements Route {
       // collect parameters from the request
       String uid = request.queryParams("uid");
       String recipeId = request.queryParams("recipeId");
+//      String mealName = request.queryParams("mealName");
+
 
       int recipeIdInt = Integer.parseInt(recipeId);
 
@@ -55,9 +54,12 @@ public class AddLikedRecipeHandler implements Route {
 
       // Check each meal plan for the recipe
       for (Map<String, Object> mealPlan : mealPlans) {
+        Set<String> mealNames = mealPlan.keySet();
+        assert mealNames.size() == 1;
+        String mealName = (String) mealNames.toArray()[0];
         String mealJson = Utils.toMoshiJson(mealPlan);
 
-        MealPlan plan = MealPlanParsing.deserializePlan(mealJson);
+        MealPlan plan = MealPlanParsing.deserializePlan(mealName, mealJson);
         List<Recipe> recipeList = plan.getRecipes();
         for (Recipe recipe : recipeList) {
           if (recipe != null && recipe.getId() == recipeIdInt) {
