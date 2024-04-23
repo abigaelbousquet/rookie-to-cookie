@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import {
+  createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
 import { AccountCreation } from "./AccountCreation";
+import { ControlledInput } from "./ControlledInput";
 
 export interface ILoginPageProps {
   authing: boolean;
@@ -15,42 +17,55 @@ export interface ILoginPageProps {
 const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   const auth = getAuth();
   const [error, setError] = useState("");
-
-  function createAccount() {
-    signInWithGoogle();
-  }
-
-  const signInWithGoogle = async () => {
-    try {
-      const response = await signInWithPopup(auth, new GoogleAuthProvider());
-      const userEmail = response.user.email || "";
-
-      // Check if the email ends with the allowed domain
-      if (userEmail.endsWith("@brown.edu")) {
-        console.log(response.user.uid);
-        props.setAuthing(true);
-      } else {
-        // User is not allowed, sign them out and show a message
-        await auth.signOut();
-        setError("User not allowed. Signed out.");
-        console.log("User not allowed. Signed out.");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
-    <div className="login-box">
-      <h1>Login Page</h1>
-      <button
-        className="google-login-button"
-        onClick={() => createAccount()}
-        disabled={props.authing}
-        aria-label="Login"
-      >
-        Create account
-      </button>
+    <div className="popup">
+      <div className="popup-inner">
+        <div className="popup-inmost">
+          <div className="login-box">
+            <h2>Login</h2>
+            <legend>Email:</legend>
+            <ControlledInput
+              styleID="input-box"
+              value={email}
+              setValue={setEmail}
+              ariaLabel="email"
+              placeholder="josiah_carberry@brown.edu"
+            ></ControlledInput>
+            <legend>Password:</legend>
+            <ControlledInput
+              styleID="input-box"
+              value={password}
+              setValue={setPassword}
+              ariaLabel="password"
+              placeholder="ilovecooking"
+            ></ControlledInput>
+            <div>
+              <button
+                className="google-login-button"
+                onClick={() => {
+                  if (password === null || email === null) {
+                    alert("Please enter your email and password");
+                  }
+                  try {
+                    signInWithEmailAndPassword(auth, email, password);
+                    props.setAuthing(true);
+                  } catch (error) {
+                    createUserWithEmailAndPassword(auth, email, password);
+                    props.setAuthing(true);
+                  }
+                }}
+                disabled={props.authing}
+                aria-label="Login"
+              >
+                Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       {error && <p>{error}</p>}
     </div>
   );

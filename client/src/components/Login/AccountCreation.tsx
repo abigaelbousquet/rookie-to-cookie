@@ -13,13 +13,15 @@ export interface profileProps {
   diet: string[];
   intolerances: string[];
 }
+interface acctProps {
+  onClose: () => void;
+}
 
-export function AccountCreation() {
+export const AccountCreation: React.FC<acctProps> = ({ onClose }) => {
   const [name, setName] = useState("");
   const [exp, setExp] = useState("");
-  const [diet, setDiet] = useState([""]);
+  const [diet, setDiet] = useState("");
   const [allergen, setAllergen] = useState([""]);
-  const [showPopup, setShowPopup] = useState<boolean>(false);
   const heightMarks = {
     1: "novice",
     2: "beginner",
@@ -61,6 +63,7 @@ export function AccountCreation() {
   };
 
   return (
+    //TODO add family size
     <div className="popup">
       <div className="popup-inner">
         <div className="popup-inmost">
@@ -68,7 +71,6 @@ export function AccountCreation() {
             <div id="account-header">
               <h2>Create Account</h2>
             </div>
-            <button className="x-button">X</button>
           </div>
           <div className="form">
             <div>
@@ -93,13 +95,7 @@ export function AccountCreation() {
             </div>
             <div>
               <legend>Diet:</legend>
-              <Select
-                options={diets}
-                isMulti
-                onChange={(opt) => {
-                  setDiet(opt.map((tag) => tag.label));
-                }}
-              />
+              <Select options={diets} onChange={(opt) => setDiet(opt.label)} />
             </div>
             <div>
               <legend>Intolerances:</legend>
@@ -132,4 +128,4 @@ export function AccountCreation() {
       </div>
     </div>
   );
-}
+};

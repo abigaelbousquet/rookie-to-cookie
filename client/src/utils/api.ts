@@ -22,6 +22,7 @@ export async function addUser(props: profileProps) {
     uid: getLoginCookie() || "",
     name: props.name,
     exp: props.exp,
+    
     diet: props.diet.toString(),
     intolerances: props.intolerances.toString(),
   });
