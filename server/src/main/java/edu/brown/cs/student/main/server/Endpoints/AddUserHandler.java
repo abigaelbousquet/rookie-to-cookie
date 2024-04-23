@@ -28,7 +28,7 @@ public class AddUserHandler implements Route {
   public Object handle(Request request, Response response) {
     Map<String, Object> responseMap = new HashMap<>();
     try {
-      // collect parameters from the request
+      // remove bracket filtering
       String uid = request.queryParams("uid");
       String name = request.queryParams("name");
       String exp = request.queryParams("exp");

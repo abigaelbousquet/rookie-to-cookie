@@ -50,6 +50,7 @@ public class Server {
       Spark.get("add-liked-recipe", new AddLikedRecipeHandler(firebaseUtils));
       Spark.get("add-disliked-recipe", new AddDislikedRecipeHandler(firebaseUtils));
       Spark.get("add-user", new AddUserHandler(firebaseUtils));
+      //add a get liked and get disliked recipe handler; input boolean where true is like
 
       /**
        * TESTING THE RECIPE RECCOMENDATION SYSTEM DELETE AFTER

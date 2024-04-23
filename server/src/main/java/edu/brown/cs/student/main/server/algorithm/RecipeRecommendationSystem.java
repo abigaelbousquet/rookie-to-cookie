@@ -46,6 +46,7 @@ public class RecipeRecommendationSystem {
      */
 
     public RecipeRecommendationSystem(List<Recipe> allRecipes, StorageInterface firebaseData, String uid, int numDays) throws InterruptedException, ExecutionException, IllegalArgumentException, IOException {
+        //CSV for the days of the week that have plans
         this.allRecipes = allRecipes;
         this.removeDuplicates(allRecipes, firebaseData, uid);
         this.dislikedRecipes = this.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
