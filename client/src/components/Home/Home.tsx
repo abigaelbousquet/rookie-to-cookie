@@ -38,8 +38,16 @@ const Home: React.FC = () => {
   ];
 
   const intoleranceOptions = [
-    { label: "intolerance 1", value: "intolerance 1" },
-    { label: "intolerance 2", value: "intolerance 2" },
+    { label: "Shellfish", value: "Shellfish" },
+    { label: "Egg", value: "Egg" },
+    { label: "Peanut", value: "Peanut" },
+    { label: "Nut", value: "Nut" },
+    { label: "Soy", value: "Soy" },
+    { label: "Sesame", value: "Sesame" },
+    { label: "Tree nut", value: "Tree nut" },
+    { label: "Sulfite", value: "Sulfite" },
+    { label: "Dairy", value: "Dairy" },
+    { label: "Gluten", value: "Gluten" },
   ];
 
   const recipe = {
