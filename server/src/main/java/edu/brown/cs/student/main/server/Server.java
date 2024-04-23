@@ -5,6 +5,7 @@ import static spark.Spark.after;
 import edu.brown.cs.student.main.server.Endpoints.AddDislikedRecipeHandler;
 import edu.brown.cs.student.main.server.Endpoints.AddLikedRecipeHandler;
 import edu.brown.cs.student.main.server.Endpoints.AddUserHandler;
+import edu.brown.cs.student.main.server.Endpoints.ListLikedRecipesHandler;
 import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities;
 import edu.brown.cs.student.main.server.Parsing.Recipe.Ingredient;
 import edu.brown.cs.student.main.server.Parsing.Recipe.Measurement;
@@ -50,7 +51,8 @@ public class Server {
       Spark.get("add-liked-recipe", new AddLikedRecipeHandler(firebaseUtils));
       Spark.get("add-disliked-recipe", new AddDislikedRecipeHandler(firebaseUtils));
       Spark.get("add-user", new AddUserHandler(firebaseUtils));
-      //add a get liked and get disliked recipe handler; input boolean where true is like
+      Spark.get("get-liked-recipes", new ListLikedRecipesHandler(firebaseUtils));
+      Spark.get("get-disliked-recipes", new ListLikedRecipesHandler(firebaseUtils));
 
       Spark.notFound(
           (request, response) -> {

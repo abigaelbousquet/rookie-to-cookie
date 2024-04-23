@@ -1,6 +1,5 @@
 package edu.brown.cs.student.main.server.Parsing.Recipe;
 
-import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
 import java.util.List;
 
 /** An interface describing a datasource for recipes. */
