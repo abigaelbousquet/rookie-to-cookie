@@ -56,7 +56,7 @@ public class AddLikedRecipeHandler implements Route {
       for (Map<String, Object> mealPlan : mealPlans) {
         Set<String> mealNames = mealPlan.keySet();
         assert mealNames.size() == 1;
-        String mealName = (String) mealNames.toArray()[0];
+        String mealName = String.valueOf(mealNames.toArray()[0]);
         String mealJson = Utils.toMoshiJson(mealPlan);
 
         MealPlan plan = MealPlanParsing.deserializePlan(mealName, mealJson);
@@ -68,28 +68,9 @@ public class AddLikedRecipeHandler implements Route {
             break;
           }
         }
+        break;
 
-//        Collection<Object> recipes = mealPlan.values();
-//        for (Object recipe : recipes) {
-//          if (recipe instanceof Map) { // Check if the recipe is a map
-//            Map<?, ?> mealMap = (Map<?, ?>) recipe;
-//            Collection<?> recipeList = mealMap.values();
-//            for (Object day : recipeList) {
-//              if (day instanceof Map<?, ?>) {
-//                Map<?, ?> recipeMap = (Map<?, ?>) day;
-//                System.out.println(recipeMap.get("id").getClass());
-//                Long toCompare = (Long) recipeMap.get("id");
-//                if (toCompare.equals((long) recipeIdInt)) {
-//                  data.put(recipeId, day);
-//                  break;
-//                }
-//
-//              }
-//
-//            }
-//          }
-
-        }
+      }
 
         System.out.println("adding recipeId: " + recipeId + " for user: " + uid);
 
