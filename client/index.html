@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-
-<!-- 
-    This is a reasonable starting point for the HTML in Mock.
-    Feel free to modify this as you wish.
--->
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -16,6 +10,14 @@
     <noscript>This example requires JavaScript to run.</noscript>
     <!-- Prepare a region of the page to hold the entire interface, managed by React -->
     <div id="root"></div>
+
+    <!-- Add the script tag for rn-numeric-input -->
+    <script type="module">
+      import rnNumericInput from "https://cdn.skypack.dev/rn-numeric-input";
+      // Optionally, you can now use rnNumericInput here if needed
+    </script>
+
+    <!-- Your React application script -->
     <script type="module" src="src/index.tsx"></script>
   </body>
 </html>

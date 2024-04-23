@@ -5,7 +5,7 @@ import Select from "react-select";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import InfoView from "../RecipeCard/InfoView";
 import MultiSelectInput from "../SelectionTypes/MultiSelectInput";
-import IntegerInputBox from "../SelectionTypes/IntegerInput";
+import IntegerInput from "../SelectionTypes/IntegerInput";
 import Recipe from "../RecipeCard/Recipe";
 
 const Home: React.FC = () => {
@@ -58,10 +58,11 @@ const Home: React.FC = () => {
     { label: string; value: string }[]
   >([]);
   // State to hold the selected option
-  const [selectedAlg, setSelectedAlg] = useState("");
+  const [selectedAlg, setSelectedAlg] = useState("minimize_foodwaste");
   // State to control the visibility of the popup
   const [showPopup, setShowPopup] = useState<boolean>(false);
-  const [numberOfPeople, setNumberOfPeople] = useState(1);
+  const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
+  const [maxTime, setMaxTime] = useState<number>(1);
 
   // Function to handle button click
   const handleButtonClick = (buttonName: string) => {
@@ -93,6 +94,12 @@ const Home: React.FC = () => {
   };
   const handleExcludedIngredientsChange = (selectedToExclude) => {
     setExcludedIngredients(selectedToExclude.map((option) => option.value));
+  };
+  const handleNumberOfPeopleChange = (value: number) => {
+    setNumberOfPeople(value); // Update state with new value
+  };
+  const handleMaxTimeChange = (value: number) => {
+    setMaxTime(value); // Update state with new value
   };
 
   return (
@@ -231,7 +238,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Section of cuisine dropdown box */}
-      <div className="cuisine-options-box">
+      <div className="intolerances-options-box">
         <Select
           options={intoleranceOptions}
           value={selectedOptionsIntolerance}
@@ -247,8 +254,22 @@ const Home: React.FC = () => {
       </div>
 
       {/* Section of excluded ingredients input box */}
-      <div className="excluded-options-box">
+      <div className="exclude-options-box">
         <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
+      </div>
+
+      {/* Section of number of people cookign for prompt */}
+      <div className="num-people-prompt-text">
+        Specify the amount of people you are cooking for:
+      </div>
+
+      {/* Section of max time integer input */}
+      <div className="num-people-options-box">
+        <IntegerInput
+          value={numberOfPeople}
+          onChange={handleNumberOfPeopleChange}
+          minValue={1}
+        />
       </div>
 
       {/* Section of max time prompt */}
@@ -256,7 +277,11 @@ const Home: React.FC = () => {
 
       {/* Section of max time integer input */}
       <div className="max-time-options-box">
-        <IntegerInputBox value={numberOfPeople} onChange={setNumberOfPeople} />
+        <IntegerInput
+          value={maxTime}
+          onChange={handleMaxTimeChange}
+          minValue={5}
+        />
       </div>
 
       {/* Button for generating */}

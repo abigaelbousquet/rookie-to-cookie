@@ -6,6 +6,10 @@
     "days-of-the-week-prompt days-of-the-week-buttons"
     "cuisine-prompt algorithm-prompt"
     "cuisine-options algorithm-options"
+    "intolerance-prompt people-prompt"
+    "intolerance-options people-options"
+    "exclude-prompt time-prompt"
+    "exclude-options time-options"
     "generate-button generate-button"
     "week-calendar week-calendar"
     "regenerate-button save-button";
@@ -17,9 +21,20 @@ h1 {
   grid-area: title;
 }
 
+.prompt-answer-box {
+  background-color: #f0f0f0; /* Set background color for the shaded box */
+  padding: 10px; /* Add padding for spacing between prompt and answer */
+}
+
 /* Section of days of the week prompt */
 .days-of-the-week-prompt-text {
   grid-area: days-of-the-week-prompt;
+}
+
+.days-box {
+  grid-area: days-of-the-week-prompt;
+  background-color: lightgray;
+  padding: 10px; /* Adjust padding as needed */
 }
 
 /* Section of cuisine prompt */
@@ -30,6 +45,38 @@ h1 {
 /* Section of cuisine prompt */
 .algorithm-prompt-text {
   grid-area: algorithm-prompt;
+}
+
+.exclude-prompt-text {
+  grid-area: exclude-prompt;
+}
+
+.exclude-options-box {
+  grid-area: exclude-options;
+}
+
+.num-people-prompt-text {
+  grid-area: people-prompt;
+}
+
+.num-people-options-box {
+  grid-area: people-options;
+}
+
+.max-time-prompt-text {
+  grid-area: time-prompt;
+}
+
+.max-time-options-box {
+  grid-area: time-options;
+}
+
+.intolerances-prompt-text {
+  grid-area: intolerance-prompt;
+}
+
+.intolerances-options-box {
+  grid-area: intolerance-options;
 }
 
 /* Section of days of the week buttons */
