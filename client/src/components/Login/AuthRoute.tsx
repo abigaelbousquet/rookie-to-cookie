@@ -5,21 +5,26 @@ import Home from "../Home";
 import { AccountCreation } from "./AccountCreation";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-function AuthRoute() {
-  const [authing, setAuthing] = useState(false);
+const AuthRoute = () => {
+  const [authing, setAuthing] = useState(0);
   const [showPopup, setShowPopup] = useState<boolean>(false);
 
   // USEFUL FOR PLAYWRIGHT TESTING PURPOSES: auto sets authing to true in test environment
   if (!authing && import.meta.env.VITE_APP_NODE_ENV === "test") {
-    setAuthing(true);
+    setAuthing(1);
   }
 
   return (
     <>
       <LoginLogout authing={authing} setAuthing={setAuthing} />
-      {authing ? <AccountCreation onClose={() => setShowPopup(false)} /> : null}
+      {authing === 1 ? <Home></Home> : null}
+      {authing === 2 ? (
+        <AccountCreation
+          onClose={() => setShowPopup(false)}
+          setAuthing={setAuthing}
+        />
+      ) : null}
     </>
   );
-}
-
+};
 export default AuthRoute;

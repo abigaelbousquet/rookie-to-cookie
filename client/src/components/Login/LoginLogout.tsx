@@ -10,8 +10,8 @@ import { AccountCreation } from "./AccountCreation";
 import { ControlledInput } from "./ControlledInput";
 
 export interface ILoginPageProps {
-  authing: boolean;
-  setAuthing: React.Dispatch<React.SetStateAction<boolean>>;
+  authing: number;
+  setAuthing: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
@@ -45,19 +45,41 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
             <div>
               <button
                 className="google-login-button"
-                onClick={() => {
+                onClick={async () => {
                   if (password === null || email === null) {
                     alert("Please enter your email and password");
                   }
                   try {
-                    signInWithEmailAndPassword(auth, email, password);
-                    props.setAuthing(true);
+                    //0= login page
+                    //1=home page
+                    //2= create account page
+                    const response = await signInWithEmailAndPassword(
+                      auth,
+                      email,
+                      password
+                    );
+                    props.setAuthing(1);
                   } catch (error) {
-                    createUserWithEmailAndPassword(auth, email, password);
-                    props.setAuthing(true);
+                    if (error.message === "auth/invalid-email") {
+                      alert("invalid email");
+                      props.setAuthing(0);
+                    } else if (
+                      error.message ===
+                      "WEAK_PASSWORD : Password should be at least 6 characters"
+                    ) {
+                      props.setAuthing(2);
+                    } else {
+                      await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                      );
+                      console.log("acct created");
+                      props.setAuthing(2);
+                    }
                   }
                 }}
-                disabled={props.authing}
+                disabled={props.authing !== 0}
                 aria-label="Login"
               >
                 Login
@@ -78,7 +100,7 @@ const Logout: React.FunctionComponent<ILoginPageProps> = (props) => {
         aria-label="Sign Out"
         className="Sign Out"
         onClick={() => {
-          props.setAuthing(false);
+          props.setAuthing(0);
         }}
       >
         Sign Out
@@ -88,7 +110,9 @@ const Logout: React.FunctionComponent<ILoginPageProps> = (props) => {
 };
 
 const LoginLogout: React.FunctionComponent<ILoginPageProps> = (props) => {
-  return <>{!props.authing ? <Login {...props} /> : <Logout {...props} />}</>;
+  return (
+    <>{props.authing === 0 ? <Login {...props} /> : <Logout {...props} />}</>
+  );
 };
 
 export default LoginLogout;

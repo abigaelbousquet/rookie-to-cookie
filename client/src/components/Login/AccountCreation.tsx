@@ -7,6 +7,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { ControlledInput } from "./ControlledInput";
 import Creatable from "react-select/creatable";
 import { addUser } from "../../utils/api";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 export interface profileProps {
   name: string;
   exp: string;
@@ -15,9 +16,13 @@ export interface profileProps {
 }
 interface acctProps {
   onClose: () => void;
+  setAuthing: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const AccountCreation: React.FC<acctProps> = ({ onClose }) => {
+export const AccountCreation: React.FC<acctProps> = ({
+  onClose,
+  setAuthing,
+}) => {
   const [name, setName] = useState("");
   const [exp, setExp] = useState("");
   const [diet, setDiet] = useState("");
@@ -49,7 +54,7 @@ export const AccountCreation: React.FC<acctProps> = ({ onClose }) => {
   ];
   const handleSubmit = async (props: profileProps) => {
     // Handle form submission here, e.g., send data to server
-    await addUser(props);
+    //await addUser(props);
     console.log(
       "?name=",
       props.name +
@@ -60,6 +65,7 @@ export const AccountCreation: React.FC<acctProps> = ({ onClose }) => {
         "&intolerances=" +
         props.intolerances.toString()
     );
+    setAuthing(1);
   };
 
   return (
