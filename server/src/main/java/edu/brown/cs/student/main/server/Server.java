@@ -5,6 +5,7 @@ import static spark.Spark.after;
 import edu.brown.cs.student.main.server.EndpointHandlers.AddDislikedRecipeHandler;
 import edu.brown.cs.student.main.server.EndpointHandlers.AddLikedRecipeHandler;
 import edu.brown.cs.student.main.server.EndpointHandlers.AddUserHandler;
+import edu.brown.cs.student.main.server.EndpointHandlers.ClearUserHandler;
 import edu.brown.cs.student.main.server.EndpointHandlers.ListLikedRecipesHandler;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceException;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
@@ -48,14 +49,24 @@ public class Server {
       Spark.get("add-user", new AddUserHandler(firebaseUtils));
       Spark.get("get-liked-recipes", new ListLikedRecipesHandler(firebaseUtils));
       Spark.get("get-disliked-recipes", new ListLikedRecipesHandler(firebaseUtils));
+      Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
+
 
 
       RecipeDatasource datasource = new SpoonacularRecipeSource();
       MealPlanGenerator planGenerator = new MealPlanGenerator(datasource, Mode.MINIMIZE_FOOD_WASTE,
           "sunday,monday,tuesday,null,null,null,null", "",
-          "", "", "", 60, firebaseUtils, "test2");
+          "", "", "", 60, firebaseUtils, "test-1");
+      RecipeDatasource datasource1 = new SpoonacularRecipeSource();
+      MealPlanGenerator planGenerator1 = new MealPlanGenerator(datasource1, Mode.MINIMIZE_FOOD_WASTE,
+          "null,monday,tuesday,null,null,null,saturday", "",
+          "", "", "", 80, firebaseUtils, "test-2");
       try {
         MealPlan recipeList = planGenerator.generatePlan();
+        planGenerator.addToFirebase("test-1", firebaseUtils, recipeList);
+        MealPlan recipeList1 = planGenerator1.generatePlan();
+        planGenerator.addToFirebase("test2", firebaseUtils, recipeList1);
+
       } catch (DatasourceException | RecipeVolumeException e) {
         System.out.println(e.getMessage());
       }

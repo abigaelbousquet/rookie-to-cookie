@@ -194,7 +194,7 @@ public class MealPlanGenerator {
    * @param firebaseData
    * @param plan
    */
-  private void addToFirebase(String uid, StorageInterface firebaseData, MealPlan plan) {
+  public void addToFirebase(String uid, StorageInterface firebaseData, MealPlan plan) {
     Map<String, Object> data = new HashMap<>();
     // also need a way to find date range, for now just gonna call mealplan-1, etc
     int mealCount =0;

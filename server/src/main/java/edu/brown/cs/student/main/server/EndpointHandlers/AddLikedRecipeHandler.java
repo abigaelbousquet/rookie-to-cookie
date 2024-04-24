@@ -5,7 +5,7 @@ import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import edu.brown.cs.student.main.server.storage.FirebaseUtils;
+import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
