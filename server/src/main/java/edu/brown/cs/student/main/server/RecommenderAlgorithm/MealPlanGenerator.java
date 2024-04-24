@@ -28,9 +28,28 @@ public class MealPlanGenerator {
   private String INTOLERANCES;
   private String EXCLUDE_INGREDIENTS;
   private final int MAX_READY_TIME;
+  private final List<Recipe> likedRecipes;
+  private final List<Recipe> dislikedRecipes;
   private final StorageInterface FIREBASE_DATA;
   private final String UID;
 
+  /**
+   * Constructor for the MealPlanGenerator class to initialize private
+   * instance variables for the class
+   * @param recipeSource
+   * @param mode
+   * @param daysOfWeek
+   * @param cuisine
+   * @param excludeCuisine
+   * @param diet
+   * @param intolerances
+   * @param maxReadyTime
+   * @param firebaseData
+   * @param uid
+   * @throws ExecutionException
+   * @throws InterruptedException
+   * @throws IOException
+   */
   public MealPlanGenerator(RecipeDatasource recipeSource, Mode mode, String daysOfWeek,
       String cuisine,
       String excludeCuisine,
@@ -38,7 +57,7 @@ public class MealPlanGenerator {
       String intolerances,
       int maxReadyTime,
       StorageInterface firebaseData,
-      String uid) {
+      String uid) throws ExecutionException, InterruptedException, IOException {
     this.recipes = mode;
     this.CUISINE = cuisine;
     this.EXCLUDE_CUISINE = excludeCuisine;
@@ -49,6 +68,8 @@ public class MealPlanGenerator {
     this.DAYS_TO_PLAN = parseDays(daysOfWeek);
     setIntolerancesAndAllergens(intolerances);
     this.DATASOURCE = recipeSource;
+    this.dislikedRecipes = this.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+    this.likedRecipes = this.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
   }
 
   public MealPlan generatePlan() throws DatasourceException, RecipeVolumeException {
@@ -239,9 +260,12 @@ public class MealPlanGenerator {
 
     if (this.NUM_DAYS_TO_PLAN > 1) {
       // PART 2 - fill in the rest of the week's recipes sharing the main ingredient of the first
-      String mainIngredient = findMostAbundantIngredient(firstRecipe);
-      searchResults = this.DATASOURCE.queryRecipes(30, this.CUISINE, this.EXCLUDE_CUISINE,
-          this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS, mainIngredient, this.MAX_READY_TIME);
+      String mainIngredient = findMostAbundantIngredients(firstRecipe,
+              1).get(0);
+      searchResults = this.DATASOURCE.queryRecipes(30, this.CUISINE,
+              this.EXCLUDE_CUISINE,
+          this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS, mainIngredient,
+              this.MAX_READY_TIME);
       goodResults = filterGoodRatings(searchResults);
       numGoodResults = goodResults.size();
       if (numGoodResults < (this.NUM_DAYS_TO_PLAN-1)) {
@@ -255,7 +279,15 @@ public class MealPlanGenerator {
     return algorithmResults;
   }
 
-  private String findMostAbundantIngredient(Recipe recipe) {
+  /**
+   * Method to take in a recipe and find the most important ingredients
+   * in the recipe based on the passed in number of ingredients
+   * @param recipe
+   * @param numberOfIngredients
+   * @return
+   */
+  private List<String> findMostAbundantIngredients(Recipe recipe,
+                                                   int numberOfIngredients) {
     List<Ingredient> extendedIngredients = recipe.getExtendedIngredients();
     Map<String, Double> ingredientQuantities = new HashMap<>(); // Map to store aggregated quantities
 
@@ -269,14 +301,67 @@ public class MealPlanGenerator {
       double commonQuantity = convertToGrams(quantity, unit);
 
       // Aggregate quantities for each ingredient
-      ingredientQuantities.put(name, ingredientQuantities.getOrDefault(name, 0.0)
-          + commonQuantity);
+      ingredientQuantities.put(name, ingredientQuantities.getOrDefault(name,
+              0.0) + commonQuantity);
     }
 
-    // Find the ingredient with the highest aggregated quantity
-    String mostAbundantIngredient = Collections.max(ingredientQuantities.entrySet(),
-        Map.Entry.comparingByValue()).getKey();
-    return mostAbundantIngredient;
+    // Sort the ingredients by their aggregated quantities in descending order
+    List<Map.Entry<String, Double>> sortedIngredients = new ArrayList<>
+            (ingredientQuantities.entrySet());
+    sortedIngredients.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+    // Extract the most abundant ingredients up to the specified number
+    List<String> mostAbundantIngredients = new ArrayList<>();
+    for (int i = 0; i < Math.min(numberOfIngredients, sortedIngredients.size()); i++) {
+      mostAbundantIngredients.add(sortedIngredients.get(i).getKey());
+    }
+
+    return mostAbundantIngredients;
+  }
+
+//  private String findMostAbundantIngredient(Recipe recipe) {
+//    List<Ingredient> extendedIngredients = recipe.getExtendedIngredients();
+//    Map<String, Double> ingredientQuantities = new HashMap<>(); // Map to store aggregated quantities
+//
+//    // Iterate through each ingredient
+//    for (Ingredient ingredient : extendedIngredients) {
+//      String name = ingredient.getName();
+//      double quantity = ingredient.getMeasures().getUs().getAmount();
+//      String unit = ingredient.getMeasures().getUs().getUnitLong();
+//
+//      // Convert quantity to a common unit (e.g., grams)
+//      double commonQuantity = convertToGrams(quantity, unit);
+//
+//      // Aggregate quantities for each ingredient
+//      ingredientQuantities.put(name, ingredientQuantities.getOrDefault(name, 0.0)
+//          + commonQuantity);
+//    }
+//
+//    // Find the ingredient with the highest aggregated quantity
+//    String mostAbundantIngredient = Collections.max(ingredientQuantities.entrySet(),
+//        Map.Entry.comparingByValue()).getKey();
+//    return mostAbundantIngredient;
+//  }
+
+  /**
+   * Method to calculate the similarity between two recipes
+   * @param recipe1
+   * @param recipe2
+   * @return
+   */
+  private double calculateSimilarity(Recipe recipe1, Recipe recipe2) {
+    // Method to calculate dissimilarity based on ingredient overlap
+    List<Ingredient> ingredients1 = recipe1.getExtendedIngredients();
+    List<Ingredient> ingredients2 = recipe2.getExtendedIngredients();
+
+    // Calculate the intersection (overlap) of ingredients
+    Set<Ingredient> intersection = new HashSet<>(ingredients1);
+    intersection.retainAll(ingredients2);
+
+    // Calculate the Jaccard similarity coefficient
+    double similarity = (double) intersection.size()
+            / (ingredients1.size() + ingredients2.size() - intersection.size());
+    return similarity;
   }
 
   private static double convertToGrams(double quantity, String unit) {
@@ -316,9 +401,20 @@ public class MealPlanGenerator {
     }
   }
 
-  public List<Recipe> personalize() {
+  public List<Recipe> personalize() throws DatasourceException {
     //TODO: implement
+    for (Recipe recipe : this.likedRecipes) {
+      List<String> mostImportantLiked = this.findMostAbundantIngredients(recipe, 3);
+      List<Recipe> searchResults = this.DATASOURCE.queryRecipes(30, this.CUISINE,
+              this.EXCLUDE_CUISINE,
+              this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS, mostImportantLiked.get(0),
+              this.MAX_READY_TIME);
+    }
+    for (Recipe recipe : this.dislikedRecipes) {
+      List<String> mostImportantLiked = this.findMostAbundantIngredients(recipe, 3);
+    }
     return new ArrayList<>();
   }
+
 
 }
