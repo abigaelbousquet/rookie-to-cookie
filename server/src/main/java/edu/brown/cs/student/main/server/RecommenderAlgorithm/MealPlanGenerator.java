@@ -6,10 +6,9 @@ import edu.brown.cs.student.main.server.RecipeData.Recipe.Ingredient;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeDatasource;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
+import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import edu.brown.cs.student.main.server.storage.Utils;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -180,8 +179,7 @@ public class MealPlanGenerator {
     List<Recipe> recipes = new ArrayList<>();
     for (Map<String, Object> recipeData : firebaseData) {
       // Deserialize each map entry into a Recipe object
-      String recipeJson = Utils.toMoshiJson(recipeData);
-
+      String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeData);
       Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
       if (recipe != null) {
         recipes.add(recipe);

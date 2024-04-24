@@ -10,8 +10,12 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -20,6 +24,9 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class FirebaseUtilities implements StorageInterface {
+  private static final Moshi MOSHI = new Moshi.Builder().build();
+  private static final Type MAP_STRING_OBJECT = Types.newParameterizedType(Map.class, String.class, Object.class);
+  public static final JsonAdapter<Map<String, Object>> MAP_STRING_OBJECT_JSON_ADAPTER = MOSHI.adapter(MAP_STRING_OBJECT);
 
   public FirebaseUtilities() throws IOException {
     // Create /resources/ folder with firebase_config.json and

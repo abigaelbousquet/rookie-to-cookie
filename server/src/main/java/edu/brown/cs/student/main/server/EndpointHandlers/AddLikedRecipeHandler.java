@@ -4,7 +4,7 @@ import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import edu.brown.cs.student.main.server.storage.Utils;
+import edu.brown.cs.student.main.server.storage.FirebaseUtils;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -55,7 +55,7 @@ public class AddLikedRecipeHandler implements Route {
         Set<String> mealNames = mealPlan.keySet();
         assert mealNames.size() == 1;
         String mealName = String.valueOf(mealNames.toArray()[0]);
-        String mealJson = Utils.toMoshiJson(mealPlan);
+        String mealJson = FirebaseUtils.toMoshiJson(mealPlan);
 
         MealPlan plan = RecipeUtilities.deserializePlan(mealName, mealJson);
         List<Recipe> recipeList = plan.getRecipes();
@@ -87,6 +87,6 @@ public class AddLikedRecipeHandler implements Route {
       responseMap.put("error", e.getMessage());
     }
 
-    return Utils.toMoshiJson(responseMap);
+    return FirebaseUtils.toMoshiJson(responseMap);
   }
 }

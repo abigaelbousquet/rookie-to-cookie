@@ -3,7 +3,7 @@ package edu.brown.cs.student.main.server.EndpointHandlers;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import edu.brown.cs.student.main.server.storage.Utils;
+import edu.brown.cs.student.main.server.storage.FirebaseUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public class ListLikedRecipesHandler implements Route {
       ArrayList<Recipe> recipes = new ArrayList<>();
       // convert the key,value map to just a list of the words.
       for (Map<String, Object> recipeMap : vals) {
-        String recipeJson = Utils.toMoshiJson(recipeMap);
+        String recipeJson = FirebaseUtils.toMoshiJson(recipeMap);
 
         Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
         recipes.add(recipe);
@@ -56,6 +56,6 @@ public class ListLikedRecipesHandler implements Route {
       responseMap.put("error", e.getMessage());
     }
 
-    return Utils.toMoshiJson(responseMap);
+    return FirebaseUtils.toMoshiJson(responseMap);
   }
 }

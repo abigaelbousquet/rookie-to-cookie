@@ -2,7 +2,7 @@ package edu.brown.cs.student.main.server.EndpointHandlers;
 
 import edu.brown.cs.student.main.server.UserData.Profile;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import edu.brown.cs.student.main.server.storage.Utils;
+import edu.brown.cs.student.main.server.storage.FirebaseUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -99,6 +99,6 @@ public class AddUserHandler implements Route {
       responseMap.put("error", e.getMessage());
     }
 
-    return Utils.toMoshiJson(responseMap);
+    return FirebaseUtils.toMoshiJson(responseMap);
   }
 }
