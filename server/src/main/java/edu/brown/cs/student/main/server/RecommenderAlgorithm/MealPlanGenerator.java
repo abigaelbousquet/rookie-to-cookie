@@ -9,6 +9,7 @@ import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
 import java.io.IOException;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.*;
 public class MealPlanGenerator {
   private final RecipeDatasource DATASOURCE;
-  private final Mode MODE;
+  private final Mode recipes;
   private final boolean[] DAYS_TO_PLAN; // Note: 0 is sunday
   private int NUM_DAYS_TO_PLAN;
   private final String CUISINE;
@@ -38,7 +39,7 @@ public class MealPlanGenerator {
       int maxReadyTime,
       StorageInterface firebaseData,
       String uid) {
-    this.MODE = mode;
+    this.recipes = mode;
     this.CUISINE = cuisine;
     this.EXCLUDE_CUISINE = excludeCuisine;
     this.DIET = diet;
@@ -50,18 +51,42 @@ public class MealPlanGenerator {
     this.DATASOURCE = recipeSource;
   }
 
-//  public MealPlan generatePlan() {
-//    if (this.MODE == Mode.MINIMIZE_FOOD_WASTE) {
-//      this.minimizeFoodWaste();
-//    }
-//    else {
-//      this.personalize();
-//    }
-//    return null;
-//  }
+  public MealPlan generatePlan() throws DatasourceException, RecipeVolumeException {
+    List<Recipe> weekOfRecipes;
+    if (this.recipes == Mode.MINIMIZE_FOOD_WASTE) {
+      weekOfRecipes = this.minimizeFoodWaste();
+    }
+    else {
+      weekOfRecipes = this.personalize();
+    }
+    return this.createMealPlan(weekOfRecipes);
+  }
 
+  /**
+   * Method to create a meal plan object from a list of recipes.
+   *
+   * @param recipes
+   * @return
+   */
+  private MealPlan createMealPlan(List<Recipe> recipes) {
+    Recipe[] orderedWeekOfRecipes = {null, null, null, null, null, null, null}; // index 0 is Sunday
+    for (int i = 0; i < 7; i++) {
+      if (this.DAYS_TO_PLAN[i]) {
+        orderedWeekOfRecipes[i] = recipes.remove(0);
+      }
+    }
+    return new MealPlan(orderedWeekOfRecipes[0], orderedWeekOfRecipes[1],
+        orderedWeekOfRecipes[2], orderedWeekOfRecipes[3], orderedWeekOfRecipes[4],
+        orderedWeekOfRecipes[5], orderedWeekOfRecipes[6]);
+  }
+
+  /**
+   * Method to parse the intolerances and allergens from a cs string
+   * @param fullString
+   */
   private void setIntolerancesAndAllergens(String fullString) {
-    String[] supportedIntolerances = {"dairy", "egg", "gluten", "peanut", "sesame", "seafood", "shellfish", "soy", "sulfite", "tree%20nut", "wheat"};
+    String[] supportedIntolerances = {"dairy", "egg", "gluten", "peanut", "sesame",
+        "seafood", "shellfish", "soy", "sulfite", "tree%20nut", "wheat"};
     List<String> supportedIntolerancesList = Arrays.stream(supportedIntolerances).toList();
     String[] args = fullString.split(",");
     String intolerances = "";
@@ -111,11 +136,12 @@ public class MealPlanGenerator {
     return booleanArray;
   }
 
-  private MealPlan createMealPlan(Recipe[] recipes) {
-    return new MealPlan(
-        recipes[0],recipes[1], recipes[2], recipes[3], recipes[4], recipes[5], recipes[6]    );
-  }
-
+  /**
+   * Method to pick the top n elements from the list of options
+   * @param sortedOptions
+   * @param numRecommendations
+   * @return
+   */
   private List<Recipe> pickTop(List<Recipe> sortedOptions, int numRecommendations) {
     // select top n from this.allRecipes
     return sortedOptions.subList(0, Math.min(numRecommendations, sortedOptions.size()));
@@ -191,15 +217,20 @@ public class MealPlanGenerator {
    *
    * @return a list of NUM_DAYS_TO_PLAN Recipes fitting the criteria this was instantiated with
    * @throws DatasourceException if unsuccessful in querying Spoonacular for any recipes
-   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting this generator's criteria
+   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting t
+   * his generator's criteria
    */
   public List<Recipe> minimizeFoodWaste() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting recipe to base the rest of the food-waste-minimizing recipes on
-    List<Recipe> searchResults = this.DATASOURCE.queryRecipes(5, this.CUISINE, this.EXCLUDE_CUISINE, this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS, null, this.MAX_READY_TIME);
+    List<Recipe> searchResults = this.DATASOURCE.queryRecipes(5, this.CUISINE,
+        this.EXCLUDE_CUISINE, this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS,
+        null, this.MAX_READY_TIME);
     List<Recipe> goodResults = filterGoodRatings(searchResults);
     int numGoodResults = goodResults.size();
     if (numGoodResults < this.NUM_DAYS_TO_PLAN) {
-      throw new RecipeVolumeException("Caller requested " + this.NUM_DAYS_TO_PLAN + " recipes, but only " + numGoodResults + " quality recipes fitting their needs could be found.");
+      throw new RecipeVolumeException("Caller requested " + this.NUM_DAYS_TO_PLAN +
+          " recipes, but only " + numGoodResults + " quality recipes fitting their needs "
+          + "could be found.");
     }
 
     Recipe firstRecipe = goodResults.get(0);
@@ -209,11 +240,14 @@ public class MealPlanGenerator {
     if (this.NUM_DAYS_TO_PLAN > 1) {
       // PART 2 - fill in the rest of the week's recipes sharing the main ingredient of the first
       String mainIngredient = findMostAbundantIngredient(firstRecipe);
-      searchResults = this.DATASOURCE.queryRecipes(30, this.CUISINE, this.EXCLUDE_CUISINE, this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS, mainIngredient, this.MAX_READY_TIME);
+      searchResults = this.DATASOURCE.queryRecipes(30, this.CUISINE, this.EXCLUDE_CUISINE,
+          this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS, mainIngredient, this.MAX_READY_TIME);
       goodResults = filterGoodRatings(searchResults);
       numGoodResults = goodResults.size();
       if (numGoodResults < (this.NUM_DAYS_TO_PLAN-1)) {
-        throw new RecipeVolumeException("Caller requested " + this.NUM_DAYS_TO_PLAN + " recipes, but only " + (numGoodResults+1) + " quality recipes fitting their needs could be found.");
+        throw new RecipeVolumeException("Caller requested " + this.NUM_DAYS_TO_PLAN +
+            " recipes, but only " + (numGoodResults+1) + " quality recipes fitting their "
+            + "needs could be found.");
       }
       algorithmResults.addAll(goodResults.subList(0, this.NUM_DAYS_TO_PLAN-1));
     }
@@ -235,11 +269,13 @@ public class MealPlanGenerator {
       double commonQuantity = convertToGrams(quantity, unit);
 
       // Aggregate quantities for each ingredient
-      ingredientQuantities.put(name, ingredientQuantities.getOrDefault(name, 0.0) + commonQuantity);
+      ingredientQuantities.put(name, ingredientQuantities.getOrDefault(name, 0.0)
+          + commonQuantity);
     }
 
     // Find the ingredient with the highest aggregated quantity
-    String mostAbundantIngredient = Collections.max(ingredientQuantities.entrySet(), Map.Entry.comparingByValue()).getKey();
+    String mostAbundantIngredient = Collections.max(ingredientQuantities.entrySet(),
+        Map.Entry.comparingByValue()).getKey();
     return mostAbundantIngredient;
   }
 
@@ -280,9 +316,9 @@ public class MealPlanGenerator {
     }
   }
 
-
-  private void personalize() {
+  public List<Recipe> personalize() {
     //TODO: implement
+    return new ArrayList<>();
   }
 
 }

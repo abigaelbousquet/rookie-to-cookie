@@ -7,6 +7,7 @@ import edu.brown.cs.student.main.server.EndpointHandlers.AddLikedRecipeHandler;
 import edu.brown.cs.student.main.server.EndpointHandlers.AddUserHandler;
 import edu.brown.cs.student.main.server.EndpointHandlers.ListLikedRecipesHandler;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceException;
+import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeDatasource;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.SpoonacularRecipeSource;
@@ -54,7 +55,7 @@ public class Server {
           "sunday,monday,tuesday,null,null,null,null", "",
           "", "", "", 60, firebaseUtils, "test2");
       try {
-        List<Recipe> recipeList = planGenerator.minimizeFoodWaste();
+        MealPlan recipeList = planGenerator.generatePlan();
       } catch (DatasourceException | RecipeVolumeException e) {
         System.out.println(e.getMessage());
       }
