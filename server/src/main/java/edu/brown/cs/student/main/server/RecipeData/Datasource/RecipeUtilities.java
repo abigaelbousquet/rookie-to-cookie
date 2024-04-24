@@ -7,7 +7,6 @@ import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.MealInstructions;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.RecipeInstructions;
-import edu.brown.cs.student.main.server.RecipeData.Recipe.SearchResult;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
