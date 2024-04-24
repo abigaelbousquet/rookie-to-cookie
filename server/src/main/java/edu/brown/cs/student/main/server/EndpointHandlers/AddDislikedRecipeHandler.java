@@ -1,8 +1,8 @@
-package edu.brown.cs.student.main.server.Endpoints;
+package edu.brown.cs.student.main.server.EndpointHandlers;
 
-import edu.brown.cs.student.main.server.Parsing.MealPlan;
-import edu.brown.cs.student.main.server.Parsing.MealPlanParsing;
-import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
+import edu.brown.cs.student.main.server.RecipeData.MealPlan;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
 
@@ -45,7 +45,7 @@ public class AddDislikedRecipeHandler implements Route {
         String mealName = String.valueOf(mealNames.toArray()[0]);
         String mealJson = Utils.toMoshiJson(mealPlan);
 
-        MealPlan plan = MealPlanParsing.deserializePlan(mealName, mealJson);
+        MealPlan plan = RecipeUtilities.deserializePlan(mealName, mealJson);
         List<Recipe> recipeList = plan.getRecipes();
         for (Recipe recipe : recipeList) {
           if (recipe != null && recipe.getId() == recipeIdInt) {

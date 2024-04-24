@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.server.Parsing.Recipe;
+package edu.brown.cs.student.main.server.RecipeData.Recipe;
 
 public class USMeasurement {
     private final double amount;

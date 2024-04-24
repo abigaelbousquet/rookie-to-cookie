@@ -1,17 +1,23 @@
-package edu.brown.cs.student.main.server.Parsing.Recipe;
+package edu.brown.cs.student.main.server.RecipeData.Datasource;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.server.RecipeData.MealPlan;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.MealInstructions;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.RecipeInstructions;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.SearchResult;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * A class describing a Spoonacular recipe source with utility methods for using associated types.
  */
-public class SpoonacularRecipeUtilities {
+public class RecipeUtilities {
   private static final Moshi MOSHI = new Moshi.Builder().build();
   private static final JsonAdapter<Recipe> RECIPE_JSON_ADAPTER = MOSHI.adapter(Recipe.class);
   private static final JsonAdapter<RecipeInstructions> INSTRUCTIONS_JSON_ADAPTER =
@@ -25,6 +31,9 @@ public class SpoonacularRecipeUtilities {
   public static final Type LIST_RECIPES = Types.newParameterizedType(List.class, Recipe.class);
   public static final JsonAdapter<List<Recipe>> LIST_RECIPE_JSON_ADAPTER =
       MOSHI.adapter(LIST_RECIPES);
+  private static final JsonAdapter<Map<String, MealPlan>> MEALPLAN_JSON_ADAPTER = MOSHI.adapter(
+      com.squareup.moshi.Types.newParameterizedType(Map.class, String.class, MealPlan.class));
+
 
   /**
    * Deserializes a raw search result json into a SearchResult object. This method should be used to
@@ -105,6 +114,26 @@ public class SpoonacularRecipeUtilities {
     return instructions;
   }
 
-  /////////////////////////////////////// DATA RECORDS ///////////////////////////////////////////
+  // TODO: javadoc!
+  public static MealPlan deserializePlan(String mealName, String rawJson)
+      throws IOException, IllegalArgumentException {
+    Map<String, MealPlan> mealPlanMap;
+    try {
+      mealPlanMap = MEALPLAN_JSON_ADAPTER.fromJson(rawJson);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Error parsing JSON: " + e.getMessage());
+    }
 
+    if (mealPlanMap == null) {
+      throw new IllegalArgumentException(
+          "Error parsing: Given invalid recipe json with no title. Raw json: " + rawJson);
+    }
+
+    MealPlan plan = mealPlanMap.get(mealName);
+    if (plan == null) {
+      throw new IllegalArgumentException("Meal plan for " + mealName + " not found.");
+    }
+
+    return plan;
+  }
 }

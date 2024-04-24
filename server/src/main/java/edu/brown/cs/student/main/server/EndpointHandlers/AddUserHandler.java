@@ -1,5 +1,6 @@
-package edu.brown.cs.student.main.server.Endpoints;
+package edu.brown.cs.student.main.server.EndpointHandlers;
 
+import edu.brown.cs.student.main.server.UserData.Profile;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
 import java.util.ArrayList;

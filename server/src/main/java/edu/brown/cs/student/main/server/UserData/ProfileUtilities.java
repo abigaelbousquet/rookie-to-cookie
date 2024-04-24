@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.server.Endpoints;
+package edu.brown.cs.student.main.server.UserData;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;

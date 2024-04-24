@@ -1,11 +1,11 @@
-package edu.brown.cs.student.main.server.algorithm;
+package edu.brown.cs.student.main.server.RecommenderAlgorithm;
 
-import edu.brown.cs.student.main.server.Parsing.MealPlan;
-import edu.brown.cs.student.main.server.Parsing.Recipe.DatasourceException;
-import edu.brown.cs.student.main.server.Parsing.Recipe.Ingredient;
-import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
-import edu.brown.cs.student.main.server.Parsing.Recipe.RecipeDatasource;
-import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities;
+import edu.brown.cs.student.main.server.RecipeData.MealPlan;
+import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceException;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Ingredient;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeDatasource;
+import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
 import java.io.IOException;
@@ -135,7 +135,7 @@ public class MealPlanGenerator {
       // Deserialize each map entry into a Recipe object
       String recipeJson = Utils.toMoshiJson(recipeData);
 
-      Recipe recipe = SpoonacularRecipeUtilities.deserializeRecipe(recipeJson);
+      Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
       if (recipe != null) {
         recipes.add(recipe);
       }

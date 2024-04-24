@@ -1,9 +1,9 @@
-package edu.brown.cs.student.main.server.Parsing;
+package edu.brown.cs.student.main.server.RecipeData;
 
-import edu.brown.cs.student.main.server.Parsing.Recipe.DatasourceException;
-import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeSource;
-import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities;
-import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceException;
+import edu.brown.cs.student.main.server.RecipeData.Datasource.SpoonacularRecipeSource;
+import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class SampleParsing {
       FileWriter jsonWriter = new FileWriter("data/exampleQuery2RecipeResults.txt");
       BufferedWriter bw = new BufferedWriter(jsonWriter);
       String serializedResults =
-          SpoonacularRecipeUtilities.LIST_RECIPE_JSON_ADAPTER.toJson(results);
+          RecipeUtilities.LIST_RECIPE_JSON_ADAPTER.toJson(results);
       bw.write(serializedResults);
       jsonWriter.close();
       System.out.println("Done saving read String.\n");

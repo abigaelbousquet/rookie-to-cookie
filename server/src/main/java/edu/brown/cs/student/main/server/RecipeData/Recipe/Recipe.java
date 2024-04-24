@@ -1,8 +1,6 @@
-package edu.brown.cs.student.main.server.Parsing.Recipe;
+package edu.brown.cs.student.main.server.RecipeData.Recipe;
 
 import java.util.*;
-import edu.brown.cs.student.main.server.Parsing.Recipe.Ingredient;
-import edu.brown.cs.student.main.server.Parsing.Recipe.RecipeInstructions;
 
 
 public class Recipe {

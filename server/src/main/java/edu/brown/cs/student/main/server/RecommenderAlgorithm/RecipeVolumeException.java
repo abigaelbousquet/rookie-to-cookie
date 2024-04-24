@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.server.algorithm;
+package edu.brown.cs.student.main.server.RecommenderAlgorithm;
 
 /**
  * This exception communicates that the meal plan generation algorithm could not generate enough

@@ -1,7 +1,7 @@
-package edu.brown.cs.student.main.server.Parsing.Recipe;
+package edu.brown.cs.student.main.server.RecipeData.Datasource;
 
-import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
-import edu.brown.cs.student.main.server.Parsing.Recipe.SearchResult;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.SearchResult;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -86,7 +86,7 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
       HttpResponse<String> response =
           HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
       SearchResult recipeResults =
-          SpoonacularRecipeUtilities.deserializeSearchResult(response.body());
+          RecipeUtilities.deserializeSearchResult(response.body());
       //      System.out.println(response.body());
       return recipeResults.getResults();
 

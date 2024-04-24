@@ -1,6 +1,6 @@
-package edu.brown.cs.student.main.server.Parsing;
+package edu.brown.cs.student.main.server.RecipeData;
 
-import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;

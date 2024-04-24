@@ -1,9 +1,7 @@
-package edu.brown.cs.student.main.server.Endpoints;
+package edu.brown.cs.student.main.server.EndpointHandlers;
 
-import edu.brown.cs.student.main.server.Parsing.MealPlan;
-import edu.brown.cs.student.main.server.Parsing.MealPlanParsing;
-import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
-import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.Utils;
 
@@ -15,11 +13,11 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class ListDislikedRecipesHandler implements Route {
+public class ListLikedRecipesHandler implements Route {
 
   public StorageInterface storageHandler;
 
-  public ListDislikedRecipesHandler(StorageInterface storageHandler) {
+  public ListLikedRecipesHandler(StorageInterface storageHandler) {
     this.storageHandler = storageHandler;
   }
 
@@ -39,17 +37,16 @@ public class ListDislikedRecipesHandler implements Route {
       System.out.println("listing liked recipes for user: " + uid);
 
       // get all the words for the user
-      List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "disliked recipes");
+      List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "liked recipes");
       ArrayList<Recipe> recipes = new ArrayList<>();
       // convert the key,value map to just a list of the words.
       for (Map<String, Object> recipeMap : vals) {
         String recipeJson = Utils.toMoshiJson(recipeMap);
 
-        Recipe recipe = SpoonacularRecipeUtilities.deserializeRecipe(recipeJson);
+        Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
         recipes.add(recipe);
 
       }
-
       responseMap.put("response_type", "success");
       responseMap.put("Recipes", recipes);
     } catch (Exception e) {

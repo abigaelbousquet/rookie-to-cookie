@@ -1,6 +1,6 @@
-package edu.brown.cs.student.main.server.Parsing.Recipe;
+package edu.brown.cs.student.main.server.RecipeData.Datasource;
 
-import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import java.util.List;
 
 /** A class representing a mocked source of Recipes. */
