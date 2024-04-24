@@ -1,7 +1,7 @@
 package edu.brown.cs.student.main.server.RecipeData.Recipe;
 
 import java.util.*;
-
+import java.lang.reflect.Type;
 
 public class Recipe {
     private int id;
@@ -162,7 +162,20 @@ public class Recipe {
         this.analyzedInstructions = analyzedInstructions;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Recipe))
+            return false;
+        Recipe other = (Recipe)o;
+        return (other.id == this.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(this.id);
+    }
 
     // toString, equals, and hashCode methods
 }

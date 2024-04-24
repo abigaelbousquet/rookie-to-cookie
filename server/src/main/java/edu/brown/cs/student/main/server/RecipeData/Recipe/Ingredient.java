@@ -25,4 +25,19 @@ public class Ingredient {
     public String getName() {
         return name;
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (o == this)
+//            return true;
+//        if (!(o instanceof Ingredient))
+//            return false;
+//        Ingredient other = (Ingredient)o;
+//        return (other.name.lower == this.id);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Integer.hashCode(this.id);
+//    }
 }
