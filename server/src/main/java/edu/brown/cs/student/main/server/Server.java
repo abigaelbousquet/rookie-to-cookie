@@ -6,26 +6,21 @@ import edu.brown.cs.student.main.server.Endpoints.AddDislikedRecipeHandler;
 import edu.brown.cs.student.main.server.Endpoints.AddLikedRecipeHandler;
 import edu.brown.cs.student.main.server.Endpoints.AddUserHandler;
 import edu.brown.cs.student.main.server.Endpoints.ListLikedRecipesHandler;
-import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeUtilities;
-import edu.brown.cs.student.main.server.Parsing.Recipe.Ingredient;
-import edu.brown.cs.student.main.server.Parsing.Recipe.Measurement;
+import edu.brown.cs.student.main.server.Parsing.Recipe.DatasourceException;
 import edu.brown.cs.student.main.server.Parsing.Recipe.Recipe;
-import edu.brown.cs.student.main.server.Parsing.Recipe.RecipeInstructions;
-import edu.brown.cs.student.main.server.Parsing.Recipe.Step;
-import edu.brown.cs.student.main.server.Parsing.Recipe.USMeasurement;
-import edu.brown.cs.student.main.server.algorithm.RecipeRecommendationSystem;
+import edu.brown.cs.student.main.server.Parsing.Recipe.RecipeDatasource;
+import edu.brown.cs.student.main.server.Parsing.Recipe.SpoonacularRecipeSource;
+import edu.brown.cs.student.main.server.algorithm.MealPlanGenerator;
+import edu.brown.cs.student.main.server.algorithm.Mode;
+import edu.brown.cs.student.main.server.algorithm.RecipeVolumeException;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
-
+import javax.xml.crypto.Data;
 import spark.Filter;
 import spark.Spark;
+import java.util.List;
 
 /**
  * Top Level class for our project, utilizes spark to create and maintain our
@@ -53,6 +48,17 @@ public class Server {
       Spark.get("add-user", new AddUserHandler(firebaseUtils));
       Spark.get("get-liked-recipes", new ListLikedRecipesHandler(firebaseUtils));
       Spark.get("get-disliked-recipes", new ListLikedRecipesHandler(firebaseUtils));
+
+
+      RecipeDatasource datasource = new SpoonacularRecipeSource();
+      MealPlanGenerator planGenerator = new MealPlanGenerator(datasource, Mode.MINIMIZE_FOOD_WASTE,
+          "sunday,monday,tuesday,null,null,null,null", "",
+          "", "", "", 60, firebaseUtils, "test2");
+      try {
+        List<Recipe> recipeList = planGenerator.minimizeFoodWaste();
+      } catch (DatasourceException | RecipeVolumeException e) {
+        System.out.println(e.getMessage());
+      }
 
       Spark.notFound(
           (request, response) -> {
@@ -82,5 +88,6 @@ public class Server {
    */
   public static void main(String[] args) throws IllegalArgumentException, InterruptedException, ExecutionException {
     setUpServer();
+
   }
 }

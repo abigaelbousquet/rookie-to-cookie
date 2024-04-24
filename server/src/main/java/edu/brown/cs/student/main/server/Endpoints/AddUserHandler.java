@@ -48,10 +48,10 @@ public class AddUserHandler implements Route {
       // convert intolerance string to array
       try {
         // Remove square brackets
-        String content = intolerances.substring(1, intolerances.length() - 1);
+//        String content = intolerances.substring(1, intolerances.length() - 1);
 
         // Split the remaining string by commas
-        String[] parts = content.split(",");
+        String[] parts = intolerances.split(",");
 
         // Trim leading and trailing spaces from each element and add them to ArrayList
         for (String part : parts) {
@@ -63,10 +63,10 @@ public class AddUserHandler implements Route {
 
       // convert diet string to array
       try {
-        String content = diet.substring(1, diet.length() - 1);
+//        String content = diet.substring(1, diet.length() - 1);
 
         // Split the remaining string by commas
-        String[] parts = content.split(",");
+        String[] parts = diet.split(",");
 
         // Trim leading and trailing spaces from each element and add them to ArrayList
         for (String part : parts) {

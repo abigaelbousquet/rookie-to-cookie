@@ -12,7 +12,7 @@ import java.util.*;
 public class SpoonacularRecipeSource implements RecipeDatasource {
 
   /** TEMPORARILY HOLDING API KEYS HERE, DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-  private final String SPOONACULAR_API_KEY = "";
+  private final String SPOONACULAR_API_KEY = "0a62b4c389mshb21117420450909p1ec0ddjsna24820635fcb";
   /** DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
   private final String SPOONACULAR_HOST = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
 

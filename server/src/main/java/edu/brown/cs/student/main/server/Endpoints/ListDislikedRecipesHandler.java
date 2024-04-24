@@ -49,6 +49,7 @@ public class ListDislikedRecipesHandler implements Route {
         recipes.add(recipe);
 
       }
+
       responseMap.put("response_type", "success");
       responseMap.put("Recipes", recipes);
     } catch (Exception e) {
