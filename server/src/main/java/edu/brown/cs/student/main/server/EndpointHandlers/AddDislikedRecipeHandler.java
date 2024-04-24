@@ -3,6 +3,7 @@ package edu.brown.cs.student.main.server.EndpointHandlers;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
+import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.storage.FirebaseUtils;
 
@@ -43,7 +44,7 @@ public class AddDislikedRecipeHandler implements Route {
         Set<String> mealNames = mealPlan.keySet();
         assert mealNames.size() == 1;
         String mealName = String.valueOf(mealNames.toArray()[0]);
-        String mealJson = FirebaseUtils.toMoshiJson(mealPlan);
+        String mealJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(mealPlan);
 
         MealPlan plan = RecipeUtilities.deserializePlan(mealName, mealJson);
         List<Recipe> recipeList = plan.getRecipes();
@@ -75,6 +76,6 @@ public class AddDislikedRecipeHandler implements Route {
       responseMap.put("error", e.getMessage());
     }
 
-    return FirebaseUtils.toMoshiJson(responseMap);
+    return FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(responseMap);
   }
 }

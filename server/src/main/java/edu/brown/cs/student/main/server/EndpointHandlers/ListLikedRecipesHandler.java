@@ -3,7 +3,6 @@ package edu.brown.cs.student.main.server.EndpointHandlers;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import edu.brown.cs.student.main.server.storage.FirebaseUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +55,6 @@ public class ListLikedRecipesHandler implements Route {
       responseMap.put("error", e.getMessage());
     }
 
-    return FirebaseUtils.toMoshiJson(responseMap);
+    return FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(responseMap);
   }
 }

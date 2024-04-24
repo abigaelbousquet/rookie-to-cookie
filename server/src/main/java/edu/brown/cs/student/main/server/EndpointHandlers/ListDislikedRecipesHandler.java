@@ -2,8 +2,8 @@ package edu.brown.cs.student.main.server.EndpointHandlers;
 
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
+import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import edu.brown.cs.student.main.server.storage.FirebaseUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public class ListDislikedRecipesHandler implements Route {
       ArrayList<Recipe> recipes = new ArrayList<>();
       // convert the key,value map to just a list of the words.
       for (Map<String, Object> recipeMap : vals) {
-        String recipeJson = FirebaseUtils.toMoshiJson(recipeMap);
+        String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeMap);
 
         Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
         recipes.add(recipe);
@@ -57,6 +57,6 @@ public class ListDislikedRecipesHandler implements Route {
       responseMap.put("error", e.getMessage());
     }
 
-    return FirebaseUtils.toMoshiJson(responseMap);
+    return FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(responseMap);
   }
 }
