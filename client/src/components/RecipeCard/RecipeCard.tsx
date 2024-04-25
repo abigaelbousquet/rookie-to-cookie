@@ -24,12 +24,22 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
     <div className="recipe-card">
       <div className="recipe-header">
         <h3>{recipe.name}</h3>
+        {/* Old Heart Button */}
+        <button
+          className={liked ? "like-button liked" : "like-button"}
+          onClick={handleLikeToggle}
+        >
+          <span role="img" aria-label="heart">
+            {liked ? "❤️" : "♡"}
+          </span>{" "}
+          Like
+        </button>
         {/* Use HeartButton component for liking */}
-        <HeartButton
+        {/* <HeartButton
           isLiked={liked}
           onClick={handleLikeToggle}
           name="heart-icon"
-        />
+        /> */}
       </div>
       {showFullRecipe ? (
         <InfoView

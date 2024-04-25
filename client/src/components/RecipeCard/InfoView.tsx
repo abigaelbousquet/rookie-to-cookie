@@ -5,7 +5,7 @@ import "../../styles/InfoView.css";
 interface InfoViewProps {
   recipe: Recipe;
   onClose: () => void;
-  onToggleLike: () => void; // Callback function to toggle like status
+  onToggleLike: () => void;
 }
 
 const InfoView: React.FC<InfoViewProps> = ({
@@ -17,10 +17,21 @@ const InfoView: React.FC<InfoViewProps> = ({
     <div className="popup-overlay">
       <div className="popup-content">
         <h2>{recipe.name}</h2>
-        <p>{recipe.instructions}</p>
+        <p>
+          <strong>Cuisine:</strong> {recipe.cuisine}
+        </p>
+        <p>
+          <strong>Instructions:</strong> {recipe.instructions}
+        </p>
         {/* Heart button for toggling like status */}
-        <button onClick={onToggleLike}>
-          {recipe.liked ? "❤️ Liked" : "🤍 Not Liked"}
+        <button
+          className={recipe.liked ? "like-button liked" : "like-button"}
+          onClick={onToggleLike}
+        >
+          <span role="img" aria-label="heart">
+            {recipe.liked ? "❤️" : "♡"}
+          </span>{" "}
+          Like
         </button>
         {/* Close button */}
         <button className="close-button" onClick={onClose}>
