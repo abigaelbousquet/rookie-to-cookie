@@ -67,4 +67,12 @@ public class TestRecipeDatasource {
     assertThrows(IllegalArgumentException.class, () -> src.queryRecipes(-1, null, null, null, null, null, null, 60));
     assertThrows(IllegalArgumentException.class, () -> src.queryRecipes(150, null, null, null, null, null, null, 60));
   }
+
+  /**
+   * TODO: basic test of real datasource query, returns >0 results
+   */
+
+  /**
+   * TODO: test argument generation, might need to make that a public method
+   */
 }

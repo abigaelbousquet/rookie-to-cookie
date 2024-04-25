@@ -20,7 +20,8 @@ import java.util.concurrent.ExecutionException;
 public class GeneratorUtilities {
 
   /**
-   * Method to pick the top n elements from the list of options
+   * Method to pick the top n elements from the list of options.
+   *
    * @param sortedOptions
    * @param numRecommendations
    * @return
@@ -46,6 +47,13 @@ public class GeneratorUtilities {
     return goodRecipes;
   }
 
+  /**
+   * TODO: javadoc
+   *
+   * @param quantity
+   * @param unit
+   * @return
+   */
   private static double convertToGrams(double quantity, String unit) {
     // Implement conversion logic here based on different units
     // For simplicity, let's assume we're converting everything to grams
@@ -148,7 +156,8 @@ public class GeneratorUtilities {
 //  }
 
   /**
-   * Method to convert the given firebase data in a list of recipes</>
+   * Method to convert the given firebase data into a list of recipes.
+   *
    * @param firebaseData
    * @return
    * @throws IllegalArgumentException
@@ -169,7 +178,8 @@ public class GeneratorUtilities {
   }
 
   /**
-   * Method to add the given meal plan to the firestore database
+   * Method to add the given meal plan to the firestore database.
+   *
    * @param uid
    * @param firebaseData
    * @param plan
