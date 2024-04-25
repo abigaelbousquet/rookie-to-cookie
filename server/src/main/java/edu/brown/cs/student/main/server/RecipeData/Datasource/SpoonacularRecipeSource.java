@@ -86,7 +86,6 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
           HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
       SearchResult recipeResults =
           RecipeUtilities.deserializeSearchResult(response.body());
-      //      System.out.println(response.body());
       return recipeResults.getResults();
 
     } catch (IOException | IllegalArgumentException | InterruptedException e) {

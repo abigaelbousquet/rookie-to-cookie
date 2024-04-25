@@ -8,6 +8,11 @@ public class RecipeVolumeException extends Exception {
   // The root cause of this datasource problem
   private final Throwable cause;
 
+  /**
+   * Constructor for a RecipeVolumeException.
+   *
+   * @param message the error message associated with this exception
+   */
   public RecipeVolumeException(String message) {
     super(message); // Exception message
     this.cause = null;

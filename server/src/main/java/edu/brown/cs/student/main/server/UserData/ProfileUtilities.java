@@ -10,19 +10,19 @@ public class ProfileUtilities {
   private static final JsonAdapter<Profile> PROFILE_JSON_ADAPTER = MOSHI.adapter(Profile.class);
 
   /**
-   * Deserializes a raw recipe json into Recipe object.
+   * Deserializes a raw profile json into Profile object.
    *
-   * @param rawJson the raw recipe json to deserialize
-   * @return a Recipe, the deserialized version of rawJson
-   * @throws IOException if moshi is unable to deserialize rawJson into a Recipe
-   * @throws IllegalArgumentException if rawJson describes a recipe without a title
+   * @param rawJson the raw profile json to deserialize
+   * @return a Profile, the deserialized version of rawJson
+   * @throws IOException if moshi is unable to deserialize rawJson into a Profile
+   * @throws IllegalArgumentException if rawJson describes a Profile without a name
    */
   public static Profile deserializeProfile(String rawJson)
       throws IOException, IllegalArgumentException {
     Profile profile = PROFILE_JSON_ADAPTER.fromJson(rawJson);
     if (profile == null || (profile.getName() == null)) {
       throw new IllegalArgumentException(
-          "Error parsing: Given invalid recipe json with no title. Raw json: " + rawJson);
+          "Error parsing: Given invalid profile json with no name. Raw json: " + rawJson);
     }
     return profile;
   }
