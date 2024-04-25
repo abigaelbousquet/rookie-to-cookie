@@ -130,65 +130,6 @@ h1 {
   grid-area: week-calendar;
 }
 
-/* Styling for the grid */
-.top-grid,
-.bottom-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-columns: repeat(
-    7,
-    minmax(180px, 1fr)
-  ); /* Change to percentage-based widths */
-}
-
-.week-name-grid-cell {
-  background-color: #ffffff00;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc; /* Add border */
-}
-
-.grid-cell {
-  background-color: #ffffff00;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc; /* Add border */
-  height: 400px; /* Increase the height visually */
-}
-
-.left-week-name-grid-cell {
-  background-color: #ffffff00;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc; /* Add border */
-  border-top-left-radius: 10px; /* Round top left corner */
-}
-.right-week-name-grid-cell {
-  background-color: #ffffff00;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc; /* Add border */
-
-  border-top-right-radius: 10px; /* Round top right corner */
-}
-
-.left-grid-cell {
-  background-color: #ffffff00;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc; /* Add border */
-  height: 400px; /* Increase the height visually */
-  border-bottom-left-radius: 10px; /* Round bottom left corner */
-}
-.right-grid-cell {
-  background-color: #ffffff00;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc; /* Add border */
-  height: 400px; /* Increase the height visually */
-  border-bottom-right-radius: 10px; /* Round bottom right corner */
-}
-
 .regenerate-button-container {
   margin-top: 20px;
   margin-bottom: 50px;
