@@ -3,6 +3,7 @@ interface Recipe {
   cuisine: string;
   instructions: string;
   time: number;
+  liked: boolean;
 }
 
 export default Recipe;

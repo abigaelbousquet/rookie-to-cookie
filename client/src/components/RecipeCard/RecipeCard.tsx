@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Recipe from "./Recipe";
 import InfoView from "./InfoView";
+import HeartButton from "../HeartButton"; // Import the HeartButton component
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -23,18 +24,19 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
     <div className="recipe-card">
       <div className="recipe-header">
         <h3>{recipe.name}</h3>
-        <button
-          className={liked ? "like-button liked" : "like-button"}
+        {/* Use HeartButton component for liking */}
+        <HeartButton
+          isLiked={liked}
           onClick={handleLikeToggle}
-        >
-          <span role="img" aria-label="heart">
-            {liked ? "❤️" : "♡"}
-          </span>{" "}
-          Like
-        </button>
+          name="heart-icon"
+        />
       </div>
       {showFullRecipe ? (
-        <InfoView recipe={recipe} onClose={() => setShowFullRecipe(false)} />
+        <InfoView
+          recipe={recipe}
+          onClose={() => setShowFullRecipe(false)}
+          onToggleLike={handleLikeToggle}
+        />
       ) : (
         <div className="recipe-content">
           <p>
@@ -44,7 +46,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
             <strong>Instructions:</strong>
           </p>
           <p>{recipe.instructions.slice(0, 20)}</p>{" "}
-          {/* Display only the first 20 characters */}
           <button onClick={toggleShowFullRecipe}>See more...</button>
         </div>
       )}
