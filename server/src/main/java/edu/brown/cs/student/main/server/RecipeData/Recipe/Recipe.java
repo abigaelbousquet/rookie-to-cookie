@@ -70,7 +70,7 @@ public class Recipe {
      * @param desiredServings the desired number of servings this Recipe should make
      */
     public void scaleRecipe(int desiredServings) {
-        if (desiredServings < this.servings) {
+        if (desiredServings <= this.servings) {
             return;
         }
 
