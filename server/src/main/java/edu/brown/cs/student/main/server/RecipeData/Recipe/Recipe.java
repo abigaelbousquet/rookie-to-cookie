@@ -182,19 +182,23 @@ public class Recipe {
     /**
      * Gets the list of Ingredients used in this Recipe.
      *
-     * @return the list of Ingredients in this Recipe
+     * @return a defensive copy of the list of Ingredients in this Recipe
      */
     public List<Ingredient> getExtendedIngredients() {
-        return extendedIngredients;
+        List<Ingredient> copyOfIngredients = new ArrayList<>();
+        for (Ingredient i : this.extendedIngredients) {
+            copyOfIngredients.add(new Ingredient(i));
+        }
+        return copyOfIngredients;
     }
 
     /**
      * Gets the List of RecipeInstructions associated with this Recipe.
      *
-     * @return the List of RecipeInstructions in this Recipe
+     * @return a defensive copy of the List of RecipeInstructions in this Recipe
      */
     public List<RecipeInstructions> getAnalyzedInstructions() {
-        return analyzedInstructions;
+        return new ArrayList<>(this.analyzedInstructions);
     }
 
     /**
