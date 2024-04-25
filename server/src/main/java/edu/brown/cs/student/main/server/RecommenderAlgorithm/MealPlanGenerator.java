@@ -23,11 +23,11 @@ public class MealPlanGenerator {
   private final String CUISINE;
   private final String EXCLUDE_CUISINE;
   private final String DIET;
-  private String INTOLERANCES;
-  private String EXCLUDE_INGREDIENTS;
+  private String INTOLERANCES = null;
+  private String EXCLUDE_INGREDIENTS = null;
   private final int MAX_READY_TIME;
-  private final List<Recipe> likedRecipes;
-  private final List<Recipe> dislikedRecipes;
+//  private final List<Recipe> likedRecipes;
+//  private final List<Recipe> dislikedRecipes;
   private final StorageInterface FIREBASE_DATA;
   private final String UID;
 
@@ -69,8 +69,8 @@ public class MealPlanGenerator {
     this.DAYS_TO_PLAN = parseDays(daysOfWeek);
     setIntolerancesAndAllergens(intolerances);
     this.DATASOURCE = recipeSource;
-    this.dislikedRecipes = GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
-    this.likedRecipes = GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+//    this.dislikedRecipes = GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+//    this.likedRecipes = GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
   }
 
   /**
@@ -119,6 +119,9 @@ public class MealPlanGenerator {
    * @param fullString
    */
   private void setIntolerancesAndAllergens(String fullString) {
+    if (fullString == null || fullString.isEmpty()) {
+      return;
+    }
     String[] supportedIntolerances = {"dairy", "egg", "gluten", "peanut", "sesame",
         "seafood", "shellfish", "soy", "sulfite", "tree%20nut", "wheat"};
     List<String> supportedIntolerancesList = Arrays.stream(supportedIntolerances).toList();
@@ -182,7 +185,7 @@ public class MealPlanGenerator {
    */
   public List<Recipe> minimizeFoodWaste() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting recipe to base the rest of the food-waste-minimizing recipes on
-    List<Recipe> searchResults = this.DATASOURCE.queryRecipes(5, this.CUISINE,
+    List<Recipe> searchResults = this.DATASOURCE.queryRecipes(15, this.CUISINE,
         this.EXCLUDE_CUISINE, this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS,
         null, this.MAX_READY_TIME);
     List<Recipe> goodResults = GeneratorUtilities.filterGoodRatings(searchResults);
