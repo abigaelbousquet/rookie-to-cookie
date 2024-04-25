@@ -21,6 +21,7 @@ public class MealPlanGenerator {
   private final Mode recipes;
   private final boolean[] DAYS_TO_PLAN; // Note: 0 is sunday
   private int NUM_DAYS_TO_PLAN;
+  private final int REQUESTED_SERVINGS;
   private final String CUISINE;
   private final String EXCLUDE_CUISINE;
   private final String DIET;
@@ -35,9 +36,11 @@ public class MealPlanGenerator {
   /**
    * Constructor for the MealPlanGenerator class to initialize private
    * instance variables for the class
+   *
    * @param recipeSource
    * @param mode
    * @param daysOfWeek
+   * @param servings
    * @param cuisine
    * @param excludeCuisine
    * @param diet
@@ -49,7 +52,7 @@ public class MealPlanGenerator {
    * @throws InterruptedException
    * @throws IOException
    */
-  public MealPlanGenerator(RecipeDatasource recipeSource, Mode mode, String daysOfWeek,
+  public MealPlanGenerator(RecipeDatasource recipeSource, Mode mode, String daysOfWeek, int servings,
       String cuisine,
       String excludeCuisine,
       String diet,
@@ -58,6 +61,7 @@ public class MealPlanGenerator {
       StorageInterface firebaseData,
       String uid) throws ExecutionException, InterruptedException, IOException {
     this.recipes = mode;
+    this.REQUESTED_SERVINGS = servings;
     this.CUISINE = cuisine;
     this.EXCLUDE_CUISINE = excludeCuisine;
     this.DIET = diet;
@@ -71,6 +75,14 @@ public class MealPlanGenerator {
     this.likedRecipes = this.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
   }
 
+  /**
+   * Generates a MealPlan based on the criteria and mode this MealPlanGenerator was instantiated with.
+   *
+   * @return a MealPlan fitting this MealPlanGenerator's criteria recommended in its mode
+   * @throws DatasourceException if unsuccessful in querying the recipe datasource for any recipes
+   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting
+   * this generator's criteria
+   */
   public MealPlan generatePlan() throws DatasourceException, RecipeVolumeException {
     List<Recipe> weekOfRecipes;
     if (this.recipes == Mode.MINIMIZE_FOOD_WASTE) {
@@ -79,7 +91,11 @@ public class MealPlanGenerator {
     else {
       weekOfRecipes = this.personalize();
     }
-    return this.createMealPlan(weekOfRecipes);
+    List<Recipe> weekOfRecipesScaledServings = new ArrayList<>(weekOfRecipes);
+    for (Recipe recipe : weekOfRecipesScaledServings) {
+      recipe.scaleRecipe(this.REQUESTED_SERVINGS);
+    }
+    return this.createMealPlan(weekOfRecipesScaledServings);
   }
 
   /**
@@ -136,7 +152,8 @@ public class MealPlanGenerator {
 
   /**
    * Method to parse the given CSV string into a boolean array representing which
-   * days of the week have recipes
+   * days of the week have recipes.
+   *
    * @param daysOfWeek
    * @return
    */
@@ -236,8 +253,8 @@ public class MealPlanGenerator {
    *
    * @return a list of NUM_DAYS_TO_PLAN Recipes fitting the criteria this was instantiated with
    * @throws DatasourceException if unsuccessful in querying Spoonacular for any recipes
-   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting t
-   * his generator's criteria
+   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting
+   * this generator's criteria
    */
   public List<Recipe> minimizeFoodWaste() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting recipe to base the rest of the food-waste-minimizing recipes on

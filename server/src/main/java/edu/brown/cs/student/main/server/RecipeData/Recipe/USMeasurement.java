@@ -4,7 +4,7 @@ package edu.brown.cs.student.main.server.RecipeData.Recipe;
  * A class describing a measurement with a US unit.
  */
 public class USMeasurement {
-    private final double amount;
+    private double amount;
     private final String unitLong;
 
     /**
@@ -32,6 +32,15 @@ public class USMeasurement {
     public USMeasurement(USMeasurement toCopy) {
         this.amount = toCopy.getAmount();
         this.unitLong = toCopy.getUnitLong();
+    }
+
+    /**
+     * Scales the amount of this USMeasurement by a provided factor.
+     *
+     * @param scalingFactor the integer factor to scale this USMeasurement's amount by
+     */
+    public void scale(int scalingFactor) {
+        this.amount = this.amount * scalingFactor;
     }
 
     /**

@@ -7,21 +7,21 @@ import java.lang.reflect.Type;
  * A class describing a recipe, its metadata, its instructions, and its ingredients.
  */
 public class Recipe {
-    private int id;
-    private String creditsText;
-    private String title;
-    private String image;
+    private final int id;
+    private final String creditsText;
+    private final String title;
+    private final String image;
     private int servings;
-    private int readyInMinutes;
-    private double spoonacularScore;
-    private List<String> cuisines;
-    private List<String> diets;
-    private boolean dairyFree;
-    private boolean glutenFree;
-    private boolean vegan;
-    private boolean vegetarian;
-    private List<Ingredient> extendedIngredients;
-    private List<RecipeInstructions> analyzedInstructions;
+    private final int readyInMinutes;
+    private final double spoonacularScore;
+    private final List<String> cuisines;
+    private final List<String> diets;
+    private final boolean dairyFree;
+    private final boolean glutenFree;
+    private final boolean vegan;
+    private final boolean vegetarian;
+    private final List<Ingredient> extendedIngredients;
+    private final List<RecipeInstructions> analyzedInstructions;
 
     /**
      * Constructor for the Recipe class.
@@ -60,6 +60,25 @@ public class Recipe {
         this.vegetarian = vegetarian;
         this.extendedIngredients = extendedIngredients;
         this.analyzedInstructions = analyzedInstructions;
+    }
+
+    /**
+     * Scales this Recipe's ingredients up to the multiple of the original servings
+     * closest to the desired number of servings. If called with an attempt to scale down, will not
+     * modify this Recipe.
+     *
+     * @param desiredServings the desired number of servings this Recipe should make
+     */
+    public void scaleRecipe(int desiredServings) {
+        if (desiredServings < this.servings) {
+            return;
+        }
+
+        int scalingFactor = (int) Math.ceil((double) desiredServings / this.servings);
+        for (Ingredient i : this.extendedIngredients) {
+            i.scale(scalingFactor);
+        }
+        this.servings = this.servings * scalingFactor;
     }
 
     /**

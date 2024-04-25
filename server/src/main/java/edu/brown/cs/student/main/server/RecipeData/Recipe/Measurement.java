@@ -25,6 +25,15 @@ public class Measurement {
     }
 
     /**
+     * Scales this Measurement by a provided factor.
+     *
+     * @param scalingFactor the integer factor to scale this Measurement's amount by
+     */
+    public void scale(int scalingFactor) {
+        this.us.scale(scalingFactor);
+    }
+
+    /**
      * Gets the USMeasurement associated with this Measurement.
      *
      * @return a defensive copy of this Measurement's us field

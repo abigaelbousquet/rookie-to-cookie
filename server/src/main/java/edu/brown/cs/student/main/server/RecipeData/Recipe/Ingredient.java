@@ -38,6 +38,15 @@ public class Ingredient {
     }
 
     /**
+     * Scales the Measurement of this Ingredient by a provided factor.
+     *
+     * @param scalingFactor the integer factor to scale this Ingredient's amount by
+     */
+    public void scale(int scalingFactor) {
+        this.measures.scale(scalingFactor);
+    }
+
+    /**
      * Gets the measurement of this Ingredient.
      *
      * @return the measures of this Ingredient
