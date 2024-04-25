@@ -21,11 +21,6 @@ h1 {
   grid-area: title;
 }
 
-.prompt-answer-box {
-  background-color: #f0f0f0; /* Set background color for the shaded box */
-  padding: 10px; /* Add padding for spacing between prompt and answer */
-}
-
 /* Section of days of the week prompt */
 .days-of-the-week-prompt-text {
   grid-area: days-of-the-week-prompt;
