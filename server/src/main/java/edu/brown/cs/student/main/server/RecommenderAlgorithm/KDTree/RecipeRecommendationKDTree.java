@@ -3,13 +3,15 @@ package edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import java.util.*;
 
+// TODO: generalize to K-D tree class with caller-injected types
 
 /**
  * Class describing a RecipeRecommendation K-D Tree.
  */
 public class RecipeRecommendationKDTree {
   private RecipeNode root;
-  private static final int DIMENSIONS = 3;
+  private int size;
+  private static final int DIMENSIONS = 3; // TODO: make this set dynamically in constructor
 
   public RecipeRecommendationKDTree() {
     root = null;
@@ -18,6 +20,7 @@ public class RecipeRecommendationKDTree {
   // Insert a recipe into the KD tree
   public void insert(Recipe recipe) {
     root = insertRec(root, new RecipeNode(recipe), 0);
+    this.size++;
   }
 
   private RecipeNode insertRec(RecipeNode root, RecipeNode newNode, int depth) {
@@ -58,6 +61,15 @@ public class RecipeRecommendationKDTree {
 //      return searchRec(root.right, targetNode, depth + 1);
 //    }
 //  }
+
+  /**
+   * Gets the size of this K-D tree.
+   *
+   * @return the number of nodes in this K-D tree
+   */
+  public int getSize() {
+    return this.size;
+  }
 
   /**
    * Finds the n nearest neighbors of a particular Recipe in this K-D tree.
