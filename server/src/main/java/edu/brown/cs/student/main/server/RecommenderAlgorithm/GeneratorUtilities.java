@@ -165,6 +165,9 @@ public class GeneratorUtilities {
    */
   public static List<Recipe> convertFirebaseData(List<Map<String, Object>> firebaseData)
       throws IllegalArgumentException, IOException {
+    if (firebaseData == null || firebaseData == null) {
+      return null;
+    }
     List<Recipe> recipes = new ArrayList<>();
     for (Map<String, Object> recipeData : firebaseData) {
       // Deserialize each map entry into a Recipe object

@@ -26,8 +26,8 @@ public class MealPlanGenerator {
   private String INTOLERANCES = null;
   private String EXCLUDE_INGREDIENTS = null;
   private final int MAX_READY_TIME;
-//  private final List<Recipe> likedRecipes;
-//  private final List<Recipe> dislikedRecipes;
+  private final List<Recipe> likedRecipes;
+  private final List<Recipe> dislikedRecipes;
   private final StorageInterface FIREBASE_DATA;
   private final String UID;
 
@@ -69,8 +69,8 @@ public class MealPlanGenerator {
     this.DAYS_TO_PLAN = parseDays(daysOfWeek);
     setIntolerancesAndAllergens(intolerances);
     this.DATASOURCE = recipeSource;
-//    this.dislikedRecipes = GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
-//    this.likedRecipes = GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+    this.dislikedRecipes = GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+    this.likedRecipes = GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
   }
 
   /**

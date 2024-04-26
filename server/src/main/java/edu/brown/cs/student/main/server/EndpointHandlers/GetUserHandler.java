@@ -1,21 +1,25 @@
 package edu.brown.cs.student.main.server.EndpointHandlers;
 
-import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
+import edu.brown.cs.student.main.server.UserData.Profile;
+import edu.brown.cs.student.main.server.UserData.ProfileUtilities;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-
-import java.util.*;
-
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class ListLikedRecipesHandler implements Route {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class GetUserHandler implements Route {
 
   public StorageInterface storageHandler;
 
-  public ListLikedRecipesHandler(StorageInterface storageHandler) {
+  public GetUserHandler(StorageInterface storageHandler) {
     this.storageHandler = storageHandler;
   }
 
@@ -32,32 +36,22 @@ public class ListLikedRecipesHandler implements Route {
     try {
       String uid = request.queryParams("uid");
 
-      System.out.println("listing liked recipes for user: " + uid);
+      System.out.println("listing profile for user: " + uid);
 
       // get all the words for the user
-      List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "liked recipes");
-      ArrayList<Recipe> recipes = new ArrayList<>();
+      List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "Profile");
+      ArrayList<Profile> users = new ArrayList<>();
       // convert the key,value map to just a list of the words.
-      for (Map<String, Object> recipeMap : vals) {
-        Set<String> keys = recipeMap.keySet();
-        for (String key : keys)
-        {
-          String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson((Map<String, Object>) recipeMap.get(key));
+      for (Map<String, Object> profileMap : vals) {
+        String profileJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson((Map<String, Object>) profileMap.get("User"));
 
-          Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
-          recipes.add(recipe);
-        }
-      }
-      if (recipes.isEmpty()) {
-        responseMap.put("response_type", "failure");
-        responseMap.put("Recipes", "null");
+        Profile user = ProfileUtilities.deserializeProfile(profileJson);
+        users.add(user);
 
       }
-      else {
-        responseMap.put("response_type", "success");
-        responseMap.put("Recipes", recipes);
-      }
 
+      responseMap.put("response_type", "success");
+      responseMap.put("User", users);
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();

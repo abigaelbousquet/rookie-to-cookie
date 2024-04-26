@@ -1,6 +1,5 @@
 package edu.brown.cs.student.main.server.UserData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,23 +8,23 @@ import java.util.List;
 public class Profile {
   private String name;
   private int exp;
-  private List<String> intoleranceArray;
-  private List<String> dietArray;
+  private List<String> intolerances;
+  private List<String> diet;
 
   /**
    * Constructor for the Profile class.
    *
    * @param name the user's name
    * @param exp the user's experience, expressed as an int
-   * @param intoleranceArray a list of the user's intolerances
-   * @param dietArray a list of the user's followed diets
+   * @param intolerances a list of the user's intolerances
+   * @param diet a list of the user's followed diets
    */
   public Profile(
-      String name, int exp, List<String> intoleranceArray, List<String> dietArray) {
+      String name, int exp, List<String> intolerances, List<String> diet) {
     this.name = name;
     this.exp = exp;
-    this.intoleranceArray = intoleranceArray;
-    this.dietArray = dietArray;
+    this.intolerances = intolerances;
+    this.diet = diet;
   }
 
   /**
@@ -52,7 +51,7 @@ public class Profile {
    * @return a list of the user's intolerances
    */
   public List<String> getIntolerances() {
-    return this.intoleranceArray;
+    return this.intolerances;
   }
 
   /**
@@ -61,7 +60,7 @@ public class Profile {
    * @return a list of the user's followed diets
    */
   public List<String> getDiet() {
-    return this.dietArray;
+    return this.diet;
   }
 
 }
