@@ -24,6 +24,26 @@
 
   <dependencies>
 
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+      <version>3.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+      <version>3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>33.0.0-jre</version>
+    </dependency>
+
     <!--
            We use Moshi for serialization/deserialization of JSON data.
            Moshi 1.13.0 was released in December 2021.
@@ -43,19 +63,10 @@
       <version>1.13.0</version>
     </dependency>
 
-<!--&lt;!&ndash;    for the measurement&ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>tech.units</groupId>-->
-<!--      <artifactId>indriya</artifactId>-->
-<!--      <version>4.1</version>-->
-<!--    </dependency>-->
-
-
     <!--
            Spark is a lightweight framework for creating web applications.
            Spark is most commonly used to create APIs and websites.
     -->
-
     <dependency>
       <groupId>com.sparkjava</groupId>
       <artifactId>spark-core</artifactId>
@@ -71,11 +82,6 @@
       <version>RELEASE</version>
       <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>com.google.firebase</groupId>
-      <artifactId>firebase-admin</artifactId>
-      <version>9.2.0</version>
-    </dependency>
 
     <!--
            JUnit is a unit testing library for Java.
@@ -86,6 +92,7 @@
       <version>5.4.0</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
   <build>
     <plugins>
@@ -250,7 +257,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.4.0</version>
         <configuration>
-          <mainClass>edu.brown.cs.student.main.Main</mainClass>
+          <mainClass>edu.brown.cs.student.main.server.csv.Main</mainClass>
           <arguments/>
         </configuration>
         <executions>
