@@ -82,6 +82,51 @@ public class Recipe {
     }
 
     /**
+     * Gets the number of cuisines this Recipe is categorized as.
+     *
+     * @return the length of this.cuisines if non-null, 0 otherwise
+     */
+    public int getNumCuisines() {
+        if (this.cuisines == null) {
+            return 0;
+        } else {
+            return this.cuisines.size();
+        }
+    }
+
+    /**
+     * Gets the number of Ingredients this Recipe uses.
+     *
+     * @return the length of this Recipe's extendedIngredients field
+     */
+    public int getNumIngredients() {
+        if (this.extendedIngredients == null) {
+            // should never happen in theory, but just to be safe
+            return 0;
+        } else {
+            return this.extendedIngredients.size();
+        }
+    }
+
+    /**
+     * Gets the number of steps in this Recipe's instructions.
+     *
+     * @return the number of Steps associated with this Recipe
+     */
+    public int getNumSteps() {
+        if (this.analyzedInstructions == null) {
+            // should never happen in theory, but just to be safe
+            return 0;
+        } else {
+            int totalSteps = 0;
+            for (RecipeInstructions instructionSet : this.analyzedInstructions) {
+                totalSteps += instructionSet.getSteps().size();
+            }
+            return totalSteps;
+        }
+    }
+
+    /**
      * Gets the numerical unique ID associated with this Recipe.
      *
      * @return the id of this Recipe
