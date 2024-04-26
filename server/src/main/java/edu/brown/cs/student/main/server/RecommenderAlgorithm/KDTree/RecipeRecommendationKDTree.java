@@ -17,6 +17,17 @@ public class RecipeRecommendationKDTree {
     root = null;
   }
 
+  /**
+   * Get the root of this KD Tree.
+   *
+   * TODO: make this return defensive copy instead
+   *
+   * @return this tree's root
+   */
+  public RecipeNode getRoot() {
+    return this.root;
+  }
+
   // Insert a recipe into the KD tree
   public void insert(Recipe recipe) {
     root = insertRec(root, new RecipeNode(recipe), 0);

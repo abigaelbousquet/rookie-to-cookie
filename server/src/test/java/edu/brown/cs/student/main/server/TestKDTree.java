@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree.RecipeNode;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree.RecipeRecommendationKDTree;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -49,17 +50,23 @@ public class TestKDTree {
 
   @Test
   public void testTreeCreation() {
+    // set up data
     List<Recipe> recipes = parseMockedRecipes("data/exampleSearchResultLength2.json");
     assertEquals(2, recipes.size());
+    RecipeNode node1 = new RecipeNode(recipes.get(0));
+    RecipeNode node2 = new RecipeNode(recipes.get(1));
 
+    // initialize tree
     RecipeRecommendationKDTree tree = new RecipeRecommendationKDTree();
     tree.insert(recipes.get(0));
     assertEquals(1, tree.getSize());
+    assertEquals(node1, tree.getRoot());
 
-    tree.insert(recipes.get(1));
+    tree.insert(recipes.get(1)); // compares on 1st coordinate of location: numCuisine
     assertEquals(2, tree.getSize());
 
-    // TODO: finish this test by checking node attributes & ordering in tree
+    // node1 has location [0, 13, 5], node2 has location [3, 19, 18]
+    assertEquals(node2, tree.getRoot().right);
   }
 
   // TODO: test creation with more nodes
