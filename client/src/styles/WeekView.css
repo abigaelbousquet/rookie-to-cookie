@@ -1,0 +1,47 @@
+/* Styling for the grid */
+.top-grid,
+.bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    7,
+    minmax(200px, 1fr)
+  ); /* Change to percentage-based widths */
+}
+.top-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(100px, 1fr));
+}
+
+.week-name-grid-cell {
+  background-color: #ffffff00;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc; /* Add border */
+}
+
+.grid-cell {
+  background-color: #ffffff00;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc; /* Add border */
+  height: 400px; /* Increase the height visually */
+}
+
+/* Adjust the min width and border radius based on your preference */
+.grid-cell.recipe-exists {
+  min-width: 180px; /* Set a larger min width for cells with recipes */
+  border-radius: 0px; /* Add border radius for cells with recipes */
+}
+
+.grid-cell.recipe-not-exists {
+  min-width: 100px; /* Set a smaller min width for cells without recipes */
+  border-radius: 0; /* Remove border radius for cells without recipes */
+}
+
+.recipe-exists {
+  min-width: 180px;
+}
+
+.recipe-not-exists {
+  min-width: 100px;
+}
