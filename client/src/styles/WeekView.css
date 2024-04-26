@@ -25,6 +25,10 @@
   text-align: center;
   border: 1px solid #ccc; /* Add border */
   height: 400px; /* Increase the height visually */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Adjust the min width and border radius based on your preference */
