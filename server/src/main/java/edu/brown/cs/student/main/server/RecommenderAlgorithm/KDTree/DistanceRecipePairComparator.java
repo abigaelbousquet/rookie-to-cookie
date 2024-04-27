@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * Class describing a Comparator for DistanceRecipePairs.
  */
-class DistanceRecipePairComparator implements Comparator<DistanceRecipePair> {
+public class DistanceRecipePairComparator implements Comparator<DistanceRecipePair> {
 
   /**
    * Compares two DistanceRecipePairs.

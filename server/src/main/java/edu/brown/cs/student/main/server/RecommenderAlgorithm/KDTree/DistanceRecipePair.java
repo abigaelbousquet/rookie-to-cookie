@@ -8,4 +8,4 @@ import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
  * @param distance the distance from recipe to the target Recipe[Node]
  * @param recipe the Recipe of interest to compare to the target Recipe
  */
-record DistanceRecipePair(double distance, Recipe recipe) {}
+public record DistanceRecipePair(double distance, Recipe recipe) {}
