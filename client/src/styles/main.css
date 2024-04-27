@@ -1,28 +1,62 @@
-.form {
+.popup {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Adjust to your preference */
-  /* Vertically center the form items */
+  justify-content: space-between;
   margin-inline: 10%;
-  height: 320px;
+  margin: auto;
+  height: 300px;
+}
+.popup-inner {
+  background-color: #c6d48d;
+  height: relative;
+  min-width: 550px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 5%;
+}
+.acct-inmost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #7a9364;
+  width: initial;
 }
 .popup-inmost {
-  justify-content: space-between;
-  margin: 5%;
-  background-color: rgb(255, 250, 236);
-  height: 80vh;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #7a9364;
+  width: initial;
 }
 
 .input-box {
   width: 300px;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 0 0 20px 0;
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 16px;
 }
 .input-box:focus {
-  border: 2px solid #555;
+  outline: none;
+}
+.login-elt {
+  display: flex;
+  justify-content: space-between;
+}
+.acct-elt {
+  display: flex;
+  margin: 0 0 1em 0;
+  justify-content: space-between;
+}
+legend {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  margin-bottom: 0;
+  color: white;
+  align-self: baseline;
+  font-weight: bold;
 }
 select {
   width: 100%;
@@ -36,9 +70,6 @@ select {
   align-items: center;
   justify-content: space-around;
 }
-#account-header {
-  margin-left: 35%;
-}
 .x-button {
   margin-left: auto;
   margin-right: 5%;
@@ -46,17 +77,14 @@ select {
 legend {
   margin: 10px;
 }
-
-.popup-inner {
-  background-color: wheat;
-  height: 80vh;
-  width: 65%;
-  margin: auto;
-  padding: 0px;
-  border-radius: 5%;
+.butt {
+  padding: 0.6em 5.2em;
+  margin: 2em;
 }
+
 .butt:hover {
-  background-color: moccasin;
+  background-color: #fab375;
+  outline: none;
 }
 
 .tags-input-wrapper {
@@ -108,6 +136,7 @@ legend {
 .color-default button.rem-btn {
   color: rgb(176, 215, 176);
 }
+
 .tag-input {
   color: #495057;
   flex: 1;
@@ -116,4 +145,8 @@ legend {
 }
 .tag-input:focus {
   outline: none;
+}
+h2 {
+  color: white;
+  font-size: 40px;
 }

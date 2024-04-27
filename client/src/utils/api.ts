@@ -17,12 +17,17 @@ async function queryAPI(
   }
   return response.json();
 }
+export async function getRecipe(recipeID: string) {
+  return await queryAPI("get-recipe", {
+    uid: getLoginCookie() || "",
+    recipeID: recipeID,
+  });
+}
 export async function addUser(props: profileProps) {
   return await queryAPI("add-user", {
     uid: getLoginCookie() || "",
     name: props.name,
     exp: props.exp,
-    
     diet: props.diet.toString(),
     intolerances: props.intolerances.toString(),
   });

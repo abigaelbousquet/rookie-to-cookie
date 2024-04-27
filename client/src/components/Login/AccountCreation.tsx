@@ -12,6 +12,7 @@ export interface profileProps {
   name: string;
   exp: string;
   diet: string;
+  fam_size: string;
   intolerances: string[];
 }
 interface acctProps {
@@ -27,6 +28,7 @@ export const AccountCreation: React.FC<acctProps> = ({
   const [exp, setExp] = useState("");
   const [diet, setDiet] = useState("");
   const [allergen, setAllergen] = useState([""]);
+  const [fam_size, setFam_Size] = useState("");
   const heightMarks = {
     1: "novice",
     2: "beginner",
@@ -55,6 +57,9 @@ export const AccountCreation: React.FC<acctProps> = ({
   const handleSubmit = async (props: profileProps) => {
     // Handle form submission here, e.g., send data to server
     //await addUser(props);
+    if (props.name === null || props.exp === null || props.fam_size === null) {
+      alert("Please enter name, experience, and family size.");
+    }
     console.log(
       "?name=",
       props.name +
@@ -62,6 +67,8 @@ export const AccountCreation: React.FC<acctProps> = ({
         props.exp +
         "&diet=" +
         props.diet.toString() +
+        "&fam-size=" +
+        props.fam_size +
         "&intolerances=" +
         props.intolerances.toString()
     );
@@ -69,17 +76,16 @@ export const AccountCreation: React.FC<acctProps> = ({
   };
 
   return (
-    //TODO add family size
     <div className="popup">
       <div className="popup-inner">
-        <div className="popup-inmost">
+        <div className="acct-inmost">
           <div className="popup-header">
             <div id="account-header">
               <h2>Create Account</h2>
             </div>
           </div>
           <div className="form">
-            <div>
+            <div className="acct-elt">
               <legend>Name:</legend>
               <ControlledInput
                 value={name}
@@ -99,11 +105,11 @@ export const AccountCreation: React.FC<acctProps> = ({
                 marks={heightMarks}
               />
             </div>
-            <div>
+            <div className="acct-elt">
               <legend>Diet:</legend>
               <Select options={diets} onChange={(opt) => setDiet(opt!.label)} />
             </div>
-            <div>
+            <div className="acct-elt">
               <legend>Intolerances:</legend>
               <Creatable
                 options={intolerance}
@@ -114,6 +120,16 @@ export const AccountCreation: React.FC<acctProps> = ({
                 }}
               />
             </div>
+            <div className="acct-elt">
+              <legend>Family Size:</legend>
+              <ControlledInput
+                value={fam_size}
+                setValue={setFam_Size}
+                ariaLabel="family-size"
+                placeholder="2"
+                styleID="input-box"
+              />
+            </div>
 
             <button
               className="butt"
@@ -122,6 +138,7 @@ export const AccountCreation: React.FC<acctProps> = ({
                   name: name,
                   exp: exp,
                   diet: diet,
+                  fam_size: fam_size,
                   intolerances: allergen,
                 })
               }

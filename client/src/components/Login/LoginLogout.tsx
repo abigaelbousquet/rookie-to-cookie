@@ -25,26 +25,30 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       <div className="popup-inner">
         <div className="popup-inmost">
           <div className="login-box">
-            <h2>Login</h2>
-            <legend>Email:</legend>
-            <ControlledInput
-              styleID="input-box"
-              value={email}
-              setValue={setEmail}
-              ariaLabel="email"
-              placeholder="josiah_carberry@brown.edu"
-            ></ControlledInput>
-            <legend>Password:</legend>
-            <ControlledInput
-              styleID="input-box"
-              value={password}
-              setValue={setPassword}
-              ariaLabel="password"
-              placeholder="ilovecooking"
-            ></ControlledInput>
+            <h2>Login:</h2>
+            <div className="login-elt">
+              <legend>Email:</legend>
+              <ControlledInput
+                styleID="input-box"
+                value={email}
+                setValue={setEmail}
+                ariaLabel="email"
+                placeholder="josiah_carberry@brown.edu"
+              ></ControlledInput>
+            </div>
+            <div className="login-elt">
+              <legend>Password:</legend>
+              <ControlledInput
+                styleID="input-box"
+                value={password}
+                setValue={setPassword}
+                ariaLabel="password"
+                placeholder="ilovecooking"
+              ></ControlledInput>
+            </div>
             <div>
               <button
-                className="google-login-button"
+                className="butt"
                 onClick={async () => {
                   if (password === null || email === null) {
                     alert("Please enter your email and password");
@@ -82,7 +86,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
                 disabled={props.authing !== 0}
                 aria-label="Login"
               >
-                Login
+                LOGIN
               </button>
             </div>
           </div>
