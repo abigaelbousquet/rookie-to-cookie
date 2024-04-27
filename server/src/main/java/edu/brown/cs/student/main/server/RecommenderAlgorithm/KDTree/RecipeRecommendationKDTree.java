@@ -28,12 +28,24 @@ public class RecipeRecommendationKDTree {
     return this.root;
   }
 
-  // Insert a recipe into the KD tree
+  /**
+   * Inserts a Recipe into this tree.
+   *
+   * @param recipe the recipe to insert into this tree
+   */
   public void insert(Recipe recipe) {
     root = insertRec(root, new RecipeNode(recipe), 0);
     this.size++;
   }
 
+  /**
+   * Recursively inserts a RecipeNode into the K-D tree described by this starting at this.root.
+   *
+   * @param root the root of this K-D tree (to start at)
+   * @param newNode the RecipeNode to insert into this K-D tree
+   * @param depth the depth of the original K-D tree we are looking at
+   * @return the RecipeNode root of the updated overall K-D tree
+   */
   private RecipeNode insertRec(RecipeNode root, RecipeNode newNode, int depth) {
     if (root == null) {
       return newNode;
@@ -44,34 +56,16 @@ public class RecipeRecommendationKDTree {
     if (newNode.location[axis] < root.location[axis]) {
       root.left = insertRec(root.left, newNode, depth + 1);
     } else {
+      /*
+         By default, on dimensional equality the newNode will be placed as the right child of this
+         tree/subtree -- this is a design decision that may impact balance of the K-D tree, but
+         is a reasonable default for a basic implementation.
+       */
       root.right = insertRec(root.right, newNode, depth + 1);
     }
 
     return root;
   }
-
-  // Search for a recipe in the KD tree
-//  public boolean search(Recipe recipe) {
-//    return searchRec(root, new RecipeNode(recipe), 0);
-//  }
-//
-//  private boolean searchRec(RecipeNode root, RecipeNode targetNode, int depth) {
-//    if (root == null) {
-//      return false;
-//    }
-//
-//    if (Arrays.equals(root.location, targetNode.location)) {
-//      return true;
-//    }
-//
-//    int axis = depth % DIMENSIONS;
-//
-//    if (targetNode.location[axis] < root.location[axis]) {
-//      return searchRec(root.left, targetNode, depth + 1);
-//    } else {
-//      return searchRec(root.right, targetNode, depth + 1);
-//    }
-//  }
 
   /**
    * Gets the size of this K-D tree.
@@ -89,8 +83,10 @@ public class RecipeRecommendationKDTree {
    * @param n the number of nearest neighbors to recipe desired
    * @return up to n nearest neighbors of targetNode in the K-D tree starting at root, in a List of Recipes ordered closest to furthest nearest neighbors
    */
-  public Recipe[] nearestNeighbors(Recipe recipe, int n) {
-    return nearestNeighbors(root, new RecipeNode(recipe), n, new PriorityQueue<DistanceRecipePair>(new DistanceRecipePairComparator()), 0);
+  public List<Recipe> nearestNeighbors(Recipe recipe, int n) {
+    PriorityQueue<DistanceRecipePair> closestRecipes = new PriorityQueue<DistanceRecipePair>(new DistanceRecipePairComparator());
+    nearestNeighbors(root, new RecipeNode(recipe), n, closestRecipes, 0);
+    return extractRecipesFromQueue(closestRecipes);
   }
 
   /**
@@ -99,12 +95,12 @@ public class RecipeRecommendationKDTree {
    * @param queue the PriorityQueue to extract from (ordered largest to smallest distance)
    * @return queue converted to an ordered List of Recipes (ordered smallest to largest distance)
    */
-  private static Recipe[] extractRecipesFromQueue(PriorityQueue<DistanceRecipePair> queue) {
-    Recipe[] bestRecipesArray = new Recipe[queue.size()];
-    for (int i = queue.size()-1; i > -1; i--) {
-      bestRecipesArray[i] = queue.remove().recipe();
+  private static List<Recipe> extractRecipesFromQueue(PriorityQueue<DistanceRecipePair> queue) {
+    List<Recipe> bestRecipes = new ArrayList<>();
+    while (queue.size() > 0) {
+      bestRecipes.add(0, queue.remove().recipe());
     }
-    return bestRecipesArray;
+    return bestRecipes;
   }
 
   /**
@@ -124,18 +120,18 @@ public class RecipeRecommendationKDTree {
   }
 
   /**
-   * Finds the n nearest neighbors of a particular Recipe in a K-D tree/subtree.
+   * Populates a Priority Queue with the n nearest neighbors of a particular Recipe in a K-D tree/subtree.
+   * Note: Priority Queue will be in the order of furthest to closest distance to target node.
    *
    * @param root the root of the K-D tree to search through
    * @param targetNode the RecipeNode for which we want the nearest n neighbors
    * @param n the number of nearest neighbors to capture
    * @param bestRecipesQueue the Priority Queue (with associated Comparator) to maintain nearest neighbors in
    * @param depth the depth of the K-D tree in this search
-   * @return up to n nearest neighbors of targetNode in the K-D tree starting at root, in a List of Recipes ordered closest to furthest nearest neighbors
    */
-  private Recipe[] nearestNeighbors(RecipeNode root, RecipeNode targetNode, int n, PriorityQueue<DistanceRecipePair> bestRecipesQueue, int depth) {
+  private void nearestNeighbors(RecipeNode root, RecipeNode targetNode, int n, PriorityQueue<DistanceRecipePair> bestRecipesQueue, int depth) {
     if (root == null) {
-      return extractRecipesFromQueue(bestRecipesQueue);
+      return;
     }
 
     double distance = distance(root.location, targetNode.location);
@@ -164,8 +160,6 @@ public class RecipeRecommendationKDTree {
     if (bestRecipesQueue.size() < n || distance(targetNode.location[axis], root.location[axis]) < bestRecipesQueue.peek().distance()) {
       nearestNeighbors(furtherSubtreeRoot, targetNode, n, bestRecipesQueue, depth + 1);
     }
-
-    return extractRecipesFromQueue(bestRecipesQueue);
   }
 
   /**
