@@ -19,6 +19,16 @@ public class Step {
     }
 
     /**
+     * Alternate constructor for the Step class.
+     *
+     * @param toCopy the Step to make this a copy of
+     */
+    public Step(Step toCopy) {
+        this.number = toCopy.getNumber();
+        this.step = toCopy.getStep();
+    }
+
+    /**
      * Gets the number associated with this Step.
      *
      * @return this Step's number

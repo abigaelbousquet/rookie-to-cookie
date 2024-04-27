@@ -63,6 +63,29 @@ public class Recipe {
     }
 
     /**
+     * Alternate constructor for the Recipe class.
+     *
+     * @param toCopy the Recipe to make this a copy of
+     */
+    public Recipe(Recipe toCopy) {
+        this.id = toCopy.getId();
+        this.creditsText = toCopy.getCreditsText();
+        this.title = toCopy.getTitle();
+        this.image = toCopy.getImage();
+        this.servings = toCopy.getServings();
+        this.readyInMinutes = toCopy.getReadyInMinutes();
+        this.spoonacularScore = toCopy.getSpoonacularScore();
+        this.cuisines = toCopy.getCuisines();
+        this.diets = toCopy.getDiets();
+        this.dairyFree = toCopy.isDairyFree();
+        this.glutenFree = toCopy.isGlutenFree();
+        this.vegan = toCopy.isVegan();
+        this.vegetarian = toCopy.isVegetarian();
+        this.extendedIngredients = toCopy.getExtendedIngredients();
+        this.analyzedInstructions = toCopy.getAnalyzedInstructions();
+    }
+
+    /**
      * Scales this Recipe's ingredients up to the multiple of the original servings
      * closest to the desired number of servings. If called with an attempt to scale down, will not
      * modify this Recipe.
@@ -132,7 +155,7 @@ public class Recipe {
      * @return the id of this Recipe
      */
     public int getId() {
-        return id;
+        return this.id;
     }
 
     /**
@@ -141,7 +164,7 @@ public class Recipe {
      * @return the credits to the original publisher
      */
     public String getCreditsText() {
-        return creditsText;
+        return this.creditsText;
     }
 
     /**
@@ -150,7 +173,7 @@ public class Recipe {
      * @return the title of this Recipe
      */
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     /**
@@ -159,7 +182,7 @@ public class Recipe {
      * @return the link to the image of this Recipe
      */
     public String getImage() {
-        return image;
+        return this.image;
     }
 
     /**
@@ -168,7 +191,7 @@ public class Recipe {
      * @return the number of servings of this Recipe
      */
     public int getServings() {
-        return servings;
+        return this.servings;
     }
 
     /**
@@ -177,7 +200,7 @@ public class Recipe {
      * @return the number of minutes to make this Recipe
      */
     public int getReadyInMinutes() {
-        return readyInMinutes;
+        return this.readyInMinutes;
     }
 
     /**
@@ -186,25 +209,25 @@ public class Recipe {
      * @return the Spoonacular score of this Recipe
      */
     public double getSpoonacularScore() {
-        return spoonacularScore;
+        return this.spoonacularScore;
     }
 
     /**
      * Gets a list of the cuisines this Recipe is classified as.
      *
-     * @return the cuisines of this Recipe
+     * @return a defensive copy of the cuisines of this Recipe
      */
     public List<String> getCuisines() {
-        return cuisines;
+        return new ArrayList<String>(this.cuisines);
     }
 
     /**
      * Gets a list of the diets this Recipe follows.
      *
-     * @return the diets followed by this Recipe
+     * @return a defensive copy of the diets followed by this Recipe
      */
     public List<String> getDiets() {
-        return diets;
+        return new ArrayList<String>(this.diets);
     }
 
     /**
@@ -213,7 +236,7 @@ public class Recipe {
      * @return true if the Recipe is dairy-free, false otherwise
      */
     public boolean isDairyFree() {
-        return dairyFree;
+        return this.dairyFree;
     }
 
     /**
@@ -222,7 +245,7 @@ public class Recipe {
      * @return true if the Recipe is gluten-free, false otherwise
      */
     public boolean isGlutenFree() {
-        return glutenFree;
+        return this.glutenFree;
     }
 
     /**
@@ -231,7 +254,7 @@ public class Recipe {
      * @return true if the Recipe is vegan, false otherwise
      */
     public boolean isVegan() {
-        return vegan;
+        return this.vegan;
     }
 
     /**
@@ -240,7 +263,7 @@ public class Recipe {
      * @return true if the Recipe is vegetarian, false otherwise
      */
     public boolean isVegetarian() {
-        return vegetarian;
+        return this.vegetarian;
     }
 
     /**
@@ -262,7 +285,11 @@ public class Recipe {
      * @return a defensive copy of the List of RecipeInstructions in this Recipe
      */
     public List<RecipeInstructions> getAnalyzedInstructions() {
-        return new ArrayList<>(this.analyzedInstructions);
+        List<RecipeInstructions> copyOfRecipeInstructions = new ArrayList<>();
+        for (RecipeInstructions i : this.analyzedInstructions) {
+            copyOfRecipeInstructions.add(new RecipeInstructions(i));
+        }
+        return copyOfRecipeInstructions;
     }
 
     /**

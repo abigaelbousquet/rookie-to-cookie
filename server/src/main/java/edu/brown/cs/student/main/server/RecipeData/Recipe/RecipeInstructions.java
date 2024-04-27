@@ -1,5 +1,7 @@
 package edu.brown.cs.student.main.server.RecipeData.Recipe;
 
+import com.beust.ah.A;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +20,20 @@ public class RecipeInstructions {
     public RecipeInstructions(String name, List<Step> steps) {
         this.name = name;
         this.steps = steps;
+    }
+
+    /**
+     * Alternate constructor for the RecipeInstructions class.
+     *
+     * @param toCopy the RecipeInstructions to make this a copy of
+     */
+    public RecipeInstructions(RecipeInstructions toCopy) {
+        this.name = toCopy.getName();
+        ArrayList<Step> copiedSteps = new ArrayList<>();
+        for (Step s : toCopy.getSteps()) {
+            copiedSteps.add(new Step(s));
+        }
+        this.steps = copiedSteps;
     }
 
     /**
