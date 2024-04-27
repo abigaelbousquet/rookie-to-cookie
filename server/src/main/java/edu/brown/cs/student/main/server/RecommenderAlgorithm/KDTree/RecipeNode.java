@@ -8,7 +8,7 @@ import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 public class RecipeNode {
   protected Recipe recipe;
   protected int[] location; // [numCuisines, numIngredients, numSteps]
-  public RecipeNode left, right; // TODO: make NOT public
+  protected RecipeNode left, right; // TODO: make NOT public
 
   /**
    * Constructor for the RecipeNode class.
@@ -20,6 +20,28 @@ public class RecipeNode {
     this.location = new int[]{recipe.getNumCuisines(), recipe.getNumIngredients(), recipe.getNumSteps()};
     left = null;
     right = null;
+  }
+
+  /**
+   * Gets this node's left node.
+   *
+   * TODO: make return defensive copy!
+   *
+   * @return this RecipeNode's left node
+   */
+  public RecipeNode getLeft() {
+    return this.left;
+  }
+
+  /**
+   * Gets this node's right node.
+   *
+   * TODO: make return defensive copy!
+   *
+   * @return this RecipeNode's right node
+   */
+  public RecipeNode getRight() {
+    return this.right;
   }
 
   /**
