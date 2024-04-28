@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceException;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.MockedRecipeSource;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
-import edu.brown.cs.student.main.server.RecipeData.Datasource.SearchResult;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.SpoonacularRecipeSource;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import java.io.BufferedReader;
@@ -16,14 +15,10 @@ import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-/**
- * A class for unit testing the RecipeDatasources (Mocked and Real).
- */
+/** A class for unit testing the RecipeDatasources (Mocked and Real). */
 public class TestRecipeDatasource {
 
-  /**
-   * Tests querying mocked source.
-   */
+  /** Tests querying mocked source. */
   @Test
   public void testMockedQuery() {
     List<Recipe> mockedResult = null;
@@ -53,7 +48,8 @@ public class TestRecipeDatasource {
 
     // same mocked result regardless of query parameters
     assertEquals(mockedResult, mockedSrc.queryRecipes(2, null, null, null, null, null, null, 60));
-    assertEquals(mockedResult, mockedSrc.queryRecipes(5, "american", null, null, "dairy", null, null, 10));
+    assertEquals(
+        mockedResult, mockedSrc.queryRecipes(5, "american", null, null, "dairy", null, null, 10));
   }
 
   /**
@@ -64,15 +60,15 @@ public class TestRecipeDatasource {
   @Test
   public void testInvalidQuery() throws DatasourceException {
     SpoonacularRecipeSource src = new SpoonacularRecipeSource();
-    assertThrows(IllegalArgumentException.class, () -> src.queryRecipes(-1, null, null, null, null, null, null, 60));
-    assertThrows(IllegalArgumentException.class, () -> src.queryRecipes(150, null, null, null, null, null, null, 60));
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> src.queryRecipes(-1, null, null, null, null, null, null, 60));
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> src.queryRecipes(150, null, null, null, null, null, null, 60));
   }
 
-  /**
-   * TODO: basic test of real datasource query, returns >0 results
-   */
+  /** TODO: basic test of real datasource query, returns >0 results */
 
-  /**
-   * TODO: test argument generation, might need to make that a public method
-   */
+  /** TODO: test argument generation, might need to make that a public method */
 }

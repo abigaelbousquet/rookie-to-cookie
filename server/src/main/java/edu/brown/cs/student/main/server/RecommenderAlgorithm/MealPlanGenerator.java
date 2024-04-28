@@ -1,19 +1,22 @@
 package edu.brown.cs.student.main.server.RecommenderAlgorithm;
 
-import edu.brown.cs.student.main.server.RecipeData.MealPlan;
+import static org.testng.AssertJUnit.assertEquals;
+
 import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceException;
-import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeDatasource;
+import edu.brown.cs.student.main.server.RecipeData.MealPlan;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities.GeneratorUtilities;
+import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities.RecipeFrequencyPair;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.concurrent.ExecutionException;
 
-/**
- * A class describing a MealPlanGenerator and its associated algorithmic methods.
- */
+/** A class describing a MealPlanGenerator and its associated algorithmic methods. */
 public class MealPlanGenerator {
   private final RecipeDatasource DATASOURCE;
   private final Mode recipes;
@@ -32,8 +35,8 @@ public class MealPlanGenerator {
   private final String UID;
 
   /**
-   * Constructor for the MealPlanGenerator class to initialize private
-   * instance variables for the class
+   * Constructor for the MealPlanGenerator class to initialize private instance variables for the
+   * class
    *
    * @param recipeSource
    * @param mode
@@ -50,14 +53,19 @@ public class MealPlanGenerator {
    * @throws InterruptedException
    * @throws IOException
    */
-  public MealPlanGenerator(RecipeDatasource recipeSource, Mode mode, String daysOfWeek, int servings,
+  public MealPlanGenerator(
+      RecipeDatasource recipeSource,
+      Mode mode,
+      String daysOfWeek,
+      int servings,
       String cuisine,
       String excludeCuisine,
       String diet,
       String intolerances,
       int maxReadyTime,
       StorageInterface firebaseData,
-      String uid) throws ExecutionException, InterruptedException, IOException {
+      String uid)
+      throws ExecutionException, InterruptedException, IOException {
     this.recipes = mode;
     this.REQUESTED_SERVINGS = servings;
     this.CUISINE = cuisine;
@@ -69,25 +77,27 @@ public class MealPlanGenerator {
     this.DAYS_TO_PLAN = parseDays(daysOfWeek);
     setIntolerancesAndAllergens(intolerances);
     this.DATASOURCE = recipeSource;
-    this.dislikedRecipes = GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
-    this.likedRecipes = GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+    this.dislikedRecipes =
+        GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+    this.likedRecipes =
+        GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
   }
 
   /**
-   * Generates a MealPlan based on the criteria and mode this MealPlanGenerator was instantiated with.
+   * Generates a MealPlan based on the criteria and mode this MealPlanGenerator was instantiated
+   * with.
    *
    * @return a MealPlan fitting this MealPlanGenerator's criteria recommended in its mode
    * @throws DatasourceException if unsuccessful in querying the recipe datasource for any recipes
-   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting
-   * this generator's criteria
+   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting this
+   *     generator's criteria
    */
   public MealPlan generatePlan() throws DatasourceException, RecipeVolumeException {
     List<Recipe> weekOfRecipes;
     if (this.recipes == Mode.MINIMIZE_FOOD_WASTE) {
       weekOfRecipes = this.minimizeFoodWaste();
-    }
-    else {
-      weekOfRecipes = this.personalize();
+    } else {
+      weekOfRecipes = this.personalized();
     }
     List<Recipe> weekOfRecipesScaledServings = new ArrayList<>(weekOfRecipes);
     for (Recipe recipe : weekOfRecipesScaledServings) {
@@ -109,21 +119,38 @@ public class MealPlanGenerator {
         orderedWeekOfRecipes[i] = recipes.remove(0);
       }
     }
-    return new MealPlan(orderedWeekOfRecipes[0], orderedWeekOfRecipes[1],
-        orderedWeekOfRecipes[2], orderedWeekOfRecipes[3], orderedWeekOfRecipes[4],
-        orderedWeekOfRecipes[5], orderedWeekOfRecipes[6]);
+    return new MealPlan(
+        orderedWeekOfRecipes[0],
+        orderedWeekOfRecipes[1],
+        orderedWeekOfRecipes[2],
+        orderedWeekOfRecipes[3],
+        orderedWeekOfRecipes[4],
+        orderedWeekOfRecipes[5],
+        orderedWeekOfRecipes[6]);
   }
 
   /**
    * Method to parse the intolerances and allergens from a cs string
+   *
    * @param fullString
    */
   private void setIntolerancesAndAllergens(String fullString) {
     if (fullString == null || fullString.isEmpty()) {
       return;
     }
-    String[] supportedIntolerances = {"dairy", "egg", "gluten", "peanut", "sesame",
-        "seafood", "shellfish", "soy", "sulfite", "tree%20nut", "wheat"};
+    String[] supportedIntolerances = {
+      "dairy",
+      "egg",
+      "gluten",
+      "peanut",
+      "sesame",
+      "seafood",
+      "shellfish",
+      "soy",
+      "sulfite",
+      "tree%20nut",
+      "wheat"
+    };
     List<String> supportedIntolerancesList = Arrays.stream(supportedIntolerances).toList();
     String[] args = fullString.split(",");
     String intolerances = "";
@@ -147,21 +174,22 @@ public class MealPlanGenerator {
     if (excludeIngredients.isEmpty()) {
       this.EXCLUDE_INGREDIENTS = null;
     } else {
-      this.EXCLUDE_INGREDIENTS = excludeIngredients.substring(0, excludeIngredients.length()-1);
+      this.EXCLUDE_INGREDIENTS = excludeIngredients.substring(0, excludeIngredients.length() - 1);
     }
   }
 
   /**
-   * Method to parse the given CSV string into a boolean array representing which
-   * days of the week have recipes.
+   * Method to parse the given CSV string into a boolean array representing which days of the week
+   * have recipes.
    *
    * @param daysOfWeek
    * @return
    */
-  private boolean[] parseDays(String daysOfWeek){
+  private boolean[] parseDays(String daysOfWeek) {
     int count = 0;
+    String daysOfWeekLowercase = daysOfWeek.toLowerCase();
     boolean[] booleanArray = new boolean[7];
-    String[] dayofWeekArray = daysOfWeek.split(",");
+    String[] dayofWeekArray = daysOfWeekLowercase.split(",");
     for (int i = 0; i < 7; i++) {
       booleanArray[i] = false;
       String day = dayofWeekArray[i];
@@ -175,87 +203,115 @@ public class MealPlanGenerator {
   }
 
   /**
+   * Queries this Generator's data source for a List of Recipes fitting this Generator's base
+   * criteria and filters results for quality Recipes based on Spoonacular scores.
+   *
+   * @param n the number of Recipes to initially query
+   * @param minResultSize the minimum number of Recipes in an acceptable result
+   * @param includeIngredients a String describing optional extra specification of ingredients to
+   *     require in query results
+   * @returns returns a List of at least this.NUM_DAYS_TO_PLAN quality Recipes
+   * @throws DatasourceException if unsuccessful in querying Spoonacular for any recipes
+   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting this
+   *     generator's criteria
+   */
+  private List<Recipe> queryQualitySearchResults(
+      int n, int minResultSize, String includeIngredients)
+      throws DatasourceException, RecipeVolumeException {
+    List<Recipe> searchResults =
+        this.DATASOURCE.queryRecipes(
+            n,
+            this.CUISINE,
+            this.EXCLUDE_CUISINE,
+            this.DIET,
+            this.INTOLERANCES,
+            this.EXCLUDE_INGREDIENTS,
+            includeIngredients,
+            this.MAX_READY_TIME);
+    List<Recipe> goodResults = GeneratorUtilities.filterGoodRatings(searchResults);
+    int numGoodResults = goodResults.size();
+    if (numGoodResults < minResultSize) {
+      throw new RecipeVolumeException(
+          "Caller requested "
+              + minResultSize
+              + " recipes, but only "
+              + numGoodResults
+              + " quality recipes fitting their needs "
+              + "could be found.");
+    } else {
+      return goodResults;
+    }
+  }
+
+  /**
    * Generates a list of Recipes fitting user criteria this MealPlanGenerator was constructed with,
    * prioritizing minimizing food waste in the synthesized list of Recipes returned.
    *
    * @return a list of NUM_DAYS_TO_PLAN Recipes fitting the criteria this was instantiated with
    * @throws DatasourceException if unsuccessful in querying Spoonacular for any recipes
-   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting
-   * this generator's criteria
+   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting this
+   *     generator's criteria
    */
   public List<Recipe> minimizeFoodWaste() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting recipe to base the rest of the food-waste-minimizing recipes on
-    List<Recipe> searchResults = this.DATASOURCE.queryRecipes(15, this.CUISINE,
-        this.EXCLUDE_CUISINE, this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS,
-        null, this.MAX_READY_TIME);
-    List<Recipe> goodResults = GeneratorUtilities.filterGoodRatings(searchResults);
-    int numGoodResults = goodResults.size();
-    if (numGoodResults < this.NUM_DAYS_TO_PLAN) {
-      throw new RecipeVolumeException("Caller requested " + this.NUM_DAYS_TO_PLAN +
-          " recipes, but only " + numGoodResults + " quality recipes fitting their needs "
-          + "could be found.");
-    }
-
+    List<Recipe> goodResults = this.queryQualitySearchResults(15, this.NUM_DAYS_TO_PLAN, null);
     Recipe firstRecipe = goodResults.get(0);
     List<Recipe> algorithmResults = new ArrayList<>();
     algorithmResults.add(firstRecipe);
 
     if (this.NUM_DAYS_TO_PLAN > 1) {
       // PART 2 - fill in the rest of the week's recipes sharing the main ingredient of the first
-      String mainIngredient = GeneratorUtilities.findMostAbundantIngredients(firstRecipe,
-              1).get(0);
-      searchResults = this.DATASOURCE.queryRecipes(30, this.CUISINE,
-              this.EXCLUDE_CUISINE,
-          this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS, mainIngredient,
-              this.MAX_READY_TIME);
-      goodResults = GeneratorUtilities.filterGoodRatings(searchResults);
-      numGoodResults = goodResults.size();
-      if (numGoodResults < (this.NUM_DAYS_TO_PLAN-1)) {
-        throw new RecipeVolumeException("Caller requested " + this.NUM_DAYS_TO_PLAN +
-            " recipes, but only " + (numGoodResults+1) + " quality recipes fitting their "
-            + "needs could be found.");
-      }
-      algorithmResults.addAll(goodResults.subList(0, this.NUM_DAYS_TO_PLAN-1));
+      String mainIngredient = GeneratorUtilities.findMostAbundantIngredients(firstRecipe, 1).get(0);
+      goodResults = this.queryQualitySearchResults(30, this.NUM_DAYS_TO_PLAN - 1, mainIngredient);
+      algorithmResults.addAll(goodResults.subList(0, this.NUM_DAYS_TO_PLAN - 1));
     }
-    assert(algorithmResults.size() == this.NUM_DAYS_TO_PLAN);
+    assert (algorithmResults.size() == this.NUM_DAYS_TO_PLAN);
     return algorithmResults;
   }
 
-//  /**
-//   * Method to calculate the similarity between two recipes
-//   * @param recipe1
-//   * @param recipe2
-//   * @return
-//   */
-//  private double calculateSimilarity(Recipe recipe1, Recipe recipe2) {
-//    // Method to calculate dissimilarity based on ingredient overlap
-//    List<Ingredient> ingredients1 = recipe1.getExtendedIngredients();
-//    List<Ingredient> ingredients2 = recipe2.getExtendedIngredients();
-//
-//    // Calculate the intersection (overlap) of ingredients
-//    Set<Ingredient> intersection = new HashSet<>(ingredients1);
-//    intersection.retainAll(ingredients2);
-//
-//    // Calculate the Jaccard similarity coefficient
-//    double similarity = (double) intersection.size()
-//            / (ingredients1.size() + ingredients2.size() - intersection.size());
-//    return similarity;
-//  }
+  /**
+   * Generates a list of Recipes fitting user criteria this MealPlanGenerator was constructed with,
+   * prioritizing minimizing Recipes similar to the user's disliked recipes and maximizing Recipes
+   * similar to the user's liked recipes.
+   *
+   * @return a list of NUM_DAYS_TO_PLAN Recipes fitting the criteria this was instantiated with
+   * @throws DatasourceException if unsuccessful in querying Spoonacular for any recipes
+   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting this
+   *     generator's criteria
+   */
+  public List<Recipe> personalized() throws DatasourceException, RecipeVolumeException {
+    // PART 1 - get a starting list of quality recipes fitting user needs
+    List<Recipe> goodResults =
+        this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN * 6, this.NUM_DAYS_TO_PLAN * 3, null);
 
-  public List<Recipe> personalize() throws DatasourceException {
-    //TODO: implement
-//    for (Recipe recipe : this.likedRecipes) {
-//      List<String> mostImportantLiked = GeneratorUtilities.findMostAbundantIngredients(recipe, 3);
-//      List<Recipe> searchResults = this.DATASOURCE.queryRecipes(30, this.CUISINE,
-//              this.EXCLUDE_CUISINE,
-//              this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS, mostImportantLiked.get(0),
-//              this.MAX_READY_TIME);
-//    }
-//    for (Recipe recipe : this.dislikedRecipes) {
-//      List<String> mostImportantLiked = GeneratorUtilities.findMostAbundantIngredients(recipe, 3);
-//    }
-    return new ArrayList<>();
+    // TODO: if the above throws a RecipeVolumeException, should I check if just NUM_DAYS_TO_PLAN
+    // recipes are available, and if so return that?
+
+    // PART 2 - eliminate Recipes most similar to user's disliked Recipes
+    PriorityQueue<RecipeFrequencyPair> badQueue =
+        GeneratorUtilities.getNearestNeighborsToListRecipes(
+            goodResults, this.dislikedRecipes, goodResults.size() / 3);
+
+    // ELIMINATE these nearest neighbors
+    for (RecipeFrequencyPair recipeWithFrequency : badQueue) {
+      goodResults.remove(recipeWithFrequency.recipe());
+    }
+    assert (goodResults.size() >= this.NUM_DAYS_TO_PLAN);
+
+    // TODO: this should never be equal to NUM_DAYS_TO_PLAN, in theory should be 2*that, but if it
+    // is possible and size == NUM_DAYS then we should short circuit here and return goodResults
+
+    // PART 3 - get the top NUM_DAYS_TO_PLAN Recipes most similar to the most liked Recipes
+    PriorityQueue<RecipeFrequencyPair> goodQueue =
+        GeneratorUtilities.getNearestNeighborsToListRecipes(
+            goodResults, this.likedRecipes, this.NUM_DAYS_TO_PLAN);
+
+    // SAVE these nearest neighbors
+    List<Recipe> bestRecipes = new ArrayList<>();
+    for (RecipeFrequencyPair recipeWithFrequency : goodQueue) {
+      bestRecipes.add(recipeWithFrequency.recipe());
+    }
+    assertEquals(this.NUM_DAYS_TO_PLAN, bestRecipes.size());
+    return bestRecipes;
   }
-
-
 }

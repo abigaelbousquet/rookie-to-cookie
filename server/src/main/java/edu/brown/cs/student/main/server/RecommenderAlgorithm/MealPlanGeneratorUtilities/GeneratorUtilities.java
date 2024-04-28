@@ -1,18 +1,22 @@
-package edu.brown.cs.student.main.server.RecommenderAlgorithm;
+package edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities;
 
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Ingredient;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree.RecipeRecommendationKDTree;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.concurrent.ExecutionException;
 
-/**
- * A class for utility methods associated with a MealPlanGenerator.
- */
+/** A class for utility methods associated with a MealPlanGenerator. */
 public class GeneratorUtilities {
 
   /**
@@ -41,6 +45,49 @@ public class GeneratorUtilities {
       }
     }
     return goodRecipes;
+  }
+
+  /**
+   * Finds the n nearest neighbors of a candidate list of recipes closest to the most recipes in a
+   * history list of recipes.
+   *
+   * @param candidates the list of candidate Recipes
+   * @param history the list of historical Recipes to find the nearest neighbors of in candidates
+   * @param n the number of nearest neighbors to produce
+   * @return a Priority Queue of n RecipeFrequencyPairs corresponding to the n overall nearest
+   *     neighbors of candidates to the Recipes in history
+   */
+  public static PriorityQueue<RecipeFrequencyPair> getNearestNeighborsToListRecipes(
+      List<Recipe> candidates, List<Recipe> history, int n) {
+    // create a K-D tree for finding nearest neighbors with
+    RecipeRecommendationKDTree tree = new RecipeRecommendationKDTree();
+    for (Recipe r : candidates) {
+      tree.insert(r);
+    }
+
+    // find the Recipes in candidates most similar to each of the history's Recipes
+    Map<Recipe, Integer> similarRecipesWithFrequencies = new HashMap<>();
+    for (Recipe historicalRecipe : history) {
+      List<Recipe> nearestNeighbors = tree.nearestNeighbors(historicalRecipe, n);
+      for (Recipe neighbor : nearestNeighbors) {
+        if (similarRecipesWithFrequencies.containsKey(neighbor)) {
+          // increase frequency count
+          similarRecipesWithFrequencies.put(
+              neighbor, similarRecipesWithFrequencies.get(neighbor) + 1);
+        } else {
+          // add to map with initial frequency of 1
+          similarRecipesWithFrequencies.put(neighbor, 1);
+        }
+      }
+    }
+
+    // capture the top n Recipes in candidates most similar to the most Recipes in history
+    PriorityQueue<RecipeFrequencyPair> queue =
+        new PriorityQueue<>(new RecipeFrequencyPairComparator());
+    for (Recipe r : similarRecipesWithFrequencies.keySet()) {
+      addAndTrimQueue(queue, new RecipeFrequencyPair(r, similarRecipesWithFrequencies.get(r)), n);
+    }
+    return queue;
   }
 
   /**
@@ -88,16 +135,17 @@ public class GeneratorUtilities {
   }
 
   /**
-   * Method to take in a recipe and find the most important ingredients
-   * in the recipe based on the passed in number of ingredients
+   * Method to take in a recipe and find the most important ingredients in the recipe based on the
+   * passed in number of ingredients
+   *
    * @param recipe
    * @param numberOfIngredients
    * @return
    */
-  public static List<String> findMostAbundantIngredients(Recipe recipe,
-      int numberOfIngredients) {
+  public static List<String> findMostAbundantIngredients(Recipe recipe, int numberOfIngredients) {
     List<Ingredient> extendedIngredients = recipe.getExtendedIngredients();
-    Map<String, Double> ingredientQuantities = new HashMap<>(); // Map to store aggregated quantities
+    Map<String, Double> ingredientQuantities =
+        new HashMap<>(); // Map to store aggregated quantities
 
     // Iterate through each ingredient
     for (Ingredient ingredient : extendedIngredients) {
@@ -109,13 +157,12 @@ public class GeneratorUtilities {
       double commonQuantity = convertToGrams(quantity, unit);
 
       // Aggregate quantities for each ingredient
-      ingredientQuantities.put(name, ingredientQuantities.getOrDefault(name,
-          0.0) + commonQuantity);
+      ingredientQuantities.put(name, ingredientQuantities.getOrDefault(name, 0.0) + commonQuantity);
     }
 
     // Sort the ingredients by their aggregated quantities in descending order
-    List<Map.Entry<String, Double>> sortedIngredients = new ArrayList<>
-        (ingredientQuantities.entrySet());
+    List<Map.Entry<String, Double>> sortedIngredients =
+        new ArrayList<>(ingredientQuantities.entrySet());
     sortedIngredients.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
     // Extract the most abundant ingredients up to the specified number
@@ -127,6 +174,31 @@ public class GeneratorUtilities {
     return mostAbundantIngredients;
   }
 
+  //  private String findMostAbundantIngredient(Recipe recipe) {
+  //    List<Ingredient> extendedIngredients = recipe.getExtendedIngredients();
+  //    Map<String, Double> ingredientQuantities = new HashMap<>(); // Map to store aggregated
+  // quantities
+  //
+  //    // Iterate through each ingredient
+  //    for (Ingredient ingredient : extendedIngredients) {
+  //      String name = ingredient.getName();
+  //      double quantity = ingredient.getMeasures().getUs().getAmount();
+  //      String unit = ingredient.getMeasures().getUs().getUnitLong();
+  //
+  //      // Convert quantity to a common unit (e.g., grams)
+  //      double commonQuantity = convertToGrams(quantity, unit);
+  //
+  //      // Aggregate quantities for each ingredient
+  //      ingredientQuantities.put(name, ingredientQuantities.getOrDefault(name, 0.0)
+  //          + commonQuantity);
+  //    }
+  //
+  //    // Find the ingredient with the highest aggregated quantity
+  //    String mostAbundantIngredient = Collections.max(ingredientQuantities.entrySet(),
+  //        Map.Entry.comparingByValue()).getKey();
+  //    return mostAbundantIngredient;
+  //  }
+
   /**
    * Method to convert the given firebase data into a list of recipes.
    *
@@ -137,20 +209,13 @@ public class GeneratorUtilities {
    */
   public static List<Recipe> convertFirebaseData(List<Map<String, Object>> firebaseData)
       throws IllegalArgumentException, IOException {
-    if (firebaseData == null || firebaseData == null) {
-      return null;
-    }
     List<Recipe> recipes = new ArrayList<>();
-
     for (Map<String, Object> recipeData : firebaseData) {
-      Set<String> keys = recipeData.keySet();
-      for (String key : keys)
-      {
-        String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson((Map<String, Object>) recipeData.get(key));
-        Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
-        if (recipe != null) {
-          recipes.add(recipe);
-        }
+      // Deserialize each map entry into a Recipe object
+      String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeData);
+      Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
+      if (recipe != null) {
+        recipes.add(recipe);
       }
     }
     return recipes;
@@ -166,8 +231,8 @@ public class GeneratorUtilities {
   public static void addToFirebase(String uid, StorageInterface firebaseData, MealPlan plan) {
     Map<String, Object> data = new HashMap<>();
     // also need a way to find date range, for now just gonna call mealplan-1, etc
-    int mealCount =0;
-    String planId="default";
+    int mealCount = 0;
+    String planId = "default";
     try {
       mealCount = firebaseData.getCollection(uid, "Mealplans").size();
       planId = "mealplan-" + mealCount;
@@ -183,4 +248,19 @@ public class GeneratorUtilities {
     firebaseData.addDocument(uid, "Mealplans", planId, data);
   }
 
+  /**
+   * Adds a new RecipeFrequencyPair to a PriorityQueue of RecipeFrequencyPairs and trims the queue
+   * to a max length.
+   *
+   * @param queue the queue to add to and trim
+   * @param newPair the new DistanceRecipePair to add to queue
+   * @param n the number of DistanceRecipePairs to restrict the final length of queue to
+   */
+  public static void addAndTrimQueue(
+      PriorityQueue<RecipeFrequencyPair> queue, RecipeFrequencyPair newPair, int n) {
+    queue.add(newPair);
+    while (queue.size() > n) {
+      queue.remove();
+    }
+  }
 }

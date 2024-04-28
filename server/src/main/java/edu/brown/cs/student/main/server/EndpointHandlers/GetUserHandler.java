@@ -1,19 +1,16 @@
 package edu.brown.cs.student.main.server.EndpointHandlers;
 
-import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
-import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.UserData.Profile;
 import edu.brown.cs.student.main.server.UserData.ProfileUtilities;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import spark.Request;
+import spark.Response;
+import spark.Route;
 
 public class GetUserHandler implements Route {
 
@@ -43,11 +40,12 @@ public class GetUserHandler implements Route {
       ArrayList<Profile> users = new ArrayList<>();
       // convert the key,value map to just a list of the words.
       for (Map<String, Object> profileMap : vals) {
-        String profileJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson((Map<String, Object>) profileMap.get("User"));
+        String profileJson =
+            FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(
+                (Map<String, Object>) profileMap.get("User"));
 
         Profile user = ProfileUtilities.deserializeProfile(profileJson);
         users.add(user);
-
       }
 
       responseMap.put("response_type", "success");

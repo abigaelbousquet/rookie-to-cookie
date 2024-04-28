@@ -19,7 +19,7 @@
     <sortpom.version>3.0.0</sortpom.version>
 
     <!-- Spotless -->
-    <spotless.version>2.22.8</spotless.version>
+    <spotless.version>2.43.0</spotless.version>
   </properties>
 
   <dependencies>
@@ -42,14 +42,6 @@
       <artifactId>moshi-adapters</artifactId>
       <version>1.13.0</version>
     </dependency>
-
-<!--&lt;!&ndash;    for the measurement&ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>tech.units</groupId>-->
-<!--      <artifactId>indriya</artifactId>-->
-<!--      <version>4.1</version>-->
-<!--    </dependency>-->
-
 
     <!--
            Spark is a lightweight framework for creating web applications.

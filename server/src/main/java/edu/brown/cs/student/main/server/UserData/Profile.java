@@ -2,9 +2,7 @@ package edu.brown.cs.student.main.server.UserData;
 
 import java.util.List;
 
-/**
- * A class describing a user profile.
- */
+/** A class describing a user profile. */
 public class Profile {
   private String name;
   private int exp;
@@ -19,8 +17,7 @@ public class Profile {
    * @param intolerances a list of the user's intolerances
    * @param diet a list of the user's followed diets
    */
-  public Profile(
-      String name, int exp, List<String> intolerances, List<String> diet) {
+  public Profile(String name, int exp, List<String> intolerances, List<String> diet) {
     this.name = name;
     this.exp = exp;
     this.intolerances = intolerances;
@@ -62,5 +59,4 @@ public class Profile {
   public List<String> getDiet() {
     return this.diet;
   }
-
 }

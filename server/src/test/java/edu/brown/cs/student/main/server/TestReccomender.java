@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 
 public class TestReccomender {
 
-    @Test
-    public void testMinimizeFoodWaste() {
-
-    }
+  @Test
+  public void testMinimizeFoodWaste() {}
 }

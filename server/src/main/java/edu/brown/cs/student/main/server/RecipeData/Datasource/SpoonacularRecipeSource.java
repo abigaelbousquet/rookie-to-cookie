@@ -12,6 +12,7 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
 
   /** TEMPORARILY HOLDING API KEYS HERE, DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
   private final String SPOONACULAR_API_KEY = "0a62b4c389mshb21117420450909p1ec0ddjsna24820635fcb";
+
   /** DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
   private final String SPOONACULAR_HOST = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
 
@@ -84,8 +85,7 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
               .build();
       HttpResponse<String> response =
           HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-      SearchResult recipeResults =
-          RecipeUtilities.deserializeSearchResult(response.body());
+      SearchResult recipeResults = RecipeUtilities.deserializeSearchResult(response.body());
       return recipeResults.getResults();
 
     } catch (IOException | IllegalArgumentException | InterruptedException e) {

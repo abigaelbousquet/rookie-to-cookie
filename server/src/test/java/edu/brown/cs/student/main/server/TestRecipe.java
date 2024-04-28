@@ -15,16 +15,14 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * A class for unit testing of methods in the Recipe and RecipeUtilities classes.
- */
+/** A class for unit testing of methods in the Recipe and RecipeUtilities classes. */
 public class TestRecipe {
   private SearchResult searchResult;
   private Recipe exampleRecipe;
 
   /**
-   * Before each to initialize a sample SearchResult and Recipe to test with, deserialized from
-   * a saved json file to avoid unnecessary calls to the Spoonacular API.
+   * Before each to initialize a sample SearchResult and Recipe to test with, deserialized from a
+   * saved json file to avoid unnecessary calls to the Spoonacular API.
    */
   @BeforeEach
   public void getSampleSearchResults() {
@@ -52,9 +50,7 @@ public class TestRecipe {
     }
   }
 
-  /**
-   * Tests that scaling a Recipe works as expected.
-   */
+  /** Tests that scaling a Recipe works as expected. */
   @Test
   public void testScale() {
     assertEquals(6, this.exampleRecipe.getServings());
@@ -73,7 +69,7 @@ public class TestRecipe {
 
     assertEquals(ogAmounts.size(), scaledAmounts.size());
     for (int i = 0; i < ogAmounts.size(); i++) {
-      assertEquals(2*(ogAmounts.get(i)), scaledAmounts.get(i));
+      assertEquals(2 * (ogAmounts.get(i)), scaledAmounts.get(i));
     }
   }
 }

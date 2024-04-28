@@ -5,10 +5,7 @@ import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
-
 import java.util.*;
-
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -57,10 +54,8 @@ public class AddDislikedRecipeHandler implements Route {
         }
       }
 
-
       System.out.println("adding recipeId: " + recipeId + " for user: " + uid);
       this.storageHandler.getCollection(uid, "Mealplans");
-
 
       // use the storage handler to add the document to the database
       this.storageHandler.addDocument(uid, "disliked recipes", recipeId, data);
