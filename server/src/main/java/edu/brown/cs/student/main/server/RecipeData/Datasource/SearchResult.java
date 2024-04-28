@@ -12,12 +12,12 @@ public class SearchResult {
   /**
    * Constructor for the SearchResult class.
    *
-   * @param number the number of Recipes requested to search for
+   * @param numberRequested the number of Recipes requested to search for
    * @param totalResults the number of Recipes retrieved in the search
    * @param results the list of Recipes found in the search, or length totalResults
    */
-  public SearchResult(int number, int totalResults, List<Recipe> results) {
-    this.number = number;
+  public SearchResult(int numberRequested, int totalResults, List<Recipe> results) {
+    this.number = numberRequested;
     this.totalResults = totalResults;
     this.results = results;
   }
