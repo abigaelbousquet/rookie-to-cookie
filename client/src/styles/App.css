@@ -6,10 +6,18 @@
   background-image: linear-gradient(#fab375, #e58a44);
   min-height: 9vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
   font-size: calc(1px + 2vmin);
   color: white;
   font-family: "Courier New", Courier, monospace;
+}
+.logo {
+  width: 100px;
+  height: 100px;
+  justify-content: left;
+  background-image: url("../graphics/rookie_to_cookie.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
 }

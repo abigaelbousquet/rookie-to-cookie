@@ -1,0 +1,28 @@
+.profile-container {
+  display: flex;
+}
+
+.exp3 {
+  width: 300px;
+  height: 300px;
+  justify-content: left;
+  background-image: url("../graphics/master.PNG");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.exp2 {
+  width: 300px;
+  height: 300px;
+  justify-content: left;
+  background-image: url("../graphics/moderate.PNG");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.exp1 {
+  width: 300px;
+  height: 300px;
+  justify-content: left;
+  background-image: url("../graphics/beginner.PNG");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}

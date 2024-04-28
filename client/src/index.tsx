@@ -1,16 +1,14 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import "./styles/index.css";
-import App from "./components/App.tsx";
+import App from "./components/App";
 
 // Tim removed some boilerplate to keep things simple.
 // We're using an older version of React here.
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById("root")
 );

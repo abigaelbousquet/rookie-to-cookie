@@ -1,6 +1,7 @@
 // AccountCreationPopup.tsx
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import "./../../styles/login.css";
 import Select from "react-select";
 
 import React, { Dispatch, SetStateAction, useState } from "react";

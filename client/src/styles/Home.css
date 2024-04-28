@@ -1,0 +1,132 @@
+/* Global styles */
+.Home {
+  display: grid;
+  grid-template-areas:
+    "title title"
+    "days-of-the-week-prompt days-of-the-week-buttons"
+    "cuisine-prompt algorithm-prompt"
+    "cuisine-options algorithm-options"
+    "intolerance-prompt people-prompt"
+    "intolerance-options people-options"
+    "exclude-prompt time-prompt"
+    "exclude-options time-options"
+    "generate-button generate-button"
+    "week-calendar week-calendar"
+    "regenerate-button save-button";
+  gap: 20px;
+}
+
+/* Title */
+h1 {
+  grid-area: title;
+}
+
+/* Section of days of the week prompt */
+.days-of-the-week-prompt-text {
+  grid-area: days-of-the-week-prompt;
+}
+
+.days-box {
+  grid-area: days-of-the-week-prompt;
+  background-color: lightgray;
+  padding: 10px; /* Adjust padding as needed */
+}
+
+/* Section of cuisine prompt */
+.cuisine-prompt-text {
+  grid-area: cuisine-prompt;
+}
+
+/* Section of cuisine prompt */
+.algorithm-prompt-text {
+  grid-area: algorithm-prompt;
+}
+
+.exclude-prompt-text {
+  grid-area: exclude-prompt;
+}
+
+.exclude-options-box {
+  grid-area: exclude-options;
+}
+
+.num-people-prompt-text {
+  grid-area: people-prompt;
+}
+
+.num-people-options-box {
+  grid-area: people-options;
+}
+
+.max-time-prompt-text {
+  grid-area: time-prompt;
+}
+
+.max-time-options-box {
+  grid-area: time-options;
+}
+
+.intolerances-prompt-text {
+  grid-area: intolerance-prompt;
+}
+
+.intolerances-options-box {
+  grid-area: intolerance-options;
+}
+
+.generate-button-container {
+  grid-area: generate-button;
+}
+
+/* Generate button styles */
+.generate-button {
+  width: 200px; /* Set width to make it large */
+  height: 60px; /* Set height to make it large */
+  background-color: #974ab1; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none; /* Remove border */
+  border-radius: 10px; /* Add border radius */
+  font-size: 20px; /* Increase font size */
+  cursor: pointer;
+  margin-top: 20px; /* Add margin top to position lower down */
+}
+
+.generate-button:hover {
+  background-color: #7d3c8e;
+}
+
+/* Container for week calendar view */
+.week-calendar-container {
+  grid-area: week-calendar;
+}
+
+.regenerate-button-container {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: flex-end; /* Align content to the left */
+}
+
+.save-data-button-container {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: flex-start; /* Align content to the right */
+}
+
+.regenerate-button,
+.save-button {
+  width: 310px; /* Set a fixed width for both buttons */
+  height: 50px;
+  padding: 12px 0; /* Adjust padding to center the text vertically */
+  background-color: #974ab1;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.regenerate-button:hover,
+.save-button:hover {
+  background-color: #7d3c8e; /* Darker shade on hover */
+}
