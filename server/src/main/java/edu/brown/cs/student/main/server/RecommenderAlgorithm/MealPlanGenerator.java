@@ -254,41 +254,14 @@ public class MealPlanGenerator {
    */
   public List<Recipe> personalize() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting list of quality recipes fitting user needs
-    // TODO: what multiple of days to plan should n be??
     List<Recipe> goodResults = this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN*6, this.NUM_DAYS_TO_PLAN*3, null);
 
     // TODO: if the above throws a RecipeVolumeException, should I check if just NUM_DAYS_TO_PLAN recipes are available, and if so return that?
 
-    // TODO: should we / how should we eliminate recently made recipes?
-
     // PART 2 - eliminate Recipes most similar to user's disliked Recipes
-    RecipeRecommendationKDTree step2Tree = new RecipeRecommendationKDTree();
-    for (Recipe r : goodResults) {
-      step2Tree.insert(r);
-    }
+    PriorityQueue<RecipeFrequencyPair> badQueue = GeneratorUtilities.getNearestNeighborsToListRecipes(goodResults, this.dislikedRecipes, goodResults.size()/3);
 
-    // 2a - find the Recipes in goodResults most similar to each of the user's disliked recipes
-    Map<Recipe, Integer> similarlyBadRecipes = new HashMap<>();
-    for (Recipe badRecipe : this.dislikedRecipes) {
-      // TODO: logic here for n is based on not eliminating any recently made Recipes... final tbd
-      List<Recipe> nearestNeighbors = step2Tree.nearestNeighbors(badRecipe, goodResults.size()/3);
-      for (Recipe neighbor : nearestNeighbors) {
-        if (similarlyBadRecipes.containsKey(neighbor)) {
-          // increase frequency count
-          similarlyBadRecipes.put(neighbor, similarlyBadRecipes.get(neighbor) + 1);
-        } else {
-          // add to map with initial frequency of 1
-          similarlyBadRecipes.put(neighbor, 1);
-        }
-      }
-    }
-
-    // 2b - eliminate the top goodResults.size()/3 Recipes most similar to the most disliked Recipes
-    PriorityQueue<RecipeFrequencyPair> badQueue = new PriorityQueue<>(new RecipeFrequencyPairComparator());
-    for (Recipe r : similarlyBadRecipes.keySet()) {
-      addAndTrimQueue(badQueue, new RecipeFrequencyPair(r, similarlyBadRecipes.get(r)), goodResults.size()/3);
-    }
-
+    // ELIMINATE these nearest neighbors
     for (RecipeFrequencyPair recipeWithFrequency : badQueue) {
       goodResults.remove(recipeWithFrequency.recipe());
     }
@@ -298,32 +271,9 @@ public class MealPlanGenerator {
     // is possible and size == NUM_DAYS then we should short circuit here and return goodResults
 
     // PART 3 - get the top NUM_DAYS_TO_PLAN Recipes most similar to the most liked Recipes
-    RecipeRecommendationKDTree step3Tree = new RecipeRecommendationKDTree();
-    for (Recipe r : goodResults) {
-      step3Tree.insert(r);
-    }
+    PriorityQueue<RecipeFrequencyPair> goodQueue = GeneratorUtilities.getNearestNeighborsToListRecipes(goodResults, this.likedRecipes, this.NUM_DAYS_TO_PLAN);
 
-    // 3a - find the Recipes in goodResults most similar to each of the user's liked recipes
-    Map<Recipe, Integer> similarlyGoodRecipes = new HashMap<>();
-    for (Recipe goodRecipe : this.likedRecipes) {
-      List<Recipe> nearestNeighbors = step3Tree.nearestNeighbors(goodRecipe, this.NUM_DAYS_TO_PLAN);
-      for (Recipe neighbor : nearestNeighbors) {
-        if (similarlyGoodRecipes.containsKey(neighbor)) {
-          // increase frequency count
-          similarlyGoodRecipes.put(neighbor, similarlyGoodRecipes.get(neighbor) + 1);
-        } else {
-          // add to map with initial frequency of 1
-          similarlyGoodRecipes.put(neighbor, 1);
-        }
-      }
-    }
-
-    // 3b - capture the top NUM_DAYS_TO_PLAN Recipes most similar to the most liked Recipes
-    PriorityQueue<RecipeFrequencyPair> goodQueue = new PriorityQueue<>(new RecipeFrequencyPairComparator());
-    for (Recipe r : similarlyGoodRecipes.keySet()) {
-      addAndTrimQueue(goodQueue, new RecipeFrequencyPair(r, similarlyGoodRecipes.get(r)), this.NUM_DAYS_TO_PLAN);
-    }
-
+    // SAVE these nearest neighbors
     List<Recipe> bestRecipes = new ArrayList<>();
     for (RecipeFrequencyPair recipeWithFrequency : goodQueue) {
       bestRecipes.add(recipeWithFrequency.recipe());

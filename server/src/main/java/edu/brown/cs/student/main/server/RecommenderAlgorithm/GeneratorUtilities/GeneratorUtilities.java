@@ -4,6 +4,7 @@ import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Ingredient;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
+import edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree.RecipeRecommendationKDTree;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
@@ -46,6 +47,45 @@ public class GeneratorUtilities {
       }
     }
     return goodRecipes;
+  }
+
+  /**
+   * Finds the n nearest neighbors of a candidate list of recipes closest to the most recipes
+   * in a history list of recipes.
+   *
+   * @param candidates the list of candidate Recipes
+   * @param history the list of historical Recipes to find the nearest neighbors of in candidates
+   * @param n the number of nearest neighbors to produce
+   * @return a Priority Queue of n RecipeFrequencyPairs corresponding to the n overall nearest neighbors of candidates to the Recipes in history
+   */
+  public static PriorityQueue<RecipeFrequencyPair> getNearestNeighborsToListRecipes(List<Recipe> candidates, List<Recipe> history, int n) {
+    // create a K-D tree for finding nearest neighbors with
+    RecipeRecommendationKDTree tree = new RecipeRecommendationKDTree();
+    for (Recipe r : candidates) {
+      tree.insert(r);
+    }
+
+    // find the Recipes in candidates most similar to each of the history's Recipes
+    Map<Recipe, Integer> similarRecipesWithFrequencies = new HashMap<>();
+    for (Recipe historicalRecipe : history) {
+      List<Recipe> nearestNeighbors = tree.nearestNeighbors(historicalRecipe, n);
+      for (Recipe neighbor : nearestNeighbors) {
+        if (similarRecipesWithFrequencies.containsKey(neighbor)) {
+          // increase frequency count
+          similarRecipesWithFrequencies.put(neighbor, similarRecipesWithFrequencies.get(neighbor) + 1);
+        } else {
+          // add to map with initial frequency of 1
+          similarRecipesWithFrequencies.put(neighbor, 1);
+        }
+      }
+    }
+
+    // capture the top n Recipes in candidates most similar to the most Recipes in history
+    PriorityQueue<RecipeFrequencyPair> queue = new PriorityQueue<>(new RecipeFrequencyPairComparator());
+    for (Recipe r : similarRecipesWithFrequencies.keySet()) {
+      addAndTrimQueue(queue, new RecipeFrequencyPair(r, similarRecipesWithFrequencies.get(r)), n);
+    }
+    return queue;
   }
 
   /**
