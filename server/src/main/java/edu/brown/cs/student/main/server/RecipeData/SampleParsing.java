@@ -22,12 +22,12 @@ public class SampleParsing {
     /** QUERYING SPOONACULAR API */
     try {
       SpoonacularRecipeSource spoonacular = new SpoonacularRecipeSource();
-      List<Recipe> results = spoonacular.queryRecipes(4, null, null, null, null, null, null, 60);
-      SearchResult resultsObject = new SearchResult(2, results.size(), results);
+      List<Recipe> results = spoonacular.queryRecipes(15, null, null, null, null, null, null, 60);
+      SearchResult resultsObject = new SearchResult(15, results.size(), results);
 
       // ********************* SAVING ***********************
       System.out.println("Beginning to save read String.");
-      FileWriter jsonWriter = new FileWriter("data/exampleSearchResultLength4Take2.json");
+      FileWriter jsonWriter = new FileWriter("data/exampleResults.json");
       BufferedWriter bw = new BufferedWriter(jsonWriter);
       String serializedResults = RecipeUtilities.SEARCH_RESULT_JSON_ADAPTER.toJson(resultsObject);
       bw.write(serializedResults);
