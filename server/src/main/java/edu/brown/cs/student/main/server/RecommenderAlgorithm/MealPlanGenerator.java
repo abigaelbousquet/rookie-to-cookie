@@ -103,7 +103,7 @@ public class MealPlanGenerator {
     for (Recipe recipe : weekOfRecipesScaledServings) {
       recipe.scaleRecipe(this.REQUESTED_SERVINGS);
     }
-    return this.createMealPlan(weekOfRecipesScaledServings);
+    return this.createMealPlanFromRecipeList(weekOfRecipesScaledServings);
   }
 
   /**
@@ -112,7 +112,7 @@ public class MealPlanGenerator {
    * @param recipes
    * @return
    */
-  private MealPlan createMealPlan(List<Recipe> recipes) {
+  private MealPlan createMealPlanFromRecipeList(List<Recipe> recipes) {
     Recipe[] orderedWeekOfRecipes = {null, null, null, null, null, null, null}; // index 0 is Sunday
     for (int i = 0; i < 7; i++) {
       if (this.DAYS_TO_PLAN[i]) {
