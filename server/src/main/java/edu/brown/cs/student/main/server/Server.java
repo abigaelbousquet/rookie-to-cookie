@@ -9,10 +9,9 @@ import edu.brown.cs.student.main.server.EndpointHandlers.ClearUserHandler;
 import edu.brown.cs.student.main.server.EndpointHandlers.ListLikedRecipesHandler;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceException;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
-import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeDatasource;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.SpoonacularRecipeSource;
-import edu.brown.cs.student.main.server.RecommenderAlgorithm.GeneratorUtilities;
+import edu.brown.cs.student.main.server.RecommenderAlgorithm.GeneratorUtilities.GeneratorUtilities;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGenerator;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.Mode;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.RecipeVolumeException;
@@ -22,7 +21,6 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import spark.Filter;
 import spark.Spark;
-import java.util.List;
 
 /**
  * Top Level class for our project, utilizes spark to create and maintain our
