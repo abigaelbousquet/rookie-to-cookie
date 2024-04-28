@@ -9,6 +9,7 @@ import IntegerInput from "../SelectionTypes/IntegerInput";
 import Recipe from "../RecipeCard/Recipe";
 import WeekView from "../HomeComponents/WeekView";
 import DaysOfTheWeekButtons from "../HomeComponents/DaysOfTheWeekButtons";
+import { saveMealPlan } from "../../utils/api";
 
 const Home: React.FC = () => {
   // Define the options array for the dropdown
@@ -95,7 +96,10 @@ const Home: React.FC = () => {
     }
   };
   const [excludedIngredients, setExcludedIngredients] = useState("");
-
+  const [sunDate, setSunDate] = useState("");
+  const handleSave = () => {
+    saveMealPlan(sunDate);
+  };
   // Function to handle option selection for multi-select
   const handleMultiSelectChangeCuisine = (
     selectedOptionsCuisine: { label: string; value: string }[]
@@ -264,7 +268,9 @@ const Home: React.FC = () => {
 
       {/* Button for saving data */}
       <div className="save-data-button-container">
-        <button className="save-button">Save</button>
+        <button onClick={handleSave} className="save-button">
+          Save
+        </button>
       </div>
     </div>
   );

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "../../styles/profile.css";
 import { getDislikes, getLikes, getUser } from "../../utils/api";
 import Recipe from "../RecipeCard/Recipe";
+import RecipeCard from "../RecipeCard/RecipeCard";
+import { AccountCreation } from "../Login/AccountCreation";
+import { ControlledInput } from "../Login/ControlledInput";
 
 interface ProfileProps {
   name: string;
@@ -46,20 +49,26 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
         <h3>{"Diet: " + props.diet}</h3>
         <h3>{"Intolerances:" + props.intolerances}</h3>
         <h3>{"Family Size: " + props.familySize}</h3>
-        {/* Icon */}
-        {/* Edit Button */}
-        {/* Name */}
-        {/* Experience Level */}
-        {/* Family Size */}
-        {/* Diet */}
-        {/* Intolerances */}
+        {/* //<button onClick={editProfile}>Edit</button> */}
       </div>
       <div className="right-side">
         <div className="likes">
           <h3>Liked Recipes:</h3>
+          <div>
+            {props.likedRecipes.map((recipe) => (
+              <div>
+                <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
+              </div>
+            ))}
+          </div>
         </div>
         <div className="dislikes">
           <h3>Disliked Recipes:</h3>
+          {props.dislikedRecipes.map((recipe) => (
+            <div>
+              <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
+            </div>
+          ))}
         </div>
         {/* Liked Recipes */}
         {/* Disliked Recipes */}

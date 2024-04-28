@@ -37,6 +37,10 @@
   min-width: 100px; /* Set a smaller min width for cells without recipes */
   border-radius: 0; /* Remove border radius for cells without recipes */
 }
+.recipe-card {
+  border-color: #fab375;
+  border-style: solid;
+}
 
 .recipe-exists {
   min-width: 180px;
