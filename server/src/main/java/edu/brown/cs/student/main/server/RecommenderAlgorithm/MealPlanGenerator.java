@@ -1,14 +1,24 @@
 package edu.brown.cs.student.main.server.RecommenderAlgorithm;
 
+import static edu.brown.cs.student.main.server.RecommenderAlgorithm.GeneratorUtilities.GeneratorUtilities.addAndTrimQueue;
+import static org.testng.AssertJUnit.assertEquals;
+
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceException;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeDatasource;
+import edu.brown.cs.student.main.server.RecommenderAlgorithm.GeneratorUtilities.GeneratorUtilities;
+import edu.brown.cs.student.main.server.RecommenderAlgorithm.GeneratorUtilities.RecipeFrequencyPair;
+import edu.brown.cs.student.main.server.RecommenderAlgorithm.GeneratorUtilities.RecipeFrequencyPairComparator;
+import edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree.RecipeRecommendationKDTree;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -28,6 +38,8 @@ public class MealPlanGenerator {
   private final int MAX_READY_TIME;
 //  private final List<Recipe> likedRecipes;
 //  private final List<Recipe> dislikedRecipes;
+  private List<Recipe> likedRecipes;
+  private List<Recipe> dislikedRecipes;
   private final StorageInterface FIREBASE_DATA;
   private final String UID;
 
@@ -175,6 +187,34 @@ public class MealPlanGenerator {
   }
 
   /**
+   * Queries this Generator's data source for a List of Recipes fitting this Generator's base
+   * criteria and filters results for quality Recipes based on Spoonacular scores.
+   *
+   * @param n the number of Recipes to initially query
+   * @param minResultSize the minimum number of Recipes in an acceptable result
+   * @param includeIngredients a String describing optional extra specification of ingredients to
+   *                           require in query results
+   * @returns returns a List of at least this.NUM_DAYS_TO_PLAN quality Recipes
+   * @throws DatasourceException if unsuccessful in querying Spoonacular for any recipes
+   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting
+   * this generator's criteria
+   */
+  private List<Recipe> queryQualitySearchResults(int n, int minResultSize, String includeIngredients) throws DatasourceException, RecipeVolumeException {
+    List<Recipe> searchResults = this.DATASOURCE.queryRecipes(n, this.CUISINE,
+        this.EXCLUDE_CUISINE, this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS,
+        includeIngredients, this.MAX_READY_TIME);
+    List<Recipe> goodResults = GeneratorUtilities.filterGoodRatings(searchResults);
+    int numGoodResults = goodResults.size();
+    if (numGoodResults < minResultSize) {
+      throw new RecipeVolumeException("Caller requested " + minResultSize +
+          " recipes, but only " + numGoodResults + " quality recipes fitting their needs "
+          + "could be found.");
+    } else {
+      return goodResults;
+    }
+  }
+
+  /**
    * Generates a list of Recipes fitting user criteria this MealPlanGenerator was constructed with,
    * prioritizing minimizing food waste in the synthesized list of Recipes returned.
    *
@@ -185,17 +225,7 @@ public class MealPlanGenerator {
    */
   public List<Recipe> minimizeFoodWaste() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting recipe to base the rest of the food-waste-minimizing recipes on
-    List<Recipe> searchResults = this.DATASOURCE.queryRecipes(15, this.CUISINE,
-        this.EXCLUDE_CUISINE, this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS,
-        null, this.MAX_READY_TIME);
-    List<Recipe> goodResults = GeneratorUtilities.filterGoodRatings(searchResults);
-    int numGoodResults = goodResults.size();
-    if (numGoodResults < this.NUM_DAYS_TO_PLAN) {
-      throw new RecipeVolumeException("Caller requested " + this.NUM_DAYS_TO_PLAN +
-          " recipes, but only " + numGoodResults + " quality recipes fitting their needs "
-          + "could be found.");
-    }
-
+    List<Recipe> goodResults = this.queryQualitySearchResults(15, this.NUM_DAYS_TO_PLAN, null);
     Recipe firstRecipe = goodResults.get(0);
     List<Recipe> algorithmResults = new ArrayList<>();
     algorithmResults.add(firstRecipe);
@@ -204,58 +234,100 @@ public class MealPlanGenerator {
       // PART 2 - fill in the rest of the week's recipes sharing the main ingredient of the first
       String mainIngredient = GeneratorUtilities.findMostAbundantIngredients(firstRecipe,
               1).get(0);
-      searchResults = this.DATASOURCE.queryRecipes(30, this.CUISINE,
-              this.EXCLUDE_CUISINE,
-          this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS, mainIngredient,
-              this.MAX_READY_TIME);
-      goodResults = GeneratorUtilities.filterGoodRatings(searchResults);
-      numGoodResults = goodResults.size();
-      if (numGoodResults < (this.NUM_DAYS_TO_PLAN-1)) {
-        throw new RecipeVolumeException("Caller requested " + this.NUM_DAYS_TO_PLAN +
-            " recipes, but only " + (numGoodResults+1) + " quality recipes fitting their "
-            + "needs could be found.");
-      }
+      goodResults = this.queryQualitySearchResults(30, this.NUM_DAYS_TO_PLAN-1, mainIngredient);
       algorithmResults.addAll(goodResults.subList(0, this.NUM_DAYS_TO_PLAN-1));
     }
     assert(algorithmResults.size() == this.NUM_DAYS_TO_PLAN);
     return algorithmResults;
   }
 
-//  /**
-//   * Method to calculate the similarity between two recipes
-//   * @param recipe1
-//   * @param recipe2
-//   * @return
-//   */
-//  private double calculateSimilarity(Recipe recipe1, Recipe recipe2) {
-//    // Method to calculate dissimilarity based on ingredient overlap
-//    List<Ingredient> ingredients1 = recipe1.getExtendedIngredients();
-//    List<Ingredient> ingredients2 = recipe2.getExtendedIngredients();
-//
-//    // Calculate the intersection (overlap) of ingredients
-//    Set<Ingredient> intersection = new HashSet<>(ingredients1);
-//    intersection.retainAll(ingredients2);
-//
-//    // Calculate the Jaccard similarity coefficient
-//    double similarity = (double) intersection.size()
-//            / (ingredients1.size() + ingredients2.size() - intersection.size());
-//    return similarity;
-//  }
+  /**
+   * Generates a list of Recipes fitting user criteria this MealPlanGenerator was constructed with,
+   * prioritizing minimizing Recipes similar to the user's disliked recipes and maximizing
+   * Recipes similar to the user's liked recipes.
+   *
+   * @return a list of NUM_DAYS_TO_PLAN Recipes fitting the criteria this was instantiated with
+   * @throws DatasourceException if unsuccessful in querying Spoonacular for any recipes
+   * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting
+   * this generator's criteria
+   */
+  public List<Recipe> personalize() throws DatasourceException, RecipeVolumeException {
+    // PART 1 - get a starting list of quality recipes fitting user needs
+    // TODO: what multiple of days to plan should n be??
+    List<Recipe> goodResults = this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN*6, this.NUM_DAYS_TO_PLAN*3, null);
 
-  public List<Recipe> personalize() throws DatasourceException {
-    //TODO: implement
-//    for (Recipe recipe : this.likedRecipes) {
-//      List<String> mostImportantLiked = GeneratorUtilities.findMostAbundantIngredients(recipe, 3);
-//      List<Recipe> searchResults = this.DATASOURCE.queryRecipes(30, this.CUISINE,
-//              this.EXCLUDE_CUISINE,
-//              this.DIET, this.INTOLERANCES, this.EXCLUDE_INGREDIENTS, mostImportantLiked.get(0),
-//              this.MAX_READY_TIME);
-//    }
-//    for (Recipe recipe : this.dislikedRecipes) {
-//      List<String> mostImportantLiked = GeneratorUtilities.findMostAbundantIngredients(recipe, 3);
-//    }
-    return new ArrayList<>();
+    // TODO: if the above throws a RecipeVolumeException, should I check if just NUM_DAYS_TO_PLAN recipes are available, and if so return that?
+
+    // TODO: should we / how should we eliminate recently made recipes?
+
+    // PART 2 - eliminate Recipes most similar to user's disliked Recipes
+    RecipeRecommendationKDTree step2Tree = new RecipeRecommendationKDTree();
+    for (Recipe r : goodResults) {
+      step2Tree.insert(r);
+    }
+
+    // 2a - find the Recipes in goodResults most similar to each of the user's disliked recipes
+    Map<Recipe, Integer> similarlyBadRecipes = new HashMap<>();
+    for (Recipe badRecipe : this.dislikedRecipes) {
+      // TODO: logic here for n is based on not eliminating any recently made Recipes... final tbd
+      List<Recipe> nearestNeighbors = step2Tree.nearestNeighbors(badRecipe, goodResults.size()/3);
+      for (Recipe neighbor : nearestNeighbors) {
+        if (similarlyBadRecipes.containsKey(neighbor)) {
+          // increase frequency count
+          similarlyBadRecipes.put(neighbor, similarlyBadRecipes.get(neighbor) + 1);
+        } else {
+          // add to map with initial frequency of 1
+          similarlyBadRecipes.put(neighbor, 1);
+        }
+      }
+    }
+
+    // 2b - eliminate the top goodResults.size()/3 Recipes most similar to the most disliked Recipes
+    PriorityQueue<RecipeFrequencyPair> badQueue = new PriorityQueue<>(new RecipeFrequencyPairComparator());
+    for (Recipe r : similarlyBadRecipes.keySet()) {
+      addAndTrimQueue(badQueue, new RecipeFrequencyPair(r, similarlyBadRecipes.get(r)), goodResults.size()/3);
+    }
+
+    for (RecipeFrequencyPair recipeWithFrequency : badQueue) {
+      goodResults.remove(recipeWithFrequency.recipe());
+    }
+    assert(goodResults.size() >= this.NUM_DAYS_TO_PLAN);
+
+    // TODO: this should never be equal to NUM_DAYS_TO_PLAN, in theory should be 2*that, but if it
+    // is possible and size == NUM_DAYS then we should short circuit here and return goodResults
+
+    // PART 3 - get the top NUM_DAYS_TO_PLAN Recipes most similar to the most liked Recipes
+    RecipeRecommendationKDTree step3Tree = new RecipeRecommendationKDTree();
+    for (Recipe r : goodResults) {
+      step3Tree.insert(r);
+    }
+
+    // 3a - find the Recipes in goodResults most similar to each of the user's liked recipes
+    Map<Recipe, Integer> similarlyGoodRecipes = new HashMap<>();
+    for (Recipe goodRecipe : this.likedRecipes) {
+      List<Recipe> nearestNeighbors = step3Tree.nearestNeighbors(goodRecipe, this.NUM_DAYS_TO_PLAN);
+      for (Recipe neighbor : nearestNeighbors) {
+        if (similarlyGoodRecipes.containsKey(neighbor)) {
+          // increase frequency count
+          similarlyGoodRecipes.put(neighbor, similarlyGoodRecipes.get(neighbor) + 1);
+        } else {
+          // add to map with initial frequency of 1
+          similarlyGoodRecipes.put(neighbor, 1);
+        }
+      }
+    }
+
+    // 3b - capture the top NUM_DAYS_TO_PLAN Recipes most similar to the most liked Recipes
+    PriorityQueue<RecipeFrequencyPair> goodQueue = new PriorityQueue<>(new RecipeFrequencyPairComparator());
+    for (Recipe r : similarlyGoodRecipes.keySet()) {
+      addAndTrimQueue(goodQueue, new RecipeFrequencyPair(r, similarlyGoodRecipes.get(r)), this.NUM_DAYS_TO_PLAN);
+    }
+
+    List<Recipe> bestRecipes = new ArrayList<>();
+    for (RecipeFrequencyPair recipeWithFrequency : goodQueue) {
+      bestRecipes.add(recipeWithFrequency.recipe());
+    }
+    assertEquals(this.NUM_DAYS_TO_PLAN, bestRecipes.size());
+    return bestRecipes;
   }
-
-
 }
