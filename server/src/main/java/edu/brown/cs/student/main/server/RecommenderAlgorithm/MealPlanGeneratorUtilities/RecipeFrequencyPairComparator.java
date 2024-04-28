@@ -1,10 +1,8 @@
-package edu.brown.cs.student.main.server.RecommenderAlgorithm.GeneratorUtilities;
+package edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities;
 
 import java.util.Comparator;
 
-/**
- * Class describing a Comparator for RecipeFrequencyPairs.
- */
+/** Class describing a Comparator for RecipeFrequencyPairs. */
 public class RecipeFrequencyPairComparator implements Comparator<RecipeFrequencyPair> {
 
   /**

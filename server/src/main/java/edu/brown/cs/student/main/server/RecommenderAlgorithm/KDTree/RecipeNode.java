@@ -2,9 +2,7 @@ package edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree;
 
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 
-/**
- * Class describing a Recipe node (for a K-D tree of Recipes).
- */
+/** Class describing a Recipe node (for a K-D tree of Recipes). */
 public class RecipeNode {
   protected Recipe recipe;
   protected int[] location; // [numCuisines, numIngredients, numSteps]
@@ -17,7 +15,8 @@ public class RecipeNode {
    */
   public RecipeNode(Recipe recipe) {
     this.recipe = recipe;
-    this.location = new int[]{recipe.getNumCuisines(), recipe.getNumIngredients(), recipe.getNumSteps()};
+    this.location =
+        new int[] {recipe.getNumCuisines(), recipe.getNumIngredients(), recipe.getNumSteps()};
     left = null;
     right = null;
   }
@@ -25,7 +24,7 @@ public class RecipeNode {
   /**
    * Gets this node's left node.
    *
-   * TODO: make return defensive copy!
+   * <p>TODO: make return defensive copy!
    *
    * @return this RecipeNode's left node
    */
@@ -36,7 +35,7 @@ public class RecipeNode {
   /**
    * Gets this node's right node.
    *
-   * TODO: make return defensive copy!
+   * <p>TODO: make return defensive copy!
    *
    * @return this RecipeNode's right node
    */
@@ -52,11 +51,9 @@ public class RecipeNode {
    */
   @Override
   public boolean equals(Object o) {
-    if (o == this)
-      return true;
-    if (!(o instanceof RecipeNode))
-      return false;
-    RecipeNode other = (RecipeNode)o;
+    if (o == this) return true;
+    if (!(o instanceof RecipeNode)) return false;
+    RecipeNode other = (RecipeNode) o;
 
     boolean leftEqual, rightEqual;
     if (this.left == null) {
@@ -88,7 +85,6 @@ public class RecipeNode {
    */
   @Override
   public int hashCode() {
-    return ((this.recipe.hashCode() + (31*this.left.hashCode())) + (31*this.right.hashCode()));
-
+    return ((this.recipe.hashCode() + (31 * this.left.hashCode())) + (31 * this.right.hashCode()));
   }
 }

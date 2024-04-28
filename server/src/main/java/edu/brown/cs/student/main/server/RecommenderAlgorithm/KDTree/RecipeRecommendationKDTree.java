@@ -5,9 +5,7 @@ import java.util.*;
 
 // TODO: generalize to K-D tree class with caller-injected types
 
-/**
- * Class describing a RecipeRecommendation K-D Tree.
- */
+/** Class describing a RecipeRecommendation K-D Tree. */
 public class RecipeRecommendationKDTree {
   private RecipeNode root;
   private int size;
@@ -20,7 +18,7 @@ public class RecipeRecommendationKDTree {
   /**
    * Get the root of this KD Tree.
    *
-   * TODO: make this return defensive copy instead
+   * <p>TODO: make this return defensive copy instead
    *
    * @return this tree's root
    */
@@ -57,10 +55,10 @@ public class RecipeRecommendationKDTree {
       root.left = insertRec(root.left, newNode, depth + 1);
     } else {
       /*
-         By default, on dimensional equality the newNode will be placed as the right child of this
-         tree/subtree -- this is a design decision that may impact balance of the K-D tree, but
-         is a reasonable default for a basic implementation.
-       */
+        By default, on dimensional equality the newNode will be placed as the right child of this
+        tree/subtree -- this is a design decision that may impact balance of the K-D tree, but
+        is a reasonable default for a basic implementation.
+      */
       root.right = insertRec(root.right, newNode, depth + 1);
     }
 
@@ -81,10 +79,12 @@ public class RecipeRecommendationKDTree {
    *
    * @param recipe the Recipe we want to find nearest neighbors for
    * @param n the number of nearest neighbors to recipe desired
-   * @return up to n nearest neighbors of targetNode in the K-D tree starting at root, in a List of Recipes ordered closest to furthest nearest neighbors
+   * @return up to n nearest neighbors of targetNode in the K-D tree starting at root, in a List of
+   *     Recipes ordered closest to furthest nearest neighbors
    */
   public List<Recipe> nearestNeighbors(Recipe recipe, int n) {
-    PriorityQueue<DistanceRecipePair> closestRecipes = new PriorityQueue<DistanceRecipePair>(new DistanceRecipePairComparator());
+    PriorityQueue<DistanceRecipePair> closestRecipes =
+        new PriorityQueue<DistanceRecipePair>(new DistanceRecipePairComparator());
     nearestNeighbors(root, new RecipeNode(recipe), n, closestRecipes, 0);
     return extractRecipesFromQueue(closestRecipes);
   }
@@ -104,14 +104,15 @@ public class RecipeRecommendationKDTree {
   }
 
   /**
-   * Adds a new DistanceRecipePair to a PriorityQueue of DistanceRecipePairs and trims the queue
-   * to a max length.
+   * Adds a new DistanceRecipePair to a PriorityQueue of DistanceRecipePairs and trims the queue to
+   * a max length.
    *
    * @param queue the queue to add to and trim
    * @param newPair the new DistanceRecipePair to add to queue
    * @param n the number of DistanceRecipePairs to restrict the final length of queue to
    */
-  private static void addAndTrimQueue(PriorityQueue<DistanceRecipePair> queue, DistanceRecipePair newPair, int n) {
+  private static void addAndTrimQueue(
+      PriorityQueue<DistanceRecipePair> queue, DistanceRecipePair newPair, int n) {
     queue.add(newPair);
     while (queue.size() > n) {
       // remove DistanceRecipePair with the largest distance (at head of queue)
@@ -120,16 +121,23 @@ public class RecipeRecommendationKDTree {
   }
 
   /**
-   * Populates a Priority Queue with the n nearest neighbors of a particular Recipe in a K-D tree/subtree.
-   * Note: Priority Queue will be in the order of furthest to closest distance to target node.
+   * Populates a Priority Queue with the n nearest neighbors of a particular Recipe in a K-D
+   * tree/subtree. Note: Priority Queue will be in the order of furthest to closest distance to
+   * target node.
    *
    * @param root the root of the K-D tree to search through
    * @param targetNode the RecipeNode for which we want the nearest n neighbors
    * @param n the number of nearest neighbors to capture
-   * @param bestRecipesQueue the Priority Queue (with associated Comparator) to maintain nearest neighbors in
+   * @param bestRecipesQueue the Priority Queue (with associated Comparator) to maintain nearest
+   *     neighbors in
    * @param depth the depth of the K-D tree in this search
    */
-  private void nearestNeighbors(RecipeNode root, RecipeNode targetNode, int n, PriorityQueue<DistanceRecipePair> bestRecipesQueue, int depth) {
+  private void nearestNeighbors(
+      RecipeNode root,
+      RecipeNode targetNode,
+      int n,
+      PriorityQueue<DistanceRecipePair> bestRecipesQueue,
+      int depth) {
     if (root == null) {
       return;
     }
@@ -150,14 +158,16 @@ public class RecipeRecommendationKDTree {
     nearestNeighbors(closerSubtreeRoot, targetNode, n, bestRecipesQueue, depth + 1);
 
     /*
-     We search the further subtree if:
-     (1) we have done the DFS search of the closer subtree and haven't found n nearest neighbors yet
-     OR
-     (2) the distance from the targetNode to the current node along the splitting dimension is
-     shorter than the distance of the farthest Recipe in the queue (indicating that there is a
-     possibility that a closer neighbor exists on the other side of the splitting dimension).
-     */
-    if (bestRecipesQueue.size() < n || distance(targetNode.location[axis], root.location[axis]) < bestRecipesQueue.peek().distance()) {
+    We search the further subtree if:
+    (1) we have done the DFS search of the closer subtree and haven't found n nearest neighbors yet
+    OR
+    (2) the distance from the targetNode to the current node along the splitting dimension is
+    shorter than the distance of the farthest Recipe in the queue (indicating that there is a
+    possibility that a closer neighbor exists on the other side of the splitting dimension).
+    */
+    if (bestRecipesQueue.size() < n
+        || distance(targetNode.location[axis], root.location[axis])
+            < bestRecipesQueue.peek().distance()) {
       nearestNeighbors(furtherSubtreeRoot, targetNode, n, bestRecipesQueue, depth + 1);
     }
   }

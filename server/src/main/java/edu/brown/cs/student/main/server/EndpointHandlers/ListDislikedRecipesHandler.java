@@ -1,10 +1,9 @@
 package edu.brown.cs.student.main.server.EndpointHandlers;
 
-import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +44,6 @@ public class ListDislikedRecipesHandler implements Route {
 
         Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
         recipes.add(recipe);
-
       }
 
       responseMap.put("response_type", "success");

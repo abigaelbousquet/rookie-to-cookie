@@ -25,8 +25,10 @@ import java.util.concurrent.ExecutionException;
 
 public class FirebaseUtilities implements StorageInterface {
   private static final Moshi MOSHI = new Moshi.Builder().build();
-  private static final Type MAP_STRING_OBJECT = Types.newParameterizedType(Map.class, String.class, Object.class);
-  public static final JsonAdapter<Map<String, Object>> MAP_STRING_OBJECT_JSON_ADAPTER = MOSHI.adapter(MAP_STRING_OBJECT);
+  private static final Type MAP_STRING_OBJECT =
+      Types.newParameterizedType(Map.class, String.class, Object.class);
+  public static final JsonAdapter<Map<String, Object>> MAP_STRING_OBJECT_JSON_ADAPTER =
+      MOSHI.adapter(MAP_STRING_OBJECT);
 
   public FirebaseUtilities() throws IOException {
     // Create /resources/ folder with firebase_config.json and

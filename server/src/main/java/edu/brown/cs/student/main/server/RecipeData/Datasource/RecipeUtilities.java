@@ -21,9 +21,9 @@ public class RecipeUtilities {
   public static final Type LIST_RECIPES = Types.newParameterizedType(List.class, Recipe.class);
   public static final JsonAdapter<List<Recipe>> LIST_RECIPE_JSON_ADAPTER =
       MOSHI.adapter(LIST_RECIPES);
-  private static final JsonAdapter<Map<String, MealPlan>> MEALPLAN_JSON_ADAPTER = MOSHI.adapter(
-      com.squareup.moshi.Types.newParameterizedType(Map.class, String.class, MealPlan.class));
-
+  private static final JsonAdapter<Map<String, MealPlan>> MEALPLAN_JSON_ADAPTER =
+      MOSHI.adapter(
+          com.squareup.moshi.Types.newParameterizedType(Map.class, String.class, MealPlan.class));
 
   /**
    * Deserializes a raw search result json into a SearchResult object. This method should be used to

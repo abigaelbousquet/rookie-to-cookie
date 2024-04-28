@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.server.RecommenderAlgorithm.GeneratorUtilities;
+package edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities;
 
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 

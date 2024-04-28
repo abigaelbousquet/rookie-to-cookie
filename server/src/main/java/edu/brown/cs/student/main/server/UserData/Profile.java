@@ -1,11 +1,8 @@
 package edu.brown.cs.student.main.server.UserData;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A class describing a user profile.
- */
+/** A class describing a user profile. */
 public class Profile {
   private String name;
   private int exp;
@@ -20,8 +17,7 @@ public class Profile {
    * @param intoleranceArray a list of the user's intolerances
    * @param dietArray a list of the user's followed diets
    */
-  public Profile(
-      String name, int exp, List<String> intoleranceArray, List<String> dietArray) {
+  public Profile(String name, int exp, List<String> intoleranceArray, List<String> dietArray) {
     this.name = name;
     this.exp = exp;
     this.intoleranceArray = intoleranceArray;
@@ -63,5 +59,4 @@ public class Profile {
   public List<String> getDiet() {
     return this.dietArray;
   }
-
 }

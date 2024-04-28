@@ -2,9 +2,7 @@ package edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree;
 
 import java.util.Comparator;
 
-/**
- * Class describing a Comparator for DistanceRecipePairs.
- */
+/** Class describing a Comparator for DistanceRecipePairs. */
 public class DistanceRecipePairComparator implements Comparator<DistanceRecipePair> {
 
   /**

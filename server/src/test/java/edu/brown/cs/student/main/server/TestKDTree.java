@@ -15,9 +15,7 @@ import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-/**
- * A class for testing our K-D Tree implementation.
- */
+/** A class for testing our K-D Tree implementation. */
 public class TestKDTree {
 
   /**
@@ -50,9 +48,7 @@ public class TestKDTree {
     return mockedResult;
   }
 
-  /**
-   * Tests expected creation of K-D tree from 2 Recipes.
-   */
+  /** Tests expected creation of K-D tree from 2 Recipes. */
   @Test
   public void testTreeCreation2Nodes() {
     // set up data
@@ -74,9 +70,7 @@ public class TestKDTree {
     assertEquals(node2, tree.getRoot().getRight());
   }
 
-  /**
-   * Tests expected creation of K-D tree from 4 Recipes.
-   */
+  /** Tests expected creation of K-D tree from 4 Recipes. */
   @Test
   public void testTreeCreation4Nodes() {
     // set up data
@@ -116,9 +110,7 @@ public class TestKDTree {
     assertEquals(node1, tree.getRoot().getLeft().getRight().getLeft());
   }
 
-  /**
-   * Tests nearest n neighbors search where tree contains less than n nodes.
-   */
+  /** Tests nearest n neighbors search where tree contains less than n nodes. */
   @Test
   public void testAllNeighborsClosest() {
     List<Recipe> allRecipes = parseMockedRecipes("data/exampleSearchResultLength2.json");
@@ -156,9 +148,7 @@ public class TestKDTree {
     assertEquals(likedRecipe, nearest1NeighborList.get(0));
   }
 
-  /**
-   * Tests n nearest neighbor search where n > 1 and size of tree > n.
-   */
+  /** Tests n nearest neighbor search where n > 1 and size of tree > n. */
   @Test
   public void testNearestNeighborsBigTree() {
     List<Recipe> allRecipes = parseMockedRecipes("data/exampleSearchResultLength4.json");
@@ -186,5 +176,4 @@ public class TestKDTree {
     assertEquals(allRecipes.get(0), nearest2Neighbors.get(0));
     assertEquals(allRecipes.get(3), nearest2Neighbors.get(1));
   }
-
 }
