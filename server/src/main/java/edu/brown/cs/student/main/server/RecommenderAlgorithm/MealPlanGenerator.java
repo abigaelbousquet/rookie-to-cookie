@@ -172,8 +172,9 @@ public class MealPlanGenerator {
    */
   private boolean[] parseDays(String daysOfWeek){
     int count = 0;
+    String daysOfWeekLowercase = daysOfWeek.toLowerCase();
     boolean[] booleanArray = new boolean[7];
-    String[] dayofWeekArray = daysOfWeek.split(",");
+    String[] dayofWeekArray = daysOfWeekLowercase.split(",");
     for (int i = 0; i < 7; i++) {
       booleanArray[i] = false;
       String day = dayofWeekArray[i];
