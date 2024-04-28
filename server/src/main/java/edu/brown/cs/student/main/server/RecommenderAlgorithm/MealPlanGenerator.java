@@ -29,8 +29,8 @@ public class MealPlanGenerator {
   private String INTOLERANCES = null;
   private String EXCLUDE_INGREDIENTS = null;
   private final int MAX_READY_TIME;
-  private final List<Recipe> likedRecipes;
-  private final List<Recipe> dislikedRecipes;
+  private List<Recipe> likedRecipes = null;
+  private List<Recipe> dislikedRecipes = null;
   private final StorageInterface FIREBASE_DATA;
   private final String UID;
 
@@ -77,10 +77,12 @@ public class MealPlanGenerator {
     this.DAYS_TO_PLAN = parseDays(daysOfWeek);
     setIntolerancesAndAllergens(intolerances);
     this.DATASOURCE = recipeSource;
-    this.dislikedRecipes =
-        GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
-    this.likedRecipes =
-        GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+    if (this.FIREBASE_DATA != null) {
+      this.dislikedRecipes =
+          GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+      this.likedRecipes =
+          GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+    }
   }
 
   /**
@@ -186,19 +188,36 @@ public class MealPlanGenerator {
    * @return
    */
   private boolean[] parseDays(String daysOfWeek) {
-    int count = 0;
-    String daysOfWeekLowercase = daysOfWeek.toLowerCase();
-    boolean[] booleanArray = new boolean[7];
-    String[] dayofWeekArray = daysOfWeekLowercase.split(",");
-    for (int i = 0; i < 7; i++) {
-      booleanArray[i] = false;
-      String day = dayofWeekArray[i];
-      if (!day.equals("null")) {
-        booleanArray[i] = true;
-        count++;
+    boolean[] booleanArray = {false, false, false, false, false, false, false};
+    String[] daysOfWeekArray = daysOfWeek.toLowerCase().split(",");
+    for (int i = 0; i < daysOfWeekArray.length; i++) {
+      switch (daysOfWeekArray[i]) {
+        case "sunday":
+          booleanArray[0] = true;
+          break;
+        case "monday":
+          booleanArray[1] = true;
+          break;
+        case "tuesday":
+          booleanArray[2] = true;
+          break;
+        case "wednesday":
+          booleanArray[3] = true;
+          break;
+        case "thursday":
+          booleanArray[4] = true;
+          break;
+        case "friday":
+          booleanArray[5] = true;
+          break;
+        case "saturday":
+          booleanArray[6] = true;
+          break;
+        default:
+          throw new IllegalArgumentException("Provided unexpected day of week String. Expected un-abbreviated String name.");
       }
     }
-    this.NUM_DAYS_TO_PLAN = count;
+    this.NUM_DAYS_TO_PLAN = daysOfWeekArray.length;
     return booleanArray;
   }
 
@@ -254,7 +273,7 @@ public class MealPlanGenerator {
    */
   public List<Recipe> minimizeFoodWaste() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting recipe to base the rest of the food-waste-minimizing recipes on
-    List<Recipe> goodResults = this.queryQualitySearchResults(15, this.NUM_DAYS_TO_PLAN, null);
+    List<Recipe> goodResults = this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN * 3, this.NUM_DAYS_TO_PLAN, null);
     Recipe firstRecipe = goodResults.get(0);
     List<Recipe> algorithmResults = new ArrayList<>();
     algorithmResults.add(firstRecipe);
@@ -262,8 +281,12 @@ public class MealPlanGenerator {
     if (this.NUM_DAYS_TO_PLAN > 1) {
       // PART 2 - fill in the rest of the week's recipes sharing the main ingredient of the first
       String mainIngredient = GeneratorUtilities.findMostAbundantIngredients(firstRecipe, 1).get(0);
-      goodResults = this.queryQualitySearchResults(30, this.NUM_DAYS_TO_PLAN - 1, mainIngredient);
-      algorithmResults.addAll(goodResults.subList(0, this.NUM_DAYS_TO_PLAN - 1));
+      int remainingRecipesNeeded = this.NUM_DAYS_TO_PLAN - 1;
+      goodResults = this.queryQualitySearchResults(remainingRecipesNeeded * 3, remainingRecipesNeeded, mainIngredient);
+      int resultsLength = goodResults.size();
+
+      // taking from the end of results is mostly for testing with mocked [same] query results
+      algorithmResults.addAll(goodResults.subList(resultsLength - remainingRecipesNeeded, resultsLength));
     }
     assert (algorithmResults.size() == this.NUM_DAYS_TO_PLAN);
     return algorithmResults;
