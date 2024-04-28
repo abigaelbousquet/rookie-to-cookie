@@ -49,13 +49,14 @@ public class AddUserHandler implements Route {
       // convert intolerance string to array
       try {
         // Remove square brackets
-        //        String content = intolerances.substring(1, intolerances.length() - 1);
-
         // Split the remaining string by commas
         String[] parts = intolerances.split(",");
 
         // Trim leading and trailing spaces from each element and add them to ArrayList
         for (String part : parts) {
+          if (part.equals("") || part.equals(" ") || part.equals("null")) {
+            break;
+          }
           intoleranceArray.add(part.trim());
         }
       } catch (Exception e) {
@@ -64,13 +65,15 @@ public class AddUserHandler implements Route {
 
       // convert diet string to array
       try {
-        //        String content = diet.substring(1, diet.length() - 1);
 
         // Split the remaining string by commas
         String[] parts = diet.split(",");
 
         // Trim leading and trailing spaces from each element and add them to ArrayList
         for (String part : parts) {
+          if (part.equals("") || part.equals(" ") || part.equals("null")) {
+            break;
+          }
           dietArray.add(part.trim());
         }
       } catch (Exception e) {

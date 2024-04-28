@@ -2,11 +2,7 @@ package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.server.EndpointHandlers.AddDislikedRecipeHandler;
-import edu.brown.cs.student.main.server.EndpointHandlers.AddLikedRecipeHandler;
-import edu.brown.cs.student.main.server.EndpointHandlers.AddUserHandler;
-import edu.brown.cs.student.main.server.EndpointHandlers.ClearUserHandler;
-import edu.brown.cs.student.main.server.EndpointHandlers.ListLikedRecipesHandler;
+import edu.brown.cs.student.main.server.EndpointHandlers.*;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceException;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeDatasource;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.SpoonacularRecipeSource;
@@ -46,8 +42,9 @@ public class Server {
       Spark.get("add-disliked-recipe", new AddDislikedRecipeHandler(firebaseUtils));
       Spark.get("add-user", new AddUserHandler(firebaseUtils));
       Spark.get("get-liked-recipes", new ListLikedRecipesHandler(firebaseUtils));
-      Spark.get("get-disliked-recipes", new ListLikedRecipesHandler(firebaseUtils));
+      Spark.get("get-disliked-recipes", new ListDislikedRecipesHandler(firebaseUtils));
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
+      Spark.get("get-user", new GetUserHandler(firebaseUtils));
 
       RecipeDatasource datasource = new SpoonacularRecipeSource();
       MealPlanGenerator planGenerator =
@@ -81,7 +78,7 @@ public class Server {
         MealPlan recipeList = planGenerator.generatePlan();
         GeneratorUtilities.addToFirebase("test-1", firebaseUtils, recipeList);
         MealPlan recipeList1 = planGenerator1.generatePlan();
-        GeneratorUtilities.addToFirebase("test2", firebaseUtils, recipeList1);
+        GeneratorUtilities.addToFirebase("test-2", firebaseUtils, recipeList1);
 
       } catch (DatasourceException | RecipeVolumeException e) {
         System.out.println(e.getMessage());

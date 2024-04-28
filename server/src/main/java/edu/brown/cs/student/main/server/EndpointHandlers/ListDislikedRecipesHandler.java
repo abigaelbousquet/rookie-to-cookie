@@ -4,10 +4,7 @@ import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -40,10 +37,15 @@ public class ListDislikedRecipesHandler implements Route {
       ArrayList<Recipe> recipes = new ArrayList<>();
       // convert the key,value map to just a list of the words.
       for (Map<String, Object> recipeMap : vals) {
-        String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeMap);
+        Set<String> keys = recipeMap.keySet();
+        for (String key : keys) {
+          String recipeJson =
+              FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(
+                  (Map<String, Object>) recipeMap.get(key));
 
-        Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
-        recipes.add(recipe);
+          Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
+          recipes.add(recipe);
+        }
       }
 
       responseMap.put("response_type", "success");

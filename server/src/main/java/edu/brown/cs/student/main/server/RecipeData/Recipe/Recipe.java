@@ -326,4 +326,96 @@ public class Recipe {
   public int hashCode() {
     return Integer.hashCode(this.id);
   }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("{");
+    sb.append("\"image\":\"").append(image).append("\",");
+    sb.append("\"analyzedInstructions\":").append(analyzedInstructionsToString()).append(",");
+    sb.append("\"glutenFree\":").append(glutenFree).append(",");
+    sb.append("\"vegan\":").append(vegan).append(",");
+    sb.append("\"title\":\"").append(title).append("\",");
+    sb.append("\"extendedIngredients\":").append('[');
+    for (Ingredient ingredient : this.extendedIngredients) {
+      sb.append(ingredient.toString()).append(",");
+    }
+    sb.append(']');
+    sb.append("\"diets\":").append(dietsToString()).append(",");
+    sb.append("\"cuisines\":").append(cuisinesToString()).append(",");
+    sb.append("\"creditsText\":\"").append(creditsText).append("\",");
+    sb.append("\"readyInMinutes\":").append(readyInMinutes).append(",");
+    sb.append("\"dairyFree\":").append(dairyFree).append(",");
+    sb.append("\"servings\":").append(servings).append(",");
+    sb.append("\"vegetarian\":").append(vegetarian).append(",");
+    sb.append("\"spoonacularScore\":").append(spoonacularScore).append(",");
+    sb.append("\"id\":").append(id);
+    sb.append("}");
+    return sb.toString();
+  }
+
+  private String analyzedInstructionsToString() {
+    StringBuilder sb = new StringBuilder();
+
+    for (RecipeInstructions instruction : this.analyzedInstructions) {
+      sb.append("[{");
+      sb.append("\"name\":\"").append(instruction.getName()).append("\",");
+      sb.append("\"steps\":[");
+
+      for (Step step : instruction.getSteps()) {
+        sb.append("{");
+        sb.append("\"number\":").append(step.getNumber()).append(",");
+        sb.append("\"step\":\"").append(step.getStep()).append("\"");
+        sb.append("},");
+      }
+      if (!instruction.getSteps().isEmpty()) {
+        sb.deleteCharAt(sb.length() - 1); // Remove the trailing comma
+      }
+      sb.append("]}]");
+    }
+
+    return sb.toString();
+  }
+
+  //    private String extendedIngredientsToString() {
+  //        StringBuilder sb = new StringBuilder();
+  //        sb.append("[");
+  //        for (Ingredient ingredient : this.extendedIngredients) {
+  //            sb.append("{");
+  //            sb.append("\"name\":\"").append(ingredient.getName()).append("\",");
+  //            sb.append("\"measures\":").append(ingredient.getMeasures());
+  //            sb.append("},");
+  //        }
+  //        if (!extendedIngredients.isEmpty()) {
+  //            sb.deleteCharAt(sb.length() - 1); // Remove the trailing comma
+  //        }
+  //        sb.append("]");
+  //        return sb.toString();
+  //    }
+
+  private String dietsToString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("[");
+    for (String diet : diets) {
+      sb.append("\"").append(diet).append("\",");
+    }
+    if (!diets.isEmpty()) {
+      sb.deleteCharAt(sb.length() - 1); // Remove the trailing comma
+    }
+    sb.append("]");
+    return sb.toString();
+  }
+
+  private String cuisinesToString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("[");
+    for (String cuisine : cuisines) {
+      sb.append("\"").append(cuisine).append("\",");
+    }
+    if (!cuisines.isEmpty()) {
+      sb.deleteCharAt(sb.length() - 1); // Remove the trailing comma
+    }
+    sb.append("]");
+    return sb.toString();
+  }
 }

@@ -52,7 +52,6 @@ public class AddDislikedRecipeHandler implements Route {
             break;
           }
         }
-        break;
       }
 
       System.out.println("adding recipeId: " + recipeId + " for user: " + uid);

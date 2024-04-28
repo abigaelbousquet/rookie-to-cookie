@@ -66,7 +66,7 @@ public class USMeasurement {
    */
   @Override
   public String toString() {
-    return this.amount + " " + this.unitLong;
+    return "{\"us\":{\"amount\":" + this.amount + ",\"unitLong\":\"" + this.unitLong + "\"}}";
   }
 
   /**
