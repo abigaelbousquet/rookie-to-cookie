@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.server.RecommenderAlgorithm;
+package edu.brown.cs.student.main.server.RecommenderAlgorithm.GeneratorUtilities;
 
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -204,4 +205,18 @@ public class GeneratorUtilities {
     firebaseData.addDocument(uid, "Mealplans", planId, data);
   }
 
+  /**
+   * Adds a new RecipeFrequencyPair to a PriorityQueue of RecipeFrequencyPairs and trims the queue
+   * to a max length.
+   *
+   * @param queue the queue to add to and trim
+   * @param newPair the new DistanceRecipePair to add to queue
+   * @param n the number of DistanceRecipePairs to restrict the final length of queue to
+   */
+  public static void addAndTrimQueue(PriorityQueue<RecipeFrequencyPair> queue, RecipeFrequencyPair newPair, int n) {
+    queue.add(newPair);
+    while (queue.size() > n) {
+      queue.remove();
+    }
+  }
 }
