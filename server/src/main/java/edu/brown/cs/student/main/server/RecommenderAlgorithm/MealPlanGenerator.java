@@ -287,30 +287,40 @@ public class MealPlanGenerator {
     // TODO: if the above throws a RecipeVolumeException, should I check if just NUM_DAYS_TO_PLAN
     // recipes are available, and if so return that?
 
-    // PART 2 - eliminate Recipes most similar to user's disliked Recipes
-    PriorityQueue<RecipeFrequencyPair> badQueue =
-        GeneratorUtilities.getNearestNeighborsToListRecipes(
-            goodResults, this.dislikedRecipes, goodResults.size() / 3);
+    if (this.dislikedRecipes.size() > 0) {
+      // PART 2 - eliminate Recipes most similar to user's disliked Recipes
+      PriorityQueue<RecipeFrequencyPair> badQueue =
+          GeneratorUtilities.getNearestNeighborsToListRecipes(
+              goodResults, this.dislikedRecipes, goodResults.size() / 3);
 
-    // ELIMINATE these nearest neighbors
-    for (RecipeFrequencyPair recipeWithFrequency : badQueue) {
-      goodResults.remove(recipeWithFrequency.recipe());
+      // ELIMINATE these nearest neighbors
+      for (RecipeFrequencyPair recipeWithFrequency : badQueue) {
+        goodResults.remove(recipeWithFrequency.recipe());
+      }
+      assert (goodResults.size() >= this.NUM_DAYS_TO_PLAN);
+
+      // TODO: this should never be equal to NUM_DAYS_TO_PLAN, in theory should be 2*that, but if it
+      // is possible and size == NUM_DAYS then we should short circuit here and return goodResults
     }
-    assert (goodResults.size() >= this.NUM_DAYS_TO_PLAN);
 
-    // TODO: this should never be equal to NUM_DAYS_TO_PLAN, in theory should be 2*that, but if it
-    // is possible and size == NUM_DAYS then we should short circuit here and return goodResults
-
-    // PART 3 - get the top NUM_DAYS_TO_PLAN Recipes most similar to the most liked Recipes
-    PriorityQueue<RecipeFrequencyPair> goodQueue =
-        GeneratorUtilities.getNearestNeighborsToListRecipes(
-            goodResults, this.likedRecipes, this.NUM_DAYS_TO_PLAN);
-
-    // SAVE these nearest neighbors
     List<Recipe> bestRecipes = new ArrayList<>();
-    for (RecipeFrequencyPair recipeWithFrequency : goodQueue) {
-      bestRecipes.add(recipeWithFrequency.recipe());
+    if (this.likedRecipes.size() > 0) {
+      // PART 3 - get the top NUM_DAYS_TO_PLAN Recipes most similar to the most liked Recipes
+      PriorityQueue<RecipeFrequencyPair> goodQueue =
+          GeneratorUtilities.getNearestNeighborsToListRecipes(
+              goodResults, this.likedRecipes, this.NUM_DAYS_TO_PLAN);
+
+      // SAVE these nearest neighbors
+      for (RecipeFrequencyPair recipeWithFrequency : goodQueue) {
+        bestRecipes.add(recipeWithFrequency.recipe());
+      }
+    } else {
+      for (int i = 0; i < this.NUM_DAYS_TO_PLAN; i++) {
+        // take first NUM_DAYS_TO_PLAN Recipes in remaining Recipes in goodResults
+        bestRecipes.add(goodResults.get(i));
+      }
     }
+
     assertEquals(this.NUM_DAYS_TO_PLAN, bestRecipes.size());
     return bestRecipes;
   }
