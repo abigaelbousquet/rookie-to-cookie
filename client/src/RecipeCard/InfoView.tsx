@@ -11,7 +11,7 @@ const InfoView: React.FC<InfoViewProps> = ({ recipe, onClose }) => {
   return (
     <div className="popup-overlay">
       <div className="popup-content">
-        <h2>{recipe.name}</h2>
+        <h3>{recipe.name}</h3>
         <p>{recipe.instructions}</p>
         {/* Close button */}
         <button className="close-button" onClick={onClose}>

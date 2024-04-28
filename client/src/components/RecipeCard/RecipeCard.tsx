@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Recipe from "./Recipe";
 import InfoView from "./InfoView";
+import { AiFillLike, AiFillDislike, AiFillHeart } from "react-icons/ai";
 import HeartButton from "../HeartButton"; // Import the HeartButton component
+import LikeButton from "./LikeButton";
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -10,11 +12,6 @@ interface RecipeCardProps {
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   const [showFullRecipe, setShowFullRecipe] = useState(false);
-  const [liked, setLiked] = useState<boolean>(false);
-
-  const handleLikeToggle = () => {
-    setLiked(!liked);
-  };
 
   const toggleShowFullRecipe = () => {
     setShowFullRecipe(!showFullRecipe);
@@ -25,38 +22,26 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
       <div className="recipe-header">
         <h3>{recipe.name}</h3>
         {/* Old Heart Button */}
-        <button
-          className={liked ? "like-button liked" : "like-button"}
-          onClick={handleLikeToggle}
-        >
-          <span role="img" aria-label="heart">
-            {liked ? "❤️" : "♡"}
-          </span>{" "}
-          Like
-        </button>
-        {/* Use HeartButton component for liking */}
-        {/* <HeartButton
-          isLiked={liked}
-          onClick={handleLikeToggle}
-          name="heart-icon"
-        /> */}
+        <LikeButton />
       </div>
       {showFullRecipe ? (
         <InfoView
           recipe={recipe}
           onClose={() => setShowFullRecipe(false)}
-          onToggleLike={handleLikeToggle}
+          onToggleLike={() => {}}
         />
       ) : (
         <div className="recipe-content">
           <p>
             <strong>Cuisine:</strong> {recipe.cuisine}
           </p>
-          <p>
+          {/* <p>
             <strong>Instructions:</strong>
-          </p>
-          <p>{recipe.instructions.slice(0, 20)}</p>{" "}
-          <button onClick={toggleShowFullRecipe}>See more...</button>
+          </p> */}
+          {/* <p>{recipe.instructions.slice(0, 10)}</p>{" "} */}
+          <button className="recipe-button" onClick={toggleShowFullRecipe}>
+            View Recipe
+          </button>
         </div>
       )}
     </div>

@@ -1,8 +1,10 @@
 /* Global styles */
 .Home {
+  margin-top: 50px;
   display: grid;
+  max-height: 600px;
+  overflow: scroll;
   grid-template-areas:
-    "title title"
     "days-of-the-week-prompt days-of-the-week-buttons"
     "cuisine-prompt algorithm-prompt"
     "cuisine-options algorithm-options"
@@ -129,4 +131,7 @@ h1 {
 .regenerate-button:hover,
 .save-button:hover {
   background-color: #7d3c8e; /* Darker shade on hover */
+}
+.bottom-grid {
+  height: max-content;
 }

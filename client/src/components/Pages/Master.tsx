@@ -11,7 +11,7 @@ import Home from "./Home";
 import Profile from "./Profile";
 
 function Master() {
-  const recipeHistoryToPassIn = mockEmptyRecipeList();
+  const recipeHistoryToPassIn = mockRecipeHistory();
   console.log(mockRecipeList());
   return (
     <Router>
