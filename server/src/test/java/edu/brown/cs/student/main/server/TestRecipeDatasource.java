@@ -69,6 +69,25 @@ public class TestRecipeDatasource {
   }
 
   /** TODO: basic test of real datasource query, returns >0 results */
-
-  /** TODO: test argument generation, might need to make that a public method */
+  /**
+   * Tests basic real datasource query, just to double-check that it can be queried.
+   *
+   * <p>NOTE: this uses 3/5000 of our daily Spoonacular requests, so this should be commented out
+   * unless truly necessary.
+   */
+  //  @Test
+  //  public void testRealQuery() {
+  //    SpoonacularRecipeSource src = new SpoonacularRecipeSource();
+  //    try {
+  //      List<Recipe> results = src.queryRecipes(2, "american", null, null, null, null, null, 60);
+  //      assertEquals(2, results.size());
+  //      for (Recipe r : results) {
+  //        assert(r.getReadyInMinutes() <= 60);
+  //        assert(r.getCuisines().contains("American"));
+  //      }
+  //    } catch (DatasourceException e) {
+  //      System.out.println(e);
+  //      fail();
+  //    }
+  //  }
 }
