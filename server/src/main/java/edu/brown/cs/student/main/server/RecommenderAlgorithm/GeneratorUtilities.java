@@ -7,11 +7,7 @@ import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -131,30 +127,6 @@ public class GeneratorUtilities {
     return mostAbundantIngredients;
   }
 
-//  private String findMostAbundantIngredient(Recipe recipe) {
-//    List<Ingredient> extendedIngredients = recipe.getExtendedIngredients();
-//    Map<String, Double> ingredientQuantities = new HashMap<>(); // Map to store aggregated quantities
-//
-//    // Iterate through each ingredient
-//    for (Ingredient ingredient : extendedIngredients) {
-//      String name = ingredient.getName();
-//      double quantity = ingredient.getMeasures().getUs().getAmount();
-//      String unit = ingredient.getMeasures().getUs().getUnitLong();
-//
-//      // Convert quantity to a common unit (e.g., grams)
-//      double commonQuantity = convertToGrams(quantity, unit);
-//
-//      // Aggregate quantities for each ingredient
-//      ingredientQuantities.put(name, ingredientQuantities.getOrDefault(name, 0.0)
-//          + commonQuantity);
-//    }
-//
-//    // Find the ingredient with the highest aggregated quantity
-//    String mostAbundantIngredient = Collections.max(ingredientQuantities.entrySet(),
-//        Map.Entry.comparingByValue()).getKey();
-//    return mostAbundantIngredient;
-//  }
-
   /**
    * Method to convert the given firebase data into a list of recipes.
    *
@@ -169,12 +141,16 @@ public class GeneratorUtilities {
       return null;
     }
     List<Recipe> recipes = new ArrayList<>();
+
     for (Map<String, Object> recipeData : firebaseData) {
-      // Deserialize each map entry into a Recipe object
-      String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeData);
-      Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
-      if (recipe != null) {
-        recipes.add(recipe);
+      Set<String> keys = recipeData.keySet();
+      for (String key : keys)
+      {
+        String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson((Map<String, Object>) recipeData.get(key));
+        Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
+        if (recipe != null) {
+          recipes.add(recipe);
+        }
       }
     }
     return recipes;

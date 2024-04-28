@@ -49,24 +49,23 @@ public class Server {
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
       Spark.get("get-user", new GetUserHandler(firebaseUtils));
 
+      RecipeDatasource datasource = new SpoonacularRecipeSource();
+      MealPlanGenerator planGenerator = new MealPlanGenerator(datasource, Mode.MINIMIZE_FOOD_WASTE,
+          "sunday,monday,tuesday,null,null,null,null", 4, null,
+          null, null, null, 60, firebaseUtils, "test-1");
+      RecipeDatasource datasource1 = new SpoonacularRecipeSource();
+      MealPlanGenerator planGenerator1 = new MealPlanGenerator(datasource1, Mode.MINIMIZE_FOOD_WASTE,
+          "null,monday,tuesday,null,null,null,saturday", 5, null,
+          null, null, null, 80, firebaseUtils, "test-2");
+      try {
+        MealPlan recipeList = planGenerator.generatePlan();
+        GeneratorUtilities.addToFirebase("test-1", firebaseUtils, recipeList);
+        MealPlan recipeList1 = planGenerator1.generatePlan();
+        GeneratorUtilities.addToFirebase("test-2", firebaseUtils, recipeList1);
 
-//      RecipeDatasource datasource = new SpoonacularRecipeSource();
-//      MealPlanGenerator planGenerator = new MealPlanGenerator(datasource, Mode.MINIMIZE_FOOD_WASTE,
-//          "sunday,monday,tuesday,null,null,null,null", 4, null,
-//          null, null, null, 60, firebaseUtils, "test-1");
-//      RecipeDatasource datasource1 = new SpoonacularRecipeSource();
-//      MealPlanGenerator planGenerator1 = new MealPlanGenerator(datasource1, Mode.MINIMIZE_FOOD_WASTE,
-//          "null,monday,tuesday,null,null,null,saturday", 5, null,
-//          null, null, null, 80, firebaseUtils, "test-2");
-//      try {
-//        MealPlan recipeList = planGenerator.generatePlan();
-//        GeneratorUtilities.addToFirebase("test-1", firebaseUtils, recipeList);
-//        MealPlan recipeList1 = planGenerator1.generatePlan();
-//        GeneratorUtilities.addToFirebase("test2", firebaseUtils, recipeList1);
-//
-//      } catch (DatasourceException | RecipeVolumeException e) {
-//        System.out.println(e.getMessage());
-//      }
+      } catch (DatasourceException | RecipeVolumeException e) {
+        System.out.println(e.getMessage());
+      }
 
       Spark.notFound(
           (request, response) -> {

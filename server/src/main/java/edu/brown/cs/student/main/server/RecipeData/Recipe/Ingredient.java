@@ -73,20 +73,20 @@ public class Ingredient {
         return name;
     }
 
-    /**
-     * A toString method for an Ingredient.
-     *
-     * @return the String representation of this Ingredient
-     */
-    @Override
-    public String toString() {
-        return "Name: "
-            + this.getName()
-            + ", Meta: "
-            + this.getMeta()
-            + ", Measures: "
-            + this.getMeasures().toString();
-    }
+//    /**
+//     * A toString method for an Ingredient.
+//     *
+//     * @return the String representation of this Ingredient
+//     */
+//    @Override
+//    public String toString() {
+//        return "Name: "
+//            + this.getName()
+//            + ", Meta: "
+//            + this.getMeta()
+//            + ", Measures: "
+//            + this.getMeasures().toString();
+//    }
 
     /**
      * An equals method for an Ingredient.
@@ -112,5 +112,42 @@ public class Ingredient {
     @Override
     public int hashCode() {
         return this.getName().hashCode();
+    }
+
+    /**
+     * A method to serialize an Ingredient object into JSON format.
+     *
+     * @return the JSON representation of this Ingredient
+     */
+    @Override
+    public String toString() {
+        StringBuilder jsonBuilder = new StringBuilder();
+        jsonBuilder.append("{");
+        jsonBuilder.append("\"measures\":").append(measures.toString()).append(",");
+        jsonBuilder.append("\"meta\":").append(listToJson(meta)).append(",");
+        jsonBuilder.append("\"name\":\"").append(name).append("\"");
+        jsonBuilder.append("}");
+        return jsonBuilder.toString();
+    }
+
+    // Other methods
+
+    /**
+     * A helper method to serialize a list of strings into JSON format.
+     *
+     * @param list the list of strings to be serialized
+     * @return the JSON representation of the list
+     */
+    private String listToJson(List<String> list) {
+        StringBuilder listBuilder = new StringBuilder();
+        listBuilder.append("[");
+        for (int i = 0; i < list.size(); i++) {
+            listBuilder.append("\"").append(list.get(i)).append("\"");
+            if (i < list.size() - 1) {
+                listBuilder.append(",");
+            }
+        }
+        listBuilder.append("]");
+        return listBuilder.toString();
     }
 }
