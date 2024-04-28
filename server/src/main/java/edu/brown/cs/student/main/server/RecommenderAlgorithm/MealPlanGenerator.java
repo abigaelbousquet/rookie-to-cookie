@@ -99,7 +99,7 @@ public class MealPlanGenerator {
       weekOfRecipes = this.minimizeFoodWaste();
     }
     else {
-      weekOfRecipes = this.personalize();
+      weekOfRecipes = this.personalized();
     }
     List<Recipe> weekOfRecipesScaledServings = new ArrayList<>(weekOfRecipes);
     for (Recipe recipe : weekOfRecipesScaledServings) {
@@ -252,7 +252,7 @@ public class MealPlanGenerator {
    * @throws RecipeVolumeException if unable to find NUM_DAYS_TO_PLAN quality recipes fitting
    * this generator's criteria
    */
-  public List<Recipe> personalize() throws DatasourceException, RecipeVolumeException {
+  public List<Recipe> personalized() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting list of quality recipes fitting user needs
     List<Recipe> goodResults = this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN*6, this.NUM_DAYS_TO_PLAN*3, null);
 
