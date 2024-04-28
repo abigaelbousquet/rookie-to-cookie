@@ -129,8 +129,11 @@ public class GeneratorUtilities {
       case "cup":
       case "cups":
         return quantity * 236.6; // Conversion factor for cups to grams
+      case "gram":
+      case "grams":
+        return quantity; // grams require no conversion
       default:
-        return quantity; // If unit is already in grams or unknown, return as is
+        return 0; // If unit is unknown, return 0 as to not skew results
     }
   }
 
@@ -173,31 +176,6 @@ public class GeneratorUtilities {
 
     return mostAbundantIngredients;
   }
-
-  //  private String findMostAbundantIngredient(Recipe recipe) {
-  //    List<Ingredient> extendedIngredients = recipe.getExtendedIngredients();
-  //    Map<String, Double> ingredientQuantities = new HashMap<>(); // Map to store aggregated
-  // quantities
-  //
-  //    // Iterate through each ingredient
-  //    for (Ingredient ingredient : extendedIngredients) {
-  //      String name = ingredient.getName();
-  //      double quantity = ingredient.getMeasures().getUs().getAmount();
-  //      String unit = ingredient.getMeasures().getUs().getUnitLong();
-  //
-  //      // Convert quantity to a common unit (e.g., grams)
-  //      double commonQuantity = convertToGrams(quantity, unit);
-  //
-  //      // Aggregate quantities for each ingredient
-  //      ingredientQuantities.put(name, ingredientQuantities.getOrDefault(name, 0.0)
-  //          + commonQuantity);
-  //    }
-  //
-  //    // Find the ingredient with the highest aggregated quantity
-  //    String mostAbundantIngredient = Collections.max(ingredientQuantities.entrySet(),
-  //        Map.Entry.comparingByValue()).getKey();
-  //    return mostAbundantIngredient;
-  //  }
 
   /**
    * Method to convert the given firebase data into a list of recipes.
