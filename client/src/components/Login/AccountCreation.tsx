@@ -59,20 +59,21 @@ export const AccountCreation: React.FC<acctProps> = ({
     //await addUser(props);
     if (props.name === null || props.exp === null || props.fam_size === null) {
       alert("Please enter name, experience, and family size.");
+    } else {
+      console.log(
+        "?name=",
+        props.name +
+          "&exp=" +
+          props.exp +
+          "&diet=" +
+          props.diet.toString() +
+          "&fam-size=" +
+          props.fam_size +
+          "&intolerances=" +
+          props.intolerances.toString()
+      );
+      setAuthing(1);
     }
-    console.log(
-      "?name=",
-      props.name +
-        "&exp=" +
-        props.exp +
-        "&diet=" +
-        props.diet.toString() +
-        "&fam-size=" +
-        props.fam_size +
-        "&intolerances=" +
-        props.intolerances.toString()
-    );
-    setAuthing(1);
   };
 
   return (
@@ -95,7 +96,7 @@ export const AccountCreation: React.FC<acctProps> = ({
                 styleID={"input-box"}
               />
             </div>
-            <div>
+            <div className="exp-slider">
               <legend>Cooking Experience:</legend>
               <Slider
                 defaultValue={1}
