@@ -72,6 +72,7 @@ public class AddLikedRecipeHandler implements Route {
       this.storageHandler.addDocument(uid, "liked recipes", recipeId, data);
 
       responseMap.put("response_type", "success");
+      responseMap.put("recipe", recipeId);
 
     } catch (Exception e) {
       // error likely occurred in the storage handler

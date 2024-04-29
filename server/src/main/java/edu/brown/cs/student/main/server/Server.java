@@ -14,12 +14,14 @@ import edu.brown.cs.student.main.server.RecommenderAlgorithm.RecipeVolumeExcepti
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import spark.Filter;
 import spark.Spark;
 
 /** Top Level class for our project, utilizes spark to create and maintain our server. */
 public class Server {
+  public static Map<String, MealPlan> userCurrPlan;
 
   public static void setUpServer()
       throws IllegalArgumentException, InterruptedException, ExecutionException {
@@ -45,6 +47,10 @@ public class Server {
       Spark.get("get-disliked-recipes", new ListDislikedRecipesHandler(firebaseUtils));
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
       Spark.get("get-user", new GetUserHandler(firebaseUtils));
+      Spark.get("generate-mealplan", new GenerateMealPlanHandler(firebaseUtils));
+      Spark.get("get-mealplan", new GetMealPlanHandler(firebaseUtils));
+      Spark.get("save-mealplan", new SaveMealPlanHandler(firebaseUtils));
+
 //
 //      RecipeDatasource datasource = new SpoonacularRecipeSource();
 //      MealPlanGenerator planGenerator =

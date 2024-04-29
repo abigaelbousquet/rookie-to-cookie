@@ -1,5 +1,8 @@
 package edu.brown.cs.student.main.server.EndpointHandlers;
 
+import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
+import edu.brown.cs.student.main.server.RecipeData.MealPlan;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.UserData.Profile;
 import edu.brown.cs.student.main.server.UserData.ProfileUtilities;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
@@ -8,10 +11,8 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class GetMealPlanHandler implements Route {
 
@@ -33,24 +34,35 @@ public class GetMealPlanHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
+      String dayOfSunday = request.queryParams("dayOfSunday"); //should be MM/DD/YYYY
 
-      System.out.println("listing profile for user: " + uid);
+      SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+      Date date = dateFormat.parse(dayOfSunday);
 
-      // get all the words for the user
-      List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "Profile");
-      ArrayList<Profile> users = new ArrayList<>();
-      // convert the key,value map to just a list of the words.
-      for (Map<String, Object> profileMap : vals) {
-        String profileJson =
-            FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(
-                (Map<String, Object>) profileMap.get("User"));
+      Map<String, Object> data = new HashMap<>();
+      List<Map<String, Object>> mealPlans = this.storageHandler.getCollection(uid, "Mealplans");
 
-        Profile user = ProfileUtilities.deserializeProfile(profileJson);
-        users.add(user);
+      for (Map<String, Object> mealPlan : mealPlans) {
+        Set<String> mealNames = mealPlan.keySet();
+        assert mealNames.size() == 1;
+        String mealName = String.valueOf(mealNames.toArray()[0]);
+        String mealJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(mealPlan);
+
+        MealPlan plan = RecipeUtilities.deserializePlan(mealName, mealJson);
+        List<Date> dateList = plan.getDates();
+        for (Date day : dateList) {
+          if (day != null && day.equals(date)) {
+            //
+            data.put(String.valueOf(date), plan);
+            break;
+          }
+        }
       }
 
+      System.out.println("getting meals plans for user: " + uid);
+
       responseMap.put("response_type", "success");
-      responseMap.put("User", users);
+      responseMap.put("Mealplan", data);
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();

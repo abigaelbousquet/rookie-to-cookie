@@ -6,24 +6,21 @@ import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGenerator;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.Mode;
 import edu.brown.cs.student.main.server.Server;
-import edu.brown.cs.student.main.server.UserData.Profile;
-import edu.brown.cs.student.main.server.UserData.ProfileUtilities;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class GenerateMealPlanHandler implements Route {
+public class SaveMealPlanHandler implements Route {
 
   public StorageInterface storageHandler;
 
-  public GenerateMealPlanHandler(StorageInterface storageHandler) {
+  public SaveMealPlanHandler(StorageInterface storageHandler) {
     this.storageHandler = storageHandler;
   }
 
@@ -39,41 +36,14 @@ public class GenerateMealPlanHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      //date of the Sunday of the week of the mealplan
-      String dayOfSunday = request.queryParams("dayOfSunday");
-      String daysOfWeekString = request.queryParams("daysOfWeek"); //array of days of week
-      String modeString = request.queryParams("mode"); //pass in minimize or personalize
-      String dietString = request.queryParams("diet");
-      String intoleranceString = request.queryParams("intolerances");
-      String expString = request.queryParams("exp");
-      String servingString = request.queryParams("servings");
-      String cuisineString = request.queryParams("cuisine");
-      String maxReadyTimeString = request.queryParams("max_time");
-      String excludeCuisineString = request.queryParams("exclude_cuisine");
+      Date sundayDate = Server.userCurrPlan.get(uid).getDates().get(0);
+        // also need a way to find date range, for now just gonna call mealplan-1, etc
+      String planId = String.valueOf(sundayDate);
+      responseMap.put("Mealplan", Server.userCurrPlan);
 
-      List<Date> dateList = this.parseDates(dayOfSunday);
-
-      Mode mode = null;
-
-      int exp = Integer.parseInt(expString);
-      int maxReadyTime = Integer.parseInt(maxReadyTimeString);
-      int servings = Integer.parseInt(servingString);
-
-      if (modeString.equals("minimize")) {
-        mode = Mode.MINIMIZE_FOOD_WASTE;
-      }
-      else {
-        mode = Mode.PERSONALIZED;
-      }
-
-      RecipeDatasource source = new SpoonacularRecipeSource();
-      MealPlanGenerator planGenerator = new MealPlanGenerator(source, mode, daysOfWeekString,
-              servings, cuisineString, excludeCuisineString, dietString, intoleranceString, maxReadyTime,
-              this.storageHandler, uid, dateList);
-      MealPlan plan = planGenerator.generatePlan();
-      Server.userCurrPlan.put(uid, plan); //stores plan under uid inServer variable
+      this.storageHandler.addDocument(uid, "Mealplans", planId, responseMap);
       responseMap.put("response_type", "success");
-      responseMap.put("Mealplan", plan);
+
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();
