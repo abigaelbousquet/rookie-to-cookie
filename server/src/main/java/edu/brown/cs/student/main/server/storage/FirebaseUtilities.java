@@ -13,12 +13,16 @@ import com.google.firebase.cloud.FirestoreClient;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
+import edu.brown.cs.student.main.server.RecipeData.MealPlan;
+import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -145,5 +149,66 @@ public class FirebaseUtilities implements StorageInterface {
     } catch (Exception e) {
       System.err.println("Error deleting collection : " + e.getMessage());
     }
+  }
+
+  /**
+   * Deserializes a user's liked or disliked recipes from firebase into the equivalent List of
+   * Recipe objects.
+   *
+   * @param firebaseData the raw data from firebase
+   * @return the List of Recipes corresponding to the deserialized version of firebaseData
+   * @throws IllegalArgumentException if not passed
+   * @throws IOException
+   */
+  public static List<Recipe> convertLikedOrDislikedRecipes(List<Map<String, Object>> firebaseData)
+      throws IllegalArgumentException, IOException {
+    List<Recipe> recipes = new ArrayList<>();
+    for (Map<String, Object> rawRecipes : firebaseData) {
+      for (Object recipeData : rawRecipes.values()) {
+        if (!(recipeData instanceof Map)) {
+          throw new IllegalArgumentException(
+              "Attempted to convert non-map into a map. " +
+                  "Liked or disliked recipes from firebase should be nested maps. Rawjson: "
+                  + firebaseData);
+        }
+        Map<String, Object> recipeDataAsMap = (Map<String, Object>) recipeData;
+
+        // Deserialize each map entry into a Recipe object
+        String recipeJson =
+            FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeDataAsMap);
+        Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
+        if (recipe != null) {
+          recipes.add(recipe);
+        }
+      }
+    }
+    return recipes;
+  }
+
+  /**
+   * Method to add the given meal plan to the firestore database.
+   *
+   * @param uid
+   * @param firebaseData
+   * @param plan
+   */
+  public static void addToFirebase(String uid, StorageInterface firebaseData, MealPlan plan) {
+    Map<String, Object> data = new HashMap<>();
+    // also need a way to find date range, for now just gonna call mealplan-1, etc
+    int mealCount = 0;
+    String planId = "default";
+    try {
+      mealCount = firebaseData.getCollection(uid, "Mealplans").size();
+      planId = "mealplan-" + mealCount;
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (ExecutionException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    data.put(planId, plan);
+
+    firebaseData.addDocument(uid, "Mealplans", planId, data);
   }
 }

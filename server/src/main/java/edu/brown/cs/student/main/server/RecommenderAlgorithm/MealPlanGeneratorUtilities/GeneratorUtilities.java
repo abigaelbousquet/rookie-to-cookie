@@ -1,20 +1,14 @@
 package edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities;
 
-import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
-import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Ingredient;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree.RecipeRecommendationKDTree;
-import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
-import edu.brown.cs.student.main.server.storage.StorageInterface;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.concurrent.ExecutionException;
 
 /** A class for utility methods associated with a MealPlanGenerator. */
 public class GeneratorUtilities {
@@ -175,52 +169,6 @@ public class GeneratorUtilities {
     }
 
     return mostAbundantIngredients;
-  }
-
-  public static List<Recipe> convertLikedOrDislikedRecipes(List<Map<String, Object>> firebaseData)
-      throws IllegalArgumentException, IOException {
-    List<Recipe> recipes = new ArrayList<>();
-    for (Map<String, Object> rawRecipes : firebaseData) {
-      for (Object recipeData : rawRecipes.values()) {
-        Map<String, Object> recipeDataAsMap = (Map<String, Object>) recipeData;
-
-        // Deserialize each map entry into a Recipe object
-        String recipeJson =
-            FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeDataAsMap);
-        Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
-        if (recipe != null) {
-          recipes.add(recipe);
-        }
-      }
-    }
-    return recipes;
-  }
-
-  /**
-   * Method to add the given meal plan to the firestore database.
-   *
-   * @param uid
-   * @param firebaseData
-   * @param plan
-   */
-  public static void addToFirebase(String uid, StorageInterface firebaseData, MealPlan plan) {
-    Map<String, Object> data = new HashMap<>();
-    // also need a way to find date range, for now just gonna call mealplan-1, etc
-    int mealCount = 0;
-    String planId = "default";
-    try {
-      mealCount = firebaseData.getCollection(uid, "Mealplans").size();
-      planId = "mealplan-" + mealCount;
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (ExecutionException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    data.put(planId, plan);
-
-    firebaseData.addDocument(uid, "Mealplans", planId, data);
   }
 
   /**

@@ -8,6 +8,7 @@ import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities.GeneratorUtilities;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities.RecipeFrequencyPair;
+import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -79,10 +80,10 @@ public class MealPlanGenerator {
     this.DATASOURCE = recipeSource;
     if (this.FIREBASE_DATA != null) {
       this.dislikedRecipes =
-          GeneratorUtilities.convertLikedOrDislikedRecipes(
+          FirebaseUtilities.convertLikedOrDislikedRecipes(
               firebaseData.getCollection(uid, "disliked recipes"));
       this.likedRecipes =
-          GeneratorUtilities.convertLikedOrDislikedRecipes(
+          FirebaseUtilities.convertLikedOrDislikedRecipes(
               firebaseData.getCollection(uid, "liked recipes"));
     }
   }
