@@ -199,32 +199,32 @@ public class GeneratorUtilities {
     return recipes;
   }
 
-  /**
-   * Method to add the given meal plan to the firestore database.
-   *
-   * @param uid
-   * @param firebaseData
-   * @param plan
-   */
-  public static void addToFirebase(String uid, StorageInterface firebaseData, MealPlan plan) {
-    Map<String, Object> data = new HashMap<>();
-    // also need a way to find date range, for now just gonna call mealplan-1, etc
-    int mealCount = 0;
-    String planId = "default";
-    try {
-      mealCount = firebaseData.getCollection(uid, "Mealplans").size();
-      planId = "mealplan-" + mealCount;
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (ExecutionException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    data.put(planId, plan);
-
-    firebaseData.addDocument(uid, "Mealplans", planId, data);
-  }
+//  /**
+//   * Method to add the given meal plan to the firestore database.
+//   *
+//   * @param uid
+//   * @param firebaseData
+//   * @param plan
+//   */
+//  public static void addToFirebase(String uid, StorageInterface firebaseData, MealPlan plan) {
+//    Map<String, Object> data = new HashMap<>();
+//    // also need a way to find date range, for now just gonna call mealplan-1, etc
+//    int mealCount = 0;
+//    String planId = "default";
+//    try {
+//      mealCount = firebaseData.getCollection(uid, "Mealplans").size();
+//      planId = "mealplan-" + mealCount;
+//    } catch (InterruptedException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    } catch (ExecutionException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    }
+//    data.put(planId, plan);
+//
+//    firebaseData.addDocument(uid, "Mealplans", planId, data);
+//  }
 
   /**
    * Adds a new RecipeFrequencyPair to a PriorityQueue of RecipeFrequencyPairs and trims the queue
