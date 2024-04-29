@@ -4,7 +4,6 @@ import InfoView from "./InfoView";
 
 import { AiFillLike, AiFillDislike, AiFillHeart } from "react-icons/ai";
 import LikeButton from "./LikeButton";
-import HeartButton from "../HeartButton"; // Import the HeartButton component
 import "../../styles/RecipeCard.css";
 
 interface RecipeCardProps {
@@ -19,25 +18,21 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
     setShowFullRecipe(!showFullRecipe);
   };
   return (
-
-        <div className="recipe-card-container">
-    <div className="recipe-card">
-      <div className="recipe-header">
-        <div className="recipe-title">{recipe.name}</div>
-        {/* Old Heart Button */}
-        <LikeButton liked={liked} setLiked={setLiked} />
-      </div>
-      </div>
-      {showFullRecipe ? (
-        <InfoView
-          recipe={recipe}
-          onClose={() => setShowFullRecipe(false)}
-          onToggleLike={() => {}}
-          {/*onToggleLike={handleLikeToggle}*/}
-           {/* liked={liked}*/}
-        />
-      ) : (
-
+    <div className="recipe-card-container">
+      <div className="recipe-card">
+        <div className="recipe-header">
+          <div className="recipe-title">{recipe.name}</div>
+          {/* Old Heart Button */}
+          <LikeButton liked={liked} setLiked={setLiked} />
+        </div>
+        {showFullRecipe && (
+          <InfoView
+            recipe={recipe}
+            onClose={() => setShowFullRecipe(false)}
+            onToggleLike={() => {}}
+            liked={false}
+          />
+        )}
         <div className="recipe-content">
           <p>
             <strong>Cuisine:</strong> {recipe.cuisine}

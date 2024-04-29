@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -19,7 +19,46 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const handleClick = async () => {
+    if (password === null || email === null) {
+      alert("Please enter your email and password");
+    }
+    try {
+      //0= login page
+      //1=home page
+      //2= create account page
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      props.setAuthing(1);
+    } catch (error) {
+      if (error.message === "auth/invalid-email") {
+        alert("invalid email");
+        props.setAuthing(0);
+      } else if (
+        error.message ===
+        "WEAK_PASSWORD : Password should be at least 6 characters"
+      ) {
+        props.setAuthing(2);
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+        console.log("acct created");
+        props.setAuthing(2);
+      }
+    }
+  };
+  const handleUserKeyPress = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      handleClick();
+      document.getElementById("history")?.focus();
+      console.log("pressed enter");
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("keydown", handleUserKeyPress);
 
+    return () => {
+      document.removeEventListener("keydown", handleUserKeyPress);
+    };
+  }, []);
   return (
     <div className="popup">
       <div className="popup-inner">
@@ -49,40 +88,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
             <div>
               <button
                 className="butt"
-                onClick={async () => {
-                  if (password === null || email === null) {
-                    alert("Please enter your email and password");
-                  }
-                  try {
-                    //0= login page
-                    //1=home page
-                    //2= create account page
-                    const response = await signInWithEmailAndPassword(
-                      auth,
-                      email,
-                      password
-                    );
-                    props.setAuthing(1);
-                  } catch (error) {
-                    if (error.message === "auth/invalid-email") {
-                      alert("invalid email");
-                      props.setAuthing(0);
-                    } else if (
-                      error.message ===
-                      "WEAK_PASSWORD : Password should be at least 6 characters"
-                    ) {
-                      props.setAuthing(2);
-                    } else {
-                      await createUserWithEmailAndPassword(
-                        auth,
-                        email,
-                        password
-                      );
-                      console.log("acct created");
-                      props.setAuthing(2);
-                    }
-                  }
-                }}
+                onClick={handleClick}
                 disabled={props.authing !== 0}
                 aria-label="Login"
               >

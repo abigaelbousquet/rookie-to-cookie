@@ -4,7 +4,7 @@ import "rc-slider/assets/index.css";
 import "./../../styles/login.css";
 import Select from "react-select";
 
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { ControlledInput } from "./ControlledInput";
 import Creatable from "react-select/creatable";
 import { addUser } from "../../utils/api";
@@ -55,6 +55,20 @@ export const AccountCreation: React.FC<acctProps> = ({
     { label: "Dairy", value: "Dairy" },
     { label: "Gluten", value: "Gluten" },
   ];
+  // const handleUserKeyPress = (event: KeyboardEvent) => {
+  //   if (event.key === "Enter") {
+  //     handleSubmit();
+  //     document.getElementById("history")?.focus();
+  //     console.log("pressed enter");
+  //   }
+  // };
+  // useEffect(() => {
+  //   document.addEventListener("keydown", handleUserKeyPress);
+
+  //   return () => {
+  //     document.removeEventListener("keydown", handleUserKeyPress);
+  //   };
+  // }, []);
   const handleSubmit = async (props: profileProps) => {
     // Handle form submission here, e.g., send data to server
     //await addUser(props);
