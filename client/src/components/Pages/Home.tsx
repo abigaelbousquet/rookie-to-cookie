@@ -6,8 +6,10 @@ import MultiSelectInput from "../SelectionTypes/MultiSelectInput";
 import IntegerInput from "../SelectionTypes/IntegerInput";
 import WeekView from "../HomeComponents/WeekView";
 import DaysOfTheWeekButtons from "../HomeComponents/DaysOfTheWeekButtons";
+
 import { generateMealPlan, getUser, saveMealPlan } from "../../utils/api";
 import { cuisineOptions, intoleranceOptions } from "../../data/Spoonacular";
+import MealPlanSave from "../Save/MealPlanSave";
 
 const Home: React.FC = () => {
   // Define the options array for the dropdown
@@ -42,7 +44,8 @@ const Home: React.FC = () => {
   // State to hold the selected option
   const [selectedAlg, setSelectedAlg] = useState("minimize_foodwaste");
   // State to control the visibility of the popup
-  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [showInfoViewPopup, setShowInfoViewPopup] = useState<boolean>(false);
+  const [showSavePopup, setSavePopup] = useState<boolean>(false);
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
   const [maxTime, setMaxTime] = useState<number>(1);
   const [excludedIngredients, setExcludedIngredients] = useState("");
@@ -100,72 +103,88 @@ const Home: React.FC = () => {
     setExcludedIngredients(selectedToExclude.map((option) => option.value));
   };
 
+
+
+  const toggleShowSave = () => {
+    setSavePopup(!showSavePopup);
+  };
+
   return (
     <div className="Home Page">
-      {/* Section of days of the week prompt */}
-      <div className="days-of-the-week-prompt-text">
-        Select the days of the week you would like to plan for:
-      </div>
 
-      {/* Section of days of the week buttons */}
-      <div className="days-of-the-week-buttons">
-        <DaysOfTheWeekButtons
-          selectedButtons={selectedButtons}
-          handleButtonClick={handleButtonClick}
-        />
-      </div>
-
-      {/* Section of cuisine prompt */}
-      <div className="cuisine-prompt-text">
-        Select the type of cuisine that you would like to see:
-      </div>
-
-      {/* Section of cuisine dropdown box */}
-      <div className="cuisine-options-box">
-        <Select
-          options={cuisineOptions}
-          value={selectedOptionsCuisine}
-          onChange={setSelectedOptionsCuisine}
-          isMulti // Enable multi-select
-          placeholder="Select option(s)"
-        />
-      </div>
-
-      {/* Section of algorithm prompt */}
-      <div className="algorithm-prompt-text">
-        Select the type of algorithm that you would like to use:
-      </div>
-
-      {/* Section of cuisine dropdown box */}
-      <div className="algorithm-options-box">
-        <div>
-          <input
-            type="radio"
-            id="minimize_foodwaste"
-            name="algorithm"
-            value="minimize_foodwaste"
-            checked={selectedAlg === "minimize_foodwaste"} // Check if this option is selected
-            onChange={handleAlgChange} // Call function to update state on change
-          />
-          <label htmlFor="id_minimize_foodwaste">Minimize Food Waste</label>
+      <div className="days-of-the-week-container">
+        {/* Section of days of the week prompt */}
+        <div className="days-of-the-week-prompt-text">
+          Select the days of the week you would like to plan for:
         </div>
-        <div>
-          <input
-            type="radio"
-            id="prioritize user taste"
-            name="algorithm"
-            value="prioritize user taste"
-            checked={selectedAlg === "prioritize user taste"} // Check if this option is selected
-            onChange={handleAlgChange} // Call function to update state on change
+
+        {/* Section of days of the week buttons */}
+        <div className="days-of-the-week-buttons">
+          <DaysOfTheWeekButtons
+            selectedButtons={selectedButtons}
+            handleButtonClick={handleButtonClick}
           />
-          <label htmlFor="prioritize user taste">Prioritize User Tatse</label>
         </div>
       </div>
 
-      {/* Section of intolerances prompt */}
-      <div className="intolerances-prompt-text">
-        Select any food intolerances:
+
+      <div className="cuisine-container">
+        {/* Section of cuisine prompt */}
+        <div className="cuisine-prompt-text">
+          Select the type of cuisine that you would like to see:
+        </div>
+
+        {/* Section of cuisine dropdown box */}
+        <div className="cuisine-options-box">
+          <Select
+            options={cuisineOptions}
+            value={selectedOptionsCuisine}
+            onChange={setSelectedOptionsCuisine}
+            isMulti // Enable multi-select
+            placeholder="Select option(s)"
+          />
+        </div>
       </div>
+
+      <div className="alg-container">
+        {/* Section of algorithm prompt */}
+        <div className="algorithm-prompt-text">
+          Select the type of algorithm that you would like to use:
+        </div>
+
+        {/* Section of cuisine dropdown box */}
+        <div className="algorithm-options-box">
+          <div>
+            <input
+              type="radio"
+              id="minimize_foodwaste"
+              name="algorithm"
+              value="minimize_foodwaste"
+              checked={selectedAlg === "minimize_foodwaste"} // Check if this option is selected
+              onChange={handleAlgChange} // Call function to update state on change
+            />
+            <label htmlFor="id_minimize_foodwaste">Minimize Food Waste</label>
+          </div>
+
+          <div>
+            <input
+              type="radio"
+              id="prioritize user taste"
+              name="algorithm"
+              value="prioritize user taste"
+              checked={selectedAlg === "prioritize user taste"} // Check if this option is selected
+              onChange={handleAlgChange} // Call function to update state on change
+            />
+            <label htmlFor="prioritize user taste">Prioritize User Tatse</label>
+          </div>
+        </div>
+      </div>
+
+      <div className="intolerance-container">
+        {/* Section of intolerances prompt */}
+        <div className="intolerances-prompt-text">
+          Select any food intolerances:
+        </div>
 
       {/* Section of cuisine dropdown box */}
       <div className="intolerances-options-box">
@@ -178,20 +197,23 @@ const Home: React.FC = () => {
         />
       </div>
 
-      {/* Section of excluded ingredients prompt */}
-      <div className="exclude-prompt-text">
-        Specify any ingredients to exclude:
+      <div className="exclude-container">
+        {/* Section of excluded ingredients prompt */}
+        <div className="exclude-prompt-text">
+          Specify any ingredients to exclude:
+        </div>
+
+        {/* Section of excluded ingredients input box */}
+        <div className="exclude-options-box">
+          <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
+        </div>
       </div>
 
-      {/* Section of excluded ingredients input box */}
-      <div className="exclude-options-box">
-        <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
-      </div>
-
-      {/* Section of number of people cookign for prompt */}
-      <div className="num-people-prompt-text">
-        Specify the amount of people you are cooking for:
-      </div>
+      <div className="people-container">
+        {/* Section of number of people cookign for prompt */}
+        <div className="num-people-prompt-text">
+          Specify the amount of people you are cooking for:
+        </div>
 
       {/* Section of max time integer input */}
       <div className="num-people-options-box">
@@ -202,12 +224,14 @@ const Home: React.FC = () => {
         />
       </div>
 
-      {/* Section of max time prompt */}
-      <div className="max-time-prompt-text">Specify max cooking time:</div>
+      <div className="time-container">
+        {/* Section of max time prompt */}
+        <div className="max-time-prompt-text">Specify max cooking time:</div>
 
       {/* Section of max time integer input */}
       <div className="max-time-options-box">
         <IntegerInput value={maxTime} onChange={setMaxTime} minValue={5} />
+        </div>
       </div>
 
       {/* Button for generating */}
@@ -222,15 +246,6 @@ const Home: React.FC = () => {
         <WeekView mealPlan={mockedMealPlan} /> {/* causes a white screen */}
       </div>
 
-      {/* Show the popup if showPopup is true */}
-      {showPopup && (
-        <InfoView
-          recipe={spaghetti}
-          onClose={() => setShowPopup(false)}
-          onToggleLike={() => {}} // Provide an empty function or implement the toggle function here
-        />
-      )}
-
       {/* Button for regenerating */}
       <div className="regenerate-button-container">
         <button className="regenerate-button">Regenerate</button>
@@ -238,9 +253,11 @@ const Home: React.FC = () => {
 
       {/* Button for saving data */}
       <div className="save-data-button-container">
-        <button onClick={handleSave} className="save-button">
+
+        <button className="save-button" onClick={toggleShowSave}>
           Save
         </button>
+        {showSavePopup && <MealPlanSave onClose={() => setSavePopup(false)} />}
       </div>
     </div>
   );
