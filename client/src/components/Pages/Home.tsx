@@ -189,69 +189,65 @@ const Home: React.FC = () => {
             placeholder="Select option(s)"
           />
         </div>
+      </div>
 
-        <div className="exclude-container">
-          {/* Section of excluded ingredients prompt */}
-          <div className="exclude-prompt-text">
-            Specify any ingredients to exclude:
-          </div>
-          {/* Section of excluded ingredients input box */}
-          <div className="exclude-options-box">
-            <MultiSelectInput
-              onSelectChange={handleExcludedIngredientsChange}
-            />
-          </div>
+      <div className="exclude-container">
+        {/* Section of excluded ingredients prompt */}
+        <div className="exclude-prompt-text">
+          Specify any ingredients to exclude:
         </div>
+        {/* Section of excluded ingredients input box */}
+        <div className="exclude-options-box">
+          <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
+        </div>
+      </div>
 
-        <div className="people-container">
-          {/* Section of number of people cookign for prompt */}
-          <div className="num-people-prompt-text">
-            Specify the amount of people you are cooking for:
-          </div>
-          {/* Section of max time integer input */}
-          <div className="num-people-options-box">
-            <IntegerInput
-              value={numberOfPeople}
-              onChange={setNumberOfPeople}
-              minValue={1}
-            />
-          </div>
+      <div className="people-container">
+        {/* Section of number of people cookign for prompt */}
+        <div className="num-people-prompt-text">
+          Specify the amount of people you are cooking for:
         </div>
+        {/* Section of max time integer input */}
+        <div className="num-people-options-box">
+          <IntegerInput
+            value={numberOfPeople}
+            onChange={setNumberOfPeople}
+            minValue={1}
+          />
+        </div>
+      </div>
 
-        <div className="time-container">
-          {/* Section of max time prompt */}
-          <div className="max-time-prompt-text">Specify max cooking time:</div>
-          {/* Section of max time integer input */}
-          <div className="max-time-options-box">
-            <IntegerInput value={maxTime} onChange={setMaxTime} minValue={5} />
-          </div>
+      <div className="time-container">
+        {/* Section of max time prompt */}
+        <div className="max-time-prompt-text">Specify max cooking time:</div>
+        {/* Section of max time integer input */}
+        <div className="max-time-options-box">
+          <IntegerInput value={maxTime} onChange={setMaxTime} minValue={5} />
         </div>
+      </div>
 
-        {/* Button for generating */}
-        <div className="generate-button-container">
-          <button onClick={handleGenerate} className="generate-button">
-            Generate
-          </button>
-        </div>
+      {/* Button for generating */}
+      <div className="generate-button-container">
+        <button onClick={handleGenerate} className="generate-button">
+          Generate
+        </button>
+      </div>
 
-        {/* Container for week calendar view */}
-        <div className="week-calendar-container">
-          <WeekView mealPlan={mockedMealPlan} /> {/* causes a white screen */}
-        </div>
+      {/* Container for week calendar view */}
+      <div className="week-calendar-container">
+        <WeekView mealPlan={mockedMealPlan} /> {/* causes a white screen */}
+      </div>
 
-        {/* Button for regenerating */}
-        <div className="regenerate-button-container">
-          <button className="regenerate-button">Regenerate</button>
-        </div>
-        {/* Button for saving data */}
-        <div className="save-data-button-container">
-          <button className="save-button" onClick={toggleShowSave}>
-            Save
-          </button>
-          {showSavePopup && (
-            <MealPlanSave onClose={() => setSavePopup(false)} />
-          )}
-        </div>
+      {/* Button for regenerating */}
+      <div className="regenerate-button-container">
+        <button className="regenerate-button">Regenerate</button>
+      </div>
+      {/* Button for saving data */}
+      <div className="save-data-button-container">
+        <button className="save-button" onClick={toggleShowSave}>
+          Save
+        </button>
+        {showSavePopup && <MealPlanSave onClose={() => setSavePopup(false)} />}
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Recipe from "./Recipe";
 import InfoView from "./InfoView";
-
 import { AiFillLike, AiFillDislike, AiFillHeart } from "react-icons/ai";
 import LikeButton from "./LikeButton";
 import "../../styles/RecipeCard.css";
@@ -23,7 +22,9 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
         <div className="recipe-header">
           <div className="recipe-title">{recipe.name}</div>
           {/* Old Heart Button */}
-          <LikeButton liked={liked} setLiked={setLiked} />
+          <div className="like-button-container">
+            <LikeButton liked={liked} setLiked={setLiked} />
+          </div>
         </div>
         {showFullRecipe && (
           <InfoView

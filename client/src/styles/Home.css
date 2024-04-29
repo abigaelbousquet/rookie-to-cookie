@@ -5,16 +5,10 @@
   max-height: 600px;
   overflow: scroll;
   grid-template-areas:
-
-    "title title"
     "days-of-the-week-container days-of-the-week-container"
     "cuisine-container alg-container"
-    "cuisine-container alg-container"
-    "intolerance-container people-container"
     "intolerance-container people-container"
     "exclude-container time-container"
-    "exclude-container time-container"
-
     "generate-button generate-button"
     "week-calendar week-calendar"
     "regenerate-button save-button";
@@ -96,7 +90,6 @@ h1 {
   background-color: #7d3c8e; /* Darker shade on hover */
 }
 
-
 .days-of-the-week-container {
   grid-area: days-of-the-week-container; /* Specify the grid area for the container */
   display: flex; /* Use flexbox to align items horizontally */
@@ -163,7 +156,6 @@ h1 {
 }
 .exclude-container {
   grid-template-columns: 1fr;
-
   display: grid;
   background-color: #f0f0f0; /* Set a background color to create a unified highlight */
   padding: 10px; /* Add padding to the container */

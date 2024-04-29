@@ -24,13 +24,10 @@
   padding: 10px;
   text-align: center;
   border: 1px solid #ccc; /* Add border */
-
-  height: 300px; /* Increase the height visually */
-
+  height: 400px; /* Increase the height visually */
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 /* Adjust the min width and border radius based on your preference */
@@ -43,24 +40,13 @@
   min-width: 100px; /* Set a smaller min width for cells without recipes */
   border-radius: 0; /* Remove border radius for cells without recipes */
 }
-.recipe-card {
-  border-color: #fab375;
-  border-style: solid;
-}
+/* 
 .recipe-header {
   display: flex;
   margin-top: 10px;
   align-items: flex-start;
   justify-content: space-evenly;
-}
-.recipe-title {
-  display: flex;
-  color: black;
-  font-weight: bold;
-  font-size: large;
-  justify-content: center;
-}
-
+} */
 .recipe-exists {
   min-width: 180px;
 }
