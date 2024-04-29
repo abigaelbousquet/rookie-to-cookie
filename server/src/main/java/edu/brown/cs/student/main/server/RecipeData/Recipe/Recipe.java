@@ -327,6 +327,11 @@ public class Recipe {
     return Integer.hashCode(this.id);
   }
 
+  /**
+   * A toString method for the Recipe class.
+   *
+   * @return the String interpretation of this Recipe
+   */
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -354,6 +359,11 @@ public class Recipe {
     return sb.toString();
   }
 
+  /**
+   * Gets the String version of this Recipe's instructions.
+   *
+   * @return the String version of this Recipe's instructions
+   */
   private String analyzedInstructionsToString() {
     StringBuilder sb = new StringBuilder();
 
@@ -377,22 +387,11 @@ public class Recipe {
     return sb.toString();
   }
 
-  //    private String extendedIngredientsToString() {
-  //        StringBuilder sb = new StringBuilder();
-  //        sb.append("[");
-  //        for (Ingredient ingredient : this.extendedIngredients) {
-  //            sb.append("{");
-  //            sb.append("\"name\":\"").append(ingredient.getName()).append("\",");
-  //            sb.append("\"measures\":").append(ingredient.getMeasures());
-  //            sb.append("},");
-  //        }
-  //        if (!extendedIngredients.isEmpty()) {
-  //            sb.deleteCharAt(sb.length() - 1); // Remove the trailing comma
-  //        }
-  //        sb.append("]");
-  //        return sb.toString();
-  //    }
-
+  /**
+   * Gets the String version of this Recipe's diets.
+   *
+   * @return the String version of this Recipe's diets
+   */
   private String dietsToString() {
     StringBuilder sb = new StringBuilder();
     sb.append("[");
@@ -406,6 +405,11 @@ public class Recipe {
     return sb.toString();
   }
 
+  /**
+   * Gets the String version of this Recipe's cuisines.
+   *
+   * @return the String version of this Recipe's cuisines
+   */
   private String cuisinesToString() {
     StringBuilder sb = new StringBuilder();
     sb.append("[");
