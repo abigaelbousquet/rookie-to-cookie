@@ -79,9 +79,9 @@ public class MealPlanGenerator {
     this.DATASOURCE = recipeSource;
     if (this.FIREBASE_DATA != null) {
       this.dislikedRecipes =
-          GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+          GeneratorUtilities.convertLikedOrDislikedRecipes(firebaseData.getCollection(uid, "disliked recipes"));
       this.likedRecipes =
-          GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+          GeneratorUtilities.convertLikedOrDislikedRecipes(firebaseData.getCollection(uid, "liked recipes"));
     }
   }
 
@@ -321,9 +321,6 @@ public class MealPlanGenerator {
         goodResults.remove(recipeWithFrequency.recipe());
       }
       assert (goodResults.size() >= this.NUM_DAYS_TO_PLAN);
-
-      // TODO: this should never be equal to NUM_DAYS_TO_PLAN, in theory should be 2*that, but if it
-      // is possible and size == NUM_DAYS then we should short circuit here and return goodResults
     }
 
     List<Recipe> bestRecipes = new ArrayList<>();

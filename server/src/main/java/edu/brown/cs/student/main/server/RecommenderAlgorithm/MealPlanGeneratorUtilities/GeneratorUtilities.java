@@ -199,6 +199,24 @@ public class GeneratorUtilities {
     return recipes;
   }
 
+  public static List<Recipe> convertLikedOrDislikedRecipes(List<Map<String, Object>> firebaseData)
+      throws IllegalArgumentException, IOException {
+    List<Recipe> recipes = new ArrayList<>();
+    for (Map<String, Object> rawRecipes : firebaseData) {
+      for (Object recipeData : rawRecipes.values()) {
+        Map<String, Object> recipeDataAsMap = (Map<String, Object>) recipeData;
+        
+        // Deserialize each map entry into a Recipe object
+        String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeDataAsMap);
+        Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
+        if (recipe != null) {
+          recipes.add(recipe);
+        }
+      }
+    }
+    return recipes;
+  }
+
   /**
    * Method to add the given meal plan to the firestore database.
    *
