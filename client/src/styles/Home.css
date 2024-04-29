@@ -3,13 +3,13 @@
   display: grid;
   grid-template-areas:
     "title title"
-    "days-of-the-week-prompt days-of-the-week-buttons"
-    "cuisine-prompt algorithm-prompt"
-    "cuisine-options algorithm-options"
-    "intolerance-prompt people-prompt"
-    "intolerance-options people-options"
-    "exclude-prompt time-prompt"
-    "exclude-options time-options"
+    "days-of-the-week-container days-of-the-week-container"
+    "cuisine-container alg-container"
+    "cuisine-container alg-container"
+    "intolerance-container people-container"
+    "intolerance-container people-container"
+    "exclude-container time-container"
+    "exclude-container time-container"
     "generate-button generate-button"
     "week-calendar week-calendar"
     "regenerate-button save-button";
@@ -24,54 +24,14 @@ h1 {
 /* Section of days of the week prompt */
 .days-of-the-week-prompt-text {
   grid-area: days-of-the-week-prompt;
+  background-color: #f0f0f0; /* Set a background color */
+  padding: 10px; /* Add padding to provide spacing */
 }
 
 .days-box {
-  grid-area: days-of-the-week-prompt;
-  background-color: lightgray;
-  padding: 10px; /* Adjust padding as needed */
-}
-
-/* Section of cuisine prompt */
-.cuisine-prompt-text {
-  grid-area: cuisine-prompt;
-}
-
-/* Section of cuisine prompt */
-.algorithm-prompt-text {
-  grid-area: algorithm-prompt;
-}
-
-.exclude-prompt-text {
-  grid-area: exclude-prompt;
-}
-
-.exclude-options-box {
-  grid-area: exclude-options;
-}
-
-.num-people-prompt-text {
-  grid-area: people-prompt;
-}
-
-.num-people-options-box {
-  grid-area: people-options;
-}
-
-.max-time-prompt-text {
-  grid-area: time-prompt;
-}
-
-.max-time-options-box {
-  grid-area: time-options;
-}
-
-.intolerances-prompt-text {
-  grid-area: intolerance-prompt;
-}
-
-.intolerances-options-box {
-  grid-area: intolerance-options;
+  grid-area: days-of-the-week-buttons;
+  background-color: #f0f0f0; /* Set a background color */
+  padding: 10px; /* Add padding to provide spacing */
 }
 
 .generate-button-container {
@@ -129,4 +89,92 @@ h1 {
 .regenerate-button:hover,
 .save-button:hover {
   background-color: #7d3c8e; /* Darker shade on hover */
+}
+
+.days-of-the-week-container {
+  grid-area: days-of-the-week-container; /* Specify the grid area for the container */
+  display: flex; /* Use flexbox to align items horizontally */
+  background-color: #f0f0f0; /* Set a background color to create a unified highlight */
+  padding: 10px; /* Add padding to the container */
+}
+
+/* Style for days of the week prompt text */
+.days-of-the-week-prompt-text,
+.days-of-the-week-buttons {
+  flex: 1; /* Allow the buttons to take up remaining space */
+}
+
+.cuisine-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: #f0f0f0; /* Set a background color to create a unified highlight */
+  padding: 10px; /* Add padding to the container */
+}
+
+.cuisine-prompt-text,
+.cuisine-options-box {
+  flex: 1;
+}
+
+.alg-container {
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "algorithm-prompt"
+    "algorithm-options";
+  display: grid; /* Use flexbox to align items horizontally */
+  background-color: #f0f0f0; /* Set a background color to create a unified highlight */
+  padding: 10px; /* Add padding to the container */
+}
+
+.algorithm-prompt-text,
+.algorithm-options-box {
+  flex: 1;
+}
+
+.intolerance-container {
+  grid-template-columns: 1fr;
+
+  display: grid;
+  background-color: #f0f0f0; /* Set a background color to create a unified highlight */
+  padding: 10px; /* Add padding to the container */
+}
+
+.intolerances-prompt-text,
+.intolerances-options-box {
+  flex: 1;
+}
+
+.time-container {
+  grid-template-columns: 1fr;
+
+  display: grid;
+  background-color: #f0f0f0; /* Set a background color to create a unified highlight */
+  padding: 10px; /* Add padding to the container */
+}
+.max-time-prompt-text,
+.max-time-options-box {
+  flex: 1;
+}
+.exclude-container {
+  grid-template-columns: 1fr;
+
+  display: grid;
+  background-color: #f0f0f0; /* Set a background color to create a unified highlight */
+  padding: 10px; /* Add padding to the container */
+}
+.exclude-prompt-text,
+.exclude-options-box {
+  flex: 1;
+}
+
+.people-container {
+  grid-template-columns: 1fr;
+
+  display: grid;
+  background-color: #f0f0f0; /* Set a background color to create a unified highlight */
+  padding: 10px; /* Add padding to the container */
+}
+.num-people-prompt-text,
+.num-people-options-box {
+  flex: 1;
 }

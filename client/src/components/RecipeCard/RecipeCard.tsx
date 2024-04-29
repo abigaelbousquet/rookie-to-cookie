@@ -36,28 +36,28 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
             </button>
           </div>
         </div>
-        {showFullRecipe ? (
+        {showFullRecipe && (
           <InfoView
             recipe={recipe}
             onClose={() => setShowFullRecipe(false)}
             onToggleLike={handleLikeToggle}
+            liked={liked}
           />
-        ) : (
-          <div className="recipe-content">
-            <p>
-              <strong>Cuisine:</strong> {recipe.cuisine}
-            </p>
-            <p>
-              <strong>Time:</strong> {recipe.time}
-            </p>
-            <p>
-              <strong>Instructions: </strong>
-              {"..."}
-            </p>
-
-            <button onClick={toggleShowFullRecipe}>See more...</button>
-          </div>
         )}
+        <div className="recipe-content">
+          <p>
+            <strong>Cuisine:</strong> {recipe.cuisine}
+          </p>
+          <p>
+            <strong>Time:</strong> {recipe.time}
+          </p>
+          <p>
+            <strong>Instructions: </strong>
+            {"..."}
+          </p>
+
+          <button onClick={toggleShowFullRecipe}>See more...</button>
+        </div>
       </div>
     </div>
   );

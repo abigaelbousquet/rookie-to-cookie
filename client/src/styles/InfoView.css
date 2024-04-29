@@ -17,6 +17,7 @@
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   position: relative; /* Added */
+  width: 1000px; /* Adjust the width as needed */
 }
 
 .close-button {
@@ -33,4 +34,21 @@
 
 .close-button:hover {
   color: #333;
+}
+
+.like-button-container-info {
+  position: absolute;
+  top: 7px; /* Adjust the positioning to align the heart icon properly */
+  right: 80px; /* Adjust the positioning to align the heart icon properly */
+}
+
+.like-button-container-info button {
+  font-size: 7px; /* Adjust the font size to make the button smaller */
+  background-color: transparent;
+  border: none; /* Remove border */
+  padding: 0; /* Remove padding */
+}
+
+.like-button-container-info button span {
+  font-size: 50px; /* Adjust the heart icon's font size to make it larger */
 }
