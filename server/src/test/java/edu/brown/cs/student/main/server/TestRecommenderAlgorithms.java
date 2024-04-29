@@ -2,7 +2,6 @@ package edu.brown.cs.student.main.server;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceException;
@@ -23,18 +22,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import javax.xml.crypto.Data;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TestRecommenderAlgorithms {
 
   private static StorageInterface firebaseUtils;
 
-  /**
-   * Sets up access to Firebase for each test.
-   */
+  /** Sets up access to Firebase for each test. */
   @BeforeAll
   public static void setupFirebase() {
     try {
@@ -75,18 +70,18 @@ public class TestRecommenderAlgorithms {
     return deserializedResult;
   }
 
-  /**
-   * Tests that the most important ingredients are computed as expected for a mocked Recipe.
-   */
+  /** Tests that the most important ingredients are computed as expected for a mocked Recipe. */
   @Test
   public void testMostImportantIngredient() {
-    SearchResult mockedResult = deserializedMockedSearchResults("exampleSearchResultsWithKale.json");
+    SearchResult mockedResult =
+        deserializedMockedSearchResults("exampleSearchResultsWithKale.json");
     assertEquals(16, mockedResult.getResults().size());
 
     Recipe firstRecipe = mockedResult.getResults().get(0);
     assertEquals("Superfood Salad with Pan-Seared Salmon", firstRecipe.getTitle());
 
-    List<String> mostImportantIngredients = GeneratorUtilities.findMostAbundantIngredients(firstRecipe, 3);
+    List<String> mostImportantIngredients =
+        GeneratorUtilities.findMostAbundantIngredients(firstRecipe, 3);
     assertEquals(3, mostImportantIngredients.size());
     assertEquals("kale", mostImportantIngredients.get(0));
     assertEquals("extra virgin olive oil", mostImportantIngredients.get(1));
@@ -94,19 +89,31 @@ public class TestRecommenderAlgorithms {
   }
 
   /**
-   * Tests minimizeFoodWaste algorithm with mocked data. Ensures that Recipes after the first of
-   * the results share the same ingredient of the most important ingredient to the first Recipe of
-   * the results.
+   * Tests minimizeFoodWaste algorithm with mocked data. Ensures that Recipes after the first of the
+   * results share the same ingredient of the most important ingredient to the first Recipe of the
+   * results.
    */
   @Test
   public void testMinimizeFoodWasteMocked() {
-    SearchResult mockedResult = deserializedMockedSearchResults("exampleSearchResultsWithKale.json");
+    SearchResult mockedResult =
+        deserializedMockedSearchResults("exampleSearchResultsWithKale.json");
     assertEquals(16, mockedResult.getResults().size());
 
     MealPlanGenerator generator = null;
     try {
-      generator = new MealPlanGenerator(new MockedRecipeSource(mockedResult.getResults()),
-          Mode.MINIMIZE_FOOD_WASTE, "Monday,wednesday,Sunday", 4, null, null, null, null, 60, null, null);
+      generator =
+          new MealPlanGenerator(
+              new MockedRecipeSource(mockedResult.getResults()),
+              Mode.MINIMIZE_FOOD_WASTE,
+              "Monday,wednesday,Sunday",
+              4,
+              null,
+              null,
+              null,
+              null,
+              60,
+              null,
+              null);
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -128,7 +135,7 @@ public class TestRecommenderAlgorithms {
             break;
           }
         }
-        assert(kaleIsIngredient);
+        assert (kaleIsIngredient);
       }
 
     } catch (DatasourceException | RecipeVolumeException e) {
@@ -138,23 +145,34 @@ public class TestRecommenderAlgorithms {
   }
 
   /**
-   * Tests minimizeFoodWaste algorithm with real data. Ensures that Recipes after the first of
-   * the results share the same ingredient of the most important ingredient to the first Recipe of
-   * the results.
+   * Tests minimizeFoodWaste algorithm with real data. Ensures that Recipes after the first of the
+   * results share the same ingredient of the most important ingredient to the first Recipe of the
+   * results.
    *
-   * This is non-deterministic in specifics because the real data source queries a new first
-   * recipe every time, but given that we are doing a broad search for only 3 final Recipes,
-   * it should pass almost every time.
+   * <p>This is non-deterministic in specifics because the real data source queries a new first
+   * recipe every time, but given that we are doing a broad search for only 3 final Recipes, it
+   * should pass almost every time.
    *
-   * NOTE: this uses 6/5000 of our daily Spoonacular requests, so this should be commented out
+   * <p>NOTE: this uses 6/5000 of our daily Spoonacular requests, so this should be commented out
    * unless truly necessary.
    */
 //  @Test
 //  public void testMinimizeFoodWasteReal() {
 //    MealPlanGenerator generator = null;
 //    try {
-//      generator = new MealPlanGenerator(new SpoonacularRecipeSource(),
-//          Mode.MINIMIZE_FOOD_WASTE, "Monday,wednesday,Sunday", 4, null, null, null, null, 60, null, null);
+//      generator =
+//          new MealPlanGenerator(
+//              new SpoonacularRecipeSource(),
+//              Mode.MINIMIZE_FOOD_WASTE,
+//              "Monday,wednesday,Sunday",
+//              4,
+//              null,
+//              null,
+//              null,
+//              null,
+//              60,
+//              null,
+//              null);
 //    } catch (ExecutionException | InterruptedException | IOException e) {
 //      System.out.println(e);
 //      fail();
@@ -164,7 +182,8 @@ public class TestRecommenderAlgorithms {
 //      List<Recipe> mealPlanRecipes = generator.minimizeFoodWaste();
 //      assertEquals(3, mealPlanRecipes.size());
 //
-//      List<String> mostImportantIngredientList = GeneratorUtilities.findMostAbundantIngredients(mealPlanRecipes.get(0), 1);
+//      List<String> mostImportantIngredientList =
+//          GeneratorUtilities.findMostAbundantIngredients(mealPlanRecipes.get(0), 1);
 //      assertEquals(1, mostImportantIngredientList.size());
 //      String mostImportantIngredient = mostImportantIngredientList.get(0);
 //
@@ -178,7 +197,7 @@ public class TestRecommenderAlgorithms {
 //            break;
 //          }
 //        }
-//        assert(ingredientPresent);
+//        assert (ingredientPresent);
 //      }
 //
 //    } catch (DatasourceException | RecipeVolumeException e) {
@@ -187,18 +206,30 @@ public class TestRecommenderAlgorithms {
 //  }
 
   /**
-   * Tests that the correct number of Recipes are generated for a user without any liked or
-   * disliked Recipes (and inherently checks that this situation doesn't cause any errors).
+   * Tests that the correct number of Recipes are generated for a user without any liked or disliked
+   * Recipes (and inherently checks that this situation doesn't cause any errors).
    */
   @Test
   public void testPersonalizedMockedNoLikedNoDisliked() {
-    SearchResult mockedResult = deserializedMockedSearchResults("exampleSearchResultsWithKale.json");
+    SearchResult mockedResult =
+        deserializedMockedSearchResults("exampleSearchResultsWithKale.json");
     assertEquals(16, mockedResult.getResults().size());
 
     MealPlanGenerator generator = null;
     try {
-      generator = new MealPlanGenerator(new MockedRecipeSource(mockedResult.getResults()),
-          Mode.PERSONALIZED, "Monday,tuesday", 2, null, null, null, null, 60, this.firebaseUtils, "test_user_0liked_0disliked");
+      generator =
+          new MealPlanGenerator(
+              new MockedRecipeSource(mockedResult.getResults()),
+              Mode.PERSONALIZED,
+              "Monday,tuesday",
+              2,
+              null,
+              null,
+              null,
+              null,
+              60,
+              this.firebaseUtils,
+              "test_user_0liked_0disliked");
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -218,8 +249,8 @@ public class TestRecommenderAlgorithms {
 
   /**
    * Test personalized algorithm with a mocked query result and user who only has disliked Recipes
-   * associated with their uid. Tests that the nearest neighbors to the disliked Recipe are
-   * not returned in results.
+   * associated with their uid. Tests that the nearest neighbors to the disliked Recipe are not
+   * returned in results.
    */
   @Test
   public void testPersonalizedMockedDislikesOnly() {
@@ -228,8 +259,19 @@ public class TestRecommenderAlgorithms {
 
     MealPlanGenerator generator = null;
     try {
-      generator = new MealPlanGenerator(new MockedRecipeSource(mockedResult.getResults()),
-          Mode.PERSONALIZED, "monday,tuesday", 4, null, null, null, null, 60, this.firebaseUtils, "test_user_disliked_only");
+      generator =
+          new MealPlanGenerator(
+              new MockedRecipeSource(mockedResult.getResults()),
+              Mode.PERSONALIZED,
+              "monday,tuesday",
+              4,
+              null,
+              null,
+              null,
+              null,
+              60,
+              this.firebaseUtils,
+              "test_user_disliked_only");
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -257,7 +299,7 @@ public class TestRecommenderAlgorithms {
    * Test personalized algorithm with a mocked query result and user who only has disliked Recipes
    * associated with their uid.
    *
-   * Tests that the nearest neighbors to the disliked Recipe are never returned in results with
+   * <p>Tests that the nearest neighbors to the disliked Recipe are never returned in results with
    * SEVERAL DIFFERENT ORDERS OF CANDIDATE RECIPES (different trees) to verify consistent results.
    */
   @Test
@@ -265,7 +307,8 @@ public class TestRecommenderAlgorithms {
     SearchResult mockedResult = deserializedMockedSearchResults("exampleQualityResultLength6.json");
     assertEquals(6, mockedResult.getResults().size());
 
-    List<Recipe> mockedResultsList = mockedResult.getResults();;
+    List<Recipe> mockedResultsList = mockedResult.getResults();
+    ;
     for (int i = 0; i < 6; i++) {
       // change order of the mocked results every time past the first
       if (i > 0) {
@@ -276,9 +319,19 @@ public class TestRecommenderAlgorithms {
 
       MealPlanGenerator generator = null;
       try {
-        generator = new MealPlanGenerator(new MockedRecipeSource(mockedResultsList),
-            Mode.PERSONALIZED, "monday,tuesday", 4, null, null, null, null, 60, this.firebaseUtils,
-            "test_user_disliked_only");
+        generator =
+            new MealPlanGenerator(
+                new MockedRecipeSource(mockedResultsList),
+                Mode.PERSONALIZED,
+                "monday,tuesday",
+                4,
+                null,
+                null,
+                null,
+                null,
+                60,
+                this.firebaseUtils,
+                "test_user_disliked_only");
       } catch (ExecutionException | InterruptedException | IOException e) {
         System.out.println(e);
         fail();
@@ -307,8 +360,8 @@ public class TestRecommenderAlgorithms {
 
   /**
    * Test personalized algorithm with a mocked query result and user who only has liked Recipes
-   * associated with their uid. Tests that the nearest neighbors to the liked Recipe are
-   * returned as results.
+   * associated with their uid. Tests that the nearest neighbors to the liked Recipe are returned as
+   * results.
    */
   @Test
   public void testPersonalizedMockedLikesOnly() {
@@ -317,8 +370,19 @@ public class TestRecommenderAlgorithms {
 
     MealPlanGenerator generator = null;
     try {
-      generator = new MealPlanGenerator(new MockedRecipeSource(mockedResult.getResults()),
-          Mode.PERSONALIZED, "monday,tuesday", 4, null, null, null, null, 60, this.firebaseUtils, "test_user_liked_only");
+      generator =
+          new MealPlanGenerator(
+              new MockedRecipeSource(mockedResult.getResults()),
+              Mode.PERSONALIZED,
+              "monday,tuesday",
+              4,
+              null,
+              null,
+              null,
+              null,
+              60,
+              this.firebaseUtils,
+              "test_user_liked_only");
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -342,14 +406,14 @@ public class TestRecommenderAlgorithms {
         break;
       }
     }
-    assert(expectedRecipeFound);
+    assert (expectedRecipeFound);
   }
 
   /**
    * Test personalized algorithm with a mocked query result and user who only has liked Recipes
    * associated with their uid.
    *
-   * Tests that the nearest overall neighbor to the liked Recipes are ALWAYS returned in results
+   * <p>Tests that the nearest overall neighbor to the liked Recipes are ALWAYS returned in results
    * with SEVERAL DIFFERENT ORDERS OF CANDIDATE RECIPES (different trees) to verify consistency.
    */
   @Test
@@ -357,7 +421,8 @@ public class TestRecommenderAlgorithms {
     SearchResult mockedResult = deserializedMockedSearchResults("exampleQualityResultLength6.json");
     assertEquals(6, mockedResult.getResults().size());
 
-    List<Recipe> mockedResultsList = mockedResult.getResults();;
+    List<Recipe> mockedResultsList = mockedResult.getResults();
+    ;
     for (int i = 0; i < 6; i++) {
       // change order of the mocked results every time past the first
       if (i > 0) {
@@ -368,8 +433,19 @@ public class TestRecommenderAlgorithms {
 
       MealPlanGenerator generator = null;
       try {
-        generator = new MealPlanGenerator(new MockedRecipeSource(mockedResult.getResults()),
-            Mode.PERSONALIZED, "monday,tuesday", 4, null, null, null, null, 60, this.firebaseUtils, "test_user_liked_only");
+        generator =
+            new MealPlanGenerator(
+                new MockedRecipeSource(mockedResult.getResults()),
+                Mode.PERSONALIZED,
+                "monday,tuesday",
+                4,
+                null,
+                null,
+                null,
+                null,
+                60,
+                this.firebaseUtils,
+                "test_user_liked_only");
       } catch (ExecutionException | InterruptedException | IOException e) {
         System.out.println(e);
         fail();
@@ -393,7 +469,7 @@ public class TestRecommenderAlgorithms {
           break;
         }
       }
-      assert(expectedRecipeFound);
+      assert (expectedRecipeFound);
     }
   }
 
@@ -408,8 +484,19 @@ public class TestRecommenderAlgorithms {
 
     MealPlanGenerator generator = null;
     try {
-      generator = new MealPlanGenerator(new MockedRecipeSource(mockedResult.getResults()),
-          Mode.PERSONALIZED, "monday,tuesday", 4, null, null, null, null, 60, this.firebaseUtils, "test_user_disliked_only");
+      generator =
+          new MealPlanGenerator(
+              new MockedRecipeSource(mockedResult.getResults()),
+              Mode.PERSONALIZED,
+              "monday,tuesday",
+              4,
+              null,
+              null,
+              null,
+              null,
+              60,
+              this.firebaseUtils,
+              "test_user_disliked_only");
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -443,8 +530,19 @@ public class TestRecommenderAlgorithms {
     assertEquals(7, mockedResult.getResults().size());
 
     try {
-      MealPlanGenerator generator = new MealPlanGenerator(new MockedRecipeSource(mockedResult.getResults()),
-          Mode.PERSONALIZED, "monday,tuesday,wednesday,thursday,friday,saturday,sunday", 4, null, null, null, null, 60, this.firebaseUtils, "test_user_disliked_only");
+      MealPlanGenerator generator =
+          new MealPlanGenerator(
+              new MockedRecipeSource(mockedResult.getResults()),
+              Mode.PERSONALIZED,
+              "monday,tuesday,wednesday,thursday,friday,saturday,sunday",
+              4,
+              null,
+              null,
+              null,
+              null,
+              60,
+              this.firebaseUtils,
+              "test_user_disliked_only");
 
       assertThrows(RecipeVolumeException.class, () -> generator.personalized());
     } catch (ExecutionException | InterruptedException | IOException e) {
@@ -463,8 +561,19 @@ public class TestRecommenderAlgorithms {
     assertEquals(6, mockedResult.getResults().size());
 
     try {
-      MealPlanGenerator generator = new MealPlanGenerator(new MockedRecipeSource(mockedResult.getResults()),
-          Mode.MINIMIZE_FOOD_WASTE, "monday,tuesday,wednesday,thursday,friday,saturday,sunday", 4, null, null, null, null, 60, this.firebaseUtils, "test_user_disliked_only");
+      MealPlanGenerator generator =
+          new MealPlanGenerator(
+              new MockedRecipeSource(mockedResult.getResults()),
+              Mode.MINIMIZE_FOOD_WASTE,
+              "monday,tuesday,wednesday,thursday,friday,saturday,sunday",
+              4,
+              null,
+              null,
+              null,
+              null,
+              60,
+              this.firebaseUtils,
+              "test_user_disliked_only");
 
       assertThrows(RecipeVolumeException.class, () -> generator.minimizeFoodWaste());
     } catch (ExecutionException | InterruptedException | IOException e) {
@@ -474,8 +583,8 @@ public class TestRecommenderAlgorithms {
   }
 
   /**
-   * Tests that expected Recipes are recommended by the personalized method for a mocked user
-   * with both a liked and disliked Recipe associated with their uid.
+   * Tests that expected Recipes are recommended by the personalized method for a mocked user with
+   * both a liked and disliked Recipe associated with their uid.
    */
   @Test
   public void testPersonalizedMockedLikesAndDislikes() {
@@ -484,8 +593,19 @@ public class TestRecommenderAlgorithms {
 
     MealPlanGenerator generator = null;
     try {
-      generator = new MealPlanGenerator(new MockedRecipeSource(mockedResult.getResults()),
-          Mode.PERSONALIZED, "monday,wednesday", 4, null, null, null, null, 60, this.firebaseUtils, "test_user_1liked_1disliked");
+      generator =
+          new MealPlanGenerator(
+              new MockedRecipeSource(mockedResult.getResults()),
+              Mode.PERSONALIZED,
+              "monday,wednesday",
+              4,
+              null,
+              null,
+              null,
+              null,
+              60,
+              this.firebaseUtils,
+              "test_user_1liked_1disliked");
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -510,18 +630,19 @@ public class TestRecommenderAlgorithms {
   }
 
   /**
-   * Tests that expected Recipes are recommended by the personalized method for a mocked user
-   * with both a liked and disliked Recipe associated with their uid.
+   * Tests that expected Recipes are recommended by the personalized method for a mocked user with
+   * both a liked and disliked Recipe associated with their uid.
    *
-   * Tests that the expected Recipes (determined by hand) are returned by the recommender
-   * with SEVERAL DIFFERENT ORDERS OF CANDIDATE RECIPES (different trees) to verify consistency.
+   * <p>Tests that the expected Recipes (determined by hand) are returned by the recommender with
+   * SEVERAL DIFFERENT ORDERS OF CANDIDATE RECIPES (different trees) to verify consistency.
    */
   @Test
   public void testPersonalizedMockedLikesAndDislikesManyTrees() {
     SearchResult mockedResult = deserializedMockedSearchResults("exampleQualityResultLength6.json");
     assertEquals(6, mockedResult.getResults().size());
 
-    List<Recipe> mockedResultsList = mockedResult.getResults();;
+    List<Recipe> mockedResultsList = mockedResult.getResults();
+    ;
     for (int i = 0; i < 6; i++) {
       // change order of the mocked results every time past the first
       if (i > 0) {
@@ -532,8 +653,19 @@ public class TestRecommenderAlgorithms {
 
       MealPlanGenerator generator = null;
       try {
-        generator = new MealPlanGenerator(new MockedRecipeSource(mockedResult.getResults()),
-            Mode.PERSONALIZED, "monday,wednesday", 4, null, null, null, null, 60, this.firebaseUtils, "test_user_1liked_1disliked");
+        generator =
+            new MealPlanGenerator(
+                new MockedRecipeSource(mockedResult.getResults()),
+                Mode.PERSONALIZED,
+                "monday,wednesday",
+                4,
+                null,
+                null,
+                null,
+                null,
+                60,
+                this.firebaseUtils,
+                "test_user_1liked_1disliked");
       } catch (ExecutionException | InterruptedException | IOException e) {
         System.out.println(e);
         fail();
@@ -557,5 +689,4 @@ public class TestRecommenderAlgorithms {
       }
     }
   }
-
 }

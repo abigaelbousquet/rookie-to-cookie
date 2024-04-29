@@ -177,37 +177,16 @@ public class GeneratorUtilities {
     return mostAbundantIngredients;
   }
 
-  /**
-   * Method to convert the given firebase data into a list of recipes.
-   *
-   * @param firebaseData
-   * @return
-   * @throws IllegalArgumentException
-   * @throws IOException
-   */
-  public static List<Recipe> convertFirebaseData(List<Map<String, Object>> firebaseData)
-      throws IllegalArgumentException, IOException {
-    List<Recipe> recipes = new ArrayList<>();
-    for (Map<String, Object> recipeData : firebaseData) {
-      // Deserialize each map entry into a Recipe object
-      String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeData);
-      Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
-      if (recipe != null) {
-        recipes.add(recipe);
-      }
-    }
-    return recipes;
-  }
-
   public static List<Recipe> convertLikedOrDislikedRecipes(List<Map<String, Object>> firebaseData)
       throws IllegalArgumentException, IOException {
     List<Recipe> recipes = new ArrayList<>();
     for (Map<String, Object> rawRecipes : firebaseData) {
       for (Object recipeData : rawRecipes.values()) {
         Map<String, Object> recipeDataAsMap = (Map<String, Object>) recipeData;
-        
+
         // Deserialize each map entry into a Recipe object
-        String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeDataAsMap);
+        String recipeJson =
+            FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeDataAsMap);
         Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
         if (recipe != null) {
           recipes.add(recipe);

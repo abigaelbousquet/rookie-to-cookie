@@ -79,9 +79,11 @@ public class MealPlanGenerator {
     this.DATASOURCE = recipeSource;
     if (this.FIREBASE_DATA != null) {
       this.dislikedRecipes =
-          GeneratorUtilities.convertLikedOrDislikedRecipes(firebaseData.getCollection(uid, "disliked recipes"));
+          GeneratorUtilities.convertLikedOrDislikedRecipes(
+              firebaseData.getCollection(uid, "disliked recipes"));
       this.likedRecipes =
-          GeneratorUtilities.convertLikedOrDislikedRecipes(firebaseData.getCollection(uid, "liked recipes"));
+          GeneratorUtilities.convertLikedOrDislikedRecipes(
+              firebaseData.getCollection(uid, "liked recipes"));
     }
   }
 
@@ -214,7 +216,8 @@ public class MealPlanGenerator {
           booleanArray[6] = true;
           break;
         default:
-          throw new IllegalArgumentException("Provided unexpected day of week String. Expected un-abbreviated String name.");
+          throw new IllegalArgumentException(
+              "Provided unexpected day of week String. Expected un-abbreviated String name.");
       }
     }
     this.NUM_DAYS_TO_PLAN = daysOfWeekArray.length;
@@ -273,7 +276,8 @@ public class MealPlanGenerator {
    */
   public List<Recipe> minimizeFoodWaste() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting recipe to base the rest of the food-waste-minimizing recipes on
-    List<Recipe> goodResults = this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN * 3, this.NUM_DAYS_TO_PLAN, null);
+    List<Recipe> goodResults =
+        this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN * 3, this.NUM_DAYS_TO_PLAN, null);
     Recipe firstRecipe = goodResults.get(0);
     List<Recipe> algorithmResults = new ArrayList<>();
     algorithmResults.add(firstRecipe);
@@ -282,11 +286,14 @@ public class MealPlanGenerator {
       // PART 2 - fill in the rest of the week's recipes sharing the main ingredient of the first
       String mainIngredient = GeneratorUtilities.findMostAbundantIngredients(firstRecipe, 1).get(0);
       int remainingRecipesNeeded = this.NUM_DAYS_TO_PLAN - 1;
-      goodResults = this.queryQualitySearchResults(remainingRecipesNeeded * 3, remainingRecipesNeeded, mainIngredient);
+      goodResults =
+          this.queryQualitySearchResults(
+              remainingRecipesNeeded * 3, remainingRecipesNeeded, mainIngredient);
       int resultsLength = goodResults.size();
 
       // taking from the end of results is mostly for testing with mocked [same] query results
-      algorithmResults.addAll(goodResults.subList(resultsLength - remainingRecipesNeeded, resultsLength));
+      algorithmResults.addAll(
+          goodResults.subList(resultsLength - remainingRecipesNeeded, resultsLength));
     }
     assert (algorithmResults.size() == this.NUM_DAYS_TO_PLAN);
     return algorithmResults;
