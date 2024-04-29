@@ -32,15 +32,15 @@ public class GeneratorUtilities {
   }
 
   /**
-   * Filters a List of Recipes to return only Recipes with a Spoonacular score above 70.
+   * Filters a List of Recipes to return only Recipes with a Spoonacular score above 60.
    *
    * @param allRecipes the unfiltered List of Recipes to filter for good ones
-   * @return a List of the Recipes in allRecipes with Spoonacular scores above 70
+   * @return a List of the Recipes in allRecipes with Spoonacular scores above 60
    */
   public static List<Recipe> filterGoodRatings(List<Recipe> allRecipes) {
     List<Recipe> goodRecipes = new ArrayList<>();
     for (Recipe r : allRecipes) {
-      if (r.getSpoonacularScore() > 70) {
+      if (r.getSpoonacularScore() > 60) {
         goodRecipes.add(r);
       }
     }
