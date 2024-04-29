@@ -2,7 +2,7 @@
 .idea
 
 # Maven
-.env
+../.env
 target/
 .mvn
 .mvn-classpath
