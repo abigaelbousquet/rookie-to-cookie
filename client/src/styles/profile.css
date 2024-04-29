@@ -16,6 +16,9 @@
   margin: 2em 5em 2em 0;
   flex-direction: column;
 }
+.recipe-card {
+  margin-bottom: 20px;
+}
 
 .dislikes {
   display: flex;
@@ -25,9 +28,12 @@
 .recipe-button {
   margin: 0 0 1em 0;
   border-radius: 0;
-  border-color: #e58a44;
   width: 100%;
   font-family: Arial, sans-serif;
+}
+.name-display {
+  color: #7a9364;
+  margin-top: 0px;
 }
 
 .recipe-button:hover {

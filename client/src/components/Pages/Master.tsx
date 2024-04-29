@@ -9,6 +9,7 @@ import Navbar from "../Navbar";
 import Calendar from "./Calendar";
 import Home from "./Home";
 import Profile from "./Profile";
+import About from "./About";
 
 function Master() {
   const recipeHistoryToPassIn = mockRecipeHistory();
@@ -33,11 +34,16 @@ function Master() {
                 familySize={1}
                 diet={"Vegan"}
                 intolerances={["Mushroom", "Shellfish"]}
-                likedRecipes={mockRecipeList()}
-                dislikedRecipes={mockRecipeList()}
+                likedRecipes={mockRecipeList().filter(
+                  (recipe) => recipe.liked == 1
+                )}
+                dislikedRecipes={mockRecipeList().filter(
+                  (recipe) => recipe.liked == 2
+                )}
               />
             }
           />
+          <Route path="/about" element={<About></About>}></Route>
           {/* Add more routes as needed */}
         </Routes>
       </div>

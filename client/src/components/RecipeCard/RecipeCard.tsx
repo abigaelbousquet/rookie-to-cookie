@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Recipe from "./Recipe";
 import InfoView from "./InfoView";
 import { AiFillLike, AiFillDislike, AiFillHeart } from "react-icons/ai";
-import HeartButton from "../HeartButton"; // Import the HeartButton component
 import LikeButton from "./LikeButton";
 
 interface RecipeCardProps {
@@ -12,7 +11,7 @@ interface RecipeCardProps {
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   const [showFullRecipe, setShowFullRecipe] = useState(false);
-
+  const [liked, setLiked] = useState(recipe.liked);
   const toggleShowFullRecipe = () => {
     setShowFullRecipe(!showFullRecipe);
   };
@@ -20,9 +19,9 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   return (
     <div className="recipe-card">
       <div className="recipe-header">
-        <h3>{recipe.name}</h3>
+        <div className="recipe-title">{recipe.name}</div>
         {/* Old Heart Button */}
-        <LikeButton />
+        <LikeButton liked={liked} setLiked={setLiked} />
       </div>
       {showFullRecipe ? (
         <InfoView

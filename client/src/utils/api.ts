@@ -1,14 +1,25 @@
+import Recipe from "../RecipeCard/Recipe";
 import { profileProps } from "../components/Login/AccountCreation";
 import { getLoginCookie } from "./cookie";
 
 const HOST = "http://localhost:3232";
 interface mealPlanProps {
-  diet: string[];
+  diet: string;
   intolerances: string[];
   requestedServings: string;
   daysToPlan: string[];
   cuisine: string[];
-  maxReadyTime:string;
+  maxReadyTime: string;
+}
+
+interface User {
+  name: string;
+  experienceLevel: string;
+  familySize: number;
+  diet: string;
+  intolerances: string[];
+  likedRecipes: Recipe[];
+  dislikedRecipes: Recipe[];
 }
 async function queryAPI(
   endpoint: string,
@@ -32,13 +43,14 @@ export async function saveMealPlan(dateOfSunday: string) {
   });
 }
 export async function getMealPlan(dateOfSunday: string) {
-  return await queryAPI("get-meal-plan",{
-    uid: getLoginCookie()||"",
-    dateOfSunday: dateOfSunday
-  })
+  return await queryAPI("get-meal-plan", {
+    uid: getLoginCookie() || "",
+    dateOfSunday: dateOfSunday,
+  });
 }
 
 export async function generateMealPlan(props: mealPlanProps) {
+  console.log("generating with: " + props);
   return await queryAPI("generate-meal-plan", {
     uid: getLoginCookie() || "",
     diet: props.diet.toString(),
@@ -46,12 +58,12 @@ export async function generateMealPlan(props: mealPlanProps) {
     daysToPlan: props.daysToPlan.toString(),
     cuisine: props.cuisine.toString(),
     requestedServings: props.requestedServings,
-    maxReadyTime: props.maxReadyTime
+    maxReadyTime: props.maxReadyTime,
   });
 }
-export async function getUser() {
+export async function getUser(): Promise<User> {
   return await queryAPI("get-user", {
-    uid: getLoginCookie() || ""
+    uid: getLoginCookie() || "",
   });
 }
 

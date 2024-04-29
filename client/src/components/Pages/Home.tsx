@@ -1,68 +1,27 @@
 import "../../styles/Home.css";
 import React, { useState } from "react";
 import Select from "react-select";
-
-import RecipeCard from "../RecipeCard/RecipeCard";
 import InfoView from "../RecipeCard/InfoView";
 import MultiSelectInput from "../SelectionTypes/MultiSelectInput";
 import IntegerInput from "../SelectionTypes/IntegerInput";
-import Recipe from "../RecipeCard/Recipe";
 import WeekView from "../HomeComponents/WeekView";
 import DaysOfTheWeekButtons from "../HomeComponents/DaysOfTheWeekButtons";
-import { saveMealPlan } from "../../utils/api";
+import { generateMealPlan, getUser, saveMealPlan } from "../../utils/api";
+import { cuisineOptions, intoleranceOptions } from "../../data/Spoonacular";
 
 const Home: React.FC = () => {
   // Define the options array for the dropdown
-  const cuisineOptions = [
-    { label: "african", value: "african" },
-    { label: "chinese", value: "chinese" },
-    { label: "japanese", value: "japanese" },
-    { label: "korean", value: "korean" },
-    { label: "vietnamese", value: "vietnamese" },
-    { label: "thai", value: "thai" },
-    { label: "indian", value: "indian" },
-    { label: "british", value: "british" },
-    { label: "irish", value: "irish" },
-    { label: "french", value: "french" },
-    { label: "italian", value: "italian" },
-    { label: "mexican", value: "mexican" },
-    { label: "spanish", value: "spanish" },
-    { label: "middle eastern", value: "middle eastern" },
-    { label: "jewish", value: "jewish" },
-    { label: "american", value: "american" },
-    { label: "cajun", value: "cajun" },
-    { label: "southern", value: "southern" },
-    { label: "greek", value: "greek" },
-    { label: "german", value: "german" },
-    { label: "nordic", value: "nordic" },
-    { label: "eastern european", value: "eastern european" },
-    { label: "caribbean", value: "caribbean" },
-    { label: "latin american", value: "latin american" },
-  ];
-
-  const intoleranceOptions = [
-    { label: "Shellfish", value: "Shellfish" },
-    { label: "Egg", value: "Egg" },
-    { label: "Peanut", value: "Peanut" },
-    { label: "Nut", value: "Nut" },
-    { label: "Soy", value: "Soy" },
-    { label: "Sesame", value: "Sesame" },
-    { label: "Tree nut", value: "Tree nut" },
-    { label: "Sulfite", value: "Sulfite" },
-    { label: "Dairy", value: "Dairy" },
-    { label: "Gluten", value: "Gluten" },
-  ];
-
   const spaghetti = {
     name: "Spaghetti Carbonara",
     cuisine: "Italian",
     instructions:
       "1. Cook spaghetti in boiling salted water until al dente. 2. Fry pancetta until crispy. 3. Whisk together eggs, cheese, and black pepper. 4. Drain spaghetti and toss with pancetta. 5. Add egg mixture and stir quickly. Serve immediately.",
     time: 10,
-    liked: false,
+    liked: 0,
+    ingredients: ["Pasta"],
   };
 
-  const mealPlan = [
+  const mockedMealPlan = [
     { day: "Sunday", recipeExists: true, recipe: spaghetti },
     { day: "Monday", recipeExists: false },
     { day: "Tuesday", recipeExists: true, recipe: spaghetti },
@@ -86,6 +45,44 @@ const Home: React.FC = () => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
   const [maxTime, setMaxTime] = useState<number>(1);
+  const [excludedIngredients, setExcludedIngredients] = useState("");
+  const [sunDate, setSunDate] = useState("");
+  const [intols, setIntols] = useState([""]);
+
+  /**
+   * Saves mealPlan to Firebase
+   * //TODO:POST HERE?
+   */
+  const handleSave = async () => {
+    await saveMealPlan(sunDate);
+  };
+
+  /**
+   * Calls generate on the backend
+   */
+  const handleGenerate = async () => {
+    const user = await getUser();
+    if (selectedOptionsIntolerance.length === 0) {
+      if (user.intolerances.length > 0) {
+        setIntols(user.intolerances);
+      }
+    } else {
+      setIntols(
+        selectedOptionsIntolerance
+          .map((val) => val.label)
+          .concat(excludedIngredients)
+      );
+    } //TODO: check if fam size is empty then use user defaults
+    const props = {
+      daysToPlan: selectedButtons,
+      maxReadyTime: maxTime.toString(),
+      diet: user.diet || "",
+      intolerances: intols,
+      cuisine: selectedOptionsCuisine.map((val) => val.label) || "",
+      requestedServings: numberOfPeople.toString(),
+    };
+    await generateMealPlan(props);
+  };
 
   // Function to handle button click
   const handleButtonClick = (buttonName: string) => {
@@ -95,37 +92,12 @@ const Home: React.FC = () => {
       setSelectedButtons([...selectedButtons, buttonName]);
     }
   };
-  const [excludedIngredients, setExcludedIngredients] = useState("");
-  const [sunDate, setSunDate] = useState("");
-  const handleSave = () => {
-    saveMealPlan(sunDate);
-  };
-  // Function to handle option selection for multi-select
-  const handleMultiSelectChangeCuisine = (
-    selectedOptionsCuisine: { label: string; value: string }[]
-  ) => {
-    setSelectedOptionsCuisine(selectedOptionsCuisine);
-  };
-
-  // Function to handle option selection for multi-select
-  const handleMultiSelectChangeIntolerance = (
-    selectedOptionsIntolerance: { label: string; value: string }[]
-  ) => {
-    setSelectedOptionsIntolerance(selectedOptionsIntolerance);
-  };
-
   // Function to handle changes to the radio button selection
   const handleAlgChange = (event) => {
     setSelectedAlg(event.target.value);
   };
   const handleExcludedIngredientsChange = (selectedToExclude) => {
     setExcludedIngredients(selectedToExclude.map((option) => option.value));
-  };
-  const handleNumberOfPeopleChange = (value: number) => {
-    setNumberOfPeople(value); // Update state with new value
-  };
-  const handleMaxTimeChange = (value: number) => {
-    setMaxTime(value); // Update state with new value
   };
 
   return (
@@ -153,7 +125,7 @@ const Home: React.FC = () => {
         <Select
           options={cuisineOptions}
           value={selectedOptionsCuisine}
-          onChange={handleMultiSelectChangeCuisine}
+          onChange={setSelectedOptionsCuisine}
           isMulti // Enable multi-select
           placeholder="Select option(s)"
         />
@@ -200,7 +172,7 @@ const Home: React.FC = () => {
         <Select
           options={intoleranceOptions}
           value={selectedOptionsIntolerance}
-          onChange={handleMultiSelectChangeIntolerance}
+          onChange={setSelectedOptionsIntolerance}
           isMulti // Enable multi-select
           placeholder="Select option(s)"
         />
@@ -225,7 +197,7 @@ const Home: React.FC = () => {
       <div className="num-people-options-box">
         <IntegerInput
           value={numberOfPeople}
-          onChange={handleNumberOfPeopleChange}
+          onChange={setNumberOfPeople}
           minValue={1}
         />
       </div>
@@ -235,21 +207,19 @@ const Home: React.FC = () => {
 
       {/* Section of max time integer input */}
       <div className="max-time-options-box">
-        <IntegerInput
-          value={maxTime}
-          onChange={handleMaxTimeChange}
-          minValue={5}
-        />
+        <IntegerInput value={maxTime} onChange={setMaxTime} minValue={5} />
       </div>
 
       {/* Button for generating */}
       <div className="generate-button-container">
-        <button className="generate-button">Generate</button>
+        <button onClick={handleGenerate} className="generate-button">
+          Generate
+        </button>
       </div>
 
       {/* Container for week calendar view */}
       <div className="week-calendar-container">
-        <WeekView mealPlan={mealPlan} /> {/* causes a white screen */}
+        <WeekView mealPlan={mockedMealPlan} /> {/* causes a white screen */}
       </div>
 
       {/* Show the popup if showPopup is true */}

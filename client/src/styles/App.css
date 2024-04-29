@@ -21,3 +21,16 @@
   background-repeat: no-repeat;
   background-size: 100%;
 }
+.logo-big {
+  width: 500px;
+  height: 500px;
+  justify-content: left;
+  background-image: url("../graphics/rookie_to_cookie.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.About {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}

@@ -4,72 +4,82 @@ import RecipeHistory from "../components/RecipeCard/RecipeHistory";
 const dish1: Recipe = {
   name: "Chicken Tikka Masala",
   cuisine: "Indian",
-  instructions: "Step 1, 2, 3",
+  instructions: "Step 1. Step 2. Step 3.",
   time: 60,
-  liked: true,
+  liked: 1,
+  ingredients: ["Chicken", "Curry"],
 };
 const dish2: Recipe = {
   name: "Sushi",
   cuisine: "Japanese",
   instructions: "Step 1, 2, 3",
   time: 45,
-  liked: false,
+  liked: 0,
+  ingredients: ["Seaweed", "Rice"],
 };
 const dish3: Recipe = {
   name: "Beef Bourguignon",
   cuisine: "French",
   instructions: "Step 1, 2, 3",
   time: 120,
-  liked: false,
+  liked: 2,
+  ingredients: ["Beef"],
 };
 const dish4: Recipe = {
   name: "Pad Thai",
   cuisine: "Thai",
   instructions: "Step 1, 2, 3",
   time: 40,
-  liked: false,
+  liked: 1,
+  ingredients: ["Noodles", "Sauce"],
 };
 const dish5: Recipe = {
   name: "Tacos al Pastor",
   cuisine: "Mexican",
   instructions: "Step 1, 2, 3",
   time: 35,
-  liked: false,
+  liked: 2,
+  ingredients: ["Shells", "Filling", "Dip"],
 };
 const dish6: Recipe = {
   name: "Moussaka",
   cuisine: "Greek",
   instructions: "Step 1, 2, 3",
   time: 90,
-  liked: false,
+  liked: 1,
+  ingredients: ["Cheese"],
 };
 const dish7: Recipe = {
   name: "Spaghetti Bolognese",
   cuisine: "Italian",
   instructions: "Step 1, 2, 3",
   time: 55,
-  liked: false,
+  liked: 2,
+  ingredients: ["Pasta"],
 };
 const dish8: Recipe = {
   name: "Paella",
   cuisine: "Spanish",
   instructions: "Step 1, 2, 3",
   time: 75,
-  liked: false,
+  liked: 2,
+  ingredients: [],
 };
 const dish9: Recipe = {
   name: "Hamburger",
   cuisine: "American",
   instructions: "Step 1, 2, 3",
   time: 30,
-  liked: false,
+  liked: 0,
+  ingredients: ["Beef"],
 };
 const dish10: Recipe = {
   name: "Ramen",
   cuisine: "Japanese",
   instructions: "Step 1, 2, 3",
   time: 50,
-  liked: false,
+  liked: 1,
+  ingredients: ["Noodles"],
 };
 
 /**
@@ -78,25 +88,25 @@ const dish10: Recipe = {
 const h1: RecipeHistory = {
   recipe: dish1,
   month: "May",
-  day: 2,
+  day: 1,
   year: 2024,
 };
 const h2: RecipeHistory = {
   recipe: dish2,
   month: "May",
-  day: 4,
+  day: 2,
   year: 2024,
 };
 const h3: RecipeHistory = {
   recipe: dish3,
   month: "May",
-  day: 6,
+  day: 3,
   year: 2024,
 };
 const h4: RecipeHistory = {
   recipe: dish4,
   month: "May",
-  day: 11,
+  day: 4,
   year: 2024,
 };
 const h5: RecipeHistory = {
@@ -132,7 +142,7 @@ const h9: RecipeHistory = {
 const h10: RecipeHistory = {
   recipe: dish4,
   month: "May",
-  day: 27,
+  day: 28,
   year: 2024,
 };
 
