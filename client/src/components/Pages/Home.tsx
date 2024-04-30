@@ -64,27 +64,33 @@ const Home: React.FC = () => {
    * Calls generate on the backend
    */
   const handleGenerate = async () => {
-    const user = await getUser();
-    if (selectedOptionsIntolerance.length === 0) {
-      if (user.intolerances.length > 0) {
-        setIntols(user.intolerances);
-      }
-    } else {
-      setIntols(
-        selectedOptionsIntolerance
-          .map((val) => val.label)
-          .concat(excludedIngredients)
-      );
-    } //TODO: check if fam size is empty then use user defaults
-    const props = {
-      daysToPlan: selectedButtons,
-      maxReadyTime: maxTime.toString(),
-      diet: user.diet || "",
-      intolerances: intols,
-      cuisine: selectedOptionsCuisine.map((val) => val.label) || "",
-      requestedServings: numberOfPeople.toString(),
-    };
-    await generateMealPlan(props);
+    try {
+      const user = await getUser();
+      if (selectedOptionsIntolerance.length === 0) {
+        if (user.intolerances.length > 0) {
+          setIntols(user.intolerances);
+        }
+      } else {
+        setIntols(
+          selectedOptionsIntolerance
+            .map((val) => val.label)
+            .concat(excludedIngredients)
+        );
+      } //TODO: check if fam size is empty then use user defaults
+    } catch (error) {
+      const props = {
+        daysToPlan: selectedButtons,
+        maxReadyTime: maxTime.toString(),
+        diet: "",
+        // diet: user.diet || "",
+        intolerances: intols,
+        cuisine: selectedOptionsCuisine.map((val) => val.label) || "",
+        requestedServings: numberOfPeople.toString(),
+      };
+      console.log(props);
+
+      await generateMealPlan(props);
+    }
   };
 
   // Function to handle button click

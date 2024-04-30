@@ -17,7 +17,8 @@
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   position: relative; /* Added */
-  width: 1000px; /* Adjust the width as needed */
+  width: 500px; /* Adjust the width as needed */
+  height: 500px;
 }
 
 .close-button-save {

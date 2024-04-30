@@ -24,6 +24,6 @@
 
 /* Selected circular button */
 .selected.circular-button {
-  background-color: #974ab1; /* Filled color on click */
+  background-color: #7a9364; /* Filled color on click */
   color: #fff; /* Text color on click */
 }

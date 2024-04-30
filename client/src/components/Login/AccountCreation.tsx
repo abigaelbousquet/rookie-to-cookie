@@ -75,19 +75,23 @@ export const AccountCreation: React.FC<acctProps> = ({
     if (props.name === null || props.exp === null || props.fam_size === null) {
       alert("Please enter name, experience, and family size.");
     } else {
-      console.log(
-        "?name=",
-        props.name +
-          "&exp=" +
-          props.exp +
-          "&diet=" +
-          props.diet.toString() +
-          "&fam-size=" +
-          props.fam_size +
-          "&intolerances=" +
-          props.intolerances.toString()
-      );
-      setAuthing(1);
+      try {
+        console.log(
+          "?name=",
+          props.name +
+            "&exp=" +
+            props.exp +
+            "&diet=" +
+            props.diet.toString() +
+            "&fam-size=" +
+            props.fam_size +
+            "&intolerances=" +
+            props.intolerances.toString()
+        );
+        setAuthing(1);
+      } catch (error) {
+        alert(error);
+      }
     }
   };
 
@@ -123,18 +127,25 @@ export const AccountCreation: React.FC<acctProps> = ({
             </div>
             <div className="acct-elt">
               <legend>Diet:</legend>
-              <Select options={diets} onChange={(opt) => setDiet(opt!.label)} />
+              <div className="selector">
+                <Select
+                  options={diets}
+                  onChange={(opt) => setDiet(opt!.label)}
+                />
+              </div>
             </div>
             <div className="acct-elt">
               <legend>Intolerances:</legend>
-              <Creatable
-                options={intolerance}
-                isMulti
-                onChange={(opt) => {
-                  console.log(allergen);
-                  setAllergen(opt.map((tag) => tag.value));
-                }}
-              />
+              <div className="selector">
+                <Creatable
+                  options={intolerance}
+                  isMulti
+                  onChange={(opt) => {
+                    console.log(allergen);
+                    setAllergen(opt.map((tag) => tag.value));
+                  }}
+                />
+              </div>
             </div>
             <div className="acct-elt">
               <legend>Family Size:</legend>

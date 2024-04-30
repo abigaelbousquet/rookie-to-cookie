@@ -1,8 +1,8 @@
 /* Global styles */
 .Home {
-  margin-top: 50px;
+  margin-top: 20px;
   display: grid;
-  max-height: 600px;
+  max-height: 500px;
   overflow: scroll;
   grid-template-areas:
     "days-of-the-week-container days-of-the-week-container"
@@ -41,7 +41,7 @@ h1 {
 .generate-button {
   width: 200px; /* Set width to make it large */
   height: 60px; /* Set height to make it large */
-  background-color: #974ab1; /* Button background color */
+  background-color: #e58a44; /* Button background color */
   color: #fff; /* Button text color */
   border: none; /* Remove border */
   border-radius: 10px; /* Add border radius */
@@ -51,7 +51,7 @@ h1 {
 }
 
 .generate-button:hover {
-  background-color: #7d3c8e;
+  background-color: #fab375;
 }
 
 /* Container for week calendar view */
@@ -78,7 +78,7 @@ h1 {
   width: 310px; /* Set a fixed width for both buttons */
   height: 50px;
   padding: 12px 0; /* Adjust padding to center the text vertically */
-  background-color: #974ab1;
+  background-color: #e58a44;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -87,7 +87,7 @@ h1 {
 
 .regenerate-button:hover,
 .save-button:hover {
-  background-color: #7d3c8e; /* Darker shade on hover */
+  background-color: #fab375; /* Darker shade on hover */
 }
 
 .days-of-the-week-container {

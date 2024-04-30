@@ -5,7 +5,7 @@
   margin-inline: 10%;
   margin: auto;
   margin-top: 3em;
-  height: 300px;
+  height: fit-content;
 }
 .popup-inner {
   background-color: #c6d48d;
@@ -31,6 +31,9 @@
   background-color: #7a9364;
   width: initial;
 }
+.selector {
+  width: 300px;
+}
 
 .input-box {
   width: 300px;
@@ -52,6 +55,7 @@
   margin: 0 0 1em 0;
   justify-content: space-between;
 }
+
 .exp-slider {
   margin: 0 0 2.5em 0;
 }
@@ -82,6 +86,7 @@ legend {
   margin: 10px;
 }
 .butt {
+  background-color: white;
   padding: 0.6em 5.2em;
   margin: 2em;
 }

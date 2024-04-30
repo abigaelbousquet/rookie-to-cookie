@@ -10,6 +10,7 @@ import Calendar from "./Calendar";
 import Home from "./Home";
 import Profile from "./Profile";
 import About from "./About";
+import CalendarPage from "./Calendar";
 
 function Master() {
   const recipeHistoryToPassIn = mockRecipeHistory();
@@ -23,7 +24,7 @@ function Master() {
 
           <Route
             path="/calendar"
-            element={<Calendar recipeHistory={recipeHistoryToPassIn} />}
+            element={<CalendarPage recipeHistory={recipeHistoryToPassIn} />}
           />
           <Route
             path="/profile"
