@@ -1,18 +1,19 @@
 import React from "react";
 import Recipe from "./Recipe";
+import LikeButton from "./LikeButton";
 import "../../styles/InfoView.css";
 
 interface InfoViewProps {
   recipe: Recipe;
   onClose: () => void;
-  onToggleLike: () => void;
-  liked: boolean;
+  setLiked: React.Dispatch<React.SetStateAction<number>>;
+  liked: number;
 }
 
 const InfoView: React.FC<InfoViewProps> = ({
   recipe,
   onClose,
-  onToggleLike,
+  setLiked,
   liked,
 }) => {
   return (
@@ -28,8 +29,10 @@ const InfoView: React.FC<InfoViewProps> = ({
           <strong>Cuisine:</strong> {recipe.cuisine}
         </p>
         <p>
-          <strong>Ingredients:</strong> {recipe.ingredients}
           <strong>Time:</strong> {recipe.time}
+        </p>
+        <p>
+          <strong>Ingredients:</strong> {recipe.ingredients}
         </p>
         <p>
           <strong>Instructions:</strong> {recipe.instructions}
@@ -37,14 +40,7 @@ const InfoView: React.FC<InfoViewProps> = ({
 
         {/* Heart button for toggling like status */}
         <div className="like-button-container-info">
-          <button
-            className={liked ? "like-button-info liked" : "like-button"}
-            onClick={onToggleLike}
-          >
-            <span role="img" aria-label="heart">
-              {liked ? "❤️" : "♡"}
-            </span>{" "}
-          </button>
+          <LikeButton liked={liked} setLiked={setLiked} />
         </div>
         {/* Close button */}
       </div>
