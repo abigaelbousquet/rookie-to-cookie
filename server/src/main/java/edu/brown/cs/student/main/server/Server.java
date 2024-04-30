@@ -3,14 +3,7 @@ package edu.brown.cs.student.main.server;
 import static spark.Spark.after;
 
 import edu.brown.cs.student.main.server.EndpointHandlers.*;
-import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceException;
-import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeDatasource;
-import edu.brown.cs.student.main.server.RecipeData.Datasource.SpoonacularRecipeSource;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
-import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGenerator;
-import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities.GeneratorUtilities;
-import edu.brown.cs.student.main.server.RecommenderAlgorithm.Mode;
-import edu.brown.cs.student.main.server.RecommenderAlgorithm.RecipeVolumeException;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
@@ -52,44 +45,44 @@ public class Server {
       Spark.get("get-mealplan", new GetMealPlanHandler(firebaseUtils));
       Spark.get("save-mealplan", new SaveMealPlanHandler(firebaseUtils));
 
-//      RecipeDatasource datasource = new SpoonacularRecipeSource();
-//      MealPlanGenerator planGenerator =
-//          new MealPlanGenerator(
-//              datasource,
-//              Mode.MINIMIZE_FOOD_WASTE,
-//              "sunday,monday,tuesday,null,null,null,null",
-//              4,
-//              null,
-//              null,
-//              null,
-//              null,
-//              60,
-//              firebaseUtils,
-//              "test-1");
-//      RecipeDatasource datasource1 = new SpoonacularRecipeSource();
-//      MealPlanGenerator planGenerator1 =
-//          new MealPlanGenerator(
-//              datasource1,
-//              Mode.MINIMIZE_FOOD_WASTE,
-//              "null,monday,tuesday,null,null,null,saturday",
-//              5,
-//              null,
-//              null,
-//              null,
-//              null,
-//              80,
-//              firebaseUtils,
-//              "test-2");
-//      try {
-//        MealPlan recipeList = planGenerator.generatePlan();
-//        GeneratorUtilities.addToFirebase("test-1", firebaseUtils, recipeList);
-//        MealPlan recipeList1 = planGenerator1.generatePlan();
-//        GeneratorUtilities.addToFirebase("test-2", firebaseUtils, recipeList1);
-//
-//      } catch (DatasourceException | RecipeVolumeException e) {
-//        System.out.println(e.getMessage());
-//      }
-//
+      //      RecipeDatasource datasource = new SpoonacularRecipeSource();
+      //      MealPlanGenerator planGenerator =
+      //          new MealPlanGenerator(
+      //              datasource,
+      //              Mode.MINIMIZE_FOOD_WASTE,
+      //              "sunday,monday,tuesday,null,null,null,null",
+      //              4,
+      //              null,
+      //              null,
+      //              null,
+      //              null,
+      //              60,
+      //              firebaseUtils,
+      //              "test-1");
+      //      RecipeDatasource datasource1 = new SpoonacularRecipeSource();
+      //      MealPlanGenerator planGenerator1 =
+      //          new MealPlanGenerator(
+      //              datasource1,
+      //              Mode.MINIMIZE_FOOD_WASTE,
+      //              "null,monday,tuesday,null,null,null,saturday",
+      //              5,
+      //              null,
+      //              null,
+      //              null,
+      //              null,
+      //              80,
+      //              firebaseUtils,
+      //              "test-2");
+      //      try {
+      //        MealPlan recipeList = planGenerator.generatePlan();
+      //        GeneratorUtilities.addToFirebase("test-1", firebaseUtils, recipeList);
+      //        MealPlan recipeList1 = planGenerator1.generatePlan();
+      //        GeneratorUtilities.addToFirebase("test-2", firebaseUtils, recipeList1);
+      //
+      //      } catch (DatasourceException | RecipeVolumeException e) {
+      //        System.out.println(e.getMessage());
+      //      }
+      //
       Spark.notFound(
           (request, response) -> {
             response.status(404); // Not Found

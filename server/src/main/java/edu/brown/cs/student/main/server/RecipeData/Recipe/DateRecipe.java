@@ -9,17 +9,19 @@ public class DateRecipe {
 
   /**
    * COnstructor
+   *
    * @param recipe
    * @param date
    */
   public DateRecipe(Recipe recipe, Date date) {
     this.date = date;
     this.recipe = recipe;
-
   }
+
   public Recipe getRecipe() {
     return this.recipe;
   }
+
   public Date getDate() {
     return this.date;
   }

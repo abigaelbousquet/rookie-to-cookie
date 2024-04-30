@@ -1,20 +1,14 @@
 package edu.brown.cs.student.main.server.EndpointHandlers;
 
-import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeDatasource;
-import edu.brown.cs.student.main.server.RecipeData.Datasource.SpoonacularRecipeSource;
-import edu.brown.cs.student.main.server.RecipeData.MealPlan;
-import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGenerator;
-import edu.brown.cs.student.main.server.RecommenderAlgorithm.Mode;
 import edu.brown.cs.student.main.server.Server;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import spark.Request;
+import spark.Response;
+import spark.Route;
 
 public class SaveMealPlanHandler implements Route {
 
@@ -71,8 +65,7 @@ public class SaveMealPlanHandler implements Route {
         date = nextDay;
         dateList.add(date);
       }
-    }
-    catch (ParseException e) {
+    } catch (ParseException e) {
       System.out.println("Error parsing date: " + e.getMessage());
     }
     return dateList;

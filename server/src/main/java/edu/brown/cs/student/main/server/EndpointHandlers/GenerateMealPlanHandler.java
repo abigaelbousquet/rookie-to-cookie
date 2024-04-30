@@ -6,18 +6,14 @@ import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGenerator;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.Mode;
 import edu.brown.cs.student.main.server.Server;
-import edu.brown.cs.student.main.server.UserData.Profile;
-import edu.brown.cs.student.main.server.UserData.ProfileUtilities;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import spark.Request;
+import spark.Response;
+import spark.Route;
 
 public class GenerateMealPlanHandler implements Route {
 
@@ -39,10 +35,10 @@ public class GenerateMealPlanHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      //date of the Sunday of the week of the mealplan
+      // date of the Sunday of the week of the mealplan
       String dayOfSunday = request.queryParams("dayOfSunday");
-      String daysOfWeekString = request.queryParams("daysOfWeek"); //array of days of week
-      String modeString = request.queryParams("mode"); //pass in minimize or personalize
+      String daysOfWeekString = request.queryParams("daysOfWeek"); // array of days of week
+      String modeString = request.queryParams("mode"); // pass in minimize or personalize
       String dietString = request.queryParams("diet");
       String intoleranceString = request.queryParams("intolerances");
       String expString = request.queryParams("exp");
@@ -61,17 +57,27 @@ public class GenerateMealPlanHandler implements Route {
 
       if (modeString.equals("minimize")) {
         mode = Mode.MINIMIZE_FOOD_WASTE;
-      }
-      else {
+      } else {
         mode = Mode.PERSONALIZED;
       }
 
       RecipeDatasource source = new SpoonacularRecipeSource();
-      MealPlanGenerator planGenerator = new MealPlanGenerator(source, mode, daysOfWeekString,
-              servings, cuisineString, excludeCuisineString, dietString, intoleranceString, maxReadyTime,
-              this.storageHandler, uid, dateList);
+      MealPlanGenerator planGenerator =
+          new MealPlanGenerator(
+              source,
+              mode,
+              daysOfWeekString,
+              servings,
+              cuisineString,
+              excludeCuisineString,
+              dietString,
+              intoleranceString,
+              maxReadyTime,
+              this.storageHandler,
+              uid,
+              dateList);
       MealPlan plan = planGenerator.generatePlan();
-      Server.userCurrPlan.put(uid, plan); //stores plan under uid inServer variable
+      Server.userCurrPlan.put(uid, plan); // stores plan under uid inServer variable
       responseMap.put("response_type", "success");
       responseMap.put("Mealplan", plan);
     } catch (Exception e) {
@@ -103,8 +109,7 @@ public class GenerateMealPlanHandler implements Route {
         date = nextDay;
         dateList.add(String.valueOf(date));
       }
-    }
-    catch (ParseException e) {
+    } catch (ParseException e) {
       System.out.println("Error parsing date: " + e.getMessage());
     }
     return dateList;

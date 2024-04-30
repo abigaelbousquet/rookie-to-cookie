@@ -2,7 +2,6 @@ package edu.brown.cs.student.main.server.RecipeData;
 
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /** A class describing a weekly meal plan. */
@@ -14,9 +13,8 @@ public class MealPlan {
   private Recipe thursday;
   private Recipe friday;
   private Recipe saturday;
-//  private List<Date> dates;
+  //  private List<Date> dates;
   private List<String> dates;
-
 
   /**
    * Constructor for the MealPlan class.
@@ -36,7 +34,8 @@ public class MealPlan {
       Recipe wednesday,
       Recipe thursday,
       Recipe friday,
-      Recipe saturday, List<String> dates) {
+      Recipe saturday,
+      List<String> dates) {
     this.sunday = sunday;
     this.monday = monday;
     this.tuesday = tuesday;
@@ -151,6 +150,7 @@ public class MealPlan {
         + saturday
         + '}';
   }
+
   public List<String> getDates() {
     return this.dates;
   }

@@ -1,7 +1,6 @@
 package edu.brown.cs.student.main.server.RecipeData.Datasource;
 
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
-//import io.github.cdimascio.dotenv.Dotenv;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -54,8 +53,8 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
           "Query error: Attempted to query <1 or >100 recipes. numRecipes: " + numRecipes);
     }
 
-//    Dotenv dotenv = Dotenv.configure().load();
-//    this.SPOONACULAR_API_KEY = dotenv.get("SPOONACULAR_API_KEY");
+    //    Dotenv dotenv = Dotenv.configure().load();
+    //    this.SPOONACULAR_API_KEY = dotenv.get("SPOONACULAR_API_KEY");
 
     String parameters =
         generateUserParameters(

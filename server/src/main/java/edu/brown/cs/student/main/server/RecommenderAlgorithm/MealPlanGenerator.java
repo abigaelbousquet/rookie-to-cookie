@@ -52,17 +52,18 @@ public class MealPlanGenerator {
    * @throws IOException
    */
   public MealPlanGenerator(
-          RecipeDatasource recipeSource,
-          Mode mode,
-          String daysOfWeek,
-          int servings,
-          String cuisine,
-          String excludeCuisine,
-          String diet,
-          String intolerances,
-          int maxReadyTime,
-          StorageInterface firebaseData,
-          String uid, List<String> dates)
+      RecipeDatasource recipeSource,
+      Mode mode,
+      String daysOfWeek,
+      int servings,
+      String cuisine,
+      String excludeCuisine,
+      String diet,
+      String intolerances,
+      int maxReadyTime,
+      StorageInterface firebaseData,
+      String uid,
+      List<String> dates)
       throws ExecutionException, InterruptedException, IOException {
     this.recipes = mode;
     this.REQUESTED_SERVINGS = servings;
@@ -127,7 +128,8 @@ public class MealPlanGenerator {
         orderedWeekOfRecipes[3],
         orderedWeekOfRecipes[4],
         orderedWeekOfRecipes[5],
-        orderedWeekOfRecipes[6], this.dateList);
+        orderedWeekOfRecipes[6],
+        this.dateList);
   }
 
   /**
@@ -213,7 +215,8 @@ public class MealPlanGenerator {
           booleanArray[6] = true;
           break;
         default:
-          throw new IllegalArgumentException("Provided unexpected day of week String. Expected un-abbreviated String name.");
+          throw new IllegalArgumentException(
+              "Provided unexpected day of week String. Expected un-abbreviated String name.");
       }
     }
     this.NUM_DAYS_TO_PLAN = daysOfWeekArray.length;
@@ -272,7 +275,8 @@ public class MealPlanGenerator {
    */
   public List<Recipe> minimizeFoodWaste() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting recipe to base the rest of the food-waste-minimizing recipes on
-    List<Recipe> goodResults = this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN * 3, this.NUM_DAYS_TO_PLAN, null);
+    List<Recipe> goodResults =
+        this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN * 3, this.NUM_DAYS_TO_PLAN, null);
     Recipe firstRecipe = goodResults.get(0);
     List<Recipe> algorithmResults = new ArrayList<>();
     algorithmResults.add(firstRecipe);
@@ -281,11 +285,14 @@ public class MealPlanGenerator {
       // PART 2 - fill in the rest of the week's recipes sharing the main ingredient of the first
       String mainIngredient = GeneratorUtilities.findMostAbundantIngredients(firstRecipe, 1).get(0);
       int remainingRecipesNeeded = this.NUM_DAYS_TO_PLAN - 1;
-      goodResults = this.queryQualitySearchResults(remainingRecipesNeeded * 3, remainingRecipesNeeded, mainIngredient);
+      goodResults =
+          this.queryQualitySearchResults(
+              remainingRecipesNeeded * 3, remainingRecipesNeeded, mainIngredient);
       int resultsLength = goodResults.size();
 
       // taking from the end of results is mostly for testing with mocked [same] query results
-      algorithmResults.addAll(goodResults.subList(resultsLength - remainingRecipesNeeded, resultsLength));
+      algorithmResults.addAll(
+          goodResults.subList(resultsLength - remainingRecipesNeeded, resultsLength));
     }
     assert (algorithmResults.size() == this.NUM_DAYS_TO_PLAN);
     return algorithmResults;

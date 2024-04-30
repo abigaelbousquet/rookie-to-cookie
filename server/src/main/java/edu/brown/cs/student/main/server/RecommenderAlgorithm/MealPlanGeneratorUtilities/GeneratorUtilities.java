@@ -9,7 +9,6 @@ import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 /** A class for utility methods associated with a MealPlanGenerator. */
 public class GeneratorUtilities {

@@ -4,15 +4,12 @@ import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.RecipeVolumeException;
-import edu.brown.cs.student.main.server.UserData.Profile;
-import edu.brown.cs.student.main.server.UserData.ProfileUtilities;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
+import java.util.*;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-
-import java.util.*;
 
 public class GetRecipeHandler implements Route {
 
