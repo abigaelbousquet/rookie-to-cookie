@@ -48,8 +48,14 @@ public class ListDislikedRecipesHandler implements Route {
         }
       }
 
-      responseMap.put("response_type", "success");
-      responseMap.put("Recipes", recipes);
+      if (recipes.isEmpty()) {
+        responseMap.put("response_type", "failure");
+        responseMap.put("Recipes", "null");
+
+      } else {
+        responseMap.put("response_type", "success");
+        responseMap.put("Recipes", recipes);
+      }
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();
