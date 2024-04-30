@@ -1,8 +1,17 @@
-import React, { useState } from "react";
-import SingleCalendarEvents from "react-single-calendar-events";
 import Recipe from "../RecipeCard/Recipe";
 import { getRecipe } from "../RecipeCard/Recipe";
 import RecipeHistory from "../RecipeCard/RecipeHistory";
+import { useState } from "react";
+import Calendar from "react-calendar";
+import React from "react";
+import "react-calendar/dist/Calendar.css";
+import "../../styles/Calendar.css";
+import InfoView from "../RecipeCard/InfoView";
+import MealPlanSave from "../Save/MealPlanSave";
+
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
 interface listItem {
   day: number;
   events: [
@@ -16,46 +25,24 @@ interface listItem {
 interface CalendarProps {
   recipeHistory: RecipeHistory[];
 }
-const Calendar: React.FC<CalendarProps> = ({ recipeHistory }) => {
-  let options = {
-    positionX: "right",
-    positionY: "top",
-    badge: "circle",
-    pattern: "alternate",
-    fontSize: 16,
-    border: true,
-    presentOnly: true,
-    accessibility: true,
-    tooltip: true,
-    tooltipPosition: "top",
-    tooltipTitle: true,
-  };
 
-  const createRecipeList = () => {
-    return recipeHistory.map((recipeItem) => {
-      const recipe: Recipe = recipeItem.recipe;
-      const historyItem: listItem = {
-        day: recipeItem.day,
-        events: [
-          {
-            title: recipe.name,
-            details: {
-              Cuisine: recipe.cuisine,
-              Instructions: recipe.instructions,
-            },
-          },
-        ],
-      };
-      return historyItem; // Return the historyItem here
-    });
-  };
+const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
+  const [value, onChange] = useState<Value>(new Date());
+  const [weekChosen, setWeekChosen] = useState<ValuePiece>(null);
 
-  let data = {
-    month: "May",
-    year: "2024",
-    list: createRecipeList(),
-  };
-
-  return <SingleCalendarEvents options={options} events={data} />;
+  return (
+    <div className="calendar-page">
+      <Calendar className="big-cal"
+        onChange={onChange}
+        value={value}
+        showWeekNumbers={true}
+        tileDisabled={() => true}
+        onClickWeekNumber={(weekNumber, date) => {
+          setWeekChosen(date);
+          alert("chosen week");
+        }}
+      />
+    </div>
+  );
 };
-export default Calendar;
+export default CalendarPage;
