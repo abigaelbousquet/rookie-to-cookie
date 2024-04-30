@@ -41,13 +41,14 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
     const dislikes = response2["Recipes"];
     const userJson: User = await getUser();
     const userData = userJson["User"];
+    console.log(userData);
     return {
       name: userData.name,
       experienceLevel: userData.experienceLevel,
       diet: userData.diet,
       intolerances: userData.intolerances,
-      likedRecipes: null, //TODO: fix
-      dislikedRecipes: null,
+      likedRecipes: [], //TODO: fix
+      dislikedRecipes: [],
     };
   };
 

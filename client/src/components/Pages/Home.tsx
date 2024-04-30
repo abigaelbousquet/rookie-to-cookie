@@ -22,6 +22,7 @@ const Home: React.FC = () => {
     ingredients: ["Pasta", "Sauce", "Something more"],
     image: "https://placeholder.com/312x231",
     credit: "Unknown",
+    id: 123,
   };
 
   const mockedMealPlan = [
@@ -65,33 +66,30 @@ const Home: React.FC = () => {
    * Calls generate on the backend
    */
   const handleGenerate = async () => {
-    try {
-      const user = await getUser();
-      if (selectedOptionsIntolerance.length === 0) {
-        if (user.intolerances.length > 0) {
-          setIntols(user.intolerances);
-        }
-      } else {
-        setIntols(
-          selectedOptionsIntolerance
-            .map((val) => val.label)
-            .concat(excludedIngredients)
-        );
-      } //TODO: check if fam size is empty then use user defaults
-    } catch (error) {
-      const props = {
-        daysToPlan: selectedButtons,
-        maxReadyTime: maxTime.toString(),
-        diet: "",
-        // diet: user.diet || "",
-        intolerances: intols,
-        cuisine: selectedOptionsCuisine.map((val) => val.label) || "",
-        requestedServings: numberOfPeople.toString(),
-      };
-      console.log(props);
-
-      await generateMealPlan(props);
-    }
+    console.log("generating");
+    const user = await getUser();
+    console.log("got user: " + user["User"]);
+    if (selectedOptionsIntolerance.length === 0) {
+      if (user["intolerances"].length > 0) {
+        setIntols(user["intolerances"]);
+      }
+    } else {
+      setIntols(
+        selectedOptionsIntolerance
+          .map((val) => val.label)
+          .concat(excludedIngredients)
+      );
+    } //TODO: check if fam size is empty then use user defaults
+    const props = {
+      daysToPlan: selectedButtons,
+      maxReadyTime: maxTime.toString(),
+      diet: "Vegan",
+      intolerances: intols,
+      cuisine: selectedOptionsCuisine.map((val) => val.label) || "",
+      requestedServings: numberOfPeople.toString(),
+    };
+    console.log(props);
+    await generateMealPlan(props);
   };
 
   // Function to handle button click
