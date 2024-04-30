@@ -47,7 +47,7 @@ public class GenerateMealPlanHandler implements Route {
 
       Mode mode = null;
 
-      int exp = Integer.parseInt(expString);
+      //   int exp = Integer.parseInt(expString);
       int maxReadyTime = Integer.parseInt(maxReadyTimeString);
       int servings = Integer.parseInt(servingString);
 
