@@ -1,5 +1,6 @@
-import Recipe from "../RecipeCard/Recipe";
+
 import { profileProps } from "../components/Login/AccountCreation";
+import Recipe from "../components/RecipeCard/Recipe";
 import { getLoginCookie } from "./cookie";
 
 const HOST = "http://localhost:3232";
