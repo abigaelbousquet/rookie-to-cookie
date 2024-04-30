@@ -40,7 +40,6 @@ public class AddUserHandler implements Route {
       int experience = 0;
       int familySize = 0;
       ArrayList<String> intoleranceArray = new ArrayList<>();
-      ArrayList<String> dietArray = new ArrayList<>();
 
       // convert exp to a num
       try {
@@ -67,25 +66,9 @@ public class AddUserHandler implements Route {
         System.out.println("Intolerance array could not be parsed");
       }
 
-      // convert diet string to array
-      try {
-
-        // Split the remaining string by commas
-        String[] parts = diet.split(",");
-
-        // Trim leading and trailing spaces from each element and add them to ArrayList
-        for (String part : parts) {
-          if (part.equals("") || part.equals(" ") || part.equals("null")) {
-            break;
-          }
-          dietArray.add(part.trim());
-        }
-      } catch (Exception e) {
-        System.out.println("diet array could not be parsed");
-      }
 
       Map<String, Object> data = new HashMap<>();
-      Profile user = new Profile(name, experience, intoleranceArray, dietArray, familySize);
+      Profile user = new Profile(name, experience, intoleranceArray, diet, familySize);
 
       data.put("User", user);
 

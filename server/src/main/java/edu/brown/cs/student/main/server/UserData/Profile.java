@@ -7,7 +7,7 @@ public class Profile {
   private String name;
   private int exp;
   private List<String> intolerances;
-  private List<String> diet;
+  private String diet;
   private int familySize;
 
   /**
@@ -19,7 +19,7 @@ public class Profile {
    * @param diet a list of the user's followed diets
    */
   public Profile(
-      String name, int exp, List<String> intolerances, List<String> diet, int familySize) {
+      String name, int exp, List<String> intolerances, String diet, int familySize) {
     this.name = name;
     this.exp = exp;
     this.intolerances = intolerances;
@@ -58,7 +58,7 @@ public class Profile {
    *
    * @return a list of the user's followed diets
    */
-  public List<String> getDiet() {
+  public String getDiet() {
     return this.diet;
   }
 
