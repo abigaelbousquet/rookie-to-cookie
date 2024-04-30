@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Recipe from "./Recipe";
 import InfoView from "./InfoView";
 import { AiFillLike, AiFillDislike, AiFillHeart } from "react-icons/ai";
 import LikeButton from "./LikeButton";
 import "../../styles/RecipeCard.css";
+import { addLike } from "../../utils/api";
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -16,6 +17,13 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   const toggleShowFullRecipe = () => {
     setShowFullRecipe(!showFullRecipe);
   };
+  useEffect(() => {
+    const updateLikes = async () => {
+      await addLike(recipe.id);
+      console.log("added to firestore");
+    };
+    updateLikes();
+  }, [liked]);
   return (
     <div className="recipe-card-container">
       <div className="recipe-card">
