@@ -8,6 +8,7 @@ import edu.brown.cs.student.main.server.RecipeData.Datasource.DatasourceExceptio
 import edu.brown.cs.student.main.server.RecipeData.Datasource.MockedRecipeSource;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.SearchResult;
+import edu.brown.cs.student.main.server.RecipeData.Datasource.SpoonacularRecipeSource;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Ingredient;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGenerator;
@@ -114,6 +115,7 @@ public class TestRecommenderAlgorithms {
               null,
               60,
               null,
+              null,
               null);
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
@@ -157,54 +159,55 @@ public class TestRecommenderAlgorithms {
    * <p>NOTE: this uses 6/5000 of our daily Spoonacular requests, so this should be commented out
    * unless truly necessary.
    */
-  //  @Test
-  //  public void testMinimizeFoodWasteReal() {
-  //    MealPlanGenerator generator = null;
-  //    try {
-  //      generator =
-  //          new MealPlanGenerator(
-  //              new SpoonacularRecipeSource(),
-  //              Mode.MINIMIZE_FOOD_WASTE,
-  //              "Monday,wednesday,Sunday",
-  //              4,
-  //              null,
-  //              null,
-  //              null,
-  //              null,
-  //              60,
-  //              null,
-  //              null);
-  //    } catch (ExecutionException | InterruptedException | IOException e) {
-  //      System.out.println(e);
-  //      fail();
-  //    }
-  //
-  //    try {
-  //      List<Recipe> mealPlanRecipes = generator.minimizeFoodWaste();
-  //      assertEquals(3, mealPlanRecipes.size());
-  //
-  //      List<String> mostImportantIngredientList =
-  //          GeneratorUtilities.findMostAbundantIngredients(mealPlanRecipes.get(0), 1);
-  //      assertEquals(1, mostImportantIngredientList.size());
-  //      String mostImportantIngredient = mostImportantIngredientList.get(0);
-  //
-  //      for (int i = 1; i < 3; i++) {
-  //        Recipe nthRecipe = mealPlanRecipes.get(i);
-  //
-  //        boolean ingredientPresent = false;
-  //        for (Ingredient ingredient : nthRecipe.getExtendedIngredients()) {
-  //          if (ingredient.getName().toLowerCase().contains(mostImportantIngredient)) {
-  //            ingredientPresent = true;
-  //            break;
-  //          }
-  //        }
-  //        assert(ingredientPresent);
-  //      }
-  //
-  //    } catch (DatasourceException | RecipeVolumeException e) {
-  //      fail();
-  //    }
-  //  }
+//    @Test
+//    public void testMinimizeFoodWasteReal() {
+//      MealPlanGenerator generator = null;
+//      try {
+//        generator =
+//            new MealPlanGenerator(
+//                new SpoonacularRecipeSource(),
+//                Mode.MINIMIZE_FOOD_WASTE,
+//                "Monday,wednesday,Sunday",
+//                4,
+//                null,
+//                null,
+//                null,
+//                null,
+//                60,
+//                null,
+//                null,
+//                null);
+//      } catch (ExecutionException | InterruptedException | IOException e) {
+//        System.out.println(e);
+//        fail();
+//      }
+//
+//      try {
+//        List<Recipe> mealPlanRecipes = generator.minimizeFoodWaste();
+//        assertEquals(3, mealPlanRecipes.size());
+//
+//        List<String> mostImportantIngredientList =
+//            GeneratorUtilities.findMostAbundantIngredients(mealPlanRecipes.get(0), 1);
+//        assertEquals(1, mostImportantIngredientList.size());
+//        String mostImportantIngredient = mostImportantIngredientList.get(0);
+//
+//        for (int i = 1; i < 3; i++) {
+//          Recipe nthRecipe = mealPlanRecipes.get(i);
+//
+//          boolean ingredientPresent = false;
+//          for (Ingredient ingredient : nthRecipe.getExtendedIngredients()) {
+//            if (ingredient.getName().toLowerCase().contains(mostImportantIngredient)) {
+//              ingredientPresent = true;
+//              break;
+//            }
+//          }
+//          assert(ingredientPresent);
+//        }
+//
+//      } catch (DatasourceException | RecipeVolumeException e) {
+//        fail();
+//      }
+//    }
 
   /**
    * Tests that the correct number of Recipes are generated for a user without any liked or disliked
@@ -230,7 +233,8 @@ public class TestRecommenderAlgorithms {
               null,
               60,
               this.firebaseUtils,
-              "test_user_0liked_0disliked");
+              "test_user_0liked_0disliked",
+              null);
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -272,7 +276,8 @@ public class TestRecommenderAlgorithms {
               null,
               60,
               this.firebaseUtils,
-              "test_user_disliked_only");
+              "test_user_disliked_only",
+              null);
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -332,7 +337,8 @@ public class TestRecommenderAlgorithms {
                 null,
                 60,
                 this.firebaseUtils,
-                "test_user_disliked_only");
+                "test_user_disliked_only",
+                null);
       } catch (ExecutionException | InterruptedException | IOException e) {
         System.out.println(e);
         fail();
@@ -383,7 +389,8 @@ public class TestRecommenderAlgorithms {
               null,
               60,
               this.firebaseUtils,
-              "test_user_liked_only");
+              "test_user_liked_only",
+              null);
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -446,7 +453,8 @@ public class TestRecommenderAlgorithms {
                 null,
                 60,
                 this.firebaseUtils,
-                "test_user_liked_only");
+                "test_user_liked_only",
+                null);
       } catch (ExecutionException | InterruptedException | IOException e) {
         System.out.println(e);
         fail();
@@ -497,7 +505,8 @@ public class TestRecommenderAlgorithms {
               null,
               60,
               this.firebaseUtils,
-              "test_user_disliked_only");
+              "test_user_disliked_only",
+              null);
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -543,7 +552,8 @@ public class TestRecommenderAlgorithms {
               null,
               60,
               this.firebaseUtils,
-              "test_user_disliked_only");
+              "test_user_disliked_only",
+              null);
 
       assertThrows(RecipeVolumeException.class, () -> generator.personalized());
     } catch (ExecutionException | InterruptedException | IOException e) {
@@ -574,7 +584,8 @@ public class TestRecommenderAlgorithms {
               null,
               60,
               this.firebaseUtils,
-              "test_user_disliked_only");
+              "test_user_disliked_only",
+              null);
 
       assertThrows(RecipeVolumeException.class, () -> generator.minimizeFoodWaste());
     } catch (ExecutionException | InterruptedException | IOException e) {
@@ -606,7 +617,8 @@ public class TestRecommenderAlgorithms {
               null,
               60,
               this.firebaseUtils,
-              "test_user_1liked_1disliked");
+              "test_user_1liked_1disliked",
+              null);
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -666,7 +678,8 @@ public class TestRecommenderAlgorithms {
                 null,
                 60,
                 this.firebaseUtils,
-                "test_user_1liked_1disliked");
+                "test_user_1liked_1disliked",
+                null);
       } catch (ExecutionException | InterruptedException | IOException e) {
         System.out.println(e);
         fail();

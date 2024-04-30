@@ -167,8 +167,8 @@ public class FirebaseUtilities implements StorageInterface {
       for (Object recipeData : rawRecipes.values()) {
         if (!(recipeData instanceof Map)) {
           throw new IllegalArgumentException(
-              "Attempted to convert non-map into a map. " +
-                  "Liked or disliked recipes from firebase should be nested maps. Rawjson: "
+              "Attempted to convert non-map into a map. "
+                  + "Liked or disliked recipes from firebase should be nested maps. Rawjson: "
                   + firebaseData);
         }
         Map<String, Object> recipeDataAsMap = (Map<String, Object>) recipeData;

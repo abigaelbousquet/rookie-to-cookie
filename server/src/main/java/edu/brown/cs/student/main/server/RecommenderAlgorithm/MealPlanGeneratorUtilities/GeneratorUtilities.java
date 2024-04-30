@@ -3,17 +3,13 @@ package edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorU
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Ingredient;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree.RecipeRecommendationKDTree;
-
+import java.util.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
-import edu.brown.cs.student.main.server.storage.StorageInterface;
-import java.io.IOException;
-import java.util.*;
 
 /** A class for utility methods associated with a MealPlanGenerator. */
 public class GeneratorUtilities {
