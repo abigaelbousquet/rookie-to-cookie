@@ -64,6 +64,7 @@ public class Profile {
 
   /**
    * Returns the serving size of the user
+   *
    * @return
    */
   public int getFamilySize() {

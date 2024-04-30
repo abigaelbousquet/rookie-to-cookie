@@ -8,8 +8,6 @@ import edu.brown.cs.student.main.server.RecommenderAlgorithm.Mode;
 import edu.brown.cs.student.main.server.Server;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import spark.Request;
 import spark.Response;
@@ -70,7 +68,8 @@ public class GenerateMealPlanHandler implements Route {
               intoleranceString,
               maxReadyTime,
               this.storageHandler,
-              uid, null);
+              uid,
+              null);
       MealPlan plan = planGenerator.generatePlan();
       Server.userCurrPlan.put(uid, plan); // stores plan under uid inServer variable
       responseMap.put("response_type", "success");
@@ -84,6 +83,4 @@ public class GenerateMealPlanHandler implements Route {
 
     return FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(responseMap);
   }
-
-
 }

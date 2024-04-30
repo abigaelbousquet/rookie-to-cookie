@@ -99,7 +99,7 @@ public class AddUserHandler implements Route {
       responseMap.put("exp", user.getExp());
       responseMap.put("intoleranceArray", user.getIntolerances());
       responseMap.put("dietArray", user.getDiet());
-      responseMap.put("familySize", user.getFamilySize());
+      // responseMap.put("familySize", user.getFamilySize());
 
     } catch (Exception e) {
       // error likely occurred in the storage handler

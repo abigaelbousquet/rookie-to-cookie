@@ -10,6 +10,7 @@ interface mealPlanProps {
   daysToPlan: string[];
   cuisine: string[];
   maxReadyTime: string;
+  exp: string;
 }
 
 interface User {
@@ -55,6 +56,7 @@ export async function generateMealPlan(props: mealPlanProps) {
   return await queryAPI("generate-mealplan", {
     uid: getLoginCookie() || "",
     diet: props.diet.toString(),
+    exp: props.exp,
     intolerances: props.intolerances.toString(),
     daysToPlan: props.daysToPlan.toString(),
     cuisine: props.cuisine.toString(),
