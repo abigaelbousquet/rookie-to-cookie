@@ -6,7 +6,7 @@ import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 public class RecipeNode {
   protected Recipe recipe;
   protected int[] location; // [numCuisines, numIngredients, numSteps]
-  protected RecipeNode left, right; // TODO: make NOT public
+  protected RecipeNode left, right;
 
   /**
    * Constructor for the RecipeNode class.

@@ -45,12 +45,13 @@ public class Server {
       Spark.get("get-mealplan", new GetMealPlanHandler(firebaseUtils));
       Spark.get("save-mealplan", new SaveMealPlanHandler(firebaseUtils));
 
+      //      String uid = "test_user_liked_only";
       //      RecipeDatasource datasource = new SpoonacularRecipeSource();
       //      MealPlanGenerator planGenerator =
       //          new MealPlanGenerator(
       //              datasource,
       //              Mode.MINIMIZE_FOOD_WASTE,
-      //              "sunday,monday,tuesday,null,null,null,null",
+      //              "sunday,monday",
       //              4,
       //              null,
       //              null,
@@ -58,7 +59,7 @@ public class Server {
       //              null,
       //              60,
       //              firebaseUtils,
-      //              "test-1");
+      //              uid);
       //      RecipeDatasource datasource1 = new SpoonacularRecipeSource();
       //      MealPlanGenerator planGenerator1 =
       //          new MealPlanGenerator(
@@ -75,14 +76,14 @@ public class Server {
       //              "test-2");
       //      try {
       //        MealPlan recipeList = planGenerator.generatePlan();
-      //        GeneratorUtilities.addToFirebase("test-1", firebaseUtils, recipeList);
+      //        GeneratorUtilities.addToFirebase(uid, firebaseUtils, recipeList);
       //        MealPlan recipeList1 = planGenerator1.generatePlan();
       //        GeneratorUtilities.addToFirebase("test-2", firebaseUtils, recipeList1);
       //
       //      } catch (DatasourceException | RecipeVolumeException e) {
       //        System.out.println(e.getMessage());
       //      }
-      //
+
       Spark.notFound(
           (request, response) -> {
             response.status(404); // Not Found

@@ -1,10 +1,15 @@
 package edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities;
 
-import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
-import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Ingredient;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree.RecipeRecommendationKDTree;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
@@ -26,15 +31,15 @@ public class GeneratorUtilities {
   }
 
   /**
-   * Filters a List of Recipes to return only Recipes with a Spoonacular score above 70.
+   * Filters a List of Recipes to return only Recipes with a Spoonacular score above 60.
    *
    * @param allRecipes the unfiltered List of Recipes to filter for good ones
-   * @return a List of the Recipes in allRecipes with Spoonacular scores above 70
+   * @return a List of the Recipes in allRecipes with Spoonacular scores above 60
    */
   public static List<Recipe> filterGoodRatings(List<Recipe> allRecipes) {
     List<Recipe> goodRecipes = new ArrayList<>();
     for (Recipe r : allRecipes) {
-      if (r.getSpoonacularScore() > 70) {
+      if (r.getSpoonacularScore() > 60) {
         goodRecipes.add(r);
       }
     }
@@ -169,46 +174,6 @@ public class GeneratorUtilities {
     }
 
     return mostAbundantIngredients;
-  }
-
-  /**
-   * Method to convert the given firebase data into a list of recipes.
-   *
-   * @param firebaseData
-   * @return
-   * @throws IllegalArgumentException
-   * @throws IOException
-   */
-  public static List<Recipe> convertFirebaseData(List<Map<String, Object>> firebaseData)
-      throws IllegalArgumentException, IOException {
-    List<Recipe> recipes = new ArrayList<>();
-    for (Map<String, Object> recipeData : firebaseData) {
-      // Deserialize each map entry into a Recipe object
-      String recipeJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(recipeData);
-      Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
-      if (recipe != null) {
-        recipes.add(recipe);
-      }
-    }
-    return recipes;
-  }
-
-  /**
-   * Method to add the given meal plan to the firestore database.
-   *
-   * @param uid
-   * @param firebaseData
-   * @param plan
-   */
-  public static void addToFirebase(String uid, StorageInterface firebaseData, MealPlan plan) {
-    Map<String, Object> data = new HashMap<>();
-    String sundayDate = plan.getDates().get(0);
-    // also need a way to find date range, for now just gonna call mealplan-1, etc
-    String planId = "default";
-    planId = String.valueOf(sundayDate);
-    data.put(planId, plan);
-
-    firebaseData.addDocument(uid, "Mealplans", planId, data);
   }
 
   /**

@@ -1,6 +1,7 @@
 package edu.brown.cs.student.main.server.RecipeData.Datasource;
 
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
+import io.github.cdimascio.dotenv.Dotenv;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -9,11 +10,7 @@ import java.net.http.HttpResponse;
 import java.util.*;
 
 public class SpoonacularRecipeSource implements RecipeDatasource {
-
-  /** TEMPORARILY HOLDING API KEYS HERE, DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-  private String SPOONACULAR_API_KEY = "0a62b4c389mshb21117420450909p1ec0ddjsna24820635fcb";
-
-  /** DELETE BEFORE PUSHING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+  private String SPOONACULAR_API_KEY;
   private final String SPOONACULAR_HOST = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
 
   /**
@@ -53,8 +50,8 @@ public class SpoonacularRecipeSource implements RecipeDatasource {
           "Query error: Attempted to query <1 or >100 recipes. numRecipes: " + numRecipes);
     }
 
-    //    Dotenv dotenv = Dotenv.configure().load();
-    //    this.SPOONACULAR_API_KEY = dotenv.get("SPOONACULAR_API_KEY");
+    Dotenv dotenv = Dotenv.configure().load();
+    this.SPOONACULAR_API_KEY = dotenv.get("SPOONACULAR_API_KEY");
 
     String parameters =
         generateUserParameters(

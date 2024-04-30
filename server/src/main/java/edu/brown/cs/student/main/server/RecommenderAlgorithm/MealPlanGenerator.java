@@ -8,6 +8,7 @@ import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities.GeneratorUtilities;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUtilities.RecipeFrequencyPair;
+import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
 import java.util.*;
@@ -79,9 +80,11 @@ public class MealPlanGenerator {
     this.dateList = dates;
     if (this.FIREBASE_DATA != null) {
       this.dislikedRecipes =
-          GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+          FirebaseUtilities.convertLikedOrDislikedRecipes(
+              firebaseData.getCollection(uid, "disliked recipes"));
       this.likedRecipes =
-          GeneratorUtilities.convertFirebaseData(firebaseData.getCollection(uid, "liked recipes"));
+          FirebaseUtilities.convertLikedOrDislikedRecipes(
+              firebaseData.getCollection(uid, "liked recipes"));
     }
   }
 
@@ -327,9 +330,6 @@ public class MealPlanGenerator {
         goodResults.remove(recipeWithFrequency.recipe());
       }
       assert (goodResults.size() >= this.NUM_DAYS_TO_PLAN);
-
-      // TODO: this should never be equal to NUM_DAYS_TO_PLAN, in theory should be 2*that, but if it
-      // is possible and size == NUM_DAYS then we should short circuit here and return goodResults
     }
 
     List<Recipe> bestRecipes = new ArrayList<>();
