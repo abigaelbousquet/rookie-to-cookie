@@ -1,5 +1,4 @@
 import Recipe from "../RecipeCard/Recipe";
-import { getRecipe } from "../RecipeCard/Recipe";
 import RecipeHistory from "../RecipeCard/RecipeHistory";
 import { useState } from "react";
 import Calendar from "react-calendar";

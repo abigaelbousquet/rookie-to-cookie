@@ -130,7 +130,7 @@ export const AccountCreation: React.FC<acctProps> = ({
               <div className="selector">
                 <Select
                   options={diets}
-                  onChange={(opt) => setDiet(opt!.label)}
+                  onChange={(opt: any) => setDiet(opt!.label)}
                 />
               </div>
             </div>
@@ -140,9 +140,9 @@ export const AccountCreation: React.FC<acctProps> = ({
                 <Creatable
                   options={intolerance}
                   isMulti
-                  onChange={(opt) => {
+                  onChange={(opt: any[]) => {
                     console.log(allergen);
-                    setAllergen(opt.map((tag) => tag.value));
+                    setAllergen(opt.map((tag: { value: any }) => tag.value));
                   }}
                 />
               </div>

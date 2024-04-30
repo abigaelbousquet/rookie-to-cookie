@@ -8,7 +8,3 @@ interface Recipe {
 }
 
 export default Recipe;
-
-export function getRecipe(recipe) {
-  return recipe.id;
-}
