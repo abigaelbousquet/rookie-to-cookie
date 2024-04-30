@@ -6,10 +6,10 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import { AccountCreation } from "../Login/AccountCreation";
 import { ControlledInput } from "../Login/ControlledInput";
 
-interface ProfileProps {
+export interface ProfileProps {
   name: string;
   experienceLevel: string;
-  familySize: number;
+  //familySize: number;
   diet: string;
   intolerances: string[];
   likedRecipes: Recipe[];
@@ -33,7 +33,7 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
           <h3>Intolerances:</h3>
           <p>{props.intolerances.toString()}</p>
         </div>
-        <h4>{"Cooking for " + props.familySize}</h4>
+        <h4>{"Cooking for " + 1}</h4>
         {/* //<button onClick={editProfile}>Edit</button> */}
       </div>
       <div className="right-side">

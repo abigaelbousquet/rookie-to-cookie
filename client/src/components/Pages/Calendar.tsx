@@ -31,7 +31,8 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
 
   return (
     <div className="calendar-page">
-      <Calendar className="big-cal"
+      <Calendar
+        className="big-cal"
         onChange={onChange}
         value={value}
         showWeekNumbers={true}
