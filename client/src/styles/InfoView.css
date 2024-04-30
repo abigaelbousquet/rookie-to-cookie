@@ -54,3 +54,60 @@
 .like-button-container-info button span {
   font-size: 50px; /* Adjust the heart icon's font size to make it larger */
 }
+
+.recipe-title {
+  padding-bottom: 30px;
+}
+
+/* Left-align list items */
+.popup-content ol li,
+.popup-content ul li {
+  text-align: left;
+}
+
+.grid-container {
+  display: grid;
+  display: flex;
+  justify-content: center; /* Horizontally center the items */
+  align-items: center; /* Vertically center the items */
+}
+
+.recipe-image-container {
+  display: flex;
+  justify-content: center; /* Center the image horizontally */
+}
+
+.recipe-image-container,
+.recipe-info {
+  flex-grow: 1;
+  width: 50%;
+}
+
+.recipe-image {
+  max-width: 100%; /* Ensure the image does not exceed the container width */
+  max-height: 100%; /* Ensure the image does not exceed the container height */
+}
+
+.recipe-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.recipe-info p {
+  text-align: left;
+  padding-left: 10px;
+}
+
+/* Style for the strikethrough effect */
+.popup-content ol li label.strikethrough {
+  text-decoration: line-through;
+}
+
+.steps {
+  padding-top: 20px;
+}
