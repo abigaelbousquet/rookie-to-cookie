@@ -25,11 +25,9 @@ interface User {
 
 async function getProfileProps() {
   const response = await getLikes();
-  const json = await response.json();
-  const likes = json["Recipes"];
+  const likes = response["Recipes"];
   const response2 = await getDislikes();
-  const json2 = await response2.json();
-  const dislikes = json2["Recipes"];
+  const dislikes = response2["Recipes"];
   const user: User = await getUser();
   const propsToPass: ProfileProps = {
     name: user.name,

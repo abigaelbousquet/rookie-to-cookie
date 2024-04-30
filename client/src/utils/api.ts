@@ -74,7 +74,7 @@ export async function getRecipe(recipeID: string) {
   });
 }
 export async function addUser(props: profileProps) {
-  return await queryAPI("add-user", {
+  const response = await queryAPI("add-user", {
     uid: getLoginCookie() || "",
     name: props.name,
     exp: props.exp,
@@ -97,13 +97,13 @@ export async function addLike(recipeID: string) {
 }
 
 export async function getLikes() {
-  return await queryAPI("get-likes", {
+  return await queryAPI("get-liked-recipes", {
     uid: getLoginCookie() || "",
   });
 }
 
 export async function getDislikes() {
-  return await queryAPI("get-dislikes", {
+  return await queryAPI("get-disliked-recipes", {
     uid: getLoginCookie() || "",
   });
 }

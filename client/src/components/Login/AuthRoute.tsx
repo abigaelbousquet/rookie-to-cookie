@@ -14,9 +14,7 @@ const AuthRoute = async () => {
   if (!authing && import.meta.env.VITE_APP_NODE_ENV === "test") {
     setAuthing(1);
   }
-
   const master = await Master();
-
   return (
     <>
       <div className="App-header">
