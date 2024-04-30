@@ -35,7 +35,6 @@ public class GenerateMealPlanHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      // date of the Sunday of the week of the mealplan
       String daysOfWeekString = request.queryParams("daysOfWeek"); // array of days of week
       String modeString = request.queryParams("mode"); // pass in minimize or personalize
       String dietString = request.queryParams("diet");
@@ -45,8 +44,6 @@ public class GenerateMealPlanHandler implements Route {
       String cuisineString = request.queryParams("cuisine");
       String maxReadyTimeString = request.queryParams("max_time");
       String excludeCuisineString = request.queryParams("exclude_cuisine");
-
-//      List<String> dateList = this.parseDates(dayOfSunday);
 
       Mode mode = null;
 

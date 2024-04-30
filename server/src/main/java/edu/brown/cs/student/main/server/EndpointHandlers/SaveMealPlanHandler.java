@@ -32,12 +32,11 @@ public class SaveMealPlanHandler implements Route {
       String uid = request.queryParams("uid");
       String dayOfSunday = request.queryParams("dayOfSunday");
 
-
       List<String> dateList = this.parseDates(dayOfSunday);
 
       Server.userCurrPlan.get(uid).setDates(dateList);
-      String sundayDate = Server.userCurrPlan.get(uid).getDates().get(0);
-      responseMap.put(Server.userCurrPlan.get(uid).getDates().get(0), Server.userCurrPlan.get(uid));
+      String sundayDate = dateList.get(0);
+      responseMap.put(sundayDate, Server.userCurrPlan.get(uid));
 
       this.storageHandler.addDocument(uid, "Mealplans", sundayDate, responseMap);
       responseMap.put("response_type", "success");

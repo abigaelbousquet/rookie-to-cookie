@@ -61,4 +61,12 @@ public class Profile {
   public List<String> getDiet() {
     return this.diet;
   }
+
+  /**
+   * Returns the serving size of the user
+   * @return
+   */
+  public int getFamilySize() {
+    return this.familySize;
+  }
 }
