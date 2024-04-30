@@ -66,7 +66,6 @@ public class AddUserHandler implements Route {
         System.out.println("Intolerance array could not be parsed");
       }
 
-
       Map<String, Object> data = new HashMap<>();
       Profile user = new Profile(name, experience, intoleranceArray, diet, familySize);
 
