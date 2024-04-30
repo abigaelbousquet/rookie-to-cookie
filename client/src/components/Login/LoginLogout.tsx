@@ -30,13 +30,10 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       const response = await signInWithEmailAndPassword(auth, email, password);
       props.setAuthing(1);
     } catch (error: any) {
-      if (error.message === "auth/invalid-email") {
+      if (error.message.includes("auth/invalid-email")) {
         alert("invalid email");
         props.setAuthing(0);
-      } else if (
-        error.message ===
-        "WEAK_PASSWORD : Password should be at least 6 characters"
-      ) {
+      } else if (error.message.includes("WEAK_PASSWORD")) {
         props.setAuthing(2);
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
@@ -45,20 +42,23 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       }
     }
   };
-  const handleUserKeyPress = (event: KeyboardEvent) => {
-    if (event.key === "Enter") {
-      handleClick();
-      document.getElementById("history")?.focus();
-      console.log("pressed enter");
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("keydown", handleUserKeyPress);
+  // const handleUserKeyPress = (event: KeyboardEvent) => {
+  //   if (event.key === "Enter") {
+  //     try {
+  //       handleClick();
+  //     } catch (error) {
+  //       alert(error);
+  //     }
+  //     console.log("pressed enter");
+  //   }
+  // };
+  // useEffect(() => {
+  //   document.addEventListener("keydown", handleUserKeyPress);
 
-    return () => {
-      document.removeEventListener("keydown", handleUserKeyPress);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("keydown", handleUserKeyPress);
+  //   };
+  // }, []);
   return (
     <div className="popup">
       <div className="popup-inner">

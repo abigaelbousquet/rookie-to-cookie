@@ -57,7 +57,14 @@ export const AccountCreation: React.FC<acctProps> = ({
   ];
   // const handleUserKeyPress = (event: KeyboardEvent) => {
   //   if (event.key === "Enter") {
-  //     handleSubmit();
+  //     console.log("submitted!");
+  //     handleSubmit({
+  //       name: name,
+  //       exp: exp,
+  //       diet: diet,
+  //       fam_size: fam_size,
+  //       intolerances: allergen,
+  //     });
   //     document.getElementById("history")?.focus();
   //     console.log("pressed enter");
   //   }
