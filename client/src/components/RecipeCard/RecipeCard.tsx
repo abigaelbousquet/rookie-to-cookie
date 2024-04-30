@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Recipe from "./Recipe";
 import InfoView from "./InfoView";
-import { AiFillLike, AiFillDislike, AiFillHeart } from "react-icons/ai";
 import LikeButton from "./LikeButton";
 import "../../styles/RecipeCard.css";
 import { addDislike, addLike } from "../../utils/api";

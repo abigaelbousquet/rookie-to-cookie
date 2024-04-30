@@ -89,8 +89,8 @@ const Home: React.FC = () => {
     const props = {
       daysToPlan: selectedButtons,
       maxReadyTime: maxTime.toString(),
-      diet: userData["diet"],
-      intolerances: intols,
+      diet: userData["diet"].toString(),
+      intolerances: intols.toString(),
       cuisine: selectedOptionsCuisine.map((val) => val.label) || "",
       requestedServings: numberOfPeople.toString(),
       exp: userData["exp"],
