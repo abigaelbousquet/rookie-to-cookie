@@ -83,10 +83,10 @@ export const AccountCreation: React.FC<acctProps> = ({
       alert("Please enter name, experience, and family size.");
     } else {
       try {
-        await addUser(props)
+        await addUser(props);
         console.log(
-          "?name=",
-          props.name +
+          "?name=" +
+            props.name +
             "&exp=" +
             props.exp +
             "&diet=" +
