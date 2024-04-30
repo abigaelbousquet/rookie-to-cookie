@@ -44,7 +44,7 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
     console.log(userData);
     return {
       name: userData.name,
-      experienceLevel: userData.experienceLevel,
+      experienceLevel: userData["exp"],
       diet: userData.diet,
       intolerances: userData.intolerances,
       likedRecipes: [], //TODO: fix

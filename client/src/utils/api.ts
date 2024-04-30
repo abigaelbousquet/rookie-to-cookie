@@ -58,10 +58,11 @@ export async function generateMealPlan(props: mealPlanProps) {
     diet: props.diet.toString(),
     exp: props.exp,
     intolerances: props.intolerances.toString(),
-    daysToPlan: props.daysToPlan.toString(),
+    daysOfWeek: props.daysToPlan.toString(),
     cuisine: props.cuisine.toString(),
-    requestedServings: props.requestedServings,
-    maxReadyTime: props.maxReadyTime,
+    servings: props.requestedServings,
+    max_time: props.maxReadyTime,
+    mode: "personalize", //TODO: need to add personalize
   });
 }
 export async function getUser(): Promise<User> {
