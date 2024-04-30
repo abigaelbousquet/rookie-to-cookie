@@ -25,12 +25,9 @@ initializeApp(firebaseConfig);
 /**
  * This is the highest level component!
  */
-function App() {
-  return (
-    <div className="App">
-      <AuthRoute />
-    </div>
-  );
+async function App() {
+  const authroute = await AuthRoute();
+  return <div className="App">{authroute}</div>;
 }
 
 export default App;
