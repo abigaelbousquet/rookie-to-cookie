@@ -22,7 +22,6 @@ const Home: React.FC = () => {
     ingredients: ["Pasta", "Sauce", "Something more"],
     image: "https://placeholder.com/312x231",
     credit: "Unknown",
-    id: 123,
   };
 
   const mockedMealPlan = [
@@ -63,31 +62,68 @@ const Home: React.FC = () => {
   };
 
   /**
+   * Converts the selectedButtons state to a comma-separated string of
+   * days deleted in unabbreviated, lowercase form.
+   * @returns the conversion of selectedButtons to a corresponding CSV string
+   */
+  const convertDaysOfWeekToCSVString = () => {
+    var csv: string = "";
+    selectedButtons.forEach(function (value) {
+      var dayUnabbrev: string = "";
+      if (value === "M") {
+        dayUnabbrev = "monday";
+      } else if (value === "Tu") {
+        dayUnabbrev = "tuesday";
+      } else if (value === "W") {
+        dayUnabbrev = "wednesday";
+      } else if (value === "Th") {
+        dayUnabbrev = "thursday";
+      } else if (value === "F") {
+        dayUnabbrev = "friday";
+      } else if (value === "Sa") {
+        dayUnabbrev = "saturday";
+      } else {
+        dayUnabbrev = "sunday";
+      }
+      csv = csv + "," + dayUnabbrev;
+    });
+    // remove first comma
+    return csv.substring(1);
+  };
+
+  /**
    * Calls generate on the backend
    */
   const handleGenerate = async () => {
     console.log("generating");
     const user = await getUser();
-    console.log("got user: " + user["User"]);
+    const userData = user["User"];
+    console.log(user["User"]);
+    console.log;
+    //handle user intolerances from profile
     if (selectedOptionsIntolerance.length === 0) {
-      if (user["intolerances"].length > 0) {
-        setIntols(user["intolerances"]);
+      if (userData["intolerances"].length > 0) {
+        setIntols(userData["intolerances"]);
       }
     } else {
+      const choices = selectedOptionsIntolerance
+        .map((val) => val.label)
+        .concat(excludedIngredients);
       setIntols(
-        selectedOptionsIntolerance
-          .map((val) => val.label)
-          .concat(excludedIngredients)
+        choices.concat(
+          userData["intolerances"].filter((val) => !choices.includes(val))
+        )
       );
     } //TODO: check if fam size is empty then use user defaults
     const props = {
-      daysToPlan: selectedButtons,
+      daysToPlan: convertDaysOfWeekToCSVString(),
       maxReadyTime: maxTime.toString(),
-      diet: "Vegan",
-      intolerances: intols,
+      diet: userData["diet"].toString(),
+      intolerances: intols.toString(),
       cuisine: selectedOptionsCuisine.map((val) => val.label) || "",
       requestedServings: numberOfPeople.toString(),
-      exp: user["exp"],
+      exp: userData["exp"],
+      mode: selectedAlg,
     };
     console.log(props);
     await generateMealPlan(props);
@@ -103,7 +139,11 @@ const Home: React.FC = () => {
   };
   // Function to handle changes to the radio button selection
   const handleAlgChange = (event) => {
-    setSelectedAlg(event.target.value);
+    if (event.target.value == "minimize_foodwaste") {
+      setSelectedAlg("minimize");
+    } else {
+      setSelectedAlg("personalize");
+    }
   };
   const handleExcludedIngredientsChange = (selectedToExclude) => {
     setExcludedIngredients(selectedToExclude.map((option) => option.value));
@@ -175,7 +215,7 @@ const Home: React.FC = () => {
               checked={selectedAlg === "prioritize user taste"} // Check if this option is selected
               onChange={handleAlgChange} // Call function to update state on change
             />
-            <label htmlFor="prioritize user taste">Prioritize User Tatse</label>
+            <label htmlFor="prioritize user taste">Prioritize User Taste</label>
           </div>
         </div>
       </div>
@@ -225,10 +265,12 @@ const Home: React.FC = () => {
 
       <div className="time-container">
         {/* Section of max time prompt */}
-        <div className="max-time-prompt-text">Specify max cooking time:</div>
+        <div className="max-time-prompt-text">
+          Specify max cooking time (min):
+        </div>
         {/* Section of max time integer input */}
         <div className="max-time-options-box">
-          <IntegerInput value={maxTime} onChange={setMaxTime} minValue={5} />
+          <IntegerInput value={maxTime} onChange={setMaxTime} minValue={20} />
         </div>
       </div>
 
@@ -250,7 +292,12 @@ const Home: React.FC = () => {
       </div>
       {/* Button for saving data */}
       <div className="save-data-button-container">
-        <button className="save-button" onClick={toggleShowSave}>
+        <button
+          className="save-button"
+          onClick={() => {
+            toggleShowSave;
+          }}
+        >
           Save
         </button>
         {showSavePopup && <MealPlanSave onClose={() => setSavePopup(false)} />}

@@ -64,7 +64,7 @@ public class MealPlanGenerator {
       int maxReadyTime,
       StorageInterface firebaseData,
       String uid,
-      List<String> dates)
+      List<String> dateList)
       throws ExecutionException, InterruptedException, IOException {
     this.recipes = mode;
     this.REQUESTED_SERVINGS = servings;
@@ -76,8 +76,8 @@ public class MealPlanGenerator {
     this.UID = uid;
     this.DAYS_TO_PLAN = parseDays(daysOfWeek);
     setIntolerancesAndAllergens(intolerances);
+    this.dateList = null; // unsure if this is real solution
     this.DATASOURCE = recipeSource;
-    this.dateList = dates;
     if (this.FIREBASE_DATA != null) {
       this.dislikedRecipes =
           FirebaseUtilities.convertLikedOrDislikedRecipes(
@@ -171,10 +171,11 @@ public class MealPlanGenerator {
       }
     }
 
+    // deleting last comma at end of string
     if (intolerances.isEmpty()) {
       this.INTOLERANCES = null;
     } else {
-      this.INTOLERANCES = intolerances.substring(0, -1);
+      this.INTOLERANCES = intolerances.substring(0, intolerances.length() - 1);
     }
 
     if (excludeIngredients.isEmpty()) {
@@ -193,28 +194,28 @@ public class MealPlanGenerator {
    */
   private boolean[] parseDays(String daysOfWeek) {
     boolean[] booleanArray = {false, false, false, false, false, false, false};
-    String[] daysOfWeekArray = daysOfWeek.toLowerCase().split(",");
+    String[] daysOfWeekArray = daysOfWeek.split(",");
     for (int i = 0; i < daysOfWeekArray.length; i++) {
       switch (daysOfWeekArray[i]) {
-        case "Su":
+        case "sunday":
           booleanArray[0] = true;
           break;
-        case "M":
+        case "monday":
           booleanArray[1] = true;
           break;
-        case "Tu":
+        case "tuesday":
           booleanArray[2] = true;
           break;
-        case "W":
+        case "wednesday":
           booleanArray[3] = true;
           break;
-        case "Th":
+        case "thursday":
           booleanArray[4] = true;
           break;
-        case "F":
+        case "friday":
           booleanArray[5] = true;
           break;
-        case "Sa":
+        case "saturday":
           booleanArray[6] = true;
           break;
         default:

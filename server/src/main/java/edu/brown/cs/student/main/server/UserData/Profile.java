@@ -23,6 +23,7 @@ public class Profile {
     this.exp = exp;
     this.intolerances = intolerances;
     this.diet = diet;
+    this.familySize = familySize;
   }
 
   /**
@@ -62,9 +63,9 @@ public class Profile {
   }
 
   /**
-   * Returns the serving size of the user
+   * Gets a list of the user's followed diets.
    *
-   * @return
+   * @return a list of the user's followed diets
    */
   public int getFamilySize() {
     return this.familySize;

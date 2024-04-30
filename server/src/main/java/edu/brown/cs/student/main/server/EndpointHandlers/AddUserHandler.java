@@ -35,7 +35,7 @@ public class AddUserHandler implements Route {
       String exp = request.queryParams("exp");
       String diet = request.queryParams("diet");
       String intolerances = request.queryParams("intolerances");
-      String familySizeString = request.queryParams("familySize");
+      String familySizesString = request.queryParams("familySize");
 
       int experience = 0;
       int familySize = 0;
@@ -44,7 +44,7 @@ public class AddUserHandler implements Route {
       // convert exp to a num
       try {
         experience = Integer.parseInt(exp);
-        familySize = Integer.parseInt(familySizeString);
+        familySize = Integer.parseInt(familySizesString);
       } catch (Exception e) {
         System.out.println("experience is not a num");
       }
@@ -81,8 +81,6 @@ public class AddUserHandler implements Route {
       responseMap.put("exp", user.getExp());
       responseMap.put("intoleranceArray", user.getIntolerances());
       responseMap.put("dietArray", user.getDiet());
-      // responseMap.put("familySize", user.getFamilySize());
-
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();

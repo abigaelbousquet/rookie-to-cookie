@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Recipe from "./Recipe";
 import InfoView from "./InfoView";
-import { AiFillLike, AiFillDislike, AiFillHeart } from "react-icons/ai";
 import LikeButton from "./LikeButton";
 import "../../styles/RecipeCard.css";
-import { addLike } from "../../utils/api";
+import { addDislike, addLike } from "../../utils/api";
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -19,8 +18,13 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   };
   useEffect(() => {
     const updateLikes = async () => {
-      await addLike(recipe.id);
-      console.log("added to firestore");
+      if (liked == 1) {
+        await addLike(recipe.id);
+        console.log("added liked to firestore: " + recipe.id);
+      } else if (liked == 2) {
+        await addDislike(recipe.id);
+        console.log("added disliked to firestore: " + recipe.id);
+      }
     };
     updateLikes();
   }, [liked]);
