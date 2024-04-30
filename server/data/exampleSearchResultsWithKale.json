@@ -1,0 +1,3345 @@
+{
+  "number": 16,
+  "results": [
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Season the salmon filet with salt and pepper. In a saute pan over medium-high heat, pan-sear the salmon until golden and cooked to your liking (I like mine medium, which only took 2-3 minutes per side). Set aside and allow to rest."
+            },
+            {
+              "number": 2,
+              "step": "Add the dressing ingredients to a food processor and process until smooth and emulsified, about 30 seconds. Set aside."
+            },
+            {
+              "number": 3,
+              "step": "Add the kale to a bowl and massage it with your fingers firmly for 30 seconds to tenderize. Stir in the cooked quinoa."
+            },
+            {
+              "number": 4,
+              "step": "Drizzle the kale and quinoa with half of the dressing and toss to combine. Top the dressed kale and quinoa with the chopped avocado and salmon filet."
+            },
+            {
+              "number": 5,
+              "step": "Sprinkle with the pomegranate arils and drizzle everything with the remaining dressing."
+            },
+            {
+              "number": 6,
+              "step": "Serve."
+            }
+          ]
+        }
+      ],
+      "creditsText": "Alaska from Scratch",
+      "cuisines": [],
+      "dairyFree": true,
+      "diets": [
+        "gluten free",
+        "dairy free",
+        "pescatarian"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "an avocado"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "cooked"
+          ],
+          "name": "quinoa"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "Tbsp"
+            }
+          },
+          "meta": [],
+          "name": "dijon mustard"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "extra virgin olive oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": ""
+            }
+          },
+          "meta": [],
+          "name": "garlic clove"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "Tbsp"
+            }
+          },
+          "meta": [
+            "to taste",
+            "(or )"
+          ],
+          "name": "honey"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "pomegranate arils"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "wild",
+            "skinless"
+          ],
+          "name": "salmon fillet"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "to taste"
+          ],
+          "name": "salt and pepper"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "white wine vinegar"
+        }
+      ],
+      "glutenFree": true,
+      "id": 519398,
+      "image": "https://img.spoonacular.com/recipes/519398-312x231.jpg",
+      "readyInMinutes": 45,
+      "servings": 2,
+      "spoonacularScore": 99.70467376708984,
+      "title": "Superfood Salad with Pan-Seared Salmon",
+      "vegan": false,
+      "vegetarian": false
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Use a chef's knife to cut out the ribs of the kale leaves. Chop the kale into small, bite-sized pieces."
+            },
+            {
+              "number": 2,
+              "step": "Sprinkle a dash of sea salt over the kale and use your hands to massage the kale by lightly scrunching handfuls of kale in your hands. Release and repeat until the kale becomes darker in color and more fragrant."
+            },
+            {
+              "number": 3,
+              "step": "Transfer the kale to a medium serving bowl.Chop off and discard the stem end of the brussels sprouts and any discolored outer leaves. Slice the sprouts as thin as possible, then use your fingers to break up any clumps."
+            },
+            {
+              "number": 4,
+              "step": "Add the sprouts to the bowl.In a small mixing bowl, whisk together the tahini, vinegar, miso, maple syrup and red pepper flakes."
+            },
+            {
+              "number": 5,
+              "step": "Whisk in the water until the mixture is smooth and creamy."
+            },
+            {
+              "number": 6,
+              "step": "Pour the dressing over the kale and sprouts and mix well.In a small pan over medium heat, toast the almond slivers, stirring frequently, until fragrant and turning golden (this will take less than five minutes so watch carefully)."
+            },
+            {
+              "number": 7,
+              "step": "Add the toasted almonds and parmesan shavings to the salad and toss."
+            },
+            {
+              "number": 8,
+              "step": "Serve immediately."
+            }
+          ]
+        }
+      ],
+      "creditsText": "Cookie and Kate",
+      "cuisines": [],
+      "dairyFree": true,
+      "diets": [
+        "gluten free",
+        "dairy free",
+        "lacto ovo vegetarian",
+        "vegan"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [
+            "sliced"
+          ],
+          "name": "almonds"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 12,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "( 2 big handfuls' worth)"
+          ],
+          "name": "brussels sprouts"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "bunch"
+            }
+          },
+          "meta": [
+            "green"
+          ],
+          "name": "curly kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "maple syrup"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "shaved",
+            "(use a vegetable peeler to shave the cheese into little strips)"
+          ],
+          "name": "parmesan"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "shaved",
+            "(use a vegetable peeler to shave the cheese into little strips)"
+          ],
+          "name": "parmesan"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "pinch"
+            }
+          },
+          "meta": [
+            "red"
+          ],
+          "name": "pepper flakes"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "dash"
+            }
+          },
+          "meta": [],
+          "name": "sea salt"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "tahini"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "water"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "white"
+          ],
+          "name": "miso"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "white wine vinegar"
+        }
+      ],
+      "glutenFree": true,
+      "id": 580817,
+      "image": "https://img.spoonacular.com/recipes/580817-312x231.jpg",
+      "readyInMinutes": 15,
+      "servings": 2,
+      "spoonacularScore": 99.5643310546875,
+      "title": "Raw Kale and Brussels Sprouts Salad with Tahini-Maple Dressing",
+      "vegan": true,
+      "vegetarian": true
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Preheat the oven to 375°F."
+            },
+            {
+              "number": 2,
+              "step": "Spread the pepitas on a baking sheet, and toast for about 10 minutes, stirring once or twice, until they smell nutty."
+            },
+            {
+              "number": 3,
+              "step": "Remove from oven and place in a small bowl to cool.Preheat oven to 425°F."
+            },
+            {
+              "number": 4,
+              "step": "Cut squash in half lengthwise and remove the seeds, and peel."
+            },
+            {
+              "number": 5,
+              "step": "Remove stem and discard."
+            },
+            {
+              "number": 6,
+              "step": "Slice the squash lengthwise into 1- inch- thick wedges."
+            },
+            {
+              "number": 7,
+              "step": "Toss the squash wedges in a bowl with ¼ cup olive oil, kosher salt, black pepper, thyme, rosemary and sage."
+            },
+            {
+              "number": 8,
+              "step": "Place the squash flat on a baking sheet, and roast in the oven for about 20 minutes, or until tender when pierced with a fork. Cube once cooled."
+            },
+            {
+              "number": 9,
+              "step": "Slice dates in half and then slice thinly lengthwise, being careful not to let them stick together into one big ball. Toss the dates in a bowl with remaining ¼ cup olive oil, the lemon juice, and parsley. Stir in the Parmigiano- Reggiano."
+            },
+            {
+              "number": 10,
+              "step": "Place chopped kale in serving bowl, add juice from 1/2 of the lemon (about 2 tablespoons) and toss kale with your hands massaging juice into leaves (this will tenderize the kale leaves)"
+            },
+            {
+              "number": 11,
+              "step": "Top with cubed squash, then spread date mixture on top of squash."
+            },
+            {
+              "number": 12,
+              "step": "Toss together, top with pepitas and additional grated parmesan cheese if desired."
+            }
+          ]
+        }
+      ],
+      "creditsText": "A Healthy Life for Me",
+      "cuisines": [],
+      "dairyFree": false,
+      "diets": [
+        "gluten free",
+        "primal"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "pepitas"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "extra- virgin olive oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "peeled",
+            "halved",
+            "cut into slices."
+          ],
+          "name": "kabocha squash"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "Tbsp"
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "thyme leaves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "rosemary leaves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "sage leaves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "kosher salt"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "black"
+          ],
+          "name": "ground pepper"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "grated"
+          ],
+          "name": "parmigiano- reggiano"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 6,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "pitted"
+          ],
+          "name": "dates"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "juiced"
+          ],
+          "name": "lemon 4 tablespoons"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [
+            "sliced",
+            "chopped"
+          ],
+          "name": "flat-leaf parsley"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "bunch"
+            }
+          },
+          "meta": [
+            "roughly chopped"
+          ],
+          "name": "kale leaves stems removed"
+        }
+      ],
+      "glutenFree": true,
+      "id": 1154142,
+      "image": "https://img.spoonacular.com/recipes/1154142-312x231.jpg",
+      "readyInMinutes": 45,
+      "servings": 4,
+      "spoonacularScore": 82.269287109375,
+      "title": "Squash Kale Date Salad",
+      "vegan": false,
+      "vegetarian": false
+    },
+    {
+      "analyzedInstructions": [],
+      "creditsText": "Saveur",
+      "cuisines": [
+        "Mediterranean",
+        "Italian",
+        "European"
+      ],
+      "dairyFree": true,
+      "diets": [
+        "gluten free",
+        "dairy free",
+        "lacto ovo vegetarian",
+        "vegan"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "peeled",
+            "chopped"
+          ],
+          "name": "carrot"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "celery stalk"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "cup"
+            }
+          },
+          "meta": [
+            "dried",
+            "(cranberry)"
+          ],
+          "name": "borlotti beans"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "dried"
+          ],
+          "name": "cannellini beans"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "mediums"
+            }
+          },
+          "meta": [
+            "trimmed",
+            "thinly sliced"
+          ],
+          "name": "bulb fennel"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "smashed"
+          ],
+          "name": "garlic cloves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 6,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "for garnishing",
+            "(a type of dandelion)"
+          ],
+          "name": "herbs such as peppermint"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 6,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "for garnishing",
+            "(a type of dandelion)"
+          ],
+          "name": "herbs such as peppermint"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "stemmed",
+            "coarsely chopped"
+          ],
+          "name": "kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "cup"
+            }
+          },
+          "meta": [
+            "rinsed",
+            "chopped",
+            "well"
+          ],
+          "name": "leek"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "extra-virgin",
+            "plus more for drizzling"
+          ],
+          "name": "olive oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "small bunchs"
+            }
+          },
+          "meta": [],
+          "name": "sage"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "tomato paste"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "small heads"
+            }
+          },
+          "meta": [
+            "white",
+            "finely chopped",
+            "cut into large squares, core  (5 1⁄4 cups)"
+          ],
+          "name": "cabbage"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "yellow",
+            "chopped"
+          ],
+          "name": "onion"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "pounds"
+            }
+          },
+          "meta": [
+            "sliced"
+          ],
+          "name": "zucchini"
+        }
+      ],
+      "glutenFree": true,
+      "id": 830754,
+      "image": "https://img.spoonacular.com/recipes/830754-312x231.jpg",
+      "readyInMinutes": 45,
+      "servings": 6,
+      "spoonacularScore": 92.5416259765625,
+      "title": "Italian Bean and Vegetable Soup (Zuppa alla Frantoiana)",
+      "vegan": true,
+      "vegetarian": true
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Prepare quinoa according to package directions; set aside to cool."
+            },
+            {
+              "number": 2,
+              "step": "Combine hummus and lemon juice in a small bowl. Thin with water to desired dressing consistency. Divide the dressing among 4 small condiment containers with lids and refrigerate."
+            },
+            {
+              "number": 3,
+              "step": "Photographer: Fred Hardy, Food Stylist: Margaret Monroe Dickey"
+            },
+            {
+              "number": 4,
+              "step": "Divide baby kale among 4 single-serving containers with lids. Top each with 1/2 cup of the quinoa, 1/2 cup beets, 1/4 cup edamame and 1 tablespoon sunflower seeds."
+            },
+            {
+              "number": 5,
+              "step": "Photographer: Fred Hardy, Food Stylist: Margaret Monroe Dickey"
+            },
+            {
+              "number": 6,
+              "step": "When ready to eat, top with 1/4 avocado and the hummus dressing."
+            },
+            {
+              "number": 7,
+              "step": "Photographer: Fred Hardy, Food Stylist: Margaret Monroe Dickey"
+            }
+          ]
+        }
+      ],
+      "creditsText": "Eating Well",
+      "cuisines": [],
+      "dairyFree": true,
+      "diets": [
+        "gluten free",
+        "dairy free",
+        "lacto ovo vegetarian",
+        "vegan"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 8,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [],
+          "name": "microwavable quinoa"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "hummus"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "lemon juice"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 5,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [],
+          "name": "baby kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 8,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "whole",
+            "refrigerated",
+            "cooked",
+            "sliced",
+            "(or 2 cups from salad bar)"
+          ],
+          "name": "baby beets"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "cup"
+            }
+          },
+          "meta": [
+            "frozen",
+            "shelled",
+            "thawed"
+          ],
+          "name": "edamame"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "cup"
+            }
+          },
+          "meta": [
+            "frozen",
+            "shelled",
+            "thawed"
+          ],
+          "name": "edamame"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "medium"
+            }
+          },
+          "meta": [
+            "sliced"
+          ],
+          "name": "avocado"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "unsalted",
+            "toasted"
+          ],
+          "name": "sunflower seeds"
+        }
+      ],
+      "glutenFree": true,
+      "id": 1792177,
+      "image": "https://img.spoonacular.com/recipes/1792177-312x231.jpg",
+      "readyInMinutes": 15,
+      "servings": 4,
+      "spoonacularScore": 95.15446472167969,
+      "title": "Vegan Superfood Grain Bowls",
+      "vegan": true,
+      "vegetarian": true
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Process preserved lemon, crme frache, mayonnaise, and vinegar in a food processor until smooth; season dressing with salt and pepper. Cover and chill until ready to use."
+            },
+            {
+              "number": 2,
+              "step": "Heat oil in a large skillet over medium-high and cook bacon, turning halfway through, until brown and crisp, 810 minutes per side."
+            },
+            {
+              "number": 3,
+              "step": "Transfer to paper towels and let cool slightly. Slice crosswise to yield 12 pieces.Toss kale and dressing in a large bowl until coated; let sit 5 minutes."
+            },
+            {
+              "number": 4,
+              "step": "Add tomatoes and gently toss to coat. Divide salad among plates and top each with 3 pieces of bacon.Do Ahead: Dressing can be made 1 day ahead. Keep chilled."
+            }
+          ]
+        }
+      ],
+      "creditsText": "Bon Appetit",
+      "cuisines": [],
+      "dairyFree": false,
+      "diets": [
+        "gluten free"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 12,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "thick",
+            "sliced"
+          ],
+          "name": "bacon"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.33333334,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "crème fraîche"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1.052,
+              "unitLong": "pints"
+            }
+          },
+          "meta": [
+            "halved"
+          ],
+          "name": "grape tomatoes"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 8,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "tuscan kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "freshly ground"
+          ],
+          "name": "kosher salt"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.33333334,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "mayonnaise"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "preserved lemon"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "Tbsp"
+            }
+          },
+          "meta": [],
+          "name": "vegetable oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "Tbsp"
+            }
+          },
+          "meta": [],
+          "name": "white wine vinegar"
+        }
+      ],
+      "glutenFree": true,
+      "id": 715298,
+      "image": "https://img.spoonacular.com/recipes/715298-312x231.jpg",
+      "readyInMinutes": 45,
+      "servings": 4,
+      "spoonacularScore": 95.5777816772461,
+      "title": "Kale BLT Salad",
+      "vegan": false,
+      "vegetarian": false
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "In a large, heavy pot or Dutch oven over medium low, cook bacon, stirring occasionally, until lightly browned, about 6 minutes."
+            },
+            {
+              "number": 2,
+              "step": "Remove from pan and place in between two paper towels set atop a dinner plate. Blot lightly and set aside."
+            },
+            {
+              "number": 3,
+              "step": "Drain most of the excess fat from the Dutch oven."
+            },
+            {
+              "number": 4,
+              "step": "Add 1 tablespoon olive oil, squash, onion, carrots, celery, and garlic. Sauté over medium heat, until the vegetables begin to soften, about 8-10 minutes."
+            },
+            {
+              "number": 5,
+              "step": "Add the kale in batches as it fits in the pot, stirring so that it cooks down. Once kale has lightly wilted, add the tomatoes, 6 cups chicken stock, bay leaf, salt, pepper, and thyme. Bring to a boil, then lower the heat and simmer uncovered for 20 minutes, until the vegetables are tender.Meanwhile, cook the pasta according to directions."
+            },
+            {
+              "number": 6,
+              "step": "Drain and set aside.Once soup has simmered and the vegetables are soft, discard the bay leaf."
+            },
+            {
+              "number": 7,
+              "step": "Add the beans, cooked pasta, and reserved bacon and heat through. The soup should be fairly thick, but add additional chicken stock as needed."
+            }
+          ]
+        },
+        {
+          "name": "Serve hot drizzled with olive oil and topped with Parmesan cheese. To toast baguette",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Place rack in upper third of oven and preheat to 425 degrees F."
+            },
+            {
+              "number": 2,
+              "step": "Brush both sides of each baguette slice with olive oil and place on a baking sheet. Cook until golden and toasted, about 6 minutes."
+            },
+            {
+              "number": 3,
+              "step": "Serve warm with soup."
+            }
+          ]
+        }
+      ],
+      "creditsText": "Well Plated",
+      "cuisines": [
+        "Mediterranean",
+        "Italian",
+        "European"
+      ],
+      "dairyFree": false,
+      "diets": [],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [],
+          "name": "bacon"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 6,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "cut into 1/ diagonal slices"
+          ],
+          "name": "baguette"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": ""
+            }
+          },
+          "meta": [],
+          "name": "bay leaf"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "black"
+          ],
+          "name": "pepper"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "diced",
+            "peeled",
+            "()",
+            "( 1 pound)"
+          ],
+          "name": "butternut squash"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 15,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "drained and rinsed",
+            "canned"
+          ],
+          "name": "cannellini beans"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 26,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "canned",
+            "chopped"
+          ],
+          "name": "tomatoes"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "diced",
+            "()",
+            "(4 carrots)"
+          ],
+          "name": "carrots"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "diced",
+            "()",
+            "(3 stalks)"
+          ],
+          "name": "celery"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 6,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "chicken stock"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [
+            "dried"
+          ],
+          "name": "thyme"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "Tbsp"
+            }
+          },
+          "meta": [
+            "for toasting the bread and serving"
+          ],
+          "name": "extra virgin olive oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "cloves"
+            }
+          },
+          "meta": [
+            "minced"
+          ],
+          "name": "garlic"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "pound"
+            }
+          },
+          "meta": [
+            "coarsely chopped"
+          ],
+          "name": "kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "as needed",
+            "(depending upon the saltiness of the stock)"
+          ],
+          "name": "kosher salt"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 6,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "freshly grated",
+            "for serving"
+          ],
+          "name": "parmesan cheese"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "whole wheat",
+            "dry",
+            " such as elbow ( 1 cup )",
+            "cooked"
+          ],
+          "name": "pasta"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "yellow",
+            "chopped",
+            "( 1 medium)"
+          ],
+          "name": "onion"
+        }
+      ],
+      "glutenFree": false,
+      "id": 487780,
+      "image": "https://img.spoonacular.com/recipes/487780-312x231.jpg",
+      "readyInMinutes": 45,
+      "servings": 6,
+      "spoonacularScore": 98.9150390625,
+      "title": "Minestrone Soup with Butternut Squash, Kale and White Beans {How We Eat on a Budget}",
+      "vegan": false,
+      "vegetarian": false
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "First, preheat the oven to 375ºF. Next season chicken thighs with salt and pepper."
+            },
+            {
+              "number": 2,
+              "step": "Heat olive oil in a deep cast-iron skillet or Dutch oven over medium/high heat. When the olive oil is fragrant, sear chicken thighs on both sides for 2 minutes to brown."
+            },
+            {
+              "number": 3,
+              "step": "Remove chicken thighs from skillet and set aside."
+            },
+            {
+              "number": 4,
+              "step": "Add butter to the skillet and melt over medium/high heat. Once melted, sauté onion and garlic for about 3 minutes or until onions are translucent."
+            },
+            {
+              "number": 5,
+              "step": "Add chopped kale and cook for 2 minutes. Then, add in chicken broth and heavy cream and continue to cook for 2-3 more minutes or until kale is wilted."
+            },
+            {
+              "number": 6,
+              "step": "Add Italian seasoning, uncooked gnocchi, and shredded parmesan cheese and mix everything together. Submerge the chicken thighs in the sauce and veggies."
+            },
+            {
+              "number": 7,
+              "step": "Bake at 375ºF for around 15 minutes or until your chicken thighs reach an internal temperature of 165ºF."
+            },
+            {
+              "number": 8,
+              "step": "Once the thighs are fully cooked, let rest for 5 minutes. Then, toss everything together and make sure the thighs are nice and coated in the sauce."
+            },
+            {
+              "number": 9,
+              "step": "Serve with fresh cracked black pepper and more parmesan cheese."
+            }
+          ]
+        }
+      ],
+      "creditsText": "Fit Foodie Finds",
+      "cuisines": [
+        "Mediterranean",
+        "Italian",
+        "European"
+      ],
+      "dairyFree": false,
+      "diets": [],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitLong": "pounds"
+            }
+          },
+          "meta": [
+            "boneless",
+            "skinless"
+          ],
+          "name": "chicken thighs"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "ground pepper"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "salt"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "olive oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "butter"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "mediums"
+            }
+          },
+          "meta": [
+            "white",
+            "minced"
+          ],
+          "name": "onion"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 5,
+              "unitLong": "cloves"
+            }
+          },
+          "meta": [
+            "minced",
+            "smashed"
+          ],
+          "name": "garlic"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "packed",
+            "chopped"
+          ],
+          "name": "kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.33333334,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "dried",
+            "with liquid"
+          ],
+          "name": "sun tomatoes"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "chicken broth"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "heavy cream"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [
+            "italian"
+          ],
+          "name": "seasoning"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 16,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "uncooked"
+          ],
+          "name": "potato gnocchi"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "shredded",
+            "for topping",
+            "(+ more )"
+          ],
+          "name": "parmesan"
+        }
+      ],
+      "glutenFree": false,
+      "id": 1603379,
+      "image": "https://img.spoonacular.com/recipes/1603379-312x231.jpg",
+      "readyInMinutes": 20,
+      "servings": 4,
+      "spoonacularScore": 75.83997344970703,
+      "title": "Creamy Tuscan Chicken and Gnocchi",
+      "vegan": false,
+      "vegetarian": false
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "In a small skillet, heat the balsamic vinegar and strawberries over medium-high heat and bring to a full boil. Allow mixture to boil and cook until strawberries are very soft, about 5 to 8 minutes. Mash the strawberries with a fork. Note: this will make your house smell like vinegar. But that's okay."
+            },
+            {
+              "number": 2,
+              "step": "Remove from heat, add the mint leaves, maple syrup, and salt and stir. Allow the mixture to cool slightly before transferring it to a cup or bowl and refrigerating until cool.Once cool, strain the strawberry pulp and mint leaves out of the mixture using a [fine strainerhttp://www.amazon.com/gp/product/B00JG9QXV6/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00JG9QXV6&link"
+            },
+            {
+              "number": 3,
+              "step": "Code=as2&tag=theroaroo-20]."
+            },
+            {
+              "number": 4,
+              "step": "Pour the mixture into a small blender, such as a Magic Bullet, along with the oil and blend until smooth (you can also whisk the strawberry vinegar and oil together by hand vigorously until combined).  Set aside until ready to use."
+            },
+            {
+              "number": 5,
+              "step": "Add all of the ingredients for the salad except for the goat cheese to a large serving bowl. Toss in desired amount of dressing (you will not need all of the dressing)."
+            },
+            {
+              "number": 6,
+              "step": "Serve salad with goat chevre."
+            }
+          ]
+        }
+      ],
+      "creditsText": "The Roasted Root",
+      "cuisines": [],
+      "dairyFree": false,
+      "diets": [
+        "gluten free",
+        "lacto ovo vegetarian",
+        "primal"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "raw"
+          ],
+          "name": "almonds"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "diced",
+            "peeled"
+          ],
+          "name": "avocado"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "avocado oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "(I used golden balsamic)"
+          ],
+          "name": "balsamic vinegar"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [],
+          "name": "goat cheese"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 5,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [],
+          "name": "baby kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "kosher salt"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "Tbsp"
+            }
+          },
+          "meta": [
+            "pure"
+          ],
+          "name": "maple syrup"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "mint leaves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "mint leaves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [
+            "raw"
+          ],
+          "name": "sunflower seeds"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "cup"
+            }
+          },
+          "meta": [
+            "ripe",
+            "chopped"
+          ],
+          "name": "strawberries"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "ripe",
+            "chopped"
+          ],
+          "name": "strawberries"
+        }
+      ],
+      "glutenFree": true,
+      "id": 512613,
+      "image": "https://img.spoonacular.com/recipes/512613-312x231.jpg",
+      "readyInMinutes": 18,
+      "servings": 2,
+      "spoonacularScore": 97.65705108642578,
+      "title": "Baby Kale Salad with Strawberries, Goat Cheese, and Strawberry-Mint Vinaigrette",
+      "vegan": false,
+      "vegetarian": true
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Add just enough oil to a large, heavy-bottomed soup pot to lightly coat (about 2-3 teaspoons), and place over medium heat."
+            },
+            {
+              "number": 2,
+              "step": "Add the sausage and cook until browned, crumbling as you go."
+            },
+            {
+              "number": 3,
+              "step": "Add the onion to the sausage and saut for 2-3 minutes or until beginning to soften. Stir in the carrots, celery, garlic, Italian seasoning, and crushed red pepper. Saut for a minute or until the garlic is fragrant but not browned."
+            },
+            {
+              "number": 4,
+              "step": "Add the tomatoes with their juices and cook for another minute or two. Then stir in the chicken broth, lentils, and potato.Increase the heat in order to bring the mixture to a boil, then partially cover the pot and reduce the heat to maintain a gentle simmer. Cook for approximately 40 minutes, or until the lentils are tender but still hold their shape. Stir every 10-15 minutes or so.Stir in the chopped greens, salt and balsamic vinegar. Cook for 3-4 more minutes, or until the greens have softened to your liking.Ladle into individual bowls and sprinkle with Parmesan cheese."
+            }
+          ]
+        }
+      ],
+      "creditsText": "Fountain Venue Kitchen",
+      "cuisines": [],
+      "dairyFree": true,
+      "diets": [
+        "gluten free",
+        "dairy free"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "balsamic vinegar"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "cup"
+            }
+          },
+          "meta": [
+            "dry",
+            "rinsed",
+            "drained"
+          ],
+          "name": "brown lentils"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 14,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "diced",
+            "italian",
+            "undrained",
+            "canned",
+            "(could use seasoned)"
+          ],
+          "name": "canned tomatoes"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "larges"
+            }
+          },
+          "meta": [
+            "diced",
+            "peeled"
+          ],
+          "name": "carrots"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "stalk"
+            }
+          },
+          "meta": [
+            "diced"
+          ],
+          "name": "celery"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "minced",
+            "peeled"
+          ],
+          "name": "garlic cloves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "dried",
+            "italian",
+            "(could use a mix of oregano, thyme, basil, and parsley)"
+          ],
+          "name": "seasoning"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "pounds"
+            }
+          },
+          "meta": [
+            "italian",
+            "(removed from casings)"
+          ],
+          "name": "turkey sausage"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "packed",
+            "chopped",
+            "(tough ribs removed; may substitute greens)"
+          ],
+          "name": "lightly kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [
+            "good"
+          ],
+          "name": "kosher salt and 3 turns of the pepper mill"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 6,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "low-sodium"
+          ],
+          "name": "chicken broth"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 8,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "for pot"
+          ],
+          "name": "olive oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 8,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "chopped",
+            "(may substitute sweet potato or use a combination; no need to peel)"
+          ],
+          "name": "potato"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "red",
+            "crushed"
+          ],
+          "name": "pepper flakes"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "medium"
+            }
+          },
+          "meta": [
+            "diced",
+            "yellow",
+            "peeled"
+          ],
+          "name": "onion"
+        }
+      ],
+      "glutenFree": true,
+      "id": 838008,
+      "image": "https://img.spoonacular.com/recipes/838008-312x231.jpg",
+      "readyInMinutes": 45,
+      "servings": 8,
+      "spoonacularScore": 88.12399291992188,
+      "title": "Tuscan Lentil Soup",
+      "vegan": false,
+      "vegetarian": false
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "In a small bowl measure and add in the almond butter, turmeric, kosher salt, lemon juice, honey and olive oil."
+            },
+            {
+              "number": 2,
+              "step": "Whisk to combine and thin out with 2 to 4 tablespoons water."
+            },
+            {
+              "number": 3,
+              "step": "Pour dressing into a jar and set off to the side.Preheat your grill to medium. Toss the sweet potato plank with olive oil and a few pinches of kosher salt."
+            },
+            {
+              "number": 4,
+              "step": "Place onto the grill, close the lid and grill for 4 to 6 minutes or until grill marks form. Turn and repeat until the sweet potatoes are fork tender.Meanwhile, add the chopped kale to a medium bowl, drizzle with a tablespoon of olive oil and 1/2 teaspoon of kosher salt. Massage the kale with your clean hands and divide on to plates or in large bowls.Arrange the massaged kale, grilled sweet potato planks, half an avocado (per plate), red grapes, lentils and roasted chickpeas. Season with a little salt and pepper and then garnish with chia seeds, cilantro leaves and drizzle with the golden almond butter dressing."
+            }
+          ]
+        }
+      ],
+      "creditsText": "Simply Scratch",
+      "cuisines": [],
+      "dairyFree": true,
+      "diets": [
+        "gluten free",
+        "dairy free",
+        "lacto ovo vegetarian"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "smooth almond butter"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "smooth almond butter"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "peeled",
+            "halved",
+            "sliced"
+          ],
+          "name": "avocado"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "for serving"
+          ],
+          "name": "chia seeds"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": ""
+            }
+          },
+          "meta": [],
+          "name": "recipe of roasted chickpeas"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "fresh",
+            "for serving"
+          ],
+          "name": "cilantro"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [],
+          "name": "ground turmeric"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "honey"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "kosher salt"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [],
+          "name": "kosher salt"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "bunch"
+            }
+          },
+          "meta": [
+            "coarsely chopped"
+          ],
+          "name": "lacinato kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [
+            "fresh"
+          ],
+          "name": "lemon juice"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "cup"
+            }
+          },
+          "meta": [
+            "cooked"
+          ],
+          "name": "so of lentils"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [],
+          "name": "olive oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [],
+          "name": "olive oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "red",
+            "seedless"
+          ],
+          "name": "grapes"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "larges"
+            }
+          },
+          "meta": [
+            "dried",
+            "washed",
+            "sliced into planks"
+          ],
+          "name": "sweet potatoes"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "water"
+        }
+      ],
+      "glutenFree": true,
+      "id": 900243,
+      "image": "https://img.spoonacular.com/recipes/900243-312x231.jpg",
+      "readyInMinutes": 60,
+      "servings": 4,
+      "spoonacularScore": 84.45709991455078,
+      "title": "Grilled Sweet Potato, Lentil and Kale Buddha Bowl with Golden Almond Butter Dressing",
+      "vegan": false,
+      "vegetarian": true
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Heat a medum skillet over medium-high heat."
+            },
+            {
+              "number": 2,
+              "step": "Add oil, onion, carrots and celery and cook until onions are softened and translucent."
+            },
+            {
+              "number": 3,
+              "step": "Add garlic, salt, thyme and pepper and cook for 1 minute."
+            },
+            {
+              "number": 4,
+              "step": "Add potatoes, kale, sausages, and chicken broth. Bring to a simmer over medium-high heat, then reduce to medium heat and cover. Simmer for 15-20 minutes, stirring often, until potatoes and carrots are tender."
+            },
+            {
+              "number": 5,
+              "step": "Serve with a splash of cream, if desired."
+            }
+          ]
+        }
+      ],
+      "creditsText": "The Recipe Rebel",
+      "cuisines": [],
+      "dairyFree": false,
+      "diets": [
+        "gluten free"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 0.125,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "black"
+          ],
+          "name": "pepper"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "Tbsp"
+            }
+          },
+          "meta": [],
+          "name": "canola oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "larges"
+            }
+          },
+          "meta": [
+            "diced",
+            "peeled",
+            "finely"
+          ],
+          "name": "carrots"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "rib"
+            }
+          },
+          "meta": [
+            "sliced"
+          ],
+          "name": "celery"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "Tbsp"
+            }
+          },
+          "meta": [],
+          "name": "cream if desired"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.25,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "dried"
+          ],
+          "name": "thyme"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [
+            "minced"
+          ],
+          "name": "garlic"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "finely chopped"
+          ],
+          "name": "kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "low sodium"
+          ],
+          "name": "chicken broth"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "medium"
+            }
+          },
+          "meta": [
+            "diced",
+            "finely"
+          ],
+          "name": "onion"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitLong": "pounds"
+            }
+          },
+          "meta": [
+            "diced",
+            "peeled"
+          ],
+          "name": "potatoes 6"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [],
+          "name": "salt"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "smoked",
+            "halved lengthwise",
+            "sliced"
+          ],
+          "name": "sausages"
+        }
+      ],
+      "glutenFree": true,
+      "id": 1065611,
+      "image": "https://img.spoonacular.com/recipes/1065611-312x231.jpg",
+      "readyInMinutes": 35,
+      "servings": 4,
+      "spoonacularScore": 75.83324432373047,
+      "title": "Sausage Potato Soup with Kale",
+      "vegan": false,
+      "vegetarian": false
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Heat the olive oil in a large pot over a medium high heat and then add in chicken; cook for about 3-5 minutes or until the chicken is opaque.Stir in the onion and garlic along with a pinch of salt and let the veggies cook for about 3 minutes or until tender and fragrant."
+            },
+            {
+              "number": 2,
+              "step": "Add in bay leaf, oregano, garlic powder, thyme, paprika and cayenne pepper; toss all together and then stir in chicken broth, tomatoes, and okra.Bring everything to a boil and then stir in the kale and corn and simmer for 10 -15 minutes.  Adjust the seasonings and enjoy!Makes 4 – 2-cup servings. "
+            }
+          ]
+        }
+      ],
+      "creditsText": "Clean and Delicious",
+      "cuisines": [
+        "Cajun",
+        "Creole"
+      ],
+      "dairyFree": true,
+      "diets": [
+        "gluten free",
+        "dairy free"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": ""
+            }
+          },
+          "meta": [],
+          "name": "bay leaf"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "can"
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "canned tomatoes"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "pinch"
+            }
+          },
+          "meta": [],
+          "name": "cayenne pepper"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "corn"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "extra virgin olive oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [],
+          "name": "garlic powder"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "low-sodium"
+          ],
+          "name": "chicken broth"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 16,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "frozen",
+            "sliced"
+          ],
+          "name": "okra"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "yellow",
+            "chopped"
+          ],
+          "name": "a onion"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [
+            "dried"
+          ],
+          "name": "oregano"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [],
+          "name": "paprika"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "to taste"
+          ],
+          "name": "salt and pepper"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "pound"
+            }
+          },
+          "meta": [
+            "boneless",
+            "skinless",
+            "cut into chunks"
+          ],
+          "name": "chicken breasts"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [],
+          "name": "thyme"
+        }
+      ],
+      "glutenFree": true,
+      "id": 521847,
+      "image": "https://img.spoonacular.com/recipes/521847-312x231.jpg",
+      "readyInMinutes": 30,
+      "servings": 4,
+      "spoonacularScore": 96.06011199951172,
+      "title": "Chicken And Kale Gumbo",
+      "vegan": false,
+      "vegetarian": false
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Using your hands, crush the tomatoes over the bowl of a 4-8 quart crockpot."
+            },
+            {
+              "number": 2,
+              "step": "Add the onion, garlic, tomato paste, red wine, dried basil, dried oregano, bay leaves, salt and pepper. Give everything a good stir.Now grab the sausage and roll it into very tiny, bite size balls, adding the to the crockpot as you go. The smaller you can roll the balls, the better. Gently stir the sausage into the sauce. Cover the crockpot and cook on low for 6-8 hours. 30 minutes before serving, stir in the kale and white beans. Crank the heat up to high, cover and cook another 20-30 minutes.Meanwhile, cook the gnocchi according to package directions and then toss with 2 tablespoons butter and a little fresh basil + parmesan.To serve, divide the gnocchi among plates or bowls. Top with the ragu and then garnish with basil and parmesan. Enjoy!"
+            }
+          ]
+        }
+      ],
+      "creditsText": "Half Baked Harvest",
+      "cuisines": [
+        "Mediterranean",
+        "Italian",
+        "European"
+      ],
+      "dairyFree": false,
+      "diets": [],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": ""
+            }
+          },
+          "meta": [],
+          "name": "bay leaves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "butter"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "dried"
+          ],
+          "name": "basil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "cloves"
+            }
+          },
+          "meta": [
+            "minced",
+            "grated"
+          ],
+          "name": "garlic"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "pound"
+            }
+          },
+          "meta": [],
+          "name": "gnocchi"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "pound"
+            }
+          },
+          "meta": [
+            "italian"
+          ],
+          "name": "ground spicy sausage"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "bunch"
+            }
+          },
+          "meta": [
+            "roughly chopped"
+          ],
+          "name": "tuscan kale"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "dried"
+          ],
+          "name": "oregano"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 6,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "fresh",
+            "for topping"
+          ],
+          "name": "basil and parmesan cheese"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "red wine"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "salt and pepper"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "sweet",
+            "finely chopped"
+          ],
+          "name": "onion"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "tomato paste"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 56,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "whole",
+            "canned"
+          ],
+          "name": "san marzano tomatoes"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "white",
+            "cooked",
+            "( 1 14 ounce can)"
+          ],
+          "name": "beans"
+        }
+      ],
+      "glutenFree": false,
+      "id": 625934,
+      "image": "https://img.spoonacular.com/recipes/625934-312x231.jpg",
+      "readyInMinutes": 45,
+      "servings": 6,
+      "spoonacularScore": 94.51529693603516,
+      "title": "Crockpot Tuscan Sausage and White Bean Ragu with Buttered Gnocchi",
+      "vegan": false,
+      "vegetarian": false
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Prepare the kale pesto sauce by adding all of the ingredients except for the olive oil to a food processor. Pulse a few times to roughly chop all of the ingredients. Leaving the food processor on, drizzle the olive oil slowly through the top, until its completely incorporated."
+            },
+            {
+              "number": 2,
+              "step": "Transfer pesto sauce to a jar and refrigerate until ready to use (Note: Pesto can be made up to 4 days in advance)Bring a full pot of water to a boil and add the pasta and broccoli florets. Cook according to the instructions on the package of pasta (Note: I usually cook gluten-free pasta for 1 to 2 minutes less than the package specifies, because I like my pasta very al dente), or until both pasta and broccoli reach desired doneness. Strain the pasta and broccoli and rinse with lukewarm water. Set aside to cool. Once cool, chop the broccoli florets finely and place both pasta and broccoli in a large serving bowl."
+            },
+            {
+              "number": 3,
+              "step": "Add the green onion, sun-dried tomatoes, and sea salt to the serving bowl along with 1 cup of the kale pesto (save remaining kale pesto for future uses). Toss everything together until pasta is well coated. Taste for flavor and add more sea salt or pesto to taste."
+            },
+            {
+              "number": 4,
+              "step": "Serve with freshly grated Parmesan cheese."
+            }
+          ]
+        }
+      ],
+      "creditsText": "The Roasted Root",
+      "cuisines": [],
+      "dairyFree": false,
+      "diets": [],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "medium"
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "crown broccoli"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "fresh",
+            "packed"
+          ],
+          "name": "basil leaves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "fresh",
+            "packed"
+          ],
+          "name": "basil leaves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "cloves"
+            }
+          },
+          "meta": [
+            "minced"
+          ],
+          "name": "garlic"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "bunch"
+            }
+          },
+          "meta": [
+            "chopped"
+          ],
+          "name": "green onion"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "packed"
+          ],
+          "name": "kale leaves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "cup"
+            }
+          },
+          "meta": [],
+          "name": "olive oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [],
+          "name": "parmesan cheese"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 6,
+              "unitLong": "servings"
+            }
+          },
+          "meta": [
+            "for serving"
+          ],
+          "name": "parmesan cheese"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 12,
+              "unitLong": "ounces"
+            }
+          },
+          "meta": [
+            "gluten-free"
+          ],
+          "name": "penne pasta"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "cup"
+            }
+          },
+          "meta": [
+            "(recipe below)"
+          ],
+          "name": "kale pesto sauce"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "( walnuts)"
+          ],
+          "name": "pine nuts"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "rice vinegar"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [
+            "to taste"
+          ],
+          "name": "salt"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "sea salt"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "dry",
+            "drained",
+            "in oil"
+          ],
+          "name": "sun-dried tomatoes"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "raw"
+          ],
+          "name": "walnuts"
+        }
+      ],
+      "glutenFree": false,
+      "id": 793924,
+      "image": "https://img.spoonacular.com/recipes/793924-312x231.jpg",
+      "readyInMinutes": 25,
+      "servings": 6,
+      "spoonacularScore": 98.8165512084961,
+      "title": "Kale Pesto Pasta Salad with Sun-Dried Tomatoes and Broccoli",
+      "vegan": false,
+      "vegetarian": false
+    },
+    {
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "In a medium bowl, whisk together all the ingredients for the dressing.Toss kale leaves and your desired amount of dressing together.Store dressing in a jar in the refrigerator for up to 3 months."
+            }
+          ]
+        }
+      ],
+      "creditsText": "Table for Two Blog",
+      "cuisines": [
+        "American"
+      ],
+      "dairyFree": false,
+      "diets": [
+        "gluten free",
+        "pescatarian"
+      ],
+      "extendedIngredients": [
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "anchovy paste"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "dijon mustard"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": ""
+            }
+          },
+          "meta": [
+            "finely minced"
+          ],
+          "name": "garlic cloves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 1,
+              "unitLong": "teaspoon"
+            }
+          },
+          "meta": [
+            "black"
+          ],
+          "name": "ground pepper"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "loosely packed"
+          ],
+          "name": "kale leaves"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 2,
+              "unitLong": "Tbsps"
+            }
+          },
+          "meta": [],
+          "name": "olive oil"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitLong": "cups"
+            }
+          },
+          "meta": [
+            "freshly grated"
+          ],
+          "name": "parmesan cheese"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 3,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "red wine vinegar"
+        },
+        {
+          "measures": {
+            "us": {
+              "amount": 4,
+              "unitLong": "teaspoons"
+            }
+          },
+          "meta": [],
+          "name": "worcestershire sauce"
+        }
+      ],
+      "glutenFree": true,
+      "id": 594589,
+      "image": "https://img.spoonacular.com/recipes/594589-312x231.jpg",
+      "readyInMinutes": 5,
+      "servings": 2,
+      "spoonacularScore": 99.70156860351562,
+      "title": "Lightened Up Kale Caesar Salad",
+      "vegan": false,
+      "vegetarian": false
+    }
+  ],
+  "totalResults": 16
+}

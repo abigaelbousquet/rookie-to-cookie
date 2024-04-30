@@ -21,7 +21,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
       <div className="recipe-card">
         <div className="recipe-header">
           <div className="recipe-title">{recipe.name}</div>
-          {/* Old Heart Button */}
           <div className="like-button-container">
             <LikeButton liked={liked} setLiked={setLiked} />
           </div>
@@ -30,8 +29,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
           <InfoView
             recipe={recipe}
             onClose={() => setShowFullRecipe(false)}
-            onToggleLike={() => {}}
-            liked={false}
+            setLiked={setLiked}
+            liked={liked}
           />
         )}
         <div className="recipe-content">

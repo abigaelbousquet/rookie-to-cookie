@@ -16,11 +16,12 @@ const Home: React.FC = () => {
   const spaghetti = {
     name: "Spaghetti Carbonara",
     cuisine: "Italian",
-    instructions:
-      "1. Cook spaghetti in boiling salted water until al dente. 2. Fry pancetta until crispy. 3. Whisk together eggs, cheese, and black pepper. 4. Drain spaghetti and toss with pancetta. 5. Add egg mixture and stir quickly. Serve immediately.",
+    instructions: ["Step 1", "Step 2", "Step 1000"],
     time: 10,
     liked: 0,
-    ingredients: ["Pasta"],
+    ingredients: ["Pasta", "Sauce", "Something more"],
+    image: "https://placeholder.com/312x231",
+    credit: "Unknown",
   };
 
   const mockedMealPlan = [

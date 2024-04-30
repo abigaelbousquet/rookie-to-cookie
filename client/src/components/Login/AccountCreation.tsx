@@ -147,7 +147,7 @@ export const AccountCreation: React.FC<acctProps> = ({
                 <Creatable
                   options={intolerance}
                   isMulti
-                  onChange={(opt: any[]) => {
+                  onChange={(opt) => {
                     console.log(allergen);
                     setAllergen(opt.map((tag: { value: any }) => tag.value));
                   }}
