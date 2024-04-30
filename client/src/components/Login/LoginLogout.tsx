@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import { AccountCreation } from "./AccountCreation";
 import { ControlledInput } from "./ControlledInput";
+import { addLoginCookie } from "../../utils/cookie";
 
 export interface ILoginPageProps {
   authing: number;
@@ -30,6 +31,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       const response = await signInWithEmailAndPassword(auth, email, password);
       console.log(response);
       props.setAuthing(1);
+      addLoginCookie(response.user.uid);
     } catch (error: any) {
       if (error.message.includes("auth/invalid-email")) {
         alert("invalid email");
