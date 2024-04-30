@@ -36,7 +36,6 @@ public class GenerateMealPlanHandler implements Route {
     try {
       String uid = request.queryParams("uid");
       // date of the Sunday of the week of the mealplan
-      String dayOfSunday = request.queryParams("dayOfSunday");
       String daysOfWeekString = request.queryParams("daysOfWeek"); // array of days of week
       String modeString = request.queryParams("mode"); // pass in minimize or personalize
       String dietString = request.queryParams("diet");
@@ -47,7 +46,7 @@ public class GenerateMealPlanHandler implements Route {
       String maxReadyTimeString = request.queryParams("max_time");
       String excludeCuisineString = request.queryParams("exclude_cuisine");
 
-      List<String> dateList = this.parseDates(dayOfSunday);
+//      List<String> dateList = this.parseDates(dayOfSunday);
 
       Mode mode = null;
 
@@ -74,8 +73,7 @@ public class GenerateMealPlanHandler implements Route {
               intoleranceString,
               maxReadyTime,
               this.storageHandler,
-              uid,
-              dateList);
+              uid, null);
       MealPlan plan = planGenerator.generatePlan();
       Server.userCurrPlan.put(uid, plan); // stores plan under uid inServer variable
       responseMap.put("response_type", "success");
@@ -90,28 +88,5 @@ public class GenerateMealPlanHandler implements Route {
     return FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(responseMap);
   }
 
-  private List<String> parseDates(String dayOfSunday) {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-    ArrayList<String> dateList = new ArrayList<>();
 
-    try {
-      Date date = dateFormat.parse(dayOfSunday);
-      Calendar calendar = Calendar.getInstance();
-      dateList.add(String.valueOf(date));
-      for (int i = 0; i < 6; i++) {
-        calendar.setTime(date);
-        calendar.add(Calendar.DAY_OF_MONTH, 1); // Add one day
-
-        Date nextDay = calendar.getTime();
-
-        System.out.println("Today:" + date);
-        System.out.println("Next Day: " + nextDay);
-        date = nextDay;
-        dateList.add(String.valueOf(date));
-      }
-    } catch (ParseException e) {
-      System.out.println("Error parsing date: " + e.getMessage());
-    }
-    return dateList;
-  }
 }
