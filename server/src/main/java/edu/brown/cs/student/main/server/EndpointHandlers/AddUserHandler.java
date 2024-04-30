@@ -35,13 +35,17 @@ public class AddUserHandler implements Route {
       String exp = request.queryParams("exp");
       String diet = request.queryParams("diet");
       String intolerances = request.queryParams("intolerances");
+      String familySizeString = request.queryParams("familySize");
+
       int experience = 0;
+      int familySize = 0;
       ArrayList<String> intoleranceArray = new ArrayList<>();
       ArrayList<String> dietArray = new ArrayList<>();
 
       // convert exp to a num
       try {
         experience = Integer.parseInt(exp);
+        familySize = Integer.parseInt(familySizeString);
       } catch (Exception e) {
         System.out.println("experience is not a num");
       }
@@ -81,7 +85,7 @@ public class AddUserHandler implements Route {
       }
 
       Map<String, Object> data = new HashMap<>();
-      Profile user = new Profile(name, experience, intoleranceArray, dietArray);
+      Profile user = new Profile(name, experience, intoleranceArray, dietArray, familySize);
 
       data.put("User", user);
 

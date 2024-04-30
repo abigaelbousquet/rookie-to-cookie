@@ -49,7 +49,7 @@ public class GetUserHandler implements Route {
       }
 
       responseMap.put("response_type", "success");
-      responseMap.put("User", users);
+      responseMap.put("User", users.get(0));
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();
