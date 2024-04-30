@@ -7,7 +7,7 @@ interface mealPlanProps {
   diet: string;
   intolerances: string[];
   requestedServings: string;
-  daysToPlan: string[];
+  daysToPlan: string;
   cuisine: string[];
   maxReadyTime: string;
 }

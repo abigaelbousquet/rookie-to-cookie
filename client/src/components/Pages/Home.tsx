@@ -62,6 +62,36 @@ const Home: React.FC = () => {
   };
 
   /**
+   * Converts the selectedButtons state to a comma-separated string of
+   * days deleted in unabbreviated, lowercase form.
+   * @returns the conversion of selectedButtons to a corresponding CSV string
+   */
+  const convertDaysOfWeekToCSVString = () => {
+    var csv: string = "";
+    selectedButtons.forEach(function (value) {
+      var dayUnabbrev: string = "";
+      if (value === "M") {
+        dayUnabbrev = "monday";
+      } else if (value === "Tu") {
+        dayUnabbrev = "tuesday";
+      } else if (value === "W") {
+        dayUnabbrev = "wednesday";
+      } else if (value === "Th") {
+        dayUnabbrev = "thursday";
+      } else if (value === "F") {
+        dayUnabbrev = "friday";
+      } else if (value === "Sa") {
+        dayUnabbrev = "saturday";
+      } else {
+        dayUnabbrev = "sunday";
+      }
+      csv = csv + "," + dayUnabbrev;
+    });
+    // remove first comma
+    return csv.substring(1);
+  };
+
+  /**
    * Calls generate on the backend
    */
   const handleGenerate = async () => {
@@ -80,7 +110,7 @@ const Home: React.FC = () => {
       } //TODO: check if fam size is empty then use user defaults
     } catch (error) {
       const props = {
-        daysToPlan: selectedButtons,
+        daysToPlan: convertDaysOfWeekToCSVString(),
         maxReadyTime: maxTime.toString(),
         diet: "",
         // diet: user.diet || "",
