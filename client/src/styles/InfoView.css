@@ -74,7 +74,7 @@
 
 .recipe-image-container {
   display: flex;
-  justify-content: center; /* Center the image horizontally */
+  justify-content: center;
 }
 
 .recipe-image-container,
