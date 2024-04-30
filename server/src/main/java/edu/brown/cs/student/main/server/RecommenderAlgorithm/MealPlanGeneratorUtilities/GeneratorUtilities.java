@@ -203,7 +203,7 @@ public class GeneratorUtilities {
    */
   public static void addToFirebase(String uid, StorageInterface firebaseData, MealPlan plan) {
     Map<String, Object> data = new HashMap<>();
-    Date sundayDate = plan.getDates().get(0);
+    String sundayDate = plan.getDates().get(0);
     // also need a way to find date range, for now just gonna call mealplan-1, etc
     String planId = "default";
     planId = String.valueOf(sundayDate);

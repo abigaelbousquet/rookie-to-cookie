@@ -36,12 +36,10 @@ public class SaveMealPlanHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      Date sundayDate = Server.userCurrPlan.get(uid).getDates().get(0);
-        // also need a way to find date range, for now just gonna call mealplan-1, etc
-      String planId = String.valueOf(sundayDate);
-      responseMap.put("Mealplan", Server.userCurrPlan);
+      String sundayDate = Server.userCurrPlan.get(uid).getDates().get(0);
+      responseMap.put(Server.userCurrPlan.get(uid).getDates().get(0), Server.userCurrPlan.get(uid));
 
-      this.storageHandler.addDocument(uid, "Mealplans", planId, responseMap);
+      this.storageHandler.addDocument(uid, "Mealplans", sundayDate, responseMap);
       responseMap.put("response_type", "success");
 
     } catch (Exception e) {

@@ -51,7 +51,7 @@ public class GenerateMealPlanHandler implements Route {
       String maxReadyTimeString = request.queryParams("max_time");
       String excludeCuisineString = request.queryParams("exclude_cuisine");
 
-      List<Date> dateList = this.parseDates(dayOfSunday);
+      List<String> dateList = this.parseDates(dayOfSunday);
 
       Mode mode = null;
 
@@ -84,15 +84,15 @@ public class GenerateMealPlanHandler implements Route {
     return FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(responseMap);
   }
 
-  private List<Date> parseDates(String dayOfSunday) {
+  private List<String> parseDates(String dayOfSunday) {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-    ArrayList<Date> dateList = new ArrayList<>();
+    ArrayList<String> dateList = new ArrayList<>();
 
     try {
       Date date = dateFormat.parse(dayOfSunday);
       Calendar calendar = Calendar.getInstance();
-      dateList.add(date);
-      for (int i = 0; i < 7; i++) {
+      dateList.add(String.valueOf(date));
+      for (int i = 0; i < 6; i++) {
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, 1); // Add one day
 
@@ -101,7 +101,7 @@ public class GenerateMealPlanHandler implements Route {
         System.out.println("Today:" + date);
         System.out.println("Next Day: " + nextDay);
         date = nextDay;
-        dateList.add(date);
+        dateList.add(String.valueOf(date));
       }
     }
     catch (ParseException e) {

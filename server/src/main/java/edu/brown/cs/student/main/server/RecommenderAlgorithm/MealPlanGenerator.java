@@ -30,7 +30,7 @@ public class MealPlanGenerator {
   private List<Recipe> dislikedRecipes = null;
   private final StorageInterface FIREBASE_DATA;
   private final String UID;
-  private final List<Date> dateList;
+  private final List<String> dateList;
 
   /**
    * Constructor for the MealPlanGenerator class to initialize private instance variables for the
@@ -52,17 +52,17 @@ public class MealPlanGenerator {
    * @throws IOException
    */
   public MealPlanGenerator(
-      RecipeDatasource recipeSource,
-      Mode mode,
-      String daysOfWeek,
-      int servings,
-      String cuisine,
-      String excludeCuisine,
-      String diet,
-      String intolerances,
-      int maxReadyTime,
-      StorageInterface firebaseData,
-      String uid, List<Date> dates)
+          RecipeDatasource recipeSource,
+          Mode mode,
+          String daysOfWeek,
+          int servings,
+          String cuisine,
+          String excludeCuisine,
+          String diet,
+          String intolerances,
+          int maxReadyTime,
+          StorageInterface firebaseData,
+          String uid, List<String> dates)
       throws ExecutionException, InterruptedException, IOException {
     this.recipes = mode;
     this.REQUESTED_SERVINGS = servings;

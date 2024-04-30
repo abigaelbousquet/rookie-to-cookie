@@ -14,6 +14,7 @@ import edu.brown.cs.student.main.server.RecommenderAlgorithm.RecipeVolumeExcepti
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import spark.Filter;
@@ -35,7 +36,7 @@ public class Server {
               response.header("Access-Control-Allow-Origin", "*");
               response.header("Access-Control-Allow-Methods", "*");
             });
-
+    Server.userCurrPlan = new HashMap<>();
     StorageInterface firebaseUtils;
     try {
       firebaseUtils = new FirebaseUtilities();
@@ -51,7 +52,6 @@ public class Server {
       Spark.get("get-mealplan", new GetMealPlanHandler(firebaseUtils));
       Spark.get("save-mealplan", new SaveMealPlanHandler(firebaseUtils));
 
-//
 //      RecipeDatasource datasource = new SpoonacularRecipeSource();
 //      MealPlanGenerator planGenerator =
 //          new MealPlanGenerator(

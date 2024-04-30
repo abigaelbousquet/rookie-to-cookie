@@ -38,6 +38,7 @@ public class GetMealPlanHandler implements Route {
 
       SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
       Date date = dateFormat.parse(dayOfSunday);
+      String dateString = String.valueOf(date);
 
       Map<String, Object> data = new HashMap<>();
       List<Map<String, Object>> mealPlans = this.storageHandler.getCollection(uid, "Mealplans");
@@ -49,11 +50,10 @@ public class GetMealPlanHandler implements Route {
         String mealJson = FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(mealPlan);
 
         MealPlan plan = RecipeUtilities.deserializePlan(mealName, mealJson);
-        List<Date> dateList = plan.getDates();
-        for (Date day : dateList) {
-          if (day != null && day.equals(date)) {
-            //
-            data.put(String.valueOf(date), plan);
+        List<String> dateList = plan.getDates();
+        for (String day : dateList) {
+          if (day != null && day.equals(dateString)) {
+            data.put(dateString, plan);
             break;
           }
         }
