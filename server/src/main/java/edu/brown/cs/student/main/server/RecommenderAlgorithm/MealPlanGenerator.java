@@ -63,7 +63,8 @@ public class MealPlanGenerator {
       String intolerances,
       int maxReadyTime,
       StorageInterface firebaseData,
-      String uid)
+      String uid,
+      List<String> dateList)
       throws ExecutionException, InterruptedException, IOException {
     this.recipes = mode;
     this.REQUESTED_SERVINGS = servings;
@@ -75,8 +76,8 @@ public class MealPlanGenerator {
     this.UID = uid;
     this.DAYS_TO_PLAN = parseDays(daysOfWeek);
     setIntolerancesAndAllergens(intolerances);
+    this.dateList = null; // unsure if this is real solution
     this.DATASOURCE = recipeSource;
-    this.dateList = dates;
     if (this.FIREBASE_DATA != null) {
       this.dislikedRecipes =
           FirebaseUtilities.convertLikedOrDislikedRecipes(
@@ -170,10 +171,11 @@ public class MealPlanGenerator {
       }
     }
 
+    // deleting last comma at end of string
     if (intolerances.isEmpty()) {
       this.INTOLERANCES = null;
     } else {
-      this.INTOLERANCES = intolerances.substring(0, -1);
+      this.INTOLERANCES = intolerances.substring(0, intolerances.length() - 1);
     }
 
     if (excludeIngredients.isEmpty()) {

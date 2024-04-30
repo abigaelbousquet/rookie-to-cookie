@@ -70,7 +70,8 @@ public class GenerateMealPlanHandler implements Route {
               intoleranceString,
               maxReadyTime,
               this.storageHandler,
-              uid);
+              uid,
+              null);
       MealPlan plan = planGenerator.generatePlan();
       Server.userCurrPlan.put(uid, plan); // stores plan under uid inServer variable
       responseMap.put("response_type", "success");
