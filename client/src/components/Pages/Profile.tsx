@@ -36,7 +36,7 @@ async function getProfileProps() {
   };
   return propsToPass;
 }
-const ProfilePage: React.FC<ProfileProps> = (props) => {
+const ProfilePage = async (props) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const user = await getProfileProps();
   if (props.loaded) {

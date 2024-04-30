@@ -2,6 +2,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/MealPlanSave.css";
 import React, { useState } from "react";
+import { saveMealPlan } from "../../utils/api";
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 interface MealPlanSaveProps {
@@ -21,9 +22,15 @@ const MealPlanSave: React.FC<MealPlanSaveProps> = ({ onClose }) => {
             value={value}
             showWeekNumbers={true}
             tileDisabled={() => true}
-            onClickWeekNumber={(weekNumber, date) => {
+            onClickWeekNumber={async (weekNumber, date) => {
               setWeekChosen(date);
-              alert("chosen week");
+              await saveMealPlan(
+                date.getDate().toString() +
+                  "/" +
+                  date.getMonth() +
+                  "/" +
+                  date.getFullYear()
+              );
             }}
           />
         </div>
