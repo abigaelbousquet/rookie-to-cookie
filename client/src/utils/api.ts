@@ -1,5 +1,5 @@
+import Recipe from "../RecipeCard/Recipe";
 import { profileProps } from "../components/Login/AccountCreation";
-import Recipe from "../components/RecipeCard/Recipe";
 import { getLoginCookie } from "./cookie";
 
 const HOST = "http://localhost:3232";
@@ -7,10 +7,9 @@ interface mealPlanProps {
   diet: string;
   intolerances: string[];
   requestedServings: string;
-  daysToPlan: string[];
+  daysToPlan: string;
   cuisine: string[];
   maxReadyTime: string;
-  exp: string;
 }
 
 interface User {
@@ -38,14 +37,13 @@ async function queryAPI(
 }
 export async function saveMealPlan(dateOfSunday: string) {
   //TODO: POST the meal plan with a secure key (we can make it up)
-  return await queryAPI("save-mealplan", {
+  return await queryAPI("save-meal-plan", {
     uid: getLoginCookie() || "",
     dateOfSunday: dateOfSunday,
   });
 }
 export async function getMealPlan(dateOfSunday: string) {
-  console.log("getting");
-  return await queryAPI("get-mealplan", {
+  return await queryAPI("get-meal-plan", {
     uid: getLoginCookie() || "",
     dateOfSunday: dateOfSunday,
   });
@@ -53,10 +51,9 @@ export async function getMealPlan(dateOfSunday: string) {
 
 export async function generateMealPlan(props: mealPlanProps) {
   console.log("generating with: " + props);
-  return await queryAPI("generate-mealplan", {
+  return await queryAPI("generate-meal-plan", {
     uid: getLoginCookie() || "",
     diet: props.diet.toString(),
-    exp: props.exp,
     intolerances: props.intolerances.toString(),
     daysOfWeek: props.daysToPlan.toString(),
     cuisine: props.cuisine.toString(),
@@ -78,7 +75,7 @@ export async function getRecipe(recipeID: string) {
   });
 }
 export async function addUser(props: profileProps) {
-  const response = await queryAPI("add-user", {
+  return await queryAPI("add-user", {
     uid: getLoginCookie() || "",
     name: props.name,
     exp: props.exp,
@@ -87,27 +84,27 @@ export async function addUser(props: profileProps) {
   });
 }
 export async function addDislike(recipeID: string) {
-  return await queryAPI("add-disliked-recipe", {
+  return await queryAPI("add-disliked-recipes", {
     uid: getLoginCookie() || "",
     recipeID: recipeID,
   });
 }
 
 export async function addLike(recipeID: string) {
-  return await queryAPI("add-liked-recipe", {
+  return await queryAPI("add-liked-recipes", {
     uid: getLoginCookie() || "",
     recipeID: recipeID,
   });
 }
 
 export async function getLikes() {
-  return await queryAPI("get-liked-recipes", {
+  return await queryAPI("get-likes", {
     uid: getLoginCookie() || "",
   });
 }
 
 export async function getDislikes() {
-  return await queryAPI("get-disliked-recipes", {
+  return await queryAPI("get-dislikes", {
     uid: getLoginCookie() || "",
   });
 }

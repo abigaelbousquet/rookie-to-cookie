@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../../styles/profile.css";
 import { getDislikes, getLikes, getUser } from "../../utils/api";
+import Recipe from "../RecipeCard/Recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
+import { AccountCreation } from "../Login/AccountCreation";
+import { ControlledInput } from "../Login/ControlledInput";
 
-export interface ProfileProps {
-  loaded: boolean;
-  setLoaded: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface User {
+interface ProfileProps {
   name: string;
   experienceLevel: string;
+  familySize: number;
   diet: string;
   intolerances: string[];
-  likedRecipes: any[]; // Adjust this based on your Recipe type
-  dislikedRecipes: any[]; // Adjust this based on your Recipe type
+  likedRecipes: Recipe[];
+  dislikedRecipes: Recipe[];
 }
 
 const ProfilePage: React.FC<ProfileProps> = (props) => {
-  const [user, setUser] = useState<User | null>(null);
+  console.log("exp" + props.experienceLevel);
   const [showPopup, setShowPopup] = useState<boolean>(false);
 
   useEffect(() => {
@@ -59,42 +58,37 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
   return (
     <div className="profile-container">
       <div className="left-side">
-        <div className={"exp" + user.experienceLevel}></div>
-        <h1 className="name-display">{user.name}</h1>
+        <div className={"exp" + props.experienceLevel}></div>
+        <h1 className="name-display">{props.name}</h1>
         <div>
           <h3>Diet:</h3>
-          <p>{user.diet}</p>
+          <p>{props.diet}</p>
         </div>
         <div>
           <h3>Intolerances:</h3>
-          <p>
-            {Array.isArray(user.intolerances)
-              ? user.intolerances.join(", ")
-              : ""}
-          </p>
+          <p>{props.intolerances.toString()}</p>
         </div>
-        <h4>{"Cooking for 1"}</h4>
+        <h4>{"Cooking for " + props.familySize}</h4>
+        {/* //<button onClick={editProfile}>Edit</button> */}
       </div>
       <div className="right-side">
         <div className="likes">
           <h3>Liked Recipes:</h3>
           <div>
-            {user.likedRecipes &&
-              user.likedRecipes.map((recipe, index) => (
-                <div key={index}>
-                  <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
-                </div>
-              ))}
+            {props.likedRecipes.map((recipe) => (
+              <div>
+                <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
+              </div>
+            ))}
           </div>
         </div>
         <div className="dislikes">
           <h3>Disliked Recipes:</h3>
-          {user.dislikedRecipes &&
-            user.dislikedRecipes.map((recipe, index) => (
-              <div key={index}>
-                <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
-              </div>
-            ))}
+          {props.dislikedRecipes.map((recipe) => (
+            <div>
+              <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
+            </div>
+          ))}
         </div>
       </div>
     </div>

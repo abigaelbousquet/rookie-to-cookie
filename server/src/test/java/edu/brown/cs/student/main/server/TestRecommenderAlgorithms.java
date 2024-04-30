@@ -19,7 +19,6 @@ import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.BeforeAll;
@@ -100,7 +99,6 @@ public class TestRecommenderAlgorithms {
     assertEquals(16, mockedResult.getResults().size());
 
     MealPlanGenerator generator = null;
-    List<String> dateList = new ArrayList<>();
     try {
       generator =
           new MealPlanGenerator(
@@ -114,8 +112,8 @@ public class TestRecommenderAlgorithms {
               null,
               60,
               null,
-              null,
-              null);
+              null
+          );
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -231,9 +229,9 @@ public class TestRecommenderAlgorithms {
               null,
               null,
               60,
-              this.firebaseUtils,
-              "test_user_0liked_0disliked",
-              null);
+              firebaseUtils,
+              "test_user_0liked_0disliked"
+          );
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -274,9 +272,9 @@ public class TestRecommenderAlgorithms {
               null,
               null,
               60,
-              this.firebaseUtils,
-              "test_user_disliked_only",
-              null);
+              firebaseUtils,
+              "test_user_disliked_only"
+          );
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -335,9 +333,9 @@ public class TestRecommenderAlgorithms {
                 null,
                 null,
                 60,
-                this.firebaseUtils,
-                "test_user_disliked_only",
-                null);
+                firebaseUtils,
+                "test_user_disliked_only"
+            );
       } catch (ExecutionException | InterruptedException | IOException e) {
         System.out.println(e);
         fail();
@@ -387,9 +385,9 @@ public class TestRecommenderAlgorithms {
               null,
               null,
               60,
-              this.firebaseUtils,
-              "test_user_liked_only",
-              null);
+              firebaseUtils,
+              "test_user_liked_only"
+          );
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -451,9 +449,9 @@ public class TestRecommenderAlgorithms {
                 null,
                 null,
                 60,
-                this.firebaseUtils,
-                "test_user_liked_only",
-                null);
+                firebaseUtils,
+                "test_user_liked_only"
+            );
       } catch (ExecutionException | InterruptedException | IOException e) {
         System.out.println(e);
         fail();
@@ -503,9 +501,9 @@ public class TestRecommenderAlgorithms {
               null,
               null,
               60,
-              this.firebaseUtils,
-              "test_user_disliked_only",
-              null);
+              firebaseUtils,
+              "test_user_disliked_only"
+          );
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -550,9 +548,9 @@ public class TestRecommenderAlgorithms {
               null,
               null,
               60,
-              this.firebaseUtils,
-              "test_user_disliked_only",
-              null);
+              firebaseUtils,
+              "test_user_disliked_only"
+          );
 
       assertThrows(RecipeVolumeException.class, () -> generator.personalized());
     } catch (ExecutionException | InterruptedException | IOException e) {
@@ -582,9 +580,9 @@ public class TestRecommenderAlgorithms {
               null,
               null,
               60,
-              this.firebaseUtils,
-              "test_user_disliked_only",
-              null);
+              firebaseUtils,
+              "test_user_disliked_only"
+          );
 
       assertThrows(RecipeVolumeException.class, () -> generator.minimizeFoodWaste());
     } catch (ExecutionException | InterruptedException | IOException e) {
@@ -615,9 +613,9 @@ public class TestRecommenderAlgorithms {
               null,
               null,
               60,
-              this.firebaseUtils,
-              "test_user_1liked_1disliked",
-              null);
+              firebaseUtils,
+              "test_user_1liked_1disliked"
+          );
     } catch (ExecutionException | InterruptedException | IOException e) {
       System.out.println(e);
       fail();
@@ -676,9 +674,9 @@ public class TestRecommenderAlgorithms {
                 null,
                 null,
                 60,
-                this.firebaseUtils,
-                "test_user_1liked_1disliked",
-                null);
+                firebaseUtils,
+                "test_user_1liked_1disliked"
+            );
       } catch (ExecutionException | InterruptedException | IOException e) {
         System.out.println(e);
         fail();

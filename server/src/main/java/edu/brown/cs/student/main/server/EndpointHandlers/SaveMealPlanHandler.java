@@ -30,13 +30,8 @@ public class SaveMealPlanHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      String dayOfSunday = request.queryParams("dayOfSunday");
-
-      List<String> dateList = this.parseDates(dayOfSunday);
-
-      Server.userCurrPlan.get(uid).setDates(dateList);
-      String sundayDate = dateList.get(0);
-      responseMap.put(sundayDate, Server.userCurrPlan.get(uid));
+      String sundayDate = Server.userCurrPlan.get(uid).getDates().get(0);
+      responseMap.put(Server.userCurrPlan.get(uid).getDates().get(0), Server.userCurrPlan.get(uid));
 
       this.storageHandler.addDocument(uid, "Mealplans", sundayDate, responseMap);
       responseMap.put("response_type", "success");
@@ -51,15 +46,15 @@ public class SaveMealPlanHandler implements Route {
     return FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(responseMap);
   }
 
-  private List<String> parseDates(String dayOfSunday) {
+  private List<Date> parseDates(String dayOfSunday) {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-    ArrayList<String> dateList = new ArrayList<>();
+    ArrayList<Date> dateList = new ArrayList<>();
 
     try {
       Date date = dateFormat.parse(dayOfSunday);
       Calendar calendar = Calendar.getInstance();
-      dateList.add(String.valueOf(date));
-      for (int i = 0; i < 6; i++) {
+      dateList.add(date);
+      for (int i = 0; i < 7; i++) {
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, 1); // Add one day
 
@@ -68,7 +63,7 @@ public class SaveMealPlanHandler implements Route {
         System.out.println("Today:" + date);
         System.out.println("Next Day: " + nextDay);
         date = nextDay;
-        dateList.add(String.valueOf(date));
+        dateList.add(date);
       }
     } catch (ParseException e) {
       System.out.println("Error parsing date: " + e.getMessage());

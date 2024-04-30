@@ -7,7 +7,6 @@ interface Recipe {
   ingredients: string[];
   image: string;
   credit: string;
-  id: string;
 }
 
 export default Recipe;

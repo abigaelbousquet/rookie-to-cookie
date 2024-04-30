@@ -18,7 +18,6 @@ export function parseRecipe(recipeData: any): Recipe {
       return ingredientName;
     }
   );
-  const id: string = recipeData.id;
   const image: string = recipeData.image || "https://placeholder.com/312x231"; // Placeholder URL
   const credit: string = recipeData.creditsText || "Unknown"; // Default credit
 
@@ -31,7 +30,6 @@ export function parseRecipe(recipeData: any): Recipe {
     ingredients,
     image,
     credit,
-    id,
   };
 }
 

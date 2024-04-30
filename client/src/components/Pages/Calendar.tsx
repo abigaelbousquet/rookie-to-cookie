@@ -7,7 +7,6 @@ import "react-calendar/dist/Calendar.css";
 import "../../styles/Calendar.css";
 import InfoView from "../RecipeCard/InfoView";
 import MealPlanSave from "../Save/MealPlanSave";
-import { getMealPlan } from "../../utils/api";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -32,22 +31,14 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
 
   return (
     <div className="calendar-page">
-      <Calendar
-        className="big-cal"
+      <Calendar className="big-cal"
         onChange={onChange}
         value={value}
         showWeekNumbers={true}
         tileDisabled={() => true}
-        onClickWeekNumber={async (weekNumber, date) => {
+        onClickWeekNumber={(weekNumber, date) => {
           setWeekChosen(date);
-          const plan = await getMealPlan(
-            date.getDate().toString() +
-              "/" +
-              date.getMonth() +
-              "/" +
-              date.getFullYear()
-          );
-          return <div>{plan}</div>;
+          alert("chosen week");
         }}
       />
     </div>

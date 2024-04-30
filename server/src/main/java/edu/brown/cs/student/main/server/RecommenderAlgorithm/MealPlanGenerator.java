@@ -63,8 +63,7 @@ public class MealPlanGenerator {
       String intolerances,
       int maxReadyTime,
       StorageInterface firebaseData,
-      String uid,
-      List<String> dates)
+      String uid)
       throws ExecutionException, InterruptedException, IOException {
     this.recipes = mode;
     this.REQUESTED_SERVINGS = servings;
@@ -196,25 +195,25 @@ public class MealPlanGenerator {
     String[] daysOfWeekArray = daysOfWeek.split(",");
     for (int i = 0; i < daysOfWeekArray.length; i++) {
       switch (daysOfWeekArray[i]) {
-        case "Su":
+        case "sunday":
           booleanArray[0] = true;
           break;
-        case "M":
+        case "monday":
           booleanArray[1] = true;
           break;
-        case "Tu":
+        case "tuesday":
           booleanArray[2] = true;
           break;
-        case "W":
+        case "wednesday":
           booleanArray[3] = true;
           break;
-        case "Th":
+        case "thursday":
           booleanArray[4] = true;
           break;
-        case "F":
+        case "friday":
           booleanArray[5] = true;
           break;
-        case "Sa":
+        case "saturday":
           booleanArray[6] = true;
           break;
         default:
