@@ -196,25 +196,25 @@ public class MealPlanGenerator {
     String[] daysOfWeekArray = daysOfWeek.toLowerCase().split(",");
     for (int i = 0; i < daysOfWeekArray.length; i++) {
       switch (daysOfWeekArray[i]) {
-        case "sunday":
+        case "Su":
           booleanArray[0] = true;
           break;
-        case "monday":
+        case "M":
           booleanArray[1] = true;
           break;
-        case "tuesday":
+        case "Tu":
           booleanArray[2] = true;
           break;
-        case "wednesday":
+        case "W":
           booleanArray[3] = true;
           break;
-        case "thursday":
+        case "Th":
           booleanArray[4] = true;
           break;
-        case "friday":
+        case "F":
           booleanArray[5] = true;
           break;
-        case "saturday":
+        case "Sa":
           booleanArray[6] = true;
           break;
         default:
