@@ -87,6 +87,7 @@ const Home: React.FC = () => {
       intolerances: intols,
       cuisine: selectedOptionsCuisine.map((val) => val.label) || "",
       requestedServings: numberOfPeople.toString(),
+      exp: user["exp"],
     };
     console.log(props);
     await generateMealPlan(props);
