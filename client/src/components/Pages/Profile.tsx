@@ -20,6 +20,41 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
   console.log("exp" + props.experienceLevel);
   const [showPopup, setShowPopup] = useState<boolean>(false);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await getProfileData();
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const getProfileData = async () => {
+    const response = await getLikes();
+    const likes = response["Recipes"];
+    const response2 = await getDislikes();
+    const dislikes = response2["Recipes"];
+    const userJson: User = await getUser();
+    const userData = userJson["User"];
+    console.log(userData);
+    return {
+      name: userData.name,
+      experienceLevel: userData["exp"],
+      diet: userData.diet,
+      intolerances: userData.intolerances,
+      likedRecipes: [], //TODO: fix
+      dislikedRecipes: [],
+    };
+  };
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="profile-container">
       <div className="left-side">
