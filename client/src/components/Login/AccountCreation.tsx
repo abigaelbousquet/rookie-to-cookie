@@ -19,11 +19,13 @@ export interface profileProps {
 interface acctProps {
   onClose: () => void;
   setAuthing: React.Dispatch<React.SetStateAction<number>>;
+  setLoaded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AccountCreation: React.FC<acctProps> = ({
   onClose,
   setAuthing,
+  setLoaded,
 }) => {
   const [name, setName] = useState("");
   const [exp, setExp] = useState("");
@@ -83,7 +85,7 @@ export const AccountCreation: React.FC<acctProps> = ({
       alert("Please enter name, experience, and family size.");
     } else {
       try {
-        await addUser(props)
+        await addUser(props);
         console.log(
           "?name=",
           props.name +
@@ -101,6 +103,7 @@ export const AccountCreation: React.FC<acctProps> = ({
         alert(error);
       }
     }
+    setLoaded(true);
   };
 
   return (
@@ -138,7 +141,7 @@ export const AccountCreation: React.FC<acctProps> = ({
               <div className="selector">
                 <Select
                   options={diets}
-                  onChange={(opt: any) => setDiet(opt!.label)}
+                  onChange={(opt) => setDiet(opt!.label)}
                 />
               </div>
             </div>
@@ -150,7 +153,7 @@ export const AccountCreation: React.FC<acctProps> = ({
                   isMulti
                   onChange={(opt) => {
                     console.log(allergen);
-                    setAllergen(opt.map((tag: { value: any }) => tag.value));
+                    setAllergen(opt.map((tag) => tag.value));
                   }}
                 />
               </div>

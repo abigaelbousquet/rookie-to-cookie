@@ -7,6 +7,8 @@ import { AccountCreation } from "../Login/AccountCreation";
 import { ControlledInput } from "../Login/ControlledInput";
 
 export interface ProfileProps {
+  loaded: boolean;
+  setLoaded: React.Dispatch<React.SetStateAction<boolean>>;
   name: string;
   experienceLevel: string;
   //familySize: number;
@@ -17,47 +19,50 @@ export interface ProfileProps {
 }
 
 const ProfilePage: React.FC<ProfileProps> = (props) => {
-  console.log("exp" + props.experienceLevel);
+  console.log(props);
   const [showPopup, setShowPopup] = useState<boolean>(false);
-
-  return (
-    <div className="profile-container">
-      <div className="left-side">
-        <div className={"exp" + props.experienceLevel}></div>
-        <h1 className="name-display">{props.name}</h1>
-        <div>
-          <h3>Diet:</h3>
-          <p>{props.diet}</p>
-        </div>
-        <div>
-          <h3>Intolerances:</h3>
-          <p>{props.intolerances.toString()}</p>
-        </div>
-        <h4>{"Cooking for " + 1}</h4>
-        {/* //<button onClick={editProfile}>Edit</button> */}
-      </div>
-      <div className="right-side">
-        <div className="likes">
-          <h3>Liked Recipes:</h3>
+  if (props.loaded) {
+    return (
+      <div className="profile-container">
+        <div className="left-side">
+          <div className={"exp" + props.experienceLevel}></div>
+          <h1 className="name-display">{props.name}</h1>
           <div>
-            {props.likedRecipes.map((recipe) => (
+            <h3>Diet:</h3>
+            <p>{props.diet}</p>
+          </div>
+          <div>
+            <h3>Intolerances:</h3>
+            <p>{props.intolerances.toString()}</p>
+          </div>
+          <h4>{"Cooking for " + 1}</h4>
+          {/* //<button onClick={editProfile}>Edit</button> */}
+        </div>
+        <div className="right-side">
+          <div className="likes">
+            <h3>Liked Recipes:</h3>
+            <div>
+              {props.likedRecipes.map((recipe) => (
+                <div>
+                  <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="dislikes">
+            <h3>Disliked Recipes:</h3>
+            {props.dislikedRecipes.map((recipe) => (
               <div>
                 <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
               </div>
             ))}
           </div>
         </div>
-        <div className="dislikes">
-          <h3>Disliked Recipes:</h3>
-          {props.dislikedRecipes.map((recipe) => (
-            <div>
-              <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
-            </div>
-          ))}
-        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <div></div>;
+  }
 };
 
 export default ProfilePage;

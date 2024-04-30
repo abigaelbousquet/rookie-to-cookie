@@ -23,7 +23,7 @@ interface User {
   dislikedRecipes: Recipe[];
 }
 
-async function getProfileProps() {
+async function getProfileProps(setLoaded) {
   const response = await getLikes();
   const likes = response["Recipes"];
   const response2 = await getDislikes();
@@ -37,13 +37,19 @@ async function getProfileProps() {
     intolerances: user.intolerances,
     likedRecipes: likes,
     dislikedRecipes: dislikes,
+    loaded: true,
+    setLoaded: setLoaded,
   };
   return propsToPass;
 }
+interface profileLoadedProps {
+  loaded: boolean;
+  setLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-async function Master() {
+async function Master(props: profileLoadedProps) {
   const recipeHistoryToPassIn = mockRecipeHistory();
-  const user = await getProfileProps();
+  const user = await getProfileProps(props.setLoaded);
   return (
     <Router>
       <div className="App">
@@ -59,6 +65,8 @@ async function Master() {
             path="/profile"
             element={
               <Profile
+                loaded={props.loaded}
+                setLoaded={props.setLoaded}
                 name={user.name}
                 experienceLevel={user.experienceLevel}
                 // familySize={user.familySize}
