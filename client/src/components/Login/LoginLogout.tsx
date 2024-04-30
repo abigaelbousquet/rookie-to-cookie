@@ -28,6 +28,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       //1=home page
       //2= create account page
       const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log(response);
       props.setAuthing(1);
     } catch (error: any) {
       if (error.message.includes("auth/invalid-email")) {
