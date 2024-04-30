@@ -13,6 +13,8 @@ public class MealPlan {
   private Recipe thursday;
   private Recipe friday;
   private Recipe saturday;
+  //  private List<Date> dates;
+  private List<String> dates;
 
   /**
    * Constructor for the MealPlan class.
@@ -32,7 +34,8 @@ public class MealPlan {
       Recipe wednesday,
       Recipe thursday,
       Recipe friday,
-      Recipe saturday) {
+      Recipe saturday,
+      List<String> dates) {
     this.sunday = sunday;
     this.monday = monday;
     this.tuesday = tuesday;
@@ -40,6 +43,7 @@ public class MealPlan {
     this.thursday = thursday;
     this.friday = friday;
     this.saturday = saturday;
+    this.dates = dates;
   }
 
   /**
@@ -145,5 +149,13 @@ public class MealPlan {
         + ", Saturday: "
         + saturday
         + '}';
+  }
+
+  public List<String> getDates() {
+    return this.dates;
+  }
+
+  public void setDates(List<String> dates) {
+    this.dates = dates;
   }
 }

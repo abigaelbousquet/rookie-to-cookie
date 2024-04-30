@@ -11,10 +11,7 @@ import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGeneratorUt
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 /** A class describing a MealPlanGenerator and its associated algorithmic methods. */
@@ -34,6 +31,7 @@ public class MealPlanGenerator {
   private List<Recipe> dislikedRecipes = null;
   private final StorageInterface FIREBASE_DATA;
   private final String UID;
+  private final List<String> dateList;
 
   /**
    * Constructor for the MealPlanGenerator class to initialize private instance variables for the
@@ -65,7 +63,8 @@ public class MealPlanGenerator {
       String intolerances,
       int maxReadyTime,
       StorageInterface firebaseData,
-      String uid)
+      String uid,
+      List<String> dates)
       throws ExecutionException, InterruptedException, IOException {
     this.recipes = mode;
     this.REQUESTED_SERVINGS = servings;
@@ -78,6 +77,7 @@ public class MealPlanGenerator {
     this.DAYS_TO_PLAN = parseDays(daysOfWeek);
     setIntolerancesAndAllergens(intolerances);
     this.DATASOURCE = recipeSource;
+    this.dateList = dates;
     if (this.FIREBASE_DATA != null) {
       this.dislikedRecipes =
           FirebaseUtilities.convertLikedOrDislikedRecipes(
@@ -131,7 +131,8 @@ public class MealPlanGenerator {
         orderedWeekOfRecipes[3],
         orderedWeekOfRecipes[4],
         orderedWeekOfRecipes[5],
-        orderedWeekOfRecipes[6]);
+        orderedWeekOfRecipes[6],
+        this.dateList);
   }
 
   /**
