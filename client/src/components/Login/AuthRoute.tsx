@@ -6,7 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Home from "../Pages/Home";
 import Master from "../Pages/Master";
 
-const AuthRoute = () => {
+const AuthRoute = async () => {
   const [authing, setAuthing] = useState(0);
   const [showPopup, setShowPopup] = useState<boolean>(false);
 
@@ -15,13 +15,16 @@ const AuthRoute = () => {
     setAuthing(1);
   }
 
+  const master = await Master();
+
   return (
     <>
       <div className="App-header">
         <h2>Rookie To Cookie</h2>
         <div className="logo"></div>
       </div>
-      {authing === 1 ? <Master></Master> : null}
+
+      {authing === 1 ? { master } : null}
       {authing === 2 ? (
         <AccountCreation
           onClose={() => setShowPopup(false)}
