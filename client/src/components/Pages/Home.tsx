@@ -48,7 +48,7 @@ const Home: React.FC = () => {
   const [showInfoViewPopup, setShowInfoViewPopup] = useState<boolean>(false);
   const [showSavePopup, setSavePopup] = useState<boolean>(false);
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
-  const [maxTime, setMaxTime] = useState<number>(1);
+  const [maxTime, setMaxTime] = useState<number>(20);
   const [excludedIngredients, setExcludedIngredients] = useState<string[]>([]);
   const [sunDate, setSunDate] = useState("");
   const [intols, setIntols] = useState<string[]>([]);
@@ -112,10 +112,11 @@ const Home: React.FC = () => {
    * Calls generate on the backend
    */
   const handleGenerate = async () => {
-    console.log("generating");
     const user = await getUser();
-    const userData = user["User"];
+    const myUser = user["User"];
+    const userData = myUser[0];
     console.log(user["User"]);
+    console.log("generating");
     console.log;
     //handle user intolerances from profile
     if (selectedOptionsIntolerance.length === 0) {
@@ -124,6 +125,7 @@ const Home: React.FC = () => {
         userData["intolerances"].length > 0
       ) {
         setIntols(userData["intolerances"]);
+        console.log(intols);
       }
     } else {
       const choices = selectedOptionsIntolerance
@@ -134,12 +136,12 @@ const Home: React.FC = () => {
           userData["intolerances"].filter((val) => !choices.includes(val))
         )
       );
-    } //TODO: check if fam size is empty then use user defaults
+    }
     const props = {
       daysToPlan: convertDaysOfWeekToCSVString(),
       maxReadyTime: maxTime.toString(),
-      diet: paramToString(userData["diet"]),
-      intolerances: paramToString(intols),
+      diet: userData["diet"].toString(),
+      intolerances: intols.toString(),
       cuisine: paramToString(
         selectedOptionsCuisine.map((val) => val.label) || ""
       ),
@@ -277,11 +279,7 @@ const Home: React.FC = () => {
         </div>
         {/* Section of max time integer input */}
         <div className="num-people-options-box">
-          <IntegerInput
-            value={numberOfPeople}
-            onChange={setNumberOfPeople}
-            minValue={1}
-          />
+          <IntegerInput value={numberOfPeople} onChange={setNumberOfPeople} />
         </div>
       </div>
 

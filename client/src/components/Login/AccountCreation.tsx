@@ -122,6 +122,7 @@ export const AccountCreation: React.FC<acctProps> = ({
                 <Select
                   options={diets}
                   onChange={(opt: any) => setDiet(opt!.label)}
+                  defaultValue={"None"}
                 />
               </div>
             </div>
