@@ -5,10 +5,10 @@ import { getLoginCookie } from "./cookie";
 const HOST = "http://localhost:3232";
 interface mealPlanProps {
   diet: string;
-  intolerances: string[];
+  intolerances: string;
   requestedServings: string;
   daysToPlan: string;
-  cuisine: string[];
+  cuisine: string;
   maxReadyTime: string;
 }
 
@@ -53,13 +53,13 @@ export async function generateMealPlan(props: mealPlanProps) {
   console.log("generating with: " + props);
   return await queryAPI("generate-mealplan", {
     uid: getLoginCookie() || "",
-    diet: props.diet.toString(),
-    intolerances: props.intolerances.toString(),
-    daysOfWeek: props.daysToPlan.toString(),
-    cuisine: props.cuisine.toString(),
+    diet: props.diet,
+    intolerances: props.intolerances,
+    daysOfWeek: props.daysToPlan,
+    cuisine: props.cuisine,
     servings: props.requestedServings,
     max_time: props.maxReadyTime,
-    mode: "personalize", //TODO: need to add personalize
+    mode: "minimize", //TODO: need to add personalize
   });
 }
 export async function getUser(): Promise<User> {
