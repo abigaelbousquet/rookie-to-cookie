@@ -14,7 +14,7 @@ export interface User {
   name: string;
   experienceLevel: string;
   diet: string;
-  fam_size: string;
+  fam_size: number;
   intolerances: string[];
   likedRecipes: any[]; // Adjust this based on your Recipe type
   dislikedRecipes: any[]; // Adjust this based on your Recipe type
@@ -47,12 +47,12 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
     const userData = userList[0];
     return {
       name: userData.name,
-      experienceLevel: userData["exp"],
+      experienceLevel: userData.exp,
       diet: userData.diet,
-      fam_size: userData["famSize"],
+      fam_size: userData.familySize,
       intolerances: userData.intolerances,
-      likedRecipes: [],
-      dislikedRecipes: [],
+      likedRecipes: likes,
+      dislikedRecipes: dislikes,
     };
   };
 
@@ -93,7 +93,7 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
         </div>
         <div>
           <h3 className="diet">Intolerances:</h3>
-          <p>{user.intolerances}</p>
+          <p>{user.intolerances.join(", ")}</p>
         </div>
         <h4>{"Cooking for " + user.fam_size}</h4>
         {/* //<button onClick={editProfile}>Edit</button> */}

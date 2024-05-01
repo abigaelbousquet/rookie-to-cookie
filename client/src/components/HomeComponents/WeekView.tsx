@@ -14,49 +14,49 @@ const WeekView = ({ mealPlan }) => {
             mealPlan[0].recipeExists ? "recipe-exists" : "recipe-not-exists"
           }`}
         >
-          Sunday
+          Monday
         </div>
         <div
           className={`week-name-grid-cell ${
             mealPlan[1].recipeExists ? "recipe-exists" : "recipe-not-exists"
           }`}
         >
-          Monday
+          Tuesday
         </div>
         <div
           className={`week-name-grid-cell ${
             mealPlan[2].recipeExists ? "recipe-exists" : "recipe-not-exists"
           }`}
         >
-          Tuesday
+          Wednesday
         </div>
         <div
           className={`week-name-grid-cell ${
             mealPlan[3].recipeExists ? "recipe-exists" : "recipe-not-exists"
           }`}
         >
-          Wednesday
+          Thursday
         </div>
         <div
           className={`week-name-grid-cell ${
             mealPlan[4].recipeExists ? "recipe-exists" : "recipe-not-exists"
           }`}
         >
-          Thursday
+          Friday
         </div>
         <div
           className={`week-name-grid-cell ${
             mealPlan[5].recipeExists ? "recipe-exists" : "recipe-not-exists"
           }`}
         >
-          Friday
+          Saturday
         </div>
         <div
           className={`week-name-grid-cell ${
             mealPlan[6].recipeExists ? "recipe-exists" : "recipe-not-exists"
           }`}
         >
-          Saturday
+          Sunday
         </div>
       </div>
       <div className="bottom-grid">
