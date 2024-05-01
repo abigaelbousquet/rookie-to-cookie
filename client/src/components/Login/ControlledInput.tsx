@@ -35,3 +35,23 @@ export function ControlledInput({
     ></input>
   );
 }
+
+export function PasswordInput({
+  value,
+  setValue,
+  ariaLabel,
+  placeholder,
+  styleID,
+}) {
+  return (
+    <input
+      type="password"
+      className={styleID}
+      id="input-box"
+      value={value}
+      placeholder={placeholder}
+      onChange={(ev) => setValue(ev.target.value)}
+      aria-label={ariaLabel}
+    ></input>
+  );
+}

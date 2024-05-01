@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import "../../styles/WeekView.css";
 
-const WeekView = ({ mealPlan }) => {
+const WeekView = ({ mealPlan, saved }) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
 
   return (
@@ -69,7 +69,11 @@ const WeekView = ({ mealPlan }) => {
             }`}
           >
             {recipeExists && (
-              <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
+              <RecipeCard
+                recipe={recipe}
+                setShowPopup={setShowPopup}
+                saved={saved}
+              />
             )}
           </div>
         ))}

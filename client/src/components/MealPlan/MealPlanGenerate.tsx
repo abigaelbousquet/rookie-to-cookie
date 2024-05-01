@@ -7,7 +7,7 @@ export const dayToRecipe = (day: string, recipeList): Recipe | null => {
     return null;
   }
   console.log(recipeJson);
-  const recipe = parseRecipe(recipeJson);
+  const recipe = parseRecipe(recipeJson, 0);
   console.log(recipe);
   return recipe;
 };

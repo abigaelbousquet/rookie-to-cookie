@@ -7,10 +7,11 @@ import { addDislike, addLike } from "../../utils/api";
 
 interface RecipeCardProps {
   recipe: Recipe;
+  saved: boolean;
   setShowPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
+const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved }) => {
   const [showFullRecipe, setShowFullRecipe] = useState(false);
   const [liked, setLiked] = useState(recipe.liked);
   const toggleShowFullRecipe = () => {
@@ -34,7 +35,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
         <div className="recipe-header">
           <div className="recipe-title">{recipe.name}</div>
           <div className="like-button-container">
-            <LikeButton liked={liked} setLiked={setLiked} />
+            <LikeButton liked={liked} setLiked={setLiked} canLike={saved} />
           </div>
         </div>
         {showFullRecipe && (

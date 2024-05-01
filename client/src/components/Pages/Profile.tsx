@@ -5,6 +5,7 @@ import Recipe from "../RecipeCard/Recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { AccountCreation } from "../Login/AccountCreation";
 import { ControlledInput } from "../Login/ControlledInput";
+import { parseRecipe } from "../RecipeCard/ParseRecipe";
 
 interface ProfileProps {
   loaded: boolean;
@@ -40,19 +41,26 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
   const getProfileData = async () => {
     const response = await getLikes();
     const likes = response["Recipes"];
+    const likesParsed = likes.map((value) => {
+      return parseRecipe(value, 1);
+    });
     const response2 = await getDislikes();
     const dislikes = response2["Recipes"];
+    const dislikesParsed = dislikes.map((value) => {
+      return parseRecipe(value, 2);
+    });
     const userJson: User = await getUser();
     const userList = userJson["User"];
     const userData = userList[0];
+    console.log(userData);
     return {
       name: userData.name,
       experienceLevel: userData["exp"],
       diet: userData.diet,
-      fam_size: userData["famSize"],
+      fam_size: userData["familySize"],
       intolerances: userData.intolerances,
-      likedRecipes: [],
-      dislikedRecipes: [],
+      likedRecipes: likesParsed,
+      dislikedRecipes: dislikesParsed,
     };
   };
 
@@ -104,7 +112,11 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
           <div>
             {user.likedRecipes.map((recipe) => (
               <div>
-                <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
+                <RecipeCard
+                  recipe={recipe}
+                  setShowPopup={setShowPopup}
+                  saved={true}
+                />
               </div>
             ))}
           </div>
@@ -113,7 +125,11 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
           <h3>Disliked Recipes:</h3>
           {user.dislikedRecipes.map((recipe) => (
             <div>
-              <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
+              <RecipeCard
+                recipe={recipe}
+                setShowPopup={setShowPopup}
+                saved={true}
+              />
             </div>
           ))}
         </div>
