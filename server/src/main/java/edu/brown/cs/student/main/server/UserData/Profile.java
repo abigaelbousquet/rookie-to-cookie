@@ -8,7 +8,7 @@ public class Profile {
   private int exp;
   private List<String> intolerances;
   private String diet;
-  private String familySize;
+  private int famSize;
 
   /**
    * Constructor for the Profile class.
@@ -18,12 +18,12 @@ public class Profile {
    * @param intolerances a list of the user's intolerances
    * @param diet a list of the user's followed diets
    */
-  public Profile(String name, int exp, List<String> intolerances, String diet, String familySize) {
+  public Profile(String name, int exp, List<String> intolerances, String diet, int famSize) {
     this.name = name;
     this.exp = exp;
     this.intolerances = intolerances;
     this.diet = diet;
-    this.familySize = familySize;
+    this.famSize = famSize;
   }
 
   /**
@@ -41,7 +41,7 @@ public class Profile {
    * @return the user's experience, expressed as an int
    */
   public int getExp() {
-    return exp;
+    return this.exp;
   }
 
   /**
@@ -67,7 +67,8 @@ public class Profile {
    *
    * @return a list of the user's followed diets
    */
-  public String getFamSize() {
-    return this.familySize;
+  public int getFamSize() {
+    return this.famSize;
+
   }
 }

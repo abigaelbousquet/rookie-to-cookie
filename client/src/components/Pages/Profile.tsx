@@ -15,7 +15,7 @@ export interface User {
   name: string;
   experienceLevel: string;
   diet: string;
-  fam_size: string;
+  fam_size: number;
   intolerances: string[];
   likedRecipes: any[]; // Adjust this based on your Recipe type
   dislikedRecipes: any[]; // Adjust this based on your Recipe type
@@ -55,12 +55,12 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
     console.log(userData);
     return {
       name: userData.name,
-      experienceLevel: userData["exp"],
+      experienceLevel: userData.exp,
       diet: userData.diet,
-      fam_size: userData["familySize"],
+      fam_size: userData.famSize,
       intolerances: userData.intolerances,
-      likedRecipes: likesParsed,
-      dislikedRecipes: dislikesParsed,
+      likedRecipes: likes,
+      dislikedRecipes: dislikes,
     };
   };
 
@@ -69,21 +69,21 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
   }
   function getExp(level: string): string {
     let exp: string;
-    switch (level) {
-      case "1":
+    switch (parseInt(level)) {
+      case 1:
         exp = "Novice";
         break;
-      case "2":
+      case 2:
         exp = "Beginner";
         break;
-      case "3":
+      case 3:
         exp = "Experienced";
         break;
-      case "4":
+      case 4:
         exp = "Master";
         break;
       default:
-        exp = "";
+        exp = "Chef";
         break;
     }
     return exp + " Chef";
@@ -101,7 +101,7 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
         </div>
         <div>
           <h3 className="diet">Intolerances:</h3>
-          <p>{user.intolerances}</p>
+          <p>{user.intolerances.join(", ")}</p>
         </div>
         <h4>{"Cooking for " + user.fam_size}</h4>
         {/* //<button onClick={editProfile}>Edit</button> */}
@@ -113,7 +113,7 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
             {user.likedRecipes.map((recipe) => (
               <div>
                 <RecipeCard
-                  recipe={recipe}
+                  recipe={parseRecipe(recipe)}
                   setShowPopup={setShowPopup}
                   saved={true}
                 />
@@ -126,7 +126,7 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
           {user.dislikedRecipes.map((recipe) => (
             <div>
               <RecipeCard
-                recipe={recipe}
+                recipe={parseRecipe(recipe)}
                 setShowPopup={setShowPopup}
                 saved={true}
               />

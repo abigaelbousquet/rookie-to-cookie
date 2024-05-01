@@ -21,11 +21,6 @@ export const parseMealPlan = (recipeList) => {
   const satRecipe = dayToRecipe("saturday", recipeList);
   const newMealPlan = [
     {
-      day: "Sunday",
-      recipeExists: recipeList["sunday"] !== undefined,
-      recipe: sunRecipe,
-    },
-    {
       day: "Monday",
       recipeExists: recipeList["monday"] !== undefined,
       recipe: monRecipe,
@@ -54,6 +49,11 @@ export const parseMealPlan = (recipeList) => {
       day: "Saturday",
       recipeExists: recipeList["saturday"] !== undefined,
       recipe: satRecipe || null,
+    },
+    {
+      day: "Sunday",
+      recipeExists: recipeList["sunday"] !== undefined,
+      recipe: sunRecipe,
     },
   ];
   return newMealPlan;

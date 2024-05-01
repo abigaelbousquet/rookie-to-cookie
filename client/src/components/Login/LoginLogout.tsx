@@ -55,23 +55,6 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       }
     }
   };
-  // const handleUserKeyPress = (event: KeyboardEvent) => {
-  //   if (event.key === "Enter") {
-  //     try {
-  //       handleClick();
-  //     } catch (error) {
-  //       alert(error);
-  //     }
-  //     console.log("pressed enter");
-  //   }
-  // };
-  // useEffect(() => {
-  //   document.addEventListener("keydown", handleUserKeyPress);
-
-  //   return () => {
-  //     document.removeEventListener("keydown", handleUserKeyPress);
-  //   };
-  // }, []);
   return (
     <div className="popup">
       <div className="popup-inner">
@@ -81,6 +64,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
             <div className="login-elt">
               <legend>Email:</legend>
               <ControlledInput
+                type="text"
                 styleID="input-box"
                 value={email}
                 setValue={setEmail}
@@ -90,7 +74,8 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
             </div>
             <div className="login-elt">
               <legend>Password:</legend>
-              <PasswordInput
+              <ControlledInput
+                type="password"
                 styleID="input-box"
                 value={password}
                 setValue={setPassword}
