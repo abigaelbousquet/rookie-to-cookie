@@ -80,6 +80,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
             <div className="login-elt">
               <legend>Email:</legend>
               <ControlledInput
+                type="text"
                 styleID="input-box"
                 value={email}
                 setValue={setEmail}
@@ -90,6 +91,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
             <div className="login-elt">
               <legend>Password:</legend>
               <ControlledInput
+                type="password"
                 styleID="input-box"
                 value={password}
                 setValue={setPassword}

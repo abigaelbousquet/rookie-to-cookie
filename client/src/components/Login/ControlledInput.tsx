@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from "react";
  * An interface to store string value, setValue, and label string
  */
 interface ControlledInputProps {
+  type: string;
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
   ariaLabel: string;
@@ -17,6 +18,7 @@ interface ControlledInputProps {
  * where users can enter commands
  */
 export function ControlledInput({
+  type,
   value,
   setValue,
   ariaLabel,
@@ -25,7 +27,7 @@ export function ControlledInput({
 }: ControlledInputProps) {
   return (
     <input
-      type="text"
+      type={type}
       className={styleID}
       id="input-box"
       value={value}
