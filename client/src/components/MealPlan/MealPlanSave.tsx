@@ -24,14 +24,14 @@ const MealPlanSave: React.FC<MealPlanSaveProps> = ({ onClose }) => {
             tileDisabled={() => true}
             onClickWeekNumber={async (weekNumber, date) => {
               setWeekChosen(date);
-              await saveMealPlan(
-                date.getMonth() +
+              console.log(
+                date.getMonth().toString() +
                   "/" +
-                  date.getDate.toString() +
+                  date.toDateString() +
                   "/" +
-                  date.getFullYear()
+                  date.getFullYear().toString()
               );
-              alert("chosen week");
+              console.log("saved plan to: " + date);
             }}
           />
         </div>

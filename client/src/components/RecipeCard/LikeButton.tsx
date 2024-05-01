@@ -5,17 +5,24 @@ import { addLike } from "../../utils/api";
 interface likeButtonProps {
   liked: number;
   setLiked: React.Dispatch<React.SetStateAction<number>>;
+  canLike: boolean;
 }
 function LikeButton(props: likeButtonProps) {
   const handleLikeClick = () => {
-    if (props.liked == 0) {
-      props.setLiked(1);
-      console.log("liked!");
-    } else if (props.liked === 1) {
-      props.setLiked(2);
-      console.log("disliked");
+    if (props.canLike) {
+      if (props.liked == 0) {
+        props.setLiked(1);
+        console.log("liked!");
+      } else if (props.liked === 1) {
+        props.setLiked(2);
+        console.log("disliked");
+      } else {
+        props.setLiked(0);
+      }
     } else {
-      props.setLiked(0);
+      alert(
+        "You must save this meal plan below in order to add a recipe to your likes!"
+      );
     }
   };
   if (props.liked === 1) {

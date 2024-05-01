@@ -38,13 +38,11 @@ public class AddUserHandler implements Route {
       String famSize = request.queryParams("fam_size");
 
       int experience = 0;
-      int familySize = 0;
       ArrayList<String> intoleranceArray = new ArrayList<>();
 
       // convert exp to a num
       try {
         experience = Integer.parseInt(exp);
-        familySize = Integer.parseInt(famSize);
       } catch (Exception e) {
         System.out.println("experience/famsize is not a num");
       }
@@ -67,11 +65,13 @@ public class AddUserHandler implements Route {
       }
 
       Map<String, Object> data = new HashMap<>();
-      Profile user = new Profile(name, experience, intoleranceArray, diet, familySize);
+      Profile user = new Profile(name, experience, intoleranceArray, diet, famSize);
+      
 
       data.put("User", user);
 
       System.out.println("adding profile: for user: " + uid);
+      System.out.println("user data:"+user);
 
       // use the storage handler to add the document to the database
       this.storageHandler.addDocument(uid, "Profile", name, data);
@@ -81,7 +81,7 @@ public class AddUserHandler implements Route {
       responseMap.put("exp", user.getExp());
       responseMap.put("intoleranceArray", user.getIntolerances());
       responseMap.put("dietArray", user.getDiet());
-      responseMap.put("fam_size", user.getFamSize());
+      responseMap.put("famSize", user.getFamSize());
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();

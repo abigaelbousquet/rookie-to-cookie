@@ -30,7 +30,7 @@
 }
 .likes {
   display: flex;
-  margin: 2em 5em 2em 0;
+  margin: 2em 5em 2em;
   flex-direction: column;
 }
 .recipe-card {

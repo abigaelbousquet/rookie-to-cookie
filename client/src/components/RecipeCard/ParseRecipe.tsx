@@ -1,6 +1,6 @@
 import Recipe from "../RecipeCard/Recipe";
 
-export function parseRecipe(recipeData: any): Recipe {
+export function parseRecipe(recipeData: any, prevLiked: number): Recipe {
   const name: string = recipeData.title;
   const cuisine: string =
     recipeData.cuisines.length > 0 ? recipeData.cuisines[0] : "Unknown";
@@ -9,7 +9,7 @@ export function parseRecipe(recipeData: any): Recipe {
   );
   const id: string = recipeData.id;
   const time: number = recipeData.readyInMinutes;
-  const liked: number = 0;
+  const liked: number = prevLiked;
   const ingredients: string[] = recipeData.extendedIngredients.map(
     (ingredient) => {
       let ingredientName = ingredient.name;
@@ -36,5 +36,5 @@ export function parseRecipe(recipeData: any): Recipe {
 }
 
 export function getRecipes(jsonData: any): Recipe[] {
-  return jsonData.results.map((result) => parseRecipe(result));
+  return jsonData.results.map((result) => parseRecipe(result, 0));
 }

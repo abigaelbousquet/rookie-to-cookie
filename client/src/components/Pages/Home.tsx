@@ -56,6 +56,7 @@ const Home: React.FC = () => {
   const [sunDate, setSunDate] = useState("");
   const [intols, setIntols] = useState<string[]>([]);
   const [currMealPlan, setCurrMealPlan] = useState(emptyMealPlan);
+  const [saved, setSaved] = useState<boolean>(false);
 
   const handleSave = async () => {
     await saveMealPlan(sunDate);
@@ -112,6 +113,7 @@ const Home: React.FC = () => {
    * Calls generate on the backend
    */
   const handleGenerate = async () => {
+    setSaved(false);
     const user = await getUser();
     const myUser = user["User"];
     const userData = myUser[0];
@@ -193,7 +195,9 @@ const Home: React.FC = () => {
   };
 
   const toggleShowSave = () => {
+    console.log("toggling");
     setSavePopup(!showSavePopup);
+    setSaved(true);
   };
 
   return (
@@ -324,7 +328,8 @@ const Home: React.FC = () => {
 
       {/* Container for week calendar view */}
       <div className="week-calendar-container">
-        <WeekView mealPlan={currMealPlan} /> {/* causes a white screen */}
+        <WeekView mealPlan={currMealPlan} saved={saved} />{" "}
+        {/* causes a white screen */}
       </div>
 
       {/* Button for regenerating */}
@@ -333,13 +338,7 @@ const Home: React.FC = () => {
       </div>
       {/* Button for saving data */}
       <div className="save-data-button-container">
-        <button
-          className="save-button"
-          onClick={async () => {
-            toggleShowSave;
-            await saveMealPlan("05/05/2024");
-          }}
-        >
+        <button className="save-button" onClick={toggleShowSave}>
           Save
         </button>
         {showSavePopup && <MealPlanSave onClose={() => setSavePopup(false)} />}

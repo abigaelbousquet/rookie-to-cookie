@@ -41,11 +41,18 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
   const getProfileData = async () => {
     const response = await getLikes();
     const likes = response["Recipes"];
+    const likesParsed = likes.map((value) => {
+      return parseRecipe(value, 1);
+    });
     const response2 = await getDislikes();
     const dislikes = response2["Recipes"];
+    const dislikesParsed = dislikes.map((value) => {
+      return parseRecipe(value, 2);
+    });
     const userJson: User = await getUser();
     const userList = userJson["User"];
     const userData = userList[0];
+    console.log(userData);
     return {
       name: userData.name,
       experienceLevel: userData.exp,
@@ -108,6 +115,7 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
                 <RecipeCard
                   recipe={parseRecipe(recipe)}
                   setShowPopup={setShowPopup}
+                  saved={true}
                 />
               </div>
             ))}
@@ -120,6 +128,7 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
               <RecipeCard
                 recipe={parseRecipe(recipe)}
                 setShowPopup={setShowPopup}
+                saved={true}
               />
             </div>
           ))}
