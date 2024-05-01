@@ -48,10 +48,8 @@ public class ListLikedRecipesHandler implements Route {
         }
       }
 
-
-        responseMap.put("response_type", "success");
-        responseMap.put("Recipes", recipes);
-
+      responseMap.put("response_type", "success");
+      responseMap.put("Recipes", recipes);
 
     } catch (Exception e) {
       // error likely occurred in the storage handler
