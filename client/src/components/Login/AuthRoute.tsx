@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginLogout from "./LoginLogout";
 import React from "react";
 import { AccountCreation } from "./AccountCreation";
@@ -9,11 +9,23 @@ import Master from "../Pages/Master";
 const AuthRoute = () => {
   const [authing, setAuthing] = useState(0);
   const [showPopup, setShowPopup] = useState<boolean>(false);
-
-  // USEFUL FOR PLAYWRIGHT TESTING PURPOSES: auto sets authing to true in test environment
-  if (!authing && import.meta.env.VITE_APP_NODE_ENV === "test") {
-    setAuthing(1);
-  }
+  const [masterLoaded, setMasterLoaded] = useState(false);
+  const [masterComponent, setMasterComponent] = useState<React.ReactNode>(null);
+  const [profile, profileLoaded] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!authing && import.meta.env.VITE_APP_NODE_ENV === "test") {
+        setAuthing(1);
+      }
+      const masterElement = await Master({
+        loaded: profile,
+        setLoaded: profileLoaded,
+      }); // Load Master component
+      setMasterComponent(masterElement);
+      setMasterLoaded(true);
+    };
+    fetchData();
+  }, [authing]);
 
   return (
     <>
@@ -21,7 +33,7 @@ const AuthRoute = () => {
         <h2>Rookie To Cookie</h2>
         <div className="logo"></div>
       </div>
-      {authing === 1 ? <Master></Master> : null}
+      {authing === 1 && masterLoaded ? masterComponent : null}
       {authing === 2 ? (
         <AccountCreation
           onClose={() => setShowPopup(false)}

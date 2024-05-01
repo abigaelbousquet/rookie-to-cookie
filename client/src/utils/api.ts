@@ -84,27 +84,27 @@ export async function addUser(props: profileProps) {
   });
 }
 export async function addDislike(recipeID: string) {
-  return await queryAPI("add-disliked-recipes", {
+  return await queryAPI("add-disliked-recipe", {
     uid: getLoginCookie() || "",
     recipeID: recipeID,
   });
 }
 
 export async function addLike(recipeID: string) {
-  return await queryAPI("add-liked-recipes", {
+  return await queryAPI("add-liked-recipe", {
     uid: getLoginCookie() || "",
     recipeID: recipeID,
   });
 }
 
 export async function getLikes() {
-  return await queryAPI("get-liked-recipe", {
+  return await queryAPI("get-liked-recipes", {
     uid: getLoginCookie() || "",
   });
 }
 
 export async function getDislikes() {
-  return await queryAPI("get-disliked-recipe", {
+  return await queryAPI("get-disliked-recipes", {
     uid: getLoginCookie() || "",
   });
 }
