@@ -39,7 +39,6 @@ public class GenerateMealPlanHandler implements Route {
       String modeString = request.queryParams("mode"); // pass in minimize or personalize
       String dietString = request.queryParams("diet");
       String intoleranceString = request.queryParams("intolerances");
-      String expString = request.queryParams("exp");
       String servingString = request.queryParams("servings");
       String cuisineString = request.queryParams("cuisine");
       String maxReadyTimeString = request.queryParams("max_time");
@@ -47,7 +46,6 @@ public class GenerateMealPlanHandler implements Route {
 
       Mode mode = null;
 
-      //   int exp = Integer.parseInt(expString);
       int maxReadyTime = Integer.parseInt(maxReadyTimeString);
       int servings = Integer.parseInt(servingString);
 
