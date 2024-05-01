@@ -60,18 +60,25 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
     return <div>Loading...</div>;
   }
   function getExp(level: string): string {
+    let exp: string;
     switch (level) {
       case "1":
-        return "Novice Chef";
+        exp = "Novice";
+        break;
       case "2":
-        return "Beginner Chef";
+        exp = "Beginner";
+        break;
       case "3":
-        return "Experienced Chef";
+        exp = "Experienced";
+        break;
       case "4":
-        return "Master Chef";
+        exp = "Master";
+        break;
       default:
-        return "Novice Chef";
+        exp = "";
+        break;
     }
+    return exp + " Chef";
   }
 
   return (

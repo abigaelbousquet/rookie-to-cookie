@@ -6,7 +6,7 @@ import React from "react";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/Calendar.css";
 import InfoView from "../RecipeCard/InfoView";
-import MealPlanSave from "../Save/MealPlanSave";
+import MealPlanSave from "../MealPlan/MealPlanSave";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -31,7 +31,8 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
 
   return (
     <div className="calendar-page">
-      <Calendar className="big-cal"
+      <Calendar
+        className="big-cal"
         onChange={onChange}
         value={value}
         showWeekNumbers={true}

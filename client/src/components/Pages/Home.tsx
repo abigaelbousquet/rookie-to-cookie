@@ -9,7 +9,9 @@ import DaysOfTheWeekButtons from "../HomeComponents/DaysOfTheWeekButtons";
 
 import { generateMealPlan, getUser, saveMealPlan } from "../../utils/api";
 import { cuisineOptions, intoleranceOptions } from "../../data/Spoonacular";
-import MealPlanSave from "../Save/MealPlanSave";
+import MealPlanSave from "../MealPlan/MealPlanSave";
+import Recipe from "../RecipeCard/Recipe";
+import { parseMealPlan } from "../MealPlan/MealPlanGenerate";
 
 const Home: React.FC = () => {
   // Define the options array for the dropdown
@@ -25,14 +27,14 @@ const Home: React.FC = () => {
     id: 123,
   };
 
-  const mockedMealPlan = [
-    { day: "Sunday", recipeExists: true, recipe: spaghetti },
-    { day: "Monday", recipeExists: false },
-    { day: "Tuesday", recipeExists: true, recipe: spaghetti },
-    { day: "Wednesday", recipeExists: false },
-    { day: "Thursday", recipeExists: false },
-    { day: "Friday", recipeExists: false },
-    { day: "Saturday", recipeExists: false },
+  const emptyMealPlan = [
+    { day: "sunday", recipeExists: false },
+    { day: "monday", recipeExists: false },
+    { day: "tuesday", recipeExists: false },
+    { day: "wednesday", recipeExists: false },
+    { day: "thursday", recipeExists: false },
+    { day: "friday", recipeExists: false },
+    { day: "saturday", recipeExists: false },
   ];
 
   // State to keep track of selected buttons
@@ -53,11 +55,8 @@ const Home: React.FC = () => {
   const [excludedIngredients, setExcludedIngredients] = useState<string[]>([]);
   const [sunDate, setSunDate] = useState("");
   const [intols, setIntols] = useState<string[]>([]);
+  const [currMealPlan, setCurrMealPlan] = useState(emptyMealPlan);
 
-  /**
-   * Saves mealPlan to Firebase
-   * //TODO:POST HERE?
-   */
   const handleSave = async () => {
     await saveMealPlan(sunDate);
   };
@@ -153,7 +152,11 @@ const Home: React.FC = () => {
         mode: selectedAlg,
       };
       console.log(props);
-      await generateMealPlan(props);
+      const mealPlanJson = await generateMealPlan(props);
+      const recipeList = mealPlanJson["Mealplan"];
+      const newMealPlan = parseMealPlan(recipeList);
+      setCurrMealPlan(newMealPlan);
+      console.log(currMealPlan);
     }
   };
 
@@ -309,7 +312,7 @@ const Home: React.FC = () => {
 
       {/* Container for week calendar view */}
       <div className="week-calendar-container">
-        <WeekView mealPlan={mockedMealPlan} /> {/* causes a white screen */}
+        <WeekView mealPlan={currMealPlan} /> {/* causes a white screen */}
       </div>
 
       {/* Button for regenerating */}
