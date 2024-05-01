@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/profile.css";
 import { getDislikes, getLikes, getUser } from "../../utils/api";
 import Recipe from "../RecipeCard/Recipe";
@@ -16,9 +16,19 @@ interface ProfileProps {
   dislikedRecipes: Recipe[];
 }
 
+interface User {
+  name: string;
+  experienceLevel: string;
+  diet: string;
+  intolerances: string[];
+  likedRecipes: any[]; // Adjust this based on your Recipe type
+  dislikedRecipes: any[]; // Adjust this based on your Recipe type
+}
+
 const ProfilePage: React.FC<ProfileProps> = (props) => {
   console.log("exp" + props.experienceLevel);
   const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {

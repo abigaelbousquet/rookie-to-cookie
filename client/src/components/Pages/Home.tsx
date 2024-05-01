@@ -43,15 +43,15 @@ const Home: React.FC = () => {
     { label: string; value: string }[]
   >([]);
   // State to hold the selected option
-  const [selectedAlg, setSelectedAlg] = useState("minimize_foodwaste");
+  const [selectedAlg, setSelectedAlg] = useState("minimize");
   // State to control the visibility of the popup
   const [showInfoViewPopup, setShowInfoViewPopup] = useState<boolean>(false);
   const [showSavePopup, setSavePopup] = useState<boolean>(false);
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
   const [maxTime, setMaxTime] = useState<number>(1);
-  const [excludedIngredients, setExcludedIngredients] = useState("");
+  const [excludedIngredients, setExcludedIngredients] = useState<string[]>([]);
   const [sunDate, setSunDate] = useState("");
-  const [intols, setIntols] = useState([""]);
+  const [intols, setIntols] = useState<string[]>([]);
 
   /**
    * Saves mealPlan to Firebase
@@ -92,6 +92,23 @@ const Home: React.FC = () => {
   };
 
   /**
+   * Converts a string array to a CSV string.
+   *
+   * @param param the parameter to convert to a CSV string
+   * @returns the CSV string interpretation of param
+   */
+  const paramToString = (param: string[] | undefined) => {
+    if (param === undefined) {
+      return "";
+    } else if (param.length === 0) {
+      return "";
+    } else {
+      // remove brackets from string and return
+      return param.toString().substring(1, param.length - 1);
+    }
+  };
+
+  /**
    * Calls generate on the backend
    */
   const handleGenerate = async () => {
@@ -102,7 +119,10 @@ const Home: React.FC = () => {
     console.log;
     //handle user intolerances from profile
     if (selectedOptionsIntolerance.length === 0) {
-      if (userData["intolerances"].length > 0) {
+      if (
+        userData["intolerances"] !== undefined &&
+        userData["intolerances"].length > 0
+      ) {
         setIntols(userData["intolerances"]);
       }
     } else {
@@ -118,9 +138,11 @@ const Home: React.FC = () => {
     const props = {
       daysToPlan: convertDaysOfWeekToCSVString(),
       maxReadyTime: maxTime.toString(),
-      diet: userData["diet"].toString(),
-      intolerances: intols.toString(),
-      cuisine: selectedOptionsCuisine.map((val) => val.label) || "",
+      diet: paramToString(userData["diet"]),
+      intolerances: paramToString(intols),
+      cuisine: paramToString(
+        selectedOptionsCuisine.map((val) => val.label) || ""
+      ),
       requestedServings: numberOfPeople.toString(),
       exp: userData["exp"],
       mode: selectedAlg,

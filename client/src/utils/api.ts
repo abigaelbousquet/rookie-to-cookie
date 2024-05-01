@@ -1,14 +1,14 @@
-import Recipe from "../RecipeCard/Recipe";
 import { profileProps } from "../components/Login/AccountCreation";
+import Recipe from "../components/RecipeCard/Recipe";
 import { getLoginCookie } from "./cookie";
 
 const HOST = "http://localhost:3232";
 interface mealPlanProps {
   diet: string;
-  intolerances: string[];
+  intolerances: string;
   requestedServings: string;
   daysToPlan: string;
-  cuisine: string[];
+  cuisine: string;
   maxReadyTime: string;
 }
 
@@ -37,13 +37,13 @@ async function queryAPI(
 }
 export async function saveMealPlan(dateOfSunday: string) {
   //TODO: POST the meal plan with a secure key (we can make it up)
-  return await queryAPI("save-meal-plan", {
+  return await queryAPI("save-mealplan", {
     uid: getLoginCookie() || "",
     dateOfSunday: dateOfSunday,
   });
 }
 export async function getMealPlan(dateOfSunday: string) {
-  return await queryAPI("get-meal-plan", {
+  return await queryAPI("get-mealplan", {
     uid: getLoginCookie() || "",
     dateOfSunday: dateOfSunday,
   });
@@ -51,15 +51,15 @@ export async function getMealPlan(dateOfSunday: string) {
 
 export async function generateMealPlan(props: mealPlanProps) {
   console.log("generating with: " + props);
-  return await queryAPI("generate-meal-plan", {
+  return await queryAPI("generate-mealplan", {
     uid: getLoginCookie() || "",
-    diet: props.diet.toString(),
-    intolerances: props.intolerances.toString(),
-    daysOfWeek: props.daysToPlan.toString(),
-    cuisine: props.cuisine.toString(),
+    diet: props.diet,
+    intolerances: props.intolerances,
+    daysOfWeek: props.daysToPlan,
+    cuisine: props.cuisine,
     servings: props.requestedServings,
     max_time: props.maxReadyTime,
-    mode: "personalize", //TODO: need to add personalize
+    mode: "minimize", //TODO: need to add personalize
   });
 }
 export async function getUser(): Promise<User> {
@@ -98,13 +98,13 @@ export async function addLike(recipeID: string) {
 }
 
 export async function getLikes() {
-  return await queryAPI("get-likes", {
+  return await queryAPI("get-liked-recipe", {
     uid: getLoginCookie() || "",
   });
 }
 
 export async function getDislikes() {
-  return await queryAPI("get-dislikes", {
+  return await queryAPI("get-disliked-recipe", {
     uid: getLoginCookie() || "",
   });
 }
