@@ -85,16 +85,13 @@ public class GeneratorUtilities {
   }
 
   /**
-   * TODO: javadoc
+   * Converts a quantity and unit to base unit of grams for apples to apples comparisons.
    *
-   * @param quantity
-   * @param unit
-   * @return
+   * @param quantity the amount of the substance
+   * @param unit the unit of quantity, a String
+   * @return the conversion of quantity unit to grams, or 0 if encountered an unknown unit
    */
   private static double convertToGrams(double quantity, String unit) {
-    // Implement conversion logic here based on different units
-    // For simplicity, let's assume we're converting everything to grams
-    // You may need to add more cases for different units
     switch (unit.toLowerCase()) {
       case "tablespoon":
       case "tablespoons":
