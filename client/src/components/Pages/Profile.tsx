@@ -113,7 +113,7 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
             {user.likedRecipes.map((recipe) => (
               <div>
                 <RecipeCard
-                  recipe={parseRecipe(recipe)}
+                  recipe={parseRecipe(recipe, 1)}
                   setShowPopup={setShowPopup}
                   saved={true}
                 />
@@ -126,7 +126,7 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
           {user.dislikedRecipes.map((recipe) => (
             <div>
               <RecipeCard
-                recipe={parseRecipe(recipe)}
+                recipe={parseRecipe(recipe, 1)}
                 setShowPopup={setShowPopup}
                 saved={true}
               />

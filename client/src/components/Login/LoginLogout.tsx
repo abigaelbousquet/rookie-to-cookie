@@ -81,7 +81,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
                 setValue={setPassword}
                 ariaLabel="password"
                 placeholder="ilovecooking"
-              ></PasswordInput>
+              ></ControlledInput>
             </div>
             <div>
               <button
