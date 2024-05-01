@@ -44,7 +44,7 @@
   width: 300px;
   height: 300px;
   justify-content: left;
-  background-image: url("../graphics/master.PNG");
+  background-image: url("../graphics/moderate.PNG");
   background-repeat: no-repeat;
   background-size: 100%;
 }
@@ -52,7 +52,7 @@
   width: 300px;
   height: 300px;
   justify-content: left;
-  background-image: url("../graphics/moderate.PNG");
+  background-image: url("../graphics/beginner.PNG");
   background-repeat: no-repeat;
   background-size: 100%;
 }
@@ -60,7 +60,15 @@
   width: 300px;
   height: 300px;
   justify-content: left;
-  background-image: url("../graphics/beginner.PNG");
+  background-image: url("../graphics/novice.PNG");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.exp4 {
+  width: 300px;
+  height: 300px;
+  justify-content: left;
+  background-image: url("../graphics/master.PNG");
   background-repeat: no-repeat;
   background-size: 100%;
 }

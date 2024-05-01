@@ -1,4 +1,5 @@
 import { profileProps } from "../components/Login/AccountCreation";
+import { User } from "../components/Pages/Profile";
 import Recipe from "../components/RecipeCard/Recipe";
 import { getLoginCookie } from "./cookie";
 
@@ -12,15 +13,6 @@ interface mealPlanProps {
   maxReadyTime: string;
 }
 
-interface User {
-  name: string;
-  experienceLevel: string;
-  familySize: number;
-  diet: string;
-  intolerances: string[];
-  likedRecipes: Recipe[];
-  dislikedRecipes: Recipe[];
-}
 async function queryAPI(
   endpoint: string,
   query_params: Record<string, string>
@@ -79,6 +71,7 @@ export async function addUser(props: profileProps) {
     uid: getLoginCookie() || "",
     name: props.name,
     exp: props.exp,
+    fam_size: props.fam_size,
     diet: props.diet.toString(),
     intolerances: props.intolerances.toString(),
   });

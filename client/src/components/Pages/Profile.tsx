@@ -10,11 +10,11 @@ interface ProfileProps {
   loaded: boolean;
   setLoaded: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-interface User {
+export interface User {
   name: string;
   experienceLevel: string;
   diet: string;
+  fam_size: string;
   intolerances: string[];
   likedRecipes: any[]; // Adjust this based on your Recipe type
   dislikedRecipes: any[]; // Adjust this based on your Recipe type
@@ -49,8 +49,9 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
       name: userData.name,
       experienceLevel: userData["exp"],
       diet: userData.diet,
+      fam_size: userData["famSize"],
       intolerances: userData.intolerances,
-      likedRecipes: [], //TODO: fix
+      likedRecipes: [],
       dislikedRecipes: [],
     };
   };
@@ -72,7 +73,7 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
           <h3>Intolerances:</h3>
           <p>{user.intolerances}</p>
         </div>
-        <h4>{"Cooking for " + 1}</h4>
+        <h4>{"Cooking for " + user.fam_size}</h4>
         {/* //<button onClick={editProfile}>Edit</button> */}
       </div>
       <div className="right-side">
