@@ -98,13 +98,13 @@ export async function addLike(recipeID: string) {
 }
 
 export async function getLikes() {
-  return await queryAPI("get-liked-recipe", {
+  return await queryAPI("get-liked-recipes", {
     uid: getLoginCookie() || "",
   });
 }
 
 export async function getDislikes() {
-  return await queryAPI("get-disliked-recipe", {
+  return await queryAPI("get-disliked-recipes", {
     uid: getLoginCookie() || "",
   });
 }
