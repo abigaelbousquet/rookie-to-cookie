@@ -38,7 +38,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
         props.setAuthing(0);
       } else if (error.message.includes("WEAK_PASSWORD")) {
         props.setAuthing(2);
-      } else if (error.code === "auth/user-not-found") {
+      } else {
         try {
           const response = await createUserWithEmailAndPassword(
             auth,
