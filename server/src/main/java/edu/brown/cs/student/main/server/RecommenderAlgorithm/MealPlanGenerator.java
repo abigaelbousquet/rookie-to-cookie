@@ -189,12 +189,13 @@ public class MealPlanGenerator {
    * Method to parse the given CSV string into a boolean array representing which days of the week
    * have recipes.
    *
-   * @param daysOfWeek
-   * @return
+   * @param daysOfWeek the days of the week as a csv String to split
+   * @return a boolean[] where index 0 is Sunday and the value at 0 is true if sunday was found in
+   *     daysOfWeek
    */
   private boolean[] parseDays(String daysOfWeek) {
     boolean[] booleanArray = {false, false, false, false, false, false, false};
-    String[] daysOfWeekArray = daysOfWeek.split(",");
+    String[] daysOfWeekArray = daysOfWeek.toLowerCase().split(",");
     for (int i = 0; i < daysOfWeekArray.length; i++) {
       switch (daysOfWeekArray[i]) {
         case "sunday":
