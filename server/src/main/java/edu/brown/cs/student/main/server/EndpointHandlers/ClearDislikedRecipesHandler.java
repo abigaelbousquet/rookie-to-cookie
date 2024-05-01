@@ -2,12 +2,11 @@ package edu.brown.cs.student.main.server.EndpointHandlers;
 
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
+import java.util.HashMap;
+import java.util.Map;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ClearDislikedRecipesHandler implements Route {
 
