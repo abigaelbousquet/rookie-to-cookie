@@ -68,7 +68,7 @@ const InfoView: React.FC<InfoViewProps> = ({
                   }}
                 />
                 <label htmlFor={`step-${index}`}>
-                  {index + 1}. {step.step}
+                  {index + 1}. {step}
                 </label>
               </li>
             ))}

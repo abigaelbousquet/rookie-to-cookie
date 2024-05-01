@@ -1,3 +1,4 @@
+import { parseRecipe } from "../RecipeCard/ParseRecipe";
 import Recipe from "../RecipeCard/Recipe";
 
 export const dayToRecipe = (day: string, recipeList): Recipe | null => {
@@ -6,19 +7,7 @@ export const dayToRecipe = (day: string, recipeList): Recipe | null => {
     return null;
   }
   console.log(recipeJson);
-  const analyzedInstructionsList = recipeJson["analyzedInstructions"];
-  const analyzedInstructions = analyzedInstructionsList[0];
-  const recipe = {
-    name: recipeJson["title"],
-    cuisine: recipeJson["cuisines"],
-    instructions: analyzedInstructions["steps"],
-    time: recipeJson["readyInMinutes"],
-    image: recipeJson["image"],
-    liked: 0,
-    ingredients: recipeJson["extendedIngredients"],
-    credit: recipeJson["creditsText"],
-    id: recipeJson["id"],
-  };
+  const recipe = parseRecipe(recipeJson);
   console.log(recipe);
   return recipe;
 };

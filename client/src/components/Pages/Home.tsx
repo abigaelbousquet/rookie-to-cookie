@@ -335,8 +335,9 @@ const Home: React.FC = () => {
       <div className="save-data-button-container">
         <button
           className="save-button"
-          onClick={() => {
+          onClick={async () => {
             toggleShowSave;
+            await saveMealPlan("05/05/2024");
           }}
         >
           Save

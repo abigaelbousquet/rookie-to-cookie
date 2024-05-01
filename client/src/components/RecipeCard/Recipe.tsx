@@ -1,7 +1,7 @@
 interface Recipe {
   name: string;
   cuisine: string;
-  instructions: { number: string; step: string }[];
+  instructions: string[];
   time: number;
   liked: number;
   ingredients: string[];
