@@ -115,42 +115,45 @@ const Home: React.FC = () => {
     const user = await getUser();
     const myUser = user["User"];
     const userData = myUser[0];
-    console.log(user["User"]);
-    console.log("generating");
-    console.log;
-    //handle user intolerances from profile
-    if (selectedOptionsIntolerance.length === 0) {
-      if (
-        userData["intolerances"] !== undefined &&
-        userData["intolerances"].length > 0
-      ) {
-        setIntols(userData["intolerances"]);
-        console.log(intols);
-      }
-    } else {
-      const choices = selectedOptionsIntolerance
-        .map((val) => val.label)
-        .concat(excludedIngredients);
-      setIntols(
-        choices.concat(
-          userData["intolerances"].filter((val) => !choices.includes(val))
-        )
+    if (selectedButtons.length === 0) {
+      alert(
+        "You must select at least one day of the week to generate a recipe for."
       );
+    } else {
+      //handle user intolerances from profile
+      if (selectedOptionsIntolerance.length === 0) {
+        if (
+          userData["intolerances"] !== undefined &&
+          userData["intolerances"].length > 0
+        ) {
+          setIntols(userData["intolerances"]);
+          console.log(intols);
+        }
+      } else {
+        const choices = selectedOptionsIntolerance
+          .map((val) => val.label)
+          .concat(excludedIngredients);
+        setIntols(
+          choices.concat(
+            userData["intolerances"].filter((val) => !choices.includes(val))
+          )
+        );
+      }
+      const props = {
+        daysToPlan: convertDaysOfWeekToCSVString(),
+        maxReadyTime: maxTime.toString(),
+        diet: userData["diet"].toString(),
+        intolerances: intols.toString(),
+        cuisine: paramToString(
+          selectedOptionsCuisine.map((val) => val.label) || ""
+        ),
+        requestedServings: numberOfPeople.toString(),
+        exp: userData["exp"],
+        mode: selectedAlg,
+      };
+      console.log(props);
+      await generateMealPlan(props);
     }
-    const props = {
-      daysToPlan: convertDaysOfWeekToCSVString(),
-      maxReadyTime: maxTime.toString(),
-      diet: userData["diet"].toString(),
-      intolerances: intols.toString(),
-      cuisine: paramToString(
-        selectedOptionsCuisine.map((val) => val.label) || ""
-      ),
-      requestedServings: numberOfPeople.toString(),
-      exp: userData["exp"],
-      mode: selectedAlg,
-    };
-    console.log(props);
-    await generateMealPlan(props);
   };
 
   // Function to handle button click
