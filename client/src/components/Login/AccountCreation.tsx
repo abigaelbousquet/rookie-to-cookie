@@ -99,6 +99,7 @@ export const AccountCreation: React.FC<acctProps> = ({
             <div className="acct-elt">
               <legend>Name:</legend>
               <ControlledInput
+                type="text"
                 value={name}
                 setValue={setName}
                 ariaLabel={"Name"}
@@ -142,6 +143,7 @@ export const AccountCreation: React.FC<acctProps> = ({
             <div className="acct-elt">
               <legend>Family Size:</legend>
               <ControlledInput
+                type="text"
                 value={fam_size}
                 setValue={setFam_Size}
                 ariaLabel="family-size"

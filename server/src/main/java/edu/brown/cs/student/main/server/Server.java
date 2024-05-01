@@ -47,45 +47,6 @@ public class Server {
       Spark.get("clear-liked-recipes", new ClearLikedRecipesHandler(firebaseUtils));
       Spark.get("clear-disliked-recipes", new ClearDislikedRecipesHandler(firebaseUtils));
 
-      //      String uid = "test_user_liked_only";
-      //      RecipeDatasource datasource = new SpoonacularRecipeSource();
-      //      MealPlanGenerator planGenerator =
-      //          new MealPlanGenerator(
-      //              datasource,
-      //              Mode.MINIMIZE_FOOD_WASTE,
-      //              "sunday,monday",
-      //              4,
-      //              null,
-      //              null,
-      //              null,
-      //              null,
-      //              60,
-      //              firebaseUtils,
-      //              uid);
-      //      RecipeDatasource datasource1 = new SpoonacularRecipeSource();
-      //      MealPlanGenerator planGenerator1 =
-      //          new MealPlanGenerator(
-      //              datasource1,
-      //              Mode.MINIMIZE_FOOD_WASTE,
-      //              "null,monday,tuesday,null,null,null,saturday",
-      //              5,
-      //              null,
-      //              null,
-      //              null,
-      //              null,
-      //              80,
-      //              firebaseUtils,
-      //              "test-2");
-      //      try {
-      //        MealPlan recipeList = planGenerator.generatePlan();
-      //        GeneratorUtilities.addToFirebase(uid, firebaseUtils, recipeList);
-      //        MealPlan recipeList1 = planGenerator1.generatePlan();
-      //        GeneratorUtilities.addToFirebase("test-2", firebaseUtils, recipeList1);
-      //
-      //      } catch (DatasourceException | RecipeVolumeException e) {
-      //        System.out.println(e.getMessage());
-      //      }
-
       Spark.notFound(
           (request, response) -> {
             response.status(404); // Not Found
