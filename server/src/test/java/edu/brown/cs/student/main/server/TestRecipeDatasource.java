@@ -68,7 +68,6 @@ public class TestRecipeDatasource {
         () -> src.queryRecipes(150, null, null, null, null, null, null, 60));
   }
 
-  /** TODO: basic test of real datasource query, returns >0 results */
   /**
    * Tests basic real datasource query, just to double-check that it can be queried.
    *
