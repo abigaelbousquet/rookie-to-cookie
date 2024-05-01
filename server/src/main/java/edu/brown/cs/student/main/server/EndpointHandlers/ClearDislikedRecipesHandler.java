@@ -1,19 +1,18 @@
 package edu.brown.cs.student.main.server.EndpointHandlers;
 
-import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
-import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class ListLikedRecipesHandler implements Route {
+public class ClearDislikedRecipesHandler implements Route {
 
   public StorageInterface storageHandler;
 
-  public ListLikedRecipesHandler(StorageInterface storageHandler) {
+  public ClearDislikedRecipesHandler(StorageInterface storageHandler) {
     this.storageHandler = storageHandler;
   }
 
@@ -30,27 +29,11 @@ public class ListLikedRecipesHandler implements Route {
     try {
       String uid = request.queryParams("uid");
 
-      System.out.println("listing liked recipes for user: " + uid);
-
-      // get all the words for the user
-      List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "liked recipes");
-      ArrayList<Recipe> recipes = new ArrayList<>();
-      // convert the key,value map to just a list of the words.
-      for (Map<String, Object> recipeMap : vals) {
-        Set<String> keys = recipeMap.keySet();
-        for (String key : keys) {
-          String recipeJson =
-              FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(
-                  (Map<String, Object>) recipeMap.get(key));
-
-          Recipe recipe = RecipeUtilities.deserializeRecipe(recipeJson);
-          recipes.add(recipe);
-        }
-      }
+      // Remove the user from the database
+      System.out.println("clearing disliked recipes for user: " + uid);
+      this.storageHandler.clearRecipes(uid, "disliked recipes");
 
       responseMap.put("response_type", "success");
-      responseMap.put("Recipes", recipes);
-
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();
