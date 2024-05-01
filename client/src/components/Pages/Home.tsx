@@ -121,7 +121,9 @@ const Home: React.FC = () => {
       );
     } else {
       //handle user intolerances from profile
-      if (selectedOptionsIntolerance.length === 0) {
+      if (selectedOptionsIntolerance === null) {
+        setIntols([]);
+      } else if (selectedOptionsIntolerance.length === 0) {
         if (
           userData["intolerances"] !== undefined &&
           userData["intolerances"].length > 0
@@ -174,6 +176,16 @@ const Home: React.FC = () => {
   };
   const handleExcludedIngredientsChange = (selectedToExclude) => {
     setExcludedIngredients(selectedToExclude.map((option) => option.value));
+    if (excludedIngredients === undefined) {
+      setExcludedIngredients([]);
+    }
+  };
+
+  const handleCuisineChange = (selectedCuisine) => {
+    setSelectedOptionsCuisine(selectedCuisine.map((option) => option.value));
+    if (selectedCuisine === undefined) {
+      setSelectedOptionsCuisine([]);
+    }
   };
 
   const toggleShowSave = () => {
