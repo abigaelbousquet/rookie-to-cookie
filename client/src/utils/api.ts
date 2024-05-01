@@ -64,7 +64,7 @@ export async function getUser(): Promise<User> {
 export async function getRecipe(recipeID: string) {
   return await queryAPI("get-recipe", {
     uid: getLoginCookie() || "",
-    recipeID: recipeID,
+    recipeId: recipeID,
   });
 }
 export async function addUser(props: profileProps) {
@@ -80,14 +80,14 @@ export async function addUser(props: profileProps) {
 export async function addDislike(recipeID: string) {
   return await queryAPI("add-disliked-recipe", {
     uid: getLoginCookie() || "",
-    recipeID: recipeID,
+    recipeId: recipeID,
   });
 }
 
 export async function addLike(recipeID: string) {
   return await queryAPI("add-liked-recipe", {
     uid: getLoginCookie() || "",
-    recipeID: recipeID,
+    recipeId: recipeID,
   });
 }
 
