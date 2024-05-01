@@ -59,18 +59,33 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
   if (!user) {
     return <div>Loading...</div>;
   }
+  function getExp(level: string): string {
+    switch (level) {
+      case "1":
+        return "Novice Chef";
+      case "2":
+        return "Beginner Chef";
+      case "3":
+        return "Experienced Chef";
+      case "4":
+        return "Master Chef";
+      default:
+        return "Novice Chef";
+    }
+  }
 
   return (
     <div className="profile-container">
       <div className="left-side">
         <div className={"exp" + user.experienceLevel}></div>
         <h1 className="name-display">{user.name}</h1>
+        <h3 className="exp_description">{getExp(user.experienceLevel)}</h3>
         <div>
-          <h3>Diet:</h3>
+          <h3 className="diet">Diet:</h3>
           <p>{user.diet}</p>
         </div>
         <div>
-          <h3>Intolerances:</h3>
+          <h3 className="diet">Intolerances:</h3>
           <p>{user.intolerances}</p>
         </div>
         <h4>{"Cooking for " + user.fam_size}</h4>

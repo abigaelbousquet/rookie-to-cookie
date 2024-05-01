@@ -2,14 +2,31 @@
   display: flex;
   justify-content: center;
 }
+.left-side {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  max-height: 800px;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 8%;
+  min-width: 500px;
+}
+.diet {
+  margin-bottom: -20px;
+  margin-top: 0;
+}
 .right-side {
+  border-radius: 8%;
   overflow: scroll;
   display: flex;
-  margin: 0 5em 0 5em;
-  justify-content: space-evenly;
+  margin: 20px 5em 0 5em;
+  justify-content: center;
   align-items: flex-start;
   min-width: 600px;
-  max-height: 80vh;
+  max-height: 650px;
+  background-color: #f0f0f0;
 }
 .likes {
   display: flex;
@@ -34,6 +51,11 @@
 .name-display {
   color: #7a9364;
   margin-top: 0px;
+  margin-bottom: 0px;
+}
+.exp_description {
+  color: #7a9364;
+  font-size: larger;
 }
 
 .recipe-button:hover {

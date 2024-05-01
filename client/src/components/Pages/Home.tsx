@@ -22,6 +22,7 @@ const Home: React.FC = () => {
     ingredients: ["Pasta", "Sauce", "Something more"],
     image: "https://placeholder.com/312x231",
     credit: "Unknown",
+    id: 123,
   };
 
   const mockedMealPlan = [
@@ -223,6 +224,7 @@ const Home: React.FC = () => {
         <div className="algorithm-options-box">
           <div>
             <input
+              className="radio"
               type="radio"
               id="minimize_foodwaste"
               name="algorithm"
@@ -235,6 +237,7 @@ const Home: React.FC = () => {
 
           <div>
             <input
+              className="radio"
               type="radio"
               id="prioritize user taste"
               name="algorithm"
