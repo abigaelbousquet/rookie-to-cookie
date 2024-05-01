@@ -22,25 +22,63 @@ public class RecipeNode {
   }
 
   /**
-   * Gets this node's left node.
+   * Alternate constructor for the RecipeNode class.
    *
-   * <p>TODO: make return defensive copy!
+   * @param toCopy the RecipeNode to make this a defensive copy of
+   */
+  public RecipeNode(RecipeNode toCopy) {
+    this.recipe = toCopy.getRecipe(); // a defensive copy
+    this.location = toCopy.getLocation(); // a defensive copy
+    this.left = toCopy.getLeft(); // a defensive copy
+    this.right = toCopy.getRight(); // a defensive copy
+  }
+
+  /**
+   * Gets this RecipeNode's location.
+   *
+   * @return a defensive copy of this.location
+   */
+  public int[] getLocation() {
+    int[] copy = new int[3];
+    copy[0] = this.location[0];
+    copy[1] = this.location[1];
+    copy[2] = this.location[2];
+    return copy;
+  }
+
+  /**
+   * Gets this node's Recipe (a defensive copy).
+   *
+   * @return a defensive copy of this.recipe
+   */
+  public Recipe getRecipe() {
+    return new Recipe(this.recipe);
+  }
+
+  /**
+   * Gets this node's left node.
    *
    * @return this RecipeNode's left node
    */
   public RecipeNode getLeft() {
-    return this.left;
+    if (this.left == null) {
+      return null;
+    } else {
+      return new RecipeNode(this.left);
+    }
   }
 
   /**
    * Gets this node's right node.
    *
-   * <p>TODO: make return defensive copy!
-   *
    * @return this RecipeNode's right node
    */
   public RecipeNode getRight() {
-    return this.right;
+    if (this.right == null) {
+      return null;
+    } else {
+      return new RecipeNode(this.right);
+    }
   }
 
   /**
