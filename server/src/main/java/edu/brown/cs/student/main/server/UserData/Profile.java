@@ -68,6 +68,6 @@ public class Profile {
    * @return a list of the user's followed diets
    */
   public int getFamSize(){
-    return this.famSize;
+    return this.familySize;
   }
 }

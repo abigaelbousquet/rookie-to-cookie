@@ -44,7 +44,7 @@ public class AddUserHandler implements Route {
       // convert exp to a num
       try {
         experience = Integer.parseInt(exp);
-        familySize = Integer.parseInt(familySizesString);
+        familySize = Integer.parseInt(famSize);
       } catch (Exception e) {
         System.out.println("experience/famsize is not a num");
       }
