@@ -26,7 +26,7 @@ export const AccountCreation: React.FC<acctProps> = ({
   setAuthing,
 }) => {
   const [name, setName] = useState("");
-  const [exp, setExp] = useState("");
+  const [exp, setExp] = useState("1");
   const [diet, setDiet] = useState("");
   const [allergen, setAllergen] = useState([""]);
   const [fam_size, setFam_Size] = useState("");
@@ -55,31 +55,14 @@ export const AccountCreation: React.FC<acctProps> = ({
     { label: "Dairy", value: "Dairy" },
     { label: "Gluten", value: "Gluten" },
   ];
-  // const handleUserKeyPress = (event: KeyboardEvent) => {
-  //   if (event.key === "Enter") {
-  //     console.log("submitted!");
-  //     handleSubmit({
-  //       name: name,
-  //       exp: exp,
-  //       diet: diet,
-  //       fam_size: fam_size,
-  //       intolerances: allergen,
-  //     });
-  //     document.getElementById("history")?.focus();
-  //     console.log("pressed enter");
-  //   }
-  // };
-  // useEffect(() => {
-  //   document.addEventListener("keydown", handleUserKeyPress);
-
-  //   return () => {
-  //     document.removeEventListener("keydown", handleUserKeyPress);
-  //   };
-  // }, []);
   const handleSubmit = async (props: profileProps) => {
     // Handle form submission here, e.g., send data to server
     //await addUser(props);
-    if (props.name === null || props.exp === null || props.fam_size === null) {
+    if (
+      props.name === undefined ||
+      props.exp === undefined ||
+      props.fam_size === undefined
+    ) {
       alert("Please enter name, experience, and family size.");
     } else {
       try {
@@ -139,6 +122,7 @@ export const AccountCreation: React.FC<acctProps> = ({
                 <Select
                   options={diets}
                   onChange={(opt: any) => setDiet(opt!.label)}
+                  defaultValue={"None"}
                 />
               </div>
             </div>

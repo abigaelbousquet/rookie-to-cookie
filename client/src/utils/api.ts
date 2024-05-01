@@ -1,4 +1,5 @@
 import { profileProps } from "../components/Login/AccountCreation";
+import { User } from "../components/Pages/Profile";
 import Recipe from "../components/RecipeCard/Recipe";
 import { getLoginCookie } from "./cookie";
 
@@ -12,15 +13,6 @@ interface mealPlanProps {
   maxReadyTime: string;
 }
 
-interface User {
-  name: string;
-  experienceLevel: string;
-  familySize: number;
-  diet: string;
-  intolerances: string[];
-  likedRecipes: Recipe[];
-  dislikedRecipes: Recipe[];
-}
 async function queryAPI(
   endpoint: string,
   query_params: Record<string, string>
@@ -29,6 +21,7 @@ async function queryAPI(
   // e.g. { foo: "bar", hell: "o" } becomes "?foo=bar&hell=o"
   const paramsString = new URLSearchParams(query_params).toString();
   const url = `${HOST}/${endpoint}?${paramsString}`;
+  console.log(url); // temporary
   const response = await fetch(url);
   if (!response.ok) {
     console.error(response.status, response.statusText);
@@ -79,32 +72,33 @@ export async function addUser(props: profileProps) {
     uid: getLoginCookie() || "",
     name: props.name,
     exp: props.exp,
+    fam_size: props.fam_size,
     diet: props.diet.toString(),
     intolerances: props.intolerances.toString(),
   });
 }
 export async function addDislike(recipeID: string) {
-  return await queryAPI("add-disliked-recipes", {
+  return await queryAPI("add-disliked-recipe", {
     uid: getLoginCookie() || "",
     recipeID: recipeID,
   });
 }
 
 export async function addLike(recipeID: string) {
-  return await queryAPI("add-liked-recipes", {
+  return await queryAPI("add-liked-recipe", {
     uid: getLoginCookie() || "",
     recipeID: recipeID,
   });
 }
 
 export async function getLikes() {
-  return await queryAPI("get-liked-recipe", {
+  return await queryAPI("get-liked-recipes", {
     uid: getLoginCookie() || "",
   });
 }
 
 export async function getDislikes() {
-  return await queryAPI("get-disliked-recipe", {
+  return await queryAPI("get-disliked-recipes", {
     uid: getLoginCookie() || "",
   });
 }

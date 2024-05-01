@@ -3,13 +3,11 @@ package edu.brown.cs.student.main.server.RecommenderAlgorithm.KDTree;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import java.util.*;
 
-// TODO: generalize to K-D tree class with caller-injected types
-
 /** Class describing a RecipeRecommendation K-D Tree. */
 public class RecipeRecommendationKDTree {
   private RecipeNode root;
   private int size;
-  private static final int DIMENSIONS = 3; // TODO: make this set dynamically in constructor
+  private static final int DIMENSIONS = 3;
 
   public RecipeRecommendationKDTree() {
     root = null;
@@ -18,12 +16,10 @@ public class RecipeRecommendationKDTree {
   /**
    * Get the root of this KD Tree.
    *
-   * <p>TODO: make this return defensive copy instead
-   *
    * @return this tree's root
    */
   public RecipeNode getRoot() {
-    return this.root;
+    return new RecipeNode(this.root);
   }
 
   /**

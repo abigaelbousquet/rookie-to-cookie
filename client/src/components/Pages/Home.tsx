@@ -48,7 +48,7 @@ const Home: React.FC = () => {
   const [showInfoViewPopup, setShowInfoViewPopup] = useState<boolean>(false);
   const [showSavePopup, setSavePopup] = useState<boolean>(false);
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
-  const [maxTime, setMaxTime] = useState<number>(1);
+  const [maxTime, setMaxTime] = useState<number>(20);
   const [excludedIngredients, setExcludedIngredients] = useState<string[]>([]);
   const [sunDate, setSunDate] = useState("");
   const [intols, setIntols] = useState<string[]>([]);
@@ -112,43 +112,48 @@ const Home: React.FC = () => {
    * Calls generate on the backend
    */
   const handleGenerate = async () => {
-    console.log("generating");
     const user = await getUser();
-    const userData = user["User"];
-    console.log(user["User"]);
-    console.log;
-    //handle user intolerances from profile
-    if (selectedOptionsIntolerance.length === 0) {
-      if (
-        userData["intolerances"] !== undefined &&
-        userData["intolerances"].length > 0
-      ) {
-        setIntols(userData["intolerances"]);
-      }
-    } else {
-      const choices = selectedOptionsIntolerance
-        .map((val) => val.label)
-        .concat(excludedIngredients);
-      setIntols(
-        choices.concat(
-          userData["intolerances"].filter((val) => !choices.includes(val))
-        )
+    const myUser = user["User"];
+    const userData = myUser[0];
+    if (selectedButtons.length === 0) {
+      alert(
+        "You must select at least one day of the week to generate a recipe for."
       );
-    } //TODO: check if fam size is empty then use user defaults
-    const props = {
-      daysToPlan: convertDaysOfWeekToCSVString(),
-      maxReadyTime: maxTime.toString(),
-      diet: paramToString(userData["diet"]),
-      intolerances: paramToString(intols),
-      cuisine: paramToString(
-        selectedOptionsCuisine.map((val) => val.label) || ""
-      ),
-      requestedServings: numberOfPeople.toString(),
-      exp: userData["exp"],
-      mode: selectedAlg,
-    };
-    console.log(props);
-    await generateMealPlan(props);
+    } else {
+      //handle user intolerances from profile
+      if (selectedOptionsIntolerance.length === 0) {
+        if (
+          userData["intolerances"] !== undefined &&
+          userData["intolerances"].length > 0
+        ) {
+          setIntols(userData["intolerances"]);
+          console.log(intols);
+        }
+      } else {
+        const choices = selectedOptionsIntolerance
+          .map((val) => val.label)
+          .concat(excludedIngredients);
+        setIntols(
+          choices.concat(
+            userData["intolerances"].filter((val) => !choices.includes(val))
+          )
+        );
+      }
+      const props = {
+        daysToPlan: convertDaysOfWeekToCSVString(),
+        maxReadyTime: maxTime.toString(),
+        diet: userData["diet"].toString(),
+        intolerances: intols.toString(),
+        cuisine: paramToString(
+          selectedOptionsCuisine.map((val) => val.label) || ""
+        ),
+        requestedServings: numberOfPeople.toString(),
+        exp: userData["exp"],
+        mode: selectedAlg,
+      };
+      console.log(props);
+      await generateMealPlan(props);
+    }
   };
 
   // Function to handle button click
@@ -277,11 +282,7 @@ const Home: React.FC = () => {
         </div>
         {/* Section of max time integer input */}
         <div className="num-people-options-box">
-          <IntegerInput
-            value={numberOfPeople}
-            onChange={setNumberOfPeople}
-            minValue={1}
-          />
+          <IntegerInput value={numberOfPeople} onChange={setNumberOfPeople} />
         </div>
       </div>
 

@@ -39,9 +39,18 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       } else if (error.message.includes("WEAK_PASSWORD")) {
         props.setAuthing(2);
       } else {
-        await createUserWithEmailAndPassword(auth, email, password);
-        console.log("acct created");
-        props.setAuthing(2);
+        try {
+          const response = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          addLoginCookie(response.user.uid);
+          console.log("acct created");
+          props.setAuthing(2);
+        } catch (error) {
+          props.setAuthing(2);
+        }
       }
     }
   };

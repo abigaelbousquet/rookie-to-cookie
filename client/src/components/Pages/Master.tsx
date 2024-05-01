@@ -11,8 +11,12 @@ import Home from "./Home";
 import Profile from "./Profile";
 import About from "./About";
 import CalendarPage from "./Calendar";
+interface profileLoadedProps {
+  loaded: boolean;
+  setLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-function Master() {
+function Master(props: profileLoadedProps) {
   const recipeHistoryToPassIn = mockRecipeHistory();
   console.log(mockRecipeList());
   return (
@@ -21,7 +25,6 @@ function Master() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-
           <Route
             path="/calendar"
             element={<CalendarPage recipeHistory={recipeHistoryToPassIn} />}
@@ -29,19 +32,7 @@ function Master() {
           <Route
             path="/profile"
             element={
-              <Profile
-                name={"Nim Telson"}
-                experienceLevel={"3"}
-                familySize={1}
-                diet={"Vegan"}
-                intolerances={["Mushroom", "Shellfish"]}
-                likedRecipes={mockRecipeList().filter(
-                  (recipe) => recipe.liked == 1
-                )}
-                dislikedRecipes={mockRecipeList().filter(
-                  (recipe) => recipe.liked == 2
-                )}
-              />
+              <Profile loaded={props.loaded} setLoaded={props.setLoaded} />
             }
           />
           <Route path="/about" element={<About></About>}></Route>
