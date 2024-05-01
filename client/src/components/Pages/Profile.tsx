@@ -5,6 +5,7 @@ import Recipe from "../RecipeCard/Recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { AccountCreation } from "../Login/AccountCreation";
 import { ControlledInput } from "../Login/ControlledInput";
+import { parseRecipe } from "../RecipeCard/ParseRecipe";
 
 interface ProfileProps {
   loaded: boolean;
@@ -45,12 +46,11 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
     const userJson: User = await getUser();
     const userList = userJson["User"];
     const userData = userList[0];
-    console.log("Experience level:", userData.exp); // Log the experience level
     return {
       name: userData.name,
       experienceLevel: userData.exp,
       diet: userData.diet,
-      fam_size: userData.familySize,
+      fam_size: userData.famSize,
       intolerances: userData.intolerances,
       likedRecipes: likes,
       dislikedRecipes: dislikes,
@@ -105,7 +105,10 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
           <div>
             {user.likedRecipes.map((recipe) => (
               <div>
-                <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
+                <RecipeCard
+                  recipe={parseRecipe(recipe)}
+                  setShowPopup={setShowPopup}
+                />
               </div>
             ))}
           </div>
@@ -114,7 +117,10 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
           <h3>Disliked Recipes:</h3>
           {user.dislikedRecipes.map((recipe) => (
             <div>
-              <RecipeCard recipe={recipe} setShowPopup={setShowPopup} />
+              <RecipeCard
+                recipe={parseRecipe(recipe)}
+                setShowPopup={setShowPopup}
+              />
             </div>
           ))}
         </div>
