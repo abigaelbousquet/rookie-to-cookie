@@ -7,6 +7,7 @@ export function parseRecipe(recipeData: any): Recipe {
   const instructions: string[] = recipeData.analyzedInstructions.flatMap(
     (instruction) => instruction.steps.map((step) => step.step)
   );
+  const id: string = recipeData.id;
   const time: number = recipeData.readyInMinutes;
   const liked: number = 0;
   const ingredients: string[] = recipeData.extendedIngredients.map(
@@ -30,6 +31,7 @@ export function parseRecipe(recipeData: any): Recipe {
     ingredients,
     image,
     credit,
+    id,
   };
 }
 
