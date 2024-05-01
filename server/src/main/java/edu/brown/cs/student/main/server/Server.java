@@ -44,6 +44,8 @@ public class Server {
       Spark.get("generate-mealplan", new GenerateMealPlanHandler(firebaseUtils));
       Spark.get("get-mealplan", new GetMealPlanHandler(firebaseUtils));
       Spark.get("save-mealplan", new SaveMealPlanHandler(firebaseUtils));
+      Spark.get("clear-liked-recipes", new ClearLikedRecipesHandler(firebaseUtils));
+      Spark.get("clear-disliked-recipes", new ClearDislikedRecipesHandler(firebaseUtils));
 
       //      String uid = "test_user_liked_only";
       //      RecipeDatasource datasource = new SpoonacularRecipeSource();
