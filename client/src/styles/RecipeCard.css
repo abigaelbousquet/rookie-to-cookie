@@ -45,3 +45,18 @@
 .like-button-container button span {
   font-size: 20px; /* Adjust the heart icon's font size to make it larger */
 }
+
+.recipe-button {
+  width: 150px; /* Set a fixed width for both buttons */
+  height: 50px;
+  padding: 12px 0; /* Adjust padding to center the text vertically */
+  background-color: #e58a44;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.recipe-button:hover {
+  background-color: #fab375; /* Darker shade on hover */
+}
