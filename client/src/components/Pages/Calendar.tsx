@@ -7,6 +7,7 @@ import "react-calendar/dist/Calendar.css";
 import "../../styles/Calendar.css";
 import InfoView from "../RecipeCard/InfoView";
 import MealPlanSave from "../MealPlan/MealPlanSave";
+import { getMealPlan } from "../../utils/api";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -37,9 +38,22 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
         value={value}
         showWeekNumbers={true}
         tileDisabled={() => true}
-        onClickWeekNumber={(weekNumber, date) => {
+        onClickWeekNumber={async (weekNumber, date) => {
           setWeekChosen(date);
-          alert("chosen week");
+          const formattedDate = date.toLocaleDateString("en-US", {
+            month: "2-digit",
+            day: "2-digit",
+            year: "numeric",
+          });
+          console.log("saved plan to:", formattedDate);
+
+          try {
+            const mealplan = await getMealPlan(formattedDate);
+            console.log("?dateOfMonday=" + formattedDate);
+            console.log("mealplan: " + mealplan);
+          } catch (error) {
+            alert(error);
+          }
         }}
       />
     </div>
