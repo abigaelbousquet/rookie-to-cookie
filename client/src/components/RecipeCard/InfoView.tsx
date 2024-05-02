@@ -76,7 +76,7 @@ const InfoView: React.FC<InfoViewProps> = ({
         </div>
         {/* Heart button for toggling like status */}
         <div className="like-button-container-info">
-          <LikeButton liked={liked} setLiked={setLiked} />
+          <LikeButton liked={liked} setLiked={setLiked} canLike={true} />
         </div>
       </div>
     </div>
