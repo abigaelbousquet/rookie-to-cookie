@@ -30,7 +30,7 @@ interface CalendarProps {
 
 const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
   const [value, onChange] = useState<Value>(new Date());
-  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [showPopup, setShowPopup] = useState<boolean>();
 
   return (
     <div className="calendar-page">
@@ -54,16 +54,19 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
             .replace(" 0", "0")
             .concat(" 2024");
           console.log(queryDate);
-          const mealplanJson = await getMealPlan(formattedDate);
-          const mealPlanDate = mealplanJson["Mealplan"];
-          const mealPlan = parseMealPlan(mealPlanDate[queryDate]);
-          <MealPlanPopup
-            mealPlan={mealPlan}
-            onClose={() => setShowPopup(false)}
-          />;
-
-          console.log("?dateOfMonday=" + formattedDate);
-          console.log("mealplan: " + mealPlan);
+          try {
+            const mealplanJson = await getMealPlan(formattedDate);
+            const mealPlanDate = mealplanJson["Mealplan"];
+            const mealPlan = parseMealPlan(mealPlanDate[formattedDate]);
+            return (
+              <MealPlanPopup
+                mealPlan={mealPlan}
+                onClose={() => setShowPopup(false)}
+              />
+            );
+          } catch (error) {
+            alert("No saved mealplans for week of " + formattedDate);
+          }
         }}
       />
     </div>

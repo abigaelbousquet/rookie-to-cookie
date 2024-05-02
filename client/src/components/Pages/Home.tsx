@@ -111,40 +111,58 @@ const Home: React.FC = () => {
     const user = await getUser();
     const myUser = user["User"];
     const userData = myUser[0];
+    let newIntols: string[] = [];
+    let cuisineLabels: string[] = [];
     if (selectedButtons.length === 0) {
       alert(
         "You must select at least one day of the week to generate a recipe for."
       );
     } else {
-      // handle user intolerances from profile
+      if (selectedOptionsCuisine === null) {
+        await setSelectedOptionsCuisine([]);
+      }
+      cuisineLabels = selectedOptionsCuisine
+        ? selectedOptionsCuisine.map((val) => val.label)
+        : [];
+
+      console.log("cuisineLabels: ", cuisineLabels);
+
+      //if there are no selected intollerances
+
       if (selectedOptionsIntolerance === null) {
-        setIntols([]);
-      } else if (selectedOptionsIntolerance.length === 0) {
         if (
+          //if there are no user intollerances
           userData["intolerances"] !== undefined &&
           userData["intolerances"].length > 0
         ) {
-          setIntols(userData["intolerances"]);
-          console.log(intols);
+          newIntols = userData["intolerances"].concat(excludedIngredients);
+        } else {
+          newIntols = excludedIngredients;
         }
-      } else {
-        const choices = selectedOptionsIntolerance
+      } else if (selectedOptionsIntolerance.length == 0) {
+        if (
+          //if there are no user intollerances
+          userData["intolerances"] !== undefined &&
+          userData["intolerances"].length > 0
+        ) {
+          newIntols = userData["intolerances"].concat(excludedIngredients);
+        } else {
+          newIntols = excludedIngredients;
+        }
+      } //if there are selected intollerances
+      else {
+        newIntols = selectedOptionsIntolerance
           .map((val) => val.label)
           .concat(excludedIngredients);
-        setIntols(
-          choices.concat(
-            userData["intolerances"].filter((val) => !choices.includes(val))
-          )
-        );
       }
+      await setIntols(newIntols);
+      console.log("intols: ", newIntols);
       const props = {
         daysToPlan: convertDaysOfWeekToCSVString(),
         maxReadyTime: maxTime.toString(),
         diet: userData["diet"].toString(),
-        intolerances: intols.toString(),
-        cuisine: paramToString(
-          getSelectedCuisines().map((val) => val.label) || ""
-        ),
+        intolerances: newIntols.toString(),
+        cuisine: cuisineLabels.toString(),
         requestedServings: numberOfPeople.toString(),
         exp: userData["exp"],
         mode: selectedAlg,
@@ -300,17 +318,6 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <div className="exclude-container">
-        {/* Section of excluded ingredients prompt */}
-        <div className="exclude-prompt-text">
-          Specify any ingredients to exclude:
-        </div>
-        {/* Section of excluded ingredients input box */}
-        <div className="exclude-options-box">
-          <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
-        </div>
-      </div>
-
       <div className="people-container">
         {/* Section of number of people cookign for prompt */}
         <div className="num-people-prompt-text">
@@ -319,6 +326,17 @@ const Home: React.FC = () => {
         {/* Section of max time integer input */}
         <div className="num-people-options-box">
           <IntegerInput value={numberOfPeople} onChange={setNumberOfPeople} />
+        </div>
+      </div>
+
+      <div className="exclude-container">
+        {/* Section of excluded ingredients prompt */}
+        <div className="exclude-prompt-text">
+          Specify any ingredients to exclude:
+        </div>
+        {/* Section of excluded ingredients input box */}
+        <div className="exclude-options-box">
+          <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
         </div>
       </div>
 
