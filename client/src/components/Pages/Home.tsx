@@ -161,7 +161,7 @@ const Home: React.FC = () => {
       console.log(props);
       const mealPlanJson = await generateMealPlan(props);
       const recipeList = mealPlanJson["Mealplan"];
-      const newMealPlan = parseMealPlan(recipeList);
+      const newMealPlan = await parseMealPlan(recipeList);
       setCurrMealPlan(newMealPlan);
       console.log(currMealPlan);
     }

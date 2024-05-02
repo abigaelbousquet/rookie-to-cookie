@@ -33,6 +33,7 @@ const MealPlanSave: React.FC<MealPlanSaveProps> = ({ onClose }) => {
                 year: "numeric",
               });
               console.log("saved plan to:", formattedDate);
+              alert("Saved meal plan to week of " + formattedDate);
 
               try {
                 await saveMealPlan(formattedDate);

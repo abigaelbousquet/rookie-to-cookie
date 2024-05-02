@@ -13,12 +13,13 @@ import {
 interface RecipeCardProps {
   recipe: Recipe;
   saved: boolean;
+  isLiked:number;
   setShowPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved }) => {
+const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved, isLiked }) => {
   const [showFullRecipe, setShowFullRecipe] = useState(false);
-  const [liked, setLiked] = useState(recipe.liked);
+  const [liked, setLiked] = useState(isLiked);
   const toggleShowFullRecipe = () => {
     setShowFullRecipe(!showFullRecipe);
   };
