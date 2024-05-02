@@ -30,7 +30,7 @@ public class GetMealPlanHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      String dayOfSunday = request.queryParams("dayOfSunday"); // should be MM/DD/YYYY
+      String dayOfSunday = request.queryParams("dateOfMonday"); // should be MM/DD/YYYY
 
       SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
       Date date = dateFormat.parse(dayOfSunday);
