@@ -12,6 +12,7 @@ import { cuisineOptions, intoleranceOptions } from "../../data/Spoonacular";
 import MealPlanSave from "../MealPlan/MealPlanSave";
 import Recipe from "../RecipeCard/Recipe";
 import { parseMealPlan } from "../MealPlan/MealPlanGenerate";
+import { emptyMealPlan } from "../../data/MockedRecipeHistory";
 
 const Home: React.FC = () => {
   // Define the options array for the dropdown
@@ -26,16 +27,6 @@ const Home: React.FC = () => {
     credit: "Unknown",
     id: 123,
   };
-
-  const emptyMealPlan = [
-    { day: "sunday", recipeExists: false },
-    { day: "monday", recipeExists: false },
-    { day: "tuesday", recipeExists: false },
-    { day: "wednesday", recipeExists: false },
-    { day: "thursday", recipeExists: false },
-    { day: "friday", recipeExists: false },
-    { day: "saturday", recipeExists: false },
-  ];
 
   // State to keep track of selected buttons
   const [selectedButtons, setSelectedButtons] = useState<string[]>([]);

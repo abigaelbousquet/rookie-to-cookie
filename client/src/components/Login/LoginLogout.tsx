@@ -1,3 +1,4 @@
+import "../../styles/profile.css";
 import React, { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -84,7 +85,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
             </div>
             <div>
               <button
-                className="butt"
+                className="sign-in"
                 onClick={handleClick}
                 disabled={props.authing !== 0}
                 aria-label="Login"
@@ -105,7 +106,7 @@ const Logout: React.FunctionComponent<ILoginPageProps> = (props) => {
     <div className="logout-box">
       <button
         aria-label="Sign Out"
-        className="Sign Out"
+        className="sign-out"
         onClick={() => {
           props.setAuthing(0);
         }}

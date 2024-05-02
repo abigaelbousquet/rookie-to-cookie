@@ -39,7 +39,7 @@ export async function saveMealPlan(dateOfMonday: string) {
 export async function getMealPlan(dateOfMonday: string) {
   return await queryAPI("get-mealplan", {
     uid: getLoginCookie() || "",
-    dayOfMonday: dateOfMonday,
+    dateOfMonday: dateOfMonday,
   });
 }
 

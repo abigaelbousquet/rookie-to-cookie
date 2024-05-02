@@ -10,6 +10,7 @@ import MealPlanSave from "../MealPlan/MealPlanSave";
 import { getMealPlan } from "../../utils/api";
 import { parseMealPlan } from "../MealPlan/MealPlanGenerate";
 import MealPlanPopup from "../MealPlan/MealPlanPopup";
+import { emptyMealPlan } from "../../data/MockedRecipeHistory";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -31,6 +32,7 @@ interface CalendarProps {
 const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
   const [value, onChange] = useState<Value>(new Date());
   const [showPopup, setShowPopup] = useState<boolean>();
+  const [mealPlan, setMealPlan] = useState(emptyMealPlan);
 
   return (
     <div className="calendar-page">
@@ -42,33 +44,31 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
         tileDisabled={() => true}
         onClickWeekNumber={async (weekNumber, date) => {
           setShowPopup(true);
-          const formattedDate = date.toLocaleDateString("en-US", {
+          const formattedDate1 = date.toLocaleDateString("en-US", {
             month: "2-digit",
             day: "2-digit",
             year: "numeric",
           });
-          const queryDate = date
-            .toString()
-            .replace("GMT-0400 (Eastern Daylight Time)", "EDT")
-            .replace("2024", "")
-            .replace(" 0", "0")
-            .concat(" 2024");
-          console.log(queryDate);
+          const formattedDate = formattedDate1
+            .replace("/", "-")
+            .replace("/", "-");
+          console.log(formattedDate);
           try {
-            const mealplanJson = await getMealPlan(formattedDate);
+            const mealplanJson = await getMealPlan(formattedDate1);
             const mealPlanDate = mealplanJson["Mealplan"];
             const mealPlan = parseMealPlan(mealPlanDate[formattedDate]);
-            return (
-              <MealPlanPopup
-                mealPlan={mealPlan}
-                onClose={() => setShowPopup(false)}
-              />
-            );
+            setMealPlan(mealPlan);
           } catch (error) {
             alert("No saved mealplans for week of " + formattedDate);
           }
         }}
       />
+      {showPopup && (
+        <MealPlanPopup
+          mealPlan={mealPlan}
+          onClose={() => setShowPopup(false)}
+        />
+      )}
     </div>
   );
 };
