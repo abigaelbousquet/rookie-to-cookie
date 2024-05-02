@@ -9,6 +9,7 @@ export function parseRecipe(recipeData: any, prevLiked: number): Recipe {
   );
   const id: string = recipeData.id;
   const time: number = recipeData.readyInMinutes;
+  const servings: string = recipeData.servings;
   const liked: number = prevLiked;
   const ingredients: string[] = recipeData.extendedIngredients.map(
     (ingredient) => {
@@ -16,7 +17,14 @@ export function parseRecipe(recipeData: any, prevLiked: number): Recipe {
       if (ingredient.meta && ingredient.meta.length > 0) {
         ingredientName = `${ingredient.meta[0]} ${ingredient.name}`;
       }
-      return ingredientName;
+
+      let measurement: string = ingredient.measures.us.amount;
+      if (ingredient.measures.us.unitLong.length > 0) {
+        measurement = `${measurement} ${ingredient.measures.us.unitLong}`;
+      }
+
+      let fullIngredientInfo = `${ingredientName} (${measurement})`;
+      return fullIngredientInfo;
     }
   );
   const image: string = recipeData.image || "https://placeholder.com/312x231"; // Placeholder URL
@@ -32,6 +40,7 @@ export function parseRecipe(recipeData: any, prevLiked: number): Recipe {
     image,
     credit,
     id,
+    servings,
   };
 }
 
