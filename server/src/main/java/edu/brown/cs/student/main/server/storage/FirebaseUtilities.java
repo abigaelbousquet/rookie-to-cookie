@@ -122,7 +122,7 @@ public class FirebaseUtilities implements StorageInterface {
 
   // clears the collections inside of a specific user.
   @Override
-  public void clearRecipes(String uid, String path) throws IllegalArgumentException {
+  public void clearRecipes(String uid, String path, String recipeId) throws IllegalArgumentException {
     if (uid == null) {
       throw new IllegalArgumentException("removeUser: uid cannot be null");
     }
@@ -130,13 +130,13 @@ public class FirebaseUtilities implements StorageInterface {
       // removes all data for user 'uid'
       Firestore db = FirestoreClient.getFirestore();
       // 1: Get a ref to the user document
-      CollectionReference dislikedRecipesRef =
-          db.collection("users").document(uid).collection(path);
+      DocumentReference dislikedRecipesRef =
+          db.collection("users").document(uid).collection(path).document(recipeId);
       //      DocumentReference userDoc = db.collection("users/" + uid + "/disliked
       // recipes").document(uid);
       // 2: Delete the user document
       //      deleteDocument(userDoc);
-      deleteCollection(dislikedRecipesRef);
+      deleteDocument(dislikedRecipesRef);
     } catch (Exception e) {
       System.err.println("Error removing user : " + uid);
       System.err.println(e.getMessage());
