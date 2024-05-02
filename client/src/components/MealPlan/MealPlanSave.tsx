@@ -2,7 +2,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/MealPlanSave.css";
 import React, { useState } from "react";
-import { saveMealPlan } from "../../utils/api";
+import { getMealPlan, saveMealPlan } from "../../utils/api";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -35,8 +35,13 @@ const MealPlanSave: React.FC<MealPlanSaveProps> = ({ onClose }) => {
               console.log("saved plan to:", formattedDate);
 
               try {
-                await saveMealPlan(formattedDate);
-                console.log("?dateOfMonday=" + formattedDate);
+                const mealPlanJson = await getMealPlan(formattedDate);
+                if (mealPlanJson["response_type"] == "failure") {
+                  await saveMealPlan(formattedDate);
+                  alert("Saved meal plan to week of " + formattedDate);
+                } else {
+                  alert("Unable to save. Week already planned for.");
+                }
                 onClose();
               } catch (error) {
                 alert(error);

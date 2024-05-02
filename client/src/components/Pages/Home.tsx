@@ -160,7 +160,6 @@ const Home: React.FC = () => {
       };
       console.log(props);
       const mealPlanJson = await generateMealPlan(props);
-
       const responseType = mealPlanJson["response_type"];
 
       if (responseType === "failure") {
@@ -173,7 +172,7 @@ const Home: React.FC = () => {
         }
       } else {
         const recipeList = mealPlanJson["Mealplan"];
-        const newMealPlan = parseMealPlan(recipeList);
+        const newMealPlan = await parseMealPlan(recipeList);
         setCurrMealPlan(newMealPlan);
         console.log(currMealPlan);
       }

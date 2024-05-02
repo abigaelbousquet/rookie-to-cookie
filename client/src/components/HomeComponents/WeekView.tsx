@@ -61,7 +61,7 @@ const WeekView = ({ mealPlan, saved }) => {
       </div>
       <div className="bottom-grid">
         {/* Render recipe cells */}
-        {mealPlan.map(({ day, recipeExists, recipe }) => (
+        {mealPlan.map(({ day, recipeExists, recipe, liked }) => (
           <div
             key={day}
             className={`grid-cell ${
@@ -73,6 +73,7 @@ const WeekView = ({ mealPlan, saved }) => {
                 recipe={recipe}
                 setShowPopup={setShowPopup}
                 saved={saved}
+                isLiked={liked}
               />
             )}
           </div>

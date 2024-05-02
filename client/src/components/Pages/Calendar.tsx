@@ -37,6 +37,11 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
 
   return (
     <div className="calendar-page">
+      <h3>Cooking History</h3>
+      <p>
+        Click on a week number below to view your meal plan saved to that week.
+        You can like and unlike recipes from this page!
+      </p>
       <Calendar
         className="big-cal"
         onChange={onChange}
@@ -57,10 +62,10 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
           try {
             const mealplanJson = await getMealPlan(formattedDate1);
             const mealPlanDate = mealplanJson["Mealplan"];
-            const mealPlan = parseMealPlan(mealPlanDate[formattedDate]);
+            const mealPlan = await parseMealPlan(mealPlanDate[formattedDate]);
             setMealPlan(mealPlan);
           } catch (error) {
-            alert("No saved mealplans for week of " + formattedDate);
+            console.error(error);
           }
         }}
       />

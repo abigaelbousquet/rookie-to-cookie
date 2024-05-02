@@ -6,6 +6,7 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import { AccountCreation } from "../Login/AccountCreation";
 import { ControlledInput } from "../Login/ControlledInput";
 import { parseRecipe } from "../RecipeCard/ParseRecipe";
+import { getLikeDislike } from "../MealPlan/MealPlanGenerate";
 
 export interface User {
   name: string;
@@ -101,8 +102,9 @@ const ProfilePage: React.FC = () => {
             {user.likedRecipes.map((recipe) => (
               <div>
                 <RecipeCard
-                  recipe={parseRecipe(recipe, 1)}
+                  recipe={parseRecipe(recipe)}
                   setShowPopup={setShowPopup}
+                  isLiked={1}
                   saved={true}
                 />
               </div>
@@ -114,8 +116,9 @@ const ProfilePage: React.FC = () => {
           {user.dislikedRecipes.map((recipe) => (
             <div>
               <RecipeCard
-                recipe={parseRecipe(recipe, 2)}
+                recipe={parseRecipe(recipe)}
                 setShowPopup={setShowPopup}
+                isLiked={2}
                 saved={true}
               />
             </div>

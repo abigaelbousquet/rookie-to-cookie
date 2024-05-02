@@ -1,6 +1,7 @@
+import { useState } from "react";
 import Recipe from "../RecipeCard/Recipe";
 
-export function parseRecipe(recipeData: any, prevLiked: number): Recipe {
+export function parseRecipe(recipeData: any): Recipe {
   const name: string = recipeData.title;
   const cuisine: string =
     recipeData.cuisines.length > 0 ? recipeData.cuisines[0] : "Unknown";
@@ -10,7 +11,6 @@ export function parseRecipe(recipeData: any, prevLiked: number): Recipe {
   const id: string = recipeData.id;
   const time: number = recipeData.readyInMinutes;
   const servings: string = recipeData.servings;
-  const liked: number = prevLiked;
   const ingredients: string[] = recipeData.extendedIngredients.map(
     (ingredient) => {
       let ingredientName = ingredient.name;
@@ -35,7 +35,6 @@ export function parseRecipe(recipeData: any, prevLiked: number): Recipe {
     cuisine,
     instructions,
     time,
-    liked,
     ingredients,
     image,
     credit,
@@ -45,5 +44,5 @@ export function parseRecipe(recipeData: any, prevLiked: number): Recipe {
 }
 
 export function getRecipes(jsonData: any): Recipe[] {
-  return jsonData.results.map((result) => parseRecipe(result, 0));
+  return jsonData.results.map((result) => parseRecipe(result));
 }
