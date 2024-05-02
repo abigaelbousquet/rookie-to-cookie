@@ -122,7 +122,7 @@ const Home: React.FC = () => {
         "You must select at least one day of the week to generate a recipe for."
       );
     } else {
-      //handle user intolerances from profile
+      // handle user intolerances from profile
       if (selectedOptionsIntolerance === null) {
         setIntols([]);
       } else if (selectedOptionsIntolerance.length === 0) {
@@ -149,7 +149,7 @@ const Home: React.FC = () => {
         diet: userData["diet"].toString(),
         intolerances: intols.toString(),
         cuisine: paramToString(
-          selectedOptionsCuisine.map((val) => val.label) || ""
+          getSelectedCuisines().map((val) => val.label) || ""
         ),
         requestedServings: numberOfPeople.toString(),
         exp: userData["exp"],
@@ -188,10 +188,15 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleCuisineChange = (selectedCuisine) => {
-    setSelectedOptionsCuisine(selectedCuisine.map((option) => option.value));
-    if (selectedCuisine === undefined) {
-      setSelectedOptionsCuisine([]);
+  /**
+   * Gets user-selected cuisines, translating empty selection to an empty list.
+   */
+  const getSelectedCuisines = () => {
+    // handle empty cuisine selection
+    if (selectedOptionsCuisine === null) {
+      return [];
+    } else {
+      return selectedOptionsCuisine;
     }
   };
 
