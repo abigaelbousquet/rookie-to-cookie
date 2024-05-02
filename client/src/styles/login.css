@@ -85,16 +85,6 @@ select {
 legend {
   margin: 10px;
 }
-.butt {
-  background-color: white;
-  padding: 0.6em 5.2em;
-  margin: 2em;
-}
-
-.butt:hover {
-  background-color: #fab375;
-  outline: none;
-}
 h2 {
   color: white;
   font-size: 40px;
