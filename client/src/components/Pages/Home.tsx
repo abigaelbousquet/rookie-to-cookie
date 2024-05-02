@@ -345,7 +345,7 @@ const Home: React.FC = () => {
       <div className="people-container">
         {/* Section of number of people cookign for prompt */}
         <div className="num-people-prompt-text">
-          Specify the amount of people you are cooking for:
+          Specify the number of servings you require:
         </div>
         {/* Section of max time integer input */}
         <div className="num-people-options-box">
