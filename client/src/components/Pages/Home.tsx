@@ -117,40 +117,54 @@ const Home: React.FC = () => {
     const user = await getUser();
     const myUser = user["User"];
     const userData = myUser[0];
+    let newIntols: string[] = [];
     if (selectedButtons.length === 0) {
       alert(
         "You must select at least one day of the week to generate a recipe for."
       );
     } else {
-      //handle user intolerances from profile
+      if (selectedOptionsCuisine === null) {
+        await setSelectedOptionsCuisine([]);
+      }
+      const cuisineLabels = selectedOptionsCuisine
+        ? selectedOptionsCuisine.map((val) => val.label)
+        : [];
+
+      //if there are no selected intollerances
       if (selectedOptionsIntolerance === null) {
-        setIntols([]);
-      } else if (selectedOptionsIntolerance.length === 0) {
         if (
+          //if there are no user intollerances
           userData["intolerances"] !== undefined &&
           userData["intolerances"].length > 0
         ) {
-          setIntols(userData["intolerances"]);
-          console.log(intols);
+          newIntols = userData["intolerances"].concat(excludedIngredients);
+        } else {
+          newIntols = excludedIngredients;
         }
-      } else {
-        const choices = selectedOptionsIntolerance
+      } else if (selectedOptionsIntolerance.length == 0) {
+        if (
+          //if there are no user intollerances
+          userData["intolerances"] !== undefined &&
+          userData["intolerances"].length > 0
+        ) {
+          newIntols = userData["intolerances"].concat(excludedIngredients);
+        } else {
+          newIntols = excludedIngredients;
+        }
+      } //if there are selected intollerances
+      else {
+        newIntols = selectedOptionsIntolerance
           .map((val) => val.label)
           .concat(excludedIngredients);
-        setIntols(
-          choices.concat(
-            userData["intolerances"].filter((val) => !choices.includes(val))
-          )
-        );
       }
+      await setIntols(newIntols);
+      console.log("intols: ", newIntols);
       const props = {
         daysToPlan: convertDaysOfWeekToCSVString(),
         maxReadyTime: maxTime.toString(),
         diet: userData["diet"].toString(),
-        intolerances: intols.toString(),
-        cuisine: paramToString(
-          selectedOptionsCuisine.map((val) => val.label) || ""
-        ),
+        intolerances: newIntols.toString(),
+        cuisine: paramToString(cuisineLabels || ""),
         requestedServings: numberOfPeople.toString(),
         exp: userData["exp"],
         mode: selectedAlg,
