@@ -168,7 +168,7 @@ const Home: React.FC = () => {
         // Check if the error is related to not enough meals generated or strict search criteria
         if (errorMessage.includes("Caller requested")) {
           alert(
-            "Not enough meals generated or the search criteria is too strict."
+            "Not enough meals generated or the search criteria is too strict. Try again, and if possible try broadening your search."
           );
         }
       } else {
@@ -243,8 +243,8 @@ const Home: React.FC = () => {
           weekly food waste, we've got you covered.
         </p>
         <p>
-          Get started by selecting from the following options. Any fields left
-          blank will be automatically populated with your profile information.
+          Get started by selecting from the following options. We'll consider
+          intolerances on your profile in addition to what you enter here.
         </p>
       </div>
       <div className="days-of-the-week-container">
@@ -393,7 +393,16 @@ const Home: React.FC = () => {
         <button className="save-button" onClick={toggleShowSave}>
           Save
         </button>
-        {showSavePopup && <MealPlanSave onClose={() => setSavePopup(false)} />}
+        {showSavePopup && (
+          <MealPlanSave
+            onClose={() => {
+              setSavePopup(false);
+              alert(
+                "Successfully saved meal plan! Go to the calendar tab to find it later."
+              );
+            }}
+          />
+        )}
       </div>
     </div>
   );
