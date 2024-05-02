@@ -114,10 +114,6 @@ h1 {
   flex: 1;
 }
 
-.radio:checked {
-  background-color: #7a9364;
-}
-
 .alg-container {
   grid-template-columns: 1fr;
   grid-template-areas:

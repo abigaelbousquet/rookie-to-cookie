@@ -184,6 +184,13 @@ const Home: React.FC = () => {
     }
     console.log("Selected Algorithm:", event.target.value);
   };
+
+  /**
+   * Updates excludedIngredients state variable, accounting for possibility
+   * of user clearing it.
+   *
+   * @param selectedToExclude the user-selected ingredients to exclude
+   */
   const handleExcludedIngredientsChange = (selectedToExclude) => {
     setExcludedIngredients(selectedToExclude.map((option) => option.value));
     if (excludedIngredients === undefined) {
@@ -208,6 +215,8 @@ const Home: React.FC = () => {
     setSavePopup(!showSavePopup);
     setSaved(true);
   };
+
+  const personalized: boolean = selectedAlg === "personalize";
 
   return (
     <div className="Home Page">
@@ -258,36 +267,47 @@ const Home: React.FC = () => {
       </div>
 
       <div className="alg-container">
-        {/* Section of algorithm prompt */}
+        {/* Algorithm prompt */}
         <div className="algorithm-prompt-text">
           Select the type of algorithm that you would like to use:
         </div>
-        {/* Section of cuisine dropdown box */}
+        {/* Algorithm options */}
         <div className="algorithm-options-box">
-          <div>
+          <div className="radio-container">
             <input
-              className="radio"
               type="radio"
               id="minimize_foodwaste"
               name="algorithm"
               value="minimize_foodwaste"
-              checked={selectedAlg === "minimize_foodwaste"} // Check if this option is selected
-              onChange={handleAlgChange} // Call function to update state on change
+              checked={selectedAlg === "minimize_foodwaste"}
+              onChange={handleAlgChange}
             />
-            <label htmlFor="id_minimize_foodwaste">Minimize Food Waste</label>
+            <label
+              htmlFor="minimize_foodwaste"
+              style={{
+                fontWeight: !personalized ? 700 : 400,
+              }}
+            >
+              Minimize Food Waste
+            </label>
           </div>
-
-          <div>
+          <div className="radio-container">
             <input
-              className="radio"
               type="radio"
               id="prioritize_user_taste"
               name="algorithm"
               value="prioritize_user_taste"
-              checked={selectedAlg === "prioritize_user_taste"} // Check if this option is selected
-              onChange={handleAlgChange} // Call function to update state on change
+              checked={selectedAlg === "prioritize_user_taste"}
+              onChange={handleAlgChange}
             />
-            <label htmlFor="prioritize_user_taste">Prioritize User Taste</label>
+            <label
+              htmlFor="prioritize_user_taste"
+              style={{
+                fontWeight: personalized ? 700 : 400,
+              }}
+            >
+              Prioritize User Taste
+            </label>
           </div>
         </div>
       </div>
