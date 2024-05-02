@@ -35,14 +35,17 @@ public class AddUserHandler implements Route {
       String exp = request.queryParams("exp");
       String diet = request.queryParams("diet");
       String intolerances = request.queryParams("intolerances");
-      String famSize = request.queryParams("fam_size");
+      String familySize = request.queryParams("fam_size");
 
       int experience = 0;
+      int famSize = 0;
+
       ArrayList<String> intoleranceArray = new ArrayList<>();
 
       // convert exp to a num
       try {
         experience = Integer.parseInt(exp);
+        famSize = Integer.parseInt(familySize);
       } catch (Exception e) {
         System.out.println("experience/famsize is not a num");
       }
@@ -66,12 +69,11 @@ public class AddUserHandler implements Route {
 
       Map<String, Object> data = new HashMap<>();
       Profile user = new Profile(name, experience, intoleranceArray, diet, famSize);
-      
 
       data.put("User", user);
 
       System.out.println("adding profile: for user: " + uid);
-      System.out.println("user data:"+user);
+      System.out.println("user data:" + user);
 
       // use the storage handler to add the document to the database
       this.storageHandler.addDocument(uid, "Profile", name, data);

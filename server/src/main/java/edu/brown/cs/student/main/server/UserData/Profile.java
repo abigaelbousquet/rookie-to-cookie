@@ -69,6 +69,5 @@ public class Profile {
    */
   public int getFamSize() {
     return this.famSize;
-
   }
 }
