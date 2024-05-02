@@ -30,8 +30,8 @@ public class SaveMealPlanHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      String sundayDate = request.queryParams("dateOfMonday");
-      List<String> dateList = this.parseDates(sundayDate);
+      String mondayDate = request.queryParams("dateOfMonday");
+      List<String> dateList = this.parseDates(mondayDate);
       Server.userCurrPlan.get(uid).setDates(dateList);
       responseMap.put(dateList.get(0), Server.userCurrPlan.get(uid));
 
@@ -48,12 +48,13 @@ public class SaveMealPlanHandler implements Route {
     return FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(responseMap);
   }
 
-  private List<String> parseDates(String dayOfSunday) {
+  private List<String> parseDates(String dayOfMonday) {
+    System.out.println("dayOfMonday: " + dayOfMonday);
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     ArrayList<String> dateList = new ArrayList<>();
 
     try {
-      Date date = dateFormat.parse(dayOfSunday);
+      Date date = dateFormat.parse(dayOfMonday);
       Calendar calendar = Calendar.getInstance();
       dateList.add(String.valueOf(date));
       for (int i = 0; i < 6; i++) {
