@@ -1,6 +1,14 @@
 import Recipe from "../components/RecipeCard/Recipe";
 import RecipeHistory from "../components/RecipeCard/RecipeHistory";
-
+export const emptyMealPlan = [
+  { day: "sunday", recipeExists: false },
+  { day: "monday", recipeExists: false },
+  { day: "tuesday", recipeExists: false },
+  { day: "wednesday", recipeExists: false },
+  { day: "thursday", recipeExists: false },
+  { day: "friday", recipeExists: false },
+  { day: "saturday", recipeExists: false },
+];
 const dish1: Recipe = {
   name: "Chicken Tikka Masala",
   cuisine: "Indian",
@@ -10,6 +18,7 @@ const dish1: Recipe = {
   ingredients: ["Chicken", "Curry"],
   image: "https://placeholder.com/312x231",
   credit: "Unknown",
+  id:"1"
 };
 const dish2: Recipe = {
   name: "Sushi",
@@ -20,6 +29,7 @@ const dish2: Recipe = {
   ingredients: ["Seaweed", "Rice"],
   image: "https://placeholder.com/312x231",
   credit: "Unknown",
+  id:"2"
 };
 const dish3: Recipe = {
   name: "Beef Bourguignon",
@@ -30,6 +40,7 @@ const dish3: Recipe = {
   ingredients: ["Beef"],
   image: "https://placeholder.com/312x231",
   credit: "Unknown",
+  id: "3",
 };
 const dish4: Recipe = {
   name: "Pad Thai",
@@ -40,6 +51,7 @@ const dish4: Recipe = {
   ingredients: ["Noodles", "Sauce"],
   image: "https://placeholder.com/312x231",
   credit: "Unknown",
+  id: "4",
 };
 const dish5: Recipe = {
   name: "Tacos al Pastor",
@@ -50,6 +62,7 @@ const dish5: Recipe = {
   ingredients: ["Shells", "Filling", "Dip"],
   image: "https://placeholder.com/312x231",
   credit: "Unknown",
+  id: "5",
 };
 const dish6: Recipe = {
   name: "Moussaka",
@@ -60,6 +73,7 @@ const dish6: Recipe = {
   ingredients: ["Cheese"],
   image: "https://placeholder.com/312x231",
   credit: "Unknown",
+  id: "6",
 };
 const dish7: Recipe = {
   name: "Spaghetti Bolognese",
@@ -70,6 +84,7 @@ const dish7: Recipe = {
   ingredients: ["Pasta"],
   image: "https://placeholder.com/312x231",
   credit: "Unknown",
+  id: "7",
 };
 const dish8: Recipe = {
   name: "Paella",
@@ -80,6 +95,7 @@ const dish8: Recipe = {
   ingredients: [],
   image: "https://placeholder.com/312x231",
   credit: "Unknown",
+  id: "8",
 };
 const dish9: Recipe = {
   name: "Hamburger",
@@ -90,6 +106,7 @@ const dish9: Recipe = {
   ingredients: ["Beef"],
   image: "https://placeholder.com/312x231",
   credit: "Unknown",
+  id: "9",
 };
 const dish10: Recipe = {
   name: "Ramen",
@@ -100,6 +117,7 @@ const dish10: Recipe = {
   ingredients: ["Noodles"],
   image: "https://placeholder.com/312x231",
   credit: "Unknown",
+  id: "10",
 };
 
 /**

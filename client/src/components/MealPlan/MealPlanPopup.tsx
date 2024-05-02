@@ -9,8 +9,8 @@ interface MealPlanPopupProps {
 const MealPlanPopup: React.FC<MealPlanPopupProps> = ({ onClose, mealPlan }) => {
   console.log("popup");
   return (
-    <div className="popup-save-overlay">
-      <div className="popup-save-content">
+    <div className="popup-plan-overlay">
+      <div className="popup-plan-content">
         <div>
           <WeekView mealPlan={mealPlan} saved={true}></WeekView>
         </div>

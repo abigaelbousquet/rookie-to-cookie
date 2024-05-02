@@ -38,7 +38,6 @@ public class GetMealPlanHandler implements Route {
       Date date = dateFormat.parse(dayOfMonday);
       //      String dateString = String.valueOf(date);
       String dateString = dateFormatDash.format(date);
-
       Map<String, Object> data = new HashMap<>();
       List<Map<String, Object>> mealPlans = this.storageHandler.getCollection(uid, "Mealplans");
       boolean mealPlanFound = false; // Flag to track if a meal plan is found
@@ -70,7 +69,7 @@ public class GetMealPlanHandler implements Route {
       }
 
       System.out.println("getting meals plans for user: " + uid);
-
+      System.out.println(dateString);
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();

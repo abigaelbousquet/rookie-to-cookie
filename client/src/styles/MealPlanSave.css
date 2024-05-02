@@ -21,6 +21,28 @@
   height: 500px;
 }
 
+.popup-plan-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Set a high z-index to ensure it appears on top */
+}
+
+.popup-plan-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: relative; /* Added */
+  width: 1400px; /* Adjust the width as needed */
+  height: 500px;
+}
 .close-button-save {
   position: absolute;
   top: 10px;
@@ -35,4 +57,5 @@
 
 .close-button-save:hover {
   color: #333;
+  background-color: transparent;
 }
