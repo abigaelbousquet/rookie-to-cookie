@@ -1,12 +1,12 @@
-/* Global styles */
 .Home {
   margin-top: 20px;
   display: grid;
   max-height: 500px;
   overflow: scroll;
   grid-template-areas:
+    "paragraph-container paragraph-container"
     "days-of-the-week-container days-of-the-week-container"
-    "cuisine-container alg-container"
+    "alg-container alg-container"
     "intolerance-container people-container"
     "exclude-container time-container"
     "generate-button generate-button"
@@ -14,10 +14,16 @@
     "save-button save-button";
   gap: 20px;
 }
-
 /* Title */
 h1 {
   grid-area: title;
+}
+
+.paragraph-container {
+  grid-area: paragraph-container; /* Define the grid area */
+  padding-left: 200px; /* Add padding */
+  padding-right: 200px; /* Add padding */
+  display: block; /* Ensure it behaves as a block-level element */
 }
 
 /* Section of days of the week prompt */

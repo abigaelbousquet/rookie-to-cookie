@@ -203,6 +203,20 @@ const Home: React.FC = () => {
 
   return (
     <div className="Home Page">
+      <div className="paragraph-container">
+        {/* Add your paragraph content here */}
+        <p>Welcome to Rookie to Cookie!</p>
+        <p>
+          Our meal planning web application is designed to seamlessly integrate
+          cooking into your daily routine. Whether you're a beginner starting
+          from scratch, eager to explore new recipes, or aiming to minimize your
+          weekly food waste, we've got you covered.
+        </p>
+        <p>
+          Get started by selecting from the following options. Any fields left
+          blank will be automatically populated with your profile information.
+        </p>
+      </div>
       <div className="days-of-the-week-container">
         {/* Section of days of the week prompt */}
         <div className="days-of-the-week-prompt-text">
