@@ -396,9 +396,6 @@ const Home: React.FC = () => {
           <MealPlanSave
             onClose={() => {
               setSavePopup(false);
-              alert(
-                "Successfully saved meal plan! Go to the calendar tab to find it later."
-              );
             }}
           />
         )}
