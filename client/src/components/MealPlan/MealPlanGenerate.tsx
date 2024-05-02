@@ -2,14 +2,17 @@ import { parseRecipe } from "../RecipeCard/ParseRecipe";
 import Recipe from "../RecipeCard/Recipe";
 
 export const dayToRecipe = (day: string, recipeList): Recipe | null => {
-  const recipeJson = recipeList[day];
-  if (recipeJson === null || recipeJson === undefined) {
-    return null;
+  if (recipeList !== undefined) {
+    const recipeJson = recipeList[day];
+    if (recipeJson === null || recipeJson === undefined) {
+      return null;
+    }
+    console.log(recipeJson);
+    const recipe = parseRecipe(recipeJson, 0);
+    console.log(recipe);
+    return recipe;
   }
-  console.log(recipeJson);
-  const recipe = parseRecipe(recipeJson, 0);
-  console.log(recipe);
-  return recipe;
+  return null;
 };
 export const parseMealPlan = (recipeList) => {
   const sunRecipe = dayToRecipe("sunday", recipeList);
