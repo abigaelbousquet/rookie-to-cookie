@@ -30,14 +30,15 @@ public class GetMealPlanHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      String dayOfSunday = request.queryParams("dayOfSunday"); // should be MM/DD/YYYY
+      String dayOfMonday = request.queryParams("dayOfMonday"); // should be MM/DD/YYYY
 
       SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-      Date date = dateFormat.parse(dayOfSunday);
+      Date date = dateFormat.parse(dayOfMonday);
       String dateString = String.valueOf(date);
 
       Map<String, Object> data = new HashMap<>();
       List<Map<String, Object>> mealPlans = this.storageHandler.getCollection(uid, "Mealplans");
+      boolean mealPlanFound = false; // Flag to track if a meal plan is found
 
       for (Map<String, Object> mealPlan : mealPlans) {
         Set<String> mealNames = mealPlan.keySet();
@@ -50,15 +51,23 @@ public class GetMealPlanHandler implements Route {
         for (String day : dateList) {
           if (day != null && day.equals(dateString)) {
             data.put(dateString, plan);
+            mealPlanFound = true;
             break;
           }
         }
       }
 
+      if (!mealPlanFound) {
+        // No meal plan found for the specified user and date
+        responseMap.put("response_type", "failure");
+        responseMap.put("Mealplan", "No meal plan found");
+      } else {
+        responseMap.put("response_type", "success");
+        responseMap.put("Mealplan", data);
+      }
+
       System.out.println("getting meals plans for user: " + uid);
 
-      responseMap.put("response_type", "success");
-      responseMap.put("Mealplan", data);
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();

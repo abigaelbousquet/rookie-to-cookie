@@ -3,8 +3,10 @@ import "react-calendar/dist/Calendar.css";
 import "../../styles/MealPlanSave.css";
 import React, { useState } from "react";
 import { saveMealPlan } from "../../utils/api";
+
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
+
 interface MealPlanSaveProps {
   onClose: () => void;
 }
@@ -35,6 +37,7 @@ const MealPlanSave: React.FC<MealPlanSaveProps> = ({ onClose }) => {
               try {
                 await saveMealPlan(formattedDate);
                 console.log("?dateOfMonday=" + formattedDate);
+                onClose();
               } catch (error) {
                 alert(error);
               }
