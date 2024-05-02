@@ -7,7 +7,6 @@ interface MealPlanPopupProps {
   mealPlan: any;
 }
 const MealPlanPopup: React.FC<MealPlanPopupProps> = ({ onClose, mealPlan }) => {
-  console.log("popup");
   return (
     <div className="popup-plan-overlay">
       <div className="popup-plan-content">

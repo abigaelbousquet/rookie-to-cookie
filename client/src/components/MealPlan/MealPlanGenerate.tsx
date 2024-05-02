@@ -8,9 +8,7 @@ export const dayToRecipe = (day: string, recipeList): Recipe | null => {
     if (recipeJson === null || recipeJson === undefined) {
       return null;
     }
-    console.log(recipeJson);
     const recipe = parseRecipe(recipeJson);
-    console.log(recipe);
     return recipe;
   }
   return null;
@@ -20,23 +18,17 @@ export const getLikeDislike = async (recipeId): Promise<number> => {
   const likes: any[] = response["Recipes"];
   const response2 = await getDislikes();
   const dislikes = response2["Recipes"];
-  if (
-    likes
-      .map((recipeData) => {
-        recipeData.id;
-      })
-      .includes(recipeId)
-  ) {
+  const likesList = likes.map((recipeData) => recipeData["id"]);
+  const dislikesList = dislikes.map((recipeData) => recipeData["id"]);
+  console.log(recipeId);
+  if (likesList.includes(recipeId)) {
+    console.log("found in likes");
     return 1;
-  } else if (
-    dislikes
-      .map((recipeData) => {
-        recipeData.id;
-      })
-      .includes(recipeId)
-  ) {
+  } else if (dislikesList.includes(recipeId)) {
+    console.log("found in dislikes");
     return 2;
   } else {
+    console.log("not found in likes/dislikes");
     return 0;
   }
 };
@@ -48,6 +40,7 @@ export const parseMealPlan = async (recipeList) => {
   const thursRecipe = dayToRecipe("thursday", recipeList);
   const friRecipe = dayToRecipe("friday", recipeList);
   const satRecipe = dayToRecipe("saturday", recipeList);
+  console.log(monRecipe);
   const newMealPlan = [
     {
       day: "Monday",
