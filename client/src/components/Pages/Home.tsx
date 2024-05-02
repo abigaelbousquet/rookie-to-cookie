@@ -123,6 +123,7 @@ const Home: React.FC = () => {
         "You must select at least one day of the week to generate a recipe for."
       );
     } else {
+
       if (selectedOptionsCuisine === null) {
         await setSelectedOptionsCuisine([]);
       }
@@ -131,6 +132,7 @@ const Home: React.FC = () => {
         : [];
 
       //if there are no selected intollerances
+
       if (selectedOptionsIntolerance === null) {
         if (
           //if there are no user intollerances
@@ -202,10 +204,15 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleCuisineChange = (selectedCuisine) => {
-    setSelectedOptionsCuisine(selectedCuisine.map((option) => option.value));
-    if (selectedCuisine === undefined) {
-      setSelectedOptionsCuisine([]);
+  /**
+   * Gets user-selected cuisines, translating empty selection to an empty list.
+   */
+  const getSelectedCuisines = () => {
+    // handle empty cuisine selection
+    if (selectedOptionsCuisine === null) {
+      return [];
+    } else {
+      return selectedOptionsCuisine;
     }
   };
 
@@ -315,17 +322,6 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <div className="exclude-container">
-        {/* Section of excluded ingredients prompt */}
-        <div className="exclude-prompt-text">
-          Specify any ingredients to exclude:
-        </div>
-        {/* Section of excluded ingredients input box */}
-        <div className="exclude-options-box">
-          <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
-        </div>
-      </div>
-
       <div className="people-container">
         {/* Section of number of people cookign for prompt */}
         <div className="num-people-prompt-text">
@@ -334,6 +330,17 @@ const Home: React.FC = () => {
         {/* Section of max time integer input */}
         <div className="num-people-options-box">
           <IntegerInput value={numberOfPeople} onChange={setNumberOfPeople} />
+        </div>
+      </div>
+
+      <div className="exclude-container">
+        {/* Section of excluded ingredients prompt */}
+        <div className="exclude-prompt-text">
+          Specify any ingredients to exclude:
+        </div>
+        {/* Section of excluded ingredients input box */}
+        <div className="exclude-options-box">
+          <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
         </div>
       </div>
 
