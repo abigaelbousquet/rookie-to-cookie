@@ -333,10 +333,6 @@ const Home: React.FC = () => {
         {/* causes a white screen */}
       </div>
 
-      {/* Button for regenerating */}
-      <div className="regenerate-button-container">
-        <button className="regenerate-button">Regenerate</button>
-      </div>
       {/* Button for saving data */}
       <div className="save-data-button-container">
         <button className="save-button" onClick={toggleShowSave}>

@@ -11,7 +11,7 @@
     "exclude-container time-container"
     "generate-button generate-button"
     "week-calendar week-calendar"
-    "regenerate-button save-button";
+    "save-button save-button";
   gap: 20px;
 }
 
@@ -59,21 +59,15 @@ h1 {
   grid-area: week-calendar;
 }
 
-.regenerate-button-container {
-  margin-top: 20px;
-  margin-bottom: 50px;
-  display: flex;
-  justify-content: flex-end; /* Align content to the left */
-}
-
 .save-data-button-container {
+  grid-area: save-button;
   margin-top: 20px;
   margin-bottom: 50px;
   display: flex;
-  justify-content: flex-start; /* Align content to the right */
+  justify-content: center; /* Align content horizontally */
+  align-items: center; /* Align content vertically */
 }
 
-.regenerate-button,
 .save-button {
   width: 310px; /* Set a fixed width for both buttons */
   height: 50px;
@@ -85,7 +79,6 @@ h1 {
   cursor: pointer;
 }
 
-.regenerate-button:hover,
 .save-button:hover {
   background-color: #fab375; /* Darker shade on hover */
 }
