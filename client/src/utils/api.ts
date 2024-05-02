@@ -11,6 +11,7 @@ interface mealPlanProps {
   daysToPlan: string;
   cuisine: string;
   maxReadyTime: string;
+  mode: string;
 }
 
 async function queryAPI(
@@ -28,17 +29,17 @@ async function queryAPI(
   }
   return response.json();
 }
-export async function saveMealPlan(dateOfSunday: string) {
+export async function saveMealPlan(dateOfMonday: string) {
   //TODO: POST the meal plan with a secure key (we can make it up)
   return await queryAPI("save-mealplan", {
     uid: getLoginCookie() || "",
-    dateOfSunday: dateOfSunday,
+    dateOfMonday: dateOfMonday,
   });
 }
-export async function getMealPlan(dateOfSunday: string) {
+export async function getMealPlan(dateOfMonday: string) {
   return await queryAPI("get-mealplan", {
     uid: getLoginCookie() || "",
-    dateOfSunday: dateOfSunday,
+    dateOfMonday: dateOfMonday,
   });
 }
 
@@ -52,7 +53,7 @@ export async function generateMealPlan(props: mealPlanProps) {
     cuisine: props.cuisine,
     servings: props.requestedServings,
     max_time: props.maxReadyTime,
-    mode: "minimize", //TODO: need to add personalize
+    mode: props.mode,
   });
 }
 export async function getUser(): Promise<User> {

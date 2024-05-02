@@ -30,7 +30,7 @@ public class SaveMealPlanHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      String sundayDate = request.queryParams("dateOfSunday");
+      String sundayDate = request.queryParams("dateOfMonday");
       List<String> dateList = this.parseDates(sundayDate);
       Server.userCurrPlan.get(uid).setDates(dateList);
       responseMap.put(dateList.get(0), Server.userCurrPlan.get(uid));
