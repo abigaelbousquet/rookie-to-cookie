@@ -65,7 +65,7 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
             const mealPlan = await parseMealPlan(mealPlanDate[formattedDate]);
             setMealPlan(mealPlan);
           } catch (error) {
-            alert("No saved mealplans for week of " + formattedDate);
+            console.error(error);
           }
         }}
       />

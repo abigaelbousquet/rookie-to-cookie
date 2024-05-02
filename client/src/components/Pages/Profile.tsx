@@ -116,7 +116,7 @@ const ProfilePage: React.FC = () => {
           {user.dislikedRecipes.map((recipe) => (
             <div>
               <RecipeCard
-                recipe={recipe}
+                recipe={parseRecipe(recipe)}
                 setShowPopup={setShowPopup}
                 isLiked={2}
                 saved={true}
