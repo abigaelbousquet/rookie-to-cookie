@@ -19,5 +19,5 @@ public interface StorageInterface {
   // For more info, see:
   // - 'Update a Document' in
   // https://firebase.google.com/docs/firestore/manage-data/add-data#java_19
-  void clearRecipes(String uid, String path) throws IllegalArgumentException;
+  void clearRecipes(String uid, String path, String recipeId) throws IllegalArgumentException;
 }

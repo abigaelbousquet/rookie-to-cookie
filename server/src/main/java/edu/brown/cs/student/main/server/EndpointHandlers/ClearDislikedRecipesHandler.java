@@ -28,10 +28,11 @@ public class ClearDislikedRecipesHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
+      String recipeIdString = request.queryParams("recipeId");
 
       // Remove the user from the database
       System.out.println("clearing disliked recipes for user: " + uid);
-      this.storageHandler.clearRecipes(uid, "disliked recipes");
+      this.storageHandler.clearRecipes(uid, "disliked recipes", recipeIdString);
 
       responseMap.put("response_type", "success");
     } catch (Exception e) {
