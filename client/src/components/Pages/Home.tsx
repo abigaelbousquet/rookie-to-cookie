@@ -118,18 +118,20 @@ const Home: React.FC = () => {
     const myUser = user["User"];
     const userData = myUser[0];
     let newIntols: string[] = [];
+    let cuisineLabels: string[] = [];
     if (selectedButtons.length === 0) {
       alert(
         "You must select at least one day of the week to generate a recipe for."
       );
     } else {
-
       if (selectedOptionsCuisine === null) {
         await setSelectedOptionsCuisine([]);
       }
-      const cuisineLabels = selectedOptionsCuisine
+      cuisineLabels = selectedOptionsCuisine
         ? selectedOptionsCuisine.map((val) => val.label)
         : [];
+
+      console.log("cuisineLabels: ", cuisineLabels);
 
       //if there are no selected intollerances
 
@@ -166,7 +168,7 @@ const Home: React.FC = () => {
         maxReadyTime: maxTime.toString(),
         diet: userData["diet"].toString(),
         intolerances: newIntols.toString(),
-        cuisine: paramToString(cuisineLabels || ""),
+        cuisine: cuisineLabels.toString(),
         requestedServings: numberOfPeople.toString(),
         exp: userData["exp"],
         mode: selectedAlg,
