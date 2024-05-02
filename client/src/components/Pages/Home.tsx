@@ -306,17 +306,6 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <div className="exclude-container">
-        {/* Section of excluded ingredients prompt */}
-        <div className="exclude-prompt-text">
-          Specify any ingredients to exclude:
-        </div>
-        {/* Section of excluded ingredients input box */}
-        <div className="exclude-options-box">
-          <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
-        </div>
-      </div>
-
       <div className="people-container">
         {/* Section of number of people cookign for prompt */}
         <div className="num-people-prompt-text">
@@ -325,6 +314,17 @@ const Home: React.FC = () => {
         {/* Section of max time integer input */}
         <div className="num-people-options-box">
           <IntegerInput value={numberOfPeople} onChange={setNumberOfPeople} />
+        </div>
+      </div>
+
+      <div className="exclude-container">
+        {/* Section of excluded ingredients prompt */}
+        <div className="exclude-prompt-text">
+          Specify any ingredients to exclude:
+        </div>
+        {/* Section of excluded ingredients input box */}
+        <div className="exclude-options-box">
+          <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
         </div>
       </div>
 
