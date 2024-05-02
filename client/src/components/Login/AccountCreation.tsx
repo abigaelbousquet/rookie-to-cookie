@@ -14,7 +14,7 @@ export interface profileProps {
   exp: string;
   diet: string;
   fam_size: string;
-  intolerances: string[];
+  intolerances: { label: string; value: string }[];
 }
 interface acctProps {
   onClose: () => void;
@@ -28,7 +28,9 @@ export const AccountCreation: React.FC<acctProps> = ({
   const [name, setName] = useState("");
   const [exp, setExp] = useState("1");
   const [diet, setDiet] = useState("");
-  const [allergen, setAllergen] = useState([""]);
+  const [allergen, setAllergen] = useState<{ label: string; value: string }[]>(
+    []
+  );
   const [fam_size, setFam_Size] = useState("");
   const heightMarks = {
     1: "novice",
@@ -77,7 +79,7 @@ export const AccountCreation: React.FC<acctProps> = ({
             "&fam-size=" +
             props.fam_size +
             "&intolerances=" +
-            props.intolerances.toString()
+            props.intolerances.map((val) => val.value).toString()
         );
         setAuthing(1);
       } catch (error) {
@@ -122,7 +124,7 @@ export const AccountCreation: React.FC<acctProps> = ({
               <div className="selector">
                 <Select
                   options={diets}
-                  onChange={(opt: any) => setDiet(opt!.label)}
+                  onChange={(opt) => setDiet(opt.value)}
                   defaultValue={"None"}
                 />
               </div>
@@ -135,7 +137,7 @@ export const AccountCreation: React.FC<acctProps> = ({
                   isMulti
                   onChange={(opt) => {
                     console.log(allergen);
-                    setAllergen(opt.map((tag: { value: any }) => tag.value));
+                    setAllergen(opt);
                   }}
                 />
               </div>

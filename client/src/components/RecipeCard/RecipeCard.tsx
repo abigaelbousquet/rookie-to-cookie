@@ -3,7 +3,12 @@ import Recipe from "./Recipe";
 import InfoView from "./InfoView";
 import LikeButton from "./LikeButton";
 import "../../styles/RecipeCard.css";
-import { addDislike, addLike } from "../../utils/api";
+import {
+  addDislike,
+  addLike,
+  removeDislike,
+  removeLike,
+} from "../../utils/api";
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -23,8 +28,13 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved }) => {
         await addLike(recipe.id);
         console.log("added liked to firestore: " + recipe.id);
       } else if (liked == 2) {
+        await removeLike(recipe.id);
+        console.log("removed like from firestore: " + recipe.id);
         await addDislike(recipe.id);
         console.log("added disliked to firestore: " + recipe.id);
+      } else {
+        await removeDislike(recipe.id);
+        console.log("removed disliked from firestore: " + recipe.id);
       }
     };
     updateLikes();

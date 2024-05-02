@@ -48,19 +48,13 @@ const Home: React.FC = () => {
   // State to hold the selected option
   const [selectedAlg, setSelectedAlg] = useState("minimize");
   // State to control the visibility of the popup
-  const [showInfoViewPopup, setShowInfoViewPopup] = useState<boolean>(false);
   const [showSavePopup, setSavePopup] = useState<boolean>(false);
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
   const [maxTime, setMaxTime] = useState<number>(20);
   const [excludedIngredients, setExcludedIngredients] = useState<string[]>([]);
-  const [sunDate, setSunDate] = useState("");
   const [intols, setIntols] = useState<string[]>([]);
   const [currMealPlan, setCurrMealPlan] = useState(emptyMealPlan);
   const [saved, setSaved] = useState<boolean>(false);
-
-  const handleSave = async () => {
-    await saveMealPlan(sunDate);
-  };
 
   /**
    * Converts the selectedButtons state to a comma-separated string of

@@ -122,7 +122,8 @@ public class FirebaseUtilities implements StorageInterface {
 
   // clears the collections inside of a specific user.
   @Override
-  public void clearRecipes(String uid, String path, String recipeId) throws IllegalArgumentException {
+  public void clearRecipes(String uid, String path, String recipeId)
+      throws IllegalArgumentException {
     if (uid == null) {
       throw new IllegalArgumentException("removeUser: uid cannot be null");
     }

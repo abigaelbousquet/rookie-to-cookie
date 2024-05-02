@@ -12,8 +12,10 @@
 }
 
 .recipe-header {
-  display: block;
+  display: flex;
   height: 150px;
+  justify-content: center;
+  align-items: center;
   text-overflow: ellipsis;
   border-bottom: 2px solid #ccc; /* Add a border at the bottom of the header */
 }

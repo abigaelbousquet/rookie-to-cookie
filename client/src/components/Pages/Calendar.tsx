@@ -45,7 +45,7 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
             day: "2-digit",
             year: "numeric",
           });
-          console.log("saved plan to:", formattedDate);
+          console.log("getting plan from:", formattedDate);
 
           try {
             const mealplan = await getMealPlan(formattedDate);

@@ -11,15 +11,13 @@ const AuthRoute = () => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [masterLoaded, setMasterLoaded] = useState(false);
   const [masterComponent, setMasterComponent] = useState<React.ReactNode>(null);
-  const [profile, profileLoaded] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       if (!authing && import.meta.env.VITE_APP_NODE_ENV === "test") {
         setAuthing(1);
       }
       const masterElement = await Master({
-        loaded: profile,
-        setLoaded: profileLoaded,
+        setAuthing: setAuthing,
       }); // Load Master component
       setMasterComponent(masterElement);
       setMasterLoaded(true);

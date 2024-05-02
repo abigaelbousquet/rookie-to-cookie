@@ -1,6 +1,7 @@
 .profile-container {
   display: flex;
   justify-content: center;
+  margin-left: 50px;
 }
 .left-side {
   margin-top: 20px;
@@ -46,7 +47,6 @@
   margin: 0 0 1em 0;
   border-radius: 0;
   width: 100%;
-  font-family: Arial, sans-serif;
 }
 .name-display {
   color: #7a9364;
@@ -56,11 +56,6 @@
 .exp_description {
   color: #7a9364;
   font-size: larger;
-}
-
-.recipe-button:hover {
-  background-color: #fab375;
-  outline: none;
 }
 .exp3 {
   width: 300px;

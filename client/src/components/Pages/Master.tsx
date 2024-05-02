@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   mockEmptyRecipeList,
@@ -11,35 +11,29 @@ import Home from "./Home";
 import Profile from "./Profile";
 import About from "./About";
 import CalendarPage from "./Calendar";
+import { clearUser } from "../../utils/api";
 interface profileLoadedProps {
-  loaded: boolean;
-  setLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+  setAuthing: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function Master(props: profileLoadedProps) {
+const Master: React.FC<profileLoadedProps> = ({ setAuthing }) => {
   const recipeHistoryToPassIn = mockRecipeHistory();
-  console.log(mockRecipeList());
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        <Navbar handleLogout={() => null} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
             path="/calendar"
             element={<CalendarPage recipeHistory={recipeHistoryToPassIn} />}
           />
-          <Route
-            path="/profile"
-            element={
-              <Profile loaded={props.loaded} setLoaded={props.setLoaded} />
-            }
-          />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/about" element={<About></About>}></Route>
           {/* Add more routes as needed */}
         </Routes>
       </div>
     </Router>
   );
-}
+};
 export default Master;

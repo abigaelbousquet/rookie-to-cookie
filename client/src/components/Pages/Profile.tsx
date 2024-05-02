@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/profile.css";
-import { getDislikes, getLikes, getUser } from "../../utils/api";
+import { clearUser, getDislikes, getLikes, getUser } from "../../utils/api";
 import Recipe from "../RecipeCard/Recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { AccountCreation } from "../Login/AccountCreation";
 import { ControlledInput } from "../Login/ControlledInput";
 import { parseRecipe } from "../RecipeCard/ParseRecipe";
 
-interface ProfileProps {
-  loaded: boolean;
-  setLoaded: React.Dispatch<React.SetStateAction<boolean>>;
-}
 export interface User {
   name: string;
   experienceLevel: string;
@@ -21,7 +17,7 @@ export interface User {
   dislikedRecipes: any[]; // Adjust this based on your Recipe type
 }
 
-const ProfilePage: React.FC<ProfileProps> = (props) => {
+const ProfilePage: React.FC = () => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
 
@@ -97,7 +93,6 @@ const ProfilePage: React.FC<ProfileProps> = (props) => {
           <p>{user.intolerances.join(", ")}</p>
         </div>
         <h4>{"Cooking for " + user.fam_size}</h4>
-        {/* //<button onClick={editProfile}>Edit</button> */}
       </div>
       <div className="right-side">
         <div className="likes">

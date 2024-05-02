@@ -1,7 +1,7 @@
 import { profileProps } from "../components/Login/AccountCreation";
 import { User } from "../components/Pages/Profile";
 import Recipe from "../components/RecipeCard/Recipe";
-import { getLoginCookie } from "./cookie";
+import { getLoginCookie, removeLoginCookie } from "./cookie";
 
 const HOST = "http://localhost:3232";
 interface mealPlanProps {
@@ -91,6 +91,18 @@ export async function addLike(recipeID: string) {
     recipeId: recipeID,
   });
 }
+export async function removeLike(recipeID: string) {
+  return await queryAPI("clear-liked-recipes", {
+    uid: getLoginCookie() || "",
+    recipeId: recipeID,
+  });
+}
+export async function removeDislike(recipeID: string) {
+  return await queryAPI("clear-disliked-recipes", {
+    uid: getLoginCookie() || "",
+    recipeId: recipeID,
+  });
+}
 
 export async function getLikes() {
   return await queryAPI("get-liked-recipes", {
@@ -101,5 +113,13 @@ export async function getLikes() {
 export async function getDislikes() {
   return await queryAPI("get-disliked-recipes", {
     uid: getLoginCookie() || "",
+  });
+}
+
+export async function clearUser(): Promise<User> {
+  const uid = getLoginCookie();
+  removeLoginCookie();
+  return await queryAPI("clear-user", {
+    uid: uid || "",
   });
 }
