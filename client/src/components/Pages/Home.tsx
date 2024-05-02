@@ -116,7 +116,7 @@ const Home: React.FC = () => {
         "You must select at least one day of the week to generate a recipe for."
       );
     } else {
-      //handle user intolerances from profile
+      // handle user intolerances from profile
       if (selectedOptionsIntolerance === null) {
         setIntols([]);
       } else if (selectedOptionsIntolerance.length === 0) {
@@ -143,7 +143,7 @@ const Home: React.FC = () => {
         diet: userData["diet"].toString(),
         intolerances: intols.toString(),
         cuisine: paramToString(
-          selectedOptionsCuisine.map((val) => val.label) || ""
+          getSelectedCuisines().map((val) => val.label) || ""
         ),
         requestedServings: numberOfPeople.toString(),
         exp: userData["exp"],
@@ -182,10 +182,15 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleCuisineChange = (selectedCuisine) => {
-    setSelectedOptionsCuisine(selectedCuisine.map((option) => option.value));
-    if (selectedCuisine === undefined) {
-      setSelectedOptionsCuisine([]);
+  /**
+   * Gets user-selected cuisines, translating empty selection to an empty list.
+   */
+  const getSelectedCuisines = () => {
+    // handle empty cuisine selection
+    if (selectedOptionsCuisine === null) {
+      return [];
+    } else {
+      return selectedOptionsCuisine;
     }
   };
 
@@ -197,6 +202,20 @@ const Home: React.FC = () => {
 
   return (
     <div className="Home Page">
+      <div className="paragraph-container">
+        {/* Add your paragraph content here */}
+        <p>Welcome to Rookie to Cookie!</p>
+        <p>
+          Our meal planning web application is designed to seamlessly integrate
+          cooking into your daily routine. Whether you're a beginner starting
+          from scratch, eager to explore new recipes, or aiming to minimize your
+          weekly food waste, we've got you covered.
+        </p>
+        <p>
+          Get started by selecting from the following options. Any fields left
+          blank will be automatically populated with your profile information.
+        </p>
+      </div>
       <div className="days-of-the-week-container">
         {/* Section of days of the week prompt */}
         <div className="days-of-the-week-prompt-text">
@@ -327,10 +346,6 @@ const Home: React.FC = () => {
         {/* causes a white screen */}
       </div>
 
-      {/* Button for regenerating */}
-      <div className="regenerate-button-container">
-        <button className="regenerate-button">Regenerate</button>
-      </div>
       {/* Button for saving data */}
       <div className="save-data-button-container">
         <button className="save-button" onClick={toggleShowSave}>
