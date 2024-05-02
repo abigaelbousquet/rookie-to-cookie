@@ -14,7 +14,7 @@ export interface profileProps {
   exp: string;
   diet: string;
   fam_size: string;
-  intolerances: { label: string; value: string }[];
+  intolerances: string[];
 }
 interface acctProps {
   onClose: () => void;
@@ -79,7 +79,7 @@ export const AccountCreation: React.FC<acctProps> = ({
             "&fam-size=" +
             props.fam_size +
             "&intolerances=" +
-            props.intolerances.map((val) => val.value).toString()
+            props.intolerances.toString()
         );
         setAuthing(1);
       } catch (error) {
@@ -162,7 +162,7 @@ export const AccountCreation: React.FC<acctProps> = ({
                   exp: exp,
                   diet: diet,
                   fam_size: fam_size,
-                  intolerances: allergen,
+                  intolerances: allergen.map((val) => val.value),
                 })
               }
               type="submit"
