@@ -160,10 +160,23 @@ const Home: React.FC = () => {
       };
       console.log(props);
       const mealPlanJson = await generateMealPlan(props);
-      const recipeList = mealPlanJson["Mealplan"];
-      const newMealPlan = parseMealPlan(recipeList);
-      setCurrMealPlan(newMealPlan);
-      console.log(currMealPlan);
+
+      const responseType = mealPlanJson["response_type"];
+
+      if (responseType === "failure") {
+        const errorMessage = mealPlanJson["error"];
+        // Check if the error is related to not enough meals generated or strict search criteria
+        if (errorMessage.includes("Caller requested")) {
+          alert(
+            "Not enough meals generated or the search criteria is too strict."
+          );
+        }
+      } else {
+        const recipeList = mealPlanJson["Mealplan"];
+        const newMealPlan = parseMealPlan(recipeList);
+        setCurrMealPlan(newMealPlan);
+        console.log(currMealPlan);
+      }
     }
   };
 

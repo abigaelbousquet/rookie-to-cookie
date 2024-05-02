@@ -33,6 +33,7 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
   const [value, onChange] = useState<Value>(new Date());
   const [showPopup, setShowPopup] = useState<boolean>();
   const [mealPlan, setMealPlan] = useState(emptyMealPlan);
+  const [likedRecipes, setLikedRecipes] = useState<any[]>([]); // Add state for liked recipes
 
   return (
     <div className="calendar-page">
