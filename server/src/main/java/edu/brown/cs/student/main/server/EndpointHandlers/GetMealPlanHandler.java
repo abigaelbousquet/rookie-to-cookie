@@ -33,8 +33,11 @@ public class GetMealPlanHandler implements Route {
       String dayOfMonday = request.queryParams("dateOfMonday"); // should be MM/DD/YYYY
 
       SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+      SimpleDateFormat dateFormatDash = new SimpleDateFormat("MM-dd-yyyy");
+
       Date date = dateFormat.parse(dayOfMonday);
-      String dateString = String.valueOf(date);
+      //      String dateString = String.valueOf(date);
+      String dateString = dateFormatDash.format(date);
 
       Map<String, Object> data = new HashMap<>();
       List<Map<String, Object>> mealPlans = this.storageHandler.getCollection(uid, "Mealplans");

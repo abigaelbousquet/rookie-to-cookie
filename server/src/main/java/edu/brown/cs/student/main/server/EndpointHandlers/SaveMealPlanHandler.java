@@ -51,12 +51,15 @@ public class SaveMealPlanHandler implements Route {
   private List<String> parseDates(String dayOfMonday) {
     System.out.println("dayOfMonday: " + dayOfMonday);
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    SimpleDateFormat dateFormatDash = new SimpleDateFormat("MM-dd-yyyy");
+
     ArrayList<String> dateList = new ArrayList<>();
 
     try {
       Date date = dateFormat.parse(dayOfMonday);
       Calendar calendar = Calendar.getInstance();
-      dateList.add(String.valueOf(date));
+      dateList.add(dateFormatDash.format(date));
+      //      dateList.add(String.valueOf(date));
       for (int i = 0; i < 6; i++) {
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, 1); // Add one day
@@ -66,7 +69,7 @@ public class SaveMealPlanHandler implements Route {
         System.out.println("Today:" + date);
         System.out.println("Next Day: " + nextDay);
         date = nextDay;
-        dateList.add(String.valueOf(date));
+        dateList.add(dateFormatDash.format(date));
       }
     } catch (ParseException e) {
       System.out.println("Error parsing date: " + e.getMessage());
