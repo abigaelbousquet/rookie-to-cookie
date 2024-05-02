@@ -2,7 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css"; // Import CSS file for styling
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  handleLogout: () => void; // Logout handler function
+}
+
+const Navbar: React.FC<NavbarProps> = ({ handleLogout }) => {
   return (
     <nav className="navbar">
       <ul className="nav-list">

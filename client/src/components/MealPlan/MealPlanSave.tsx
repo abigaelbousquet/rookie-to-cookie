@@ -16,6 +16,7 @@ const MealPlanSave: React.FC<MealPlanSaveProps> = ({ onClose }) => {
     <div className="popup-save-overlay">
       <div className="popup-save-content">
         <div>
+          <p>Select the week for the mealplan:</p>
           <Calendar
             className="small-cal"
             onChange={onChange}
@@ -24,14 +25,12 @@ const MealPlanSave: React.FC<MealPlanSaveProps> = ({ onClose }) => {
             tileDisabled={() => true}
             onClickWeekNumber={async (weekNumber, date) => {
               setWeekChosen(date);
-              console.log(
-                date.getMonth().toString() +
-                  "/" +
-                  date.toDateString() +
-                  "/" +
-                  date.getFullYear().toString()
-              );
-              console.log("saved plan to: " + date);
+              const formattedDate = date.toLocaleDateString("en-US", {
+                month: "2-digit",
+                day: "2-digit",
+                year: "numeric",
+              });
+              console.log("saved plan to:", formattedDate);
             }}
           />
         </div>

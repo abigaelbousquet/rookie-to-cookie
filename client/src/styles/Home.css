@@ -114,9 +114,11 @@ h1 {
 .cuisine-options-box {
   flex: 1;
 }
+
 .radio:checked {
   background-color: #7a9364;
 }
+
 .alg-container {
   grid-template-columns: 1fr;
   grid-template-areas:
@@ -134,7 +136,6 @@ h1 {
 
 .intolerance-container {
   grid-template-columns: 1fr;
-
   display: grid;
   background-color: #f0f0f0; /* Set a background color to create a unified highlight */
   padding: 10px; /* Add padding to the container */

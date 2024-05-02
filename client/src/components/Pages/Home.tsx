@@ -179,6 +179,7 @@ const Home: React.FC = () => {
     } else {
       setSelectedAlg("personalize");
     }
+    console.log("Selected Algorithm:", event.target.value);
   };
   const handleExcludedIngredientsChange = (selectedToExclude) => {
     setExcludedIngredients(selectedToExclude.map((option) => option.value));
@@ -258,13 +259,13 @@ const Home: React.FC = () => {
             <input
               className="radio"
               type="radio"
-              id="prioritize user taste"
+              id="prioritize_user_taste"
               name="algorithm"
-              value="prioritize user taste"
-              checked={selectedAlg === "prioritize user taste"} // Check if this option is selected
+              value="prioritize_user_taste"
+              checked={selectedAlg === "prioritize_user_taste"} // Check if this option is selected
               onChange={handleAlgChange} // Call function to update state on change
             />
-            <label htmlFor="prioritize user taste">Prioritize User Taste</label>
+            <label htmlFor="prioritize_user_taste">Prioritize User Taste</label>
           </div>
         </div>
       </div>

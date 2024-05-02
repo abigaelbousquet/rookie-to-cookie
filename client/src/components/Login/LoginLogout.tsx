@@ -7,7 +7,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { AccountCreation } from "./AccountCreation";
-import { ControlledInput, PasswordInput } from "./ControlledInput";
+import { ControlledInput } from "./ControlledInput";
 import { addLoginCookie } from "../../utils/cookie";
 
 export interface ILoginPageProps {
@@ -20,7 +20,6 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordHider, setPasswordHider] = useState("");
   const handleClick = async () => {
     if (password === null || email === null) {
       alert("Please enter your email and password");
