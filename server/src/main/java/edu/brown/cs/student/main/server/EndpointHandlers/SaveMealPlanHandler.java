@@ -34,6 +34,8 @@ public class SaveMealPlanHandler implements Route {
       String mondayDate = request.queryParams("dateOfMonday");
       List<String> dateList = this.parseDates(mondayDate);
       Server.userCurrPlan.get(uid).setDates(dateList);
+      // add a check here
+
       responseMap.put(dateList.get(0), Server.userCurrPlan.get(uid));
 
       this.storageHandler.addDocument(uid, "Mealplans", dateList.get(0), responseMap);
