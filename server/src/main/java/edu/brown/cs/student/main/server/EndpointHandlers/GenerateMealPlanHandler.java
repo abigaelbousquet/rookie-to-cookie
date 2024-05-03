@@ -1,7 +1,6 @@
 package edu.brown.cs.student.main.server.EndpointHandlers;
 
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeDatasource;
-import edu.brown.cs.student.main.server.RecipeData.Datasource.SpoonacularRecipeSource;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGenerator;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.Mode;
@@ -15,10 +14,12 @@ import spark.Route;
 
 public class GenerateMealPlanHandler implements Route {
 
-  public StorageInterface storageHandler;
+  private StorageInterface storageHandler;
+  private RecipeDatasource datasource;
 
-  public GenerateMealPlanHandler(StorageInterface storageHandler) {
+  public GenerateMealPlanHandler(StorageInterface storageHandler, RecipeDatasource datasource) {
     this.storageHandler = storageHandler;
+    this.datasource = datasource;
   }
 
   /**
@@ -53,10 +54,9 @@ public class GenerateMealPlanHandler implements Route {
         mode = Mode.PERSONALIZED;
       }
 
-      RecipeDatasource source = new SpoonacularRecipeSource();
       MealPlanGenerator planGenerator =
           new MealPlanGenerator(
-              source,
+              this.datasource,
               mode,
               daysOfWeekString,
               servings,

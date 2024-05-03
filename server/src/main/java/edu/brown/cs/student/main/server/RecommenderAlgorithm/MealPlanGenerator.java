@@ -76,7 +76,7 @@ public class MealPlanGenerator {
     this.UID = uid;
     this.DAYS_TO_PLAN = parseDays(daysOfWeek);
     setIntolerancesAndAllergens(intolerances);
-    this.dateList = null; // unsure if this is real solution
+    this.dateList = null;
     this.DATASOURCE = recipeSource;
     if (this.FIREBASE_DATA != null) {
       this.dislikedRecipes =

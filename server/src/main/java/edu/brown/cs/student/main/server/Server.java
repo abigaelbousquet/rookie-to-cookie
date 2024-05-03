@@ -3,6 +3,7 @@ package edu.brown.cs.student.main.server;
 import static spark.Spark.after;
 
 import edu.brown.cs.student.main.server.EndpointHandlers.*;
+import edu.brown.cs.student.main.server.RecipeData.Datasource.SpoonacularRecipeSource;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
@@ -41,7 +42,9 @@ public class Server {
       Spark.get("get-disliked-recipes", new ListDislikedRecipesHandler(firebaseUtils));
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
       Spark.get("get-user", new GetUserHandler(firebaseUtils));
-      Spark.get("generate-mealplan", new GenerateMealPlanHandler(firebaseUtils));
+      Spark.get(
+          "generate-mealplan",
+          new GenerateMealPlanHandler(firebaseUtils, new SpoonacularRecipeSource()));
       Spark.get("get-mealplan", new GetMealPlanHandler(firebaseUtils));
       Spark.get("save-mealplan", new SaveMealPlanHandler(firebaseUtils));
       Spark.get("clear-liked-recipes", new ClearLikedRecipesHandler(firebaseUtils));
