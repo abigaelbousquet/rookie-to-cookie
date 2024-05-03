@@ -12,6 +12,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/** Class to retrieve the Profile associated with the queried uid from the firebase Datastore */
 public class GetUserHandler implements Route {
 
   public StorageInterface storageHandler;

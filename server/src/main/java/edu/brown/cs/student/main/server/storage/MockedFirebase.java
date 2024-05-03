@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+/** Class for testing purposes to mock a firebase datastore */
 public class MockedFirebase implements StorageInterface {
   @Override
   public void addDocument(

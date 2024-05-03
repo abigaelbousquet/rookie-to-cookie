@@ -9,6 +9,9 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * Class to retrieve the list of disliked recipes for a specific user from the Firebase datastore
+ */
 public class ListDislikedRecipesHandler implements Route {
 
   public StorageInterface storageHandler;

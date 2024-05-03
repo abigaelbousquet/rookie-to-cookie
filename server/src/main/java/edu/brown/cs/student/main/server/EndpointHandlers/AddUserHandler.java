@@ -21,6 +21,8 @@ public class AddUserHandler implements Route {
   /**
    * Invoked when a request is made on this route's corresponding path e.g. '/hello'
    *
+   * <p>Handler to add a Profile with the passed in params to the firebase datastore
+   *
    * @param request The request object providing information about the HTTP request
    * @param response The response object providing functionality for modifying the response
    * @return The content to be set in the response
@@ -29,7 +31,6 @@ public class AddUserHandler implements Route {
   public Object handle(Request request, Response response) {
     Map<String, Object> responseMap = new HashMap<>();
     try {
-      // remove bracket filtering
       String uid = request.queryParams("uid");
       String name = request.queryParams("name");
       String exp = request.queryParams("exp");
@@ -42,7 +43,7 @@ public class AddUserHandler implements Route {
 
       ArrayList<String> intoleranceArray = new ArrayList<>();
 
-      // convert exp to a num
+      // convert exp and familySize to an int
       try {
         experience = Integer.parseInt(exp);
         famSize = Integer.parseInt(familySize);
@@ -52,8 +53,7 @@ public class AddUserHandler implements Route {
 
       // convert intolerance string to array
       try {
-        // Remove square brackets
-        // Split the remaining string by commas
+        // Split the string by commas
         String[] parts = intolerances.split(",");
 
         // Trim leading and trailing spaces from each element and add them to ArrayList

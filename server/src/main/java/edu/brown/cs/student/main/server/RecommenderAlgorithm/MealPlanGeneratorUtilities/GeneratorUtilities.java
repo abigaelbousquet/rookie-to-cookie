@@ -132,9 +132,9 @@ public class GeneratorUtilities {
    * Method to take in a recipe and find the most important ingredients in the recipe based on the
    * passed in number of ingredients
    *
-   * @param recipe
-   * @param numberOfIngredients
-   * @return
+   * @param recipe to find most common ingredient of
+   * @param numberOfIngredients how many ingredients to return
+   * @return a list of most common ingredients
    */
   public static List<String> findMostAbundantIngredients(Recipe recipe, int numberOfIngredients) {
     List<Ingredient> extendedIngredients = recipe.getExtendedIngredients();

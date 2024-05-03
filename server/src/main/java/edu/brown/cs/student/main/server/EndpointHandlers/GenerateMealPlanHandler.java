@@ -12,6 +12,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/** Class to generate a mealplan and store it in the server based on the queried params */
 public class GenerateMealPlanHandler implements Route {
 
   private StorageInterface storageHandler;

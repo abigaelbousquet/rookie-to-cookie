@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.testng.annotations.BeforeClass;
 import spark.Spark;
 
+/** A testing class to test the different endpoints of the Server */
 public class TestEndpoint {
 
   @BeforeClass

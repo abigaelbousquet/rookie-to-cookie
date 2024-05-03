@@ -55,7 +55,15 @@ public class RecipeUtilities {
     return recipe;
   }
 
-  // TODO: javadoc (abby isn't sure what mealName is / how this works)
+  /**
+   * A method that deserializes a mealPlan by using the name of the mealPlan to access the fields of
+   * a mealplan from the returned Json
+   *
+   * @param mealName the name of the mealPlan
+   * @param rawJson the Json returned from the server
+   * @return deserialized MealPlan object
+   * @throws IllegalArgumentException
+   */
   public static MealPlan deserializePlan(String mealName, String rawJson)
       throws IllegalArgumentException {
     Map<String, MealPlan> mealPlanMap;

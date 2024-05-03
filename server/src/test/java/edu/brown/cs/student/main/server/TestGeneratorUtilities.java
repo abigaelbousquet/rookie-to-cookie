@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
+/** A test class to test the helper functions for generating a mealplan */
 public class TestGeneratorUtilities {
 
   private Recipe recipe1;

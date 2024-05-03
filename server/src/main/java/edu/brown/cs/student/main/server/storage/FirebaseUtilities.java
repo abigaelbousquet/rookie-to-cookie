@@ -78,6 +78,15 @@ public class FirebaseUtilities implements StorageInterface {
     return data;
   }
 
+  /**
+   * A method to add a document with the given parameters to Firebase datastore
+   *
+   * @param uid the unique user identifer
+   * @param collection_id the name of the collection to add the document too
+   * @param doc_id the name of the document
+   * @param data the data to add to the datastore
+   * @throws IllegalArgumentException
+   */
   @Override
   public void addDocument(String uid, String collection_id, String doc_id, Map<String, Object> data)
       throws IllegalArgumentException {
@@ -88,10 +97,6 @@ public class FirebaseUtilities implements StorageInterface {
     // adds a new document 'doc_name' to colleciton 'collection_id' for user 'uid'
     // with data payload 'data'.
 
-    // TODO: FIRESTORE PART 1:
-    // use the guide below to implement this handler
-    // - https://firebase.google.com/docs/firestore/quickstart#add_data
-
     Firestore db = FirestoreClient.getFirestore();
     // 1: Get a ref to the collection that you created
     CollectionReference collectionRef =
@@ -101,7 +106,12 @@ public class FirebaseUtilities implements StorageInterface {
     collectionRef.document(doc_id).set(data);
   }
 
-  // clears the collections inside of a specific user.
+  /**
+   * Clears all of the collections for a given user
+   *
+   * @param uid unique user identifier
+   * @throws IllegalArgumentException
+   */
   @Override
   public void clearUser(String uid) throws IllegalArgumentException {
     if (uid == null) {
@@ -120,7 +130,14 @@ public class FirebaseUtilities implements StorageInterface {
     }
   }
 
-  // clears the collections inside of a specific user.
+  /**
+   * Clears the recipe of a given recipe id from the given collection
+   *
+   * @param uid user identifier
+   * @param path path of the collection id
+   * @param recipeId id of the recipe to delete
+   * @throws IllegalArgumentException
+   */
   @Override
   public void clearRecipes(String uid, String path, String recipeId)
       throws IllegalArgumentException {
@@ -130,13 +147,10 @@ public class FirebaseUtilities implements StorageInterface {
     try {
       // removes all data for user 'uid'
       Firestore db = FirestoreClient.getFirestore();
-      // 1: Get a ref to the user document
+
       DocumentReference dislikedRecipesRef =
           db.collection("users").document(uid).collection(path).document(recipeId);
-      //      DocumentReference userDoc = db.collection("users/" + uid + "/disliked
-      // recipes").document(uid);
-      // 2: Delete the user document
-      //      deleteDocument(userDoc);
+
       deleteDocument(dislikedRecipesRef);
     } catch (Exception e) {
       System.err.println("Error removing user : " + uid);
@@ -144,6 +158,11 @@ public class FirebaseUtilities implements StorageInterface {
     }
   }
 
+  /**
+   * Method to delete the passed in document from firestore
+   *
+   * @param doc to delete
+   */
   private void deleteDocument(DocumentReference doc) {
     // for each subcollection, run deleteCollection()
     Iterable<CollectionReference> collections = doc.listCollections();
@@ -154,8 +173,11 @@ public class FirebaseUtilities implements StorageInterface {
     doc.delete();
   }
 
-  // recursively removes all the documents and collections inside a collection
-  // https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
+  /**
+   * Method to delete a collection from firebase
+   *
+   * @param collection to delete
+   */
   private void deleteCollection(CollectionReference collection) {
     try {
 
@@ -168,8 +190,6 @@ public class FirebaseUtilities implements StorageInterface {
         doc.getReference().delete();
       }
 
-      // NOTE: the query to documents may be arbitrarily large. A more robust
-      // solution would involve batching the collection.get() call.
     } catch (Exception e) {
       System.err.println("Error deleting collection : " + e.getMessage());
     }
@@ -225,10 +245,8 @@ public class FirebaseUtilities implements StorageInterface {
       mealCount = firebaseData.getCollection(uid, "Mealplans").size();
       planId = "mealplan-" + mealCount;
     } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (ExecutionException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     data.put(planId, plan);

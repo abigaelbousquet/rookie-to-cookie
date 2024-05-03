@@ -10,6 +10,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/** Class to retrieve a mealPlan with the passed in week from the Firebase Datastore */
 public class GetMealPlanHandler implements Route {
 
   public StorageInterface storageHandler;
@@ -36,7 +37,6 @@ public class GetMealPlanHandler implements Route {
       SimpleDateFormat dateFormatDash = new SimpleDateFormat("MM-dd-yyyy");
 
       Date date = dateFormat.parse(dayOfMonday);
-      //      String dateString = String.valueOf(date);
       String dateString = dateFormatDash.format(date);
       Map<String, Object> data = new HashMap<>();
       List<Map<String, Object>> mealPlans = this.storageHandler.getCollection(uid, "Mealplans");
