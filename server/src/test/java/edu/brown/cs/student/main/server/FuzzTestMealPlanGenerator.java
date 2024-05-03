@@ -1,7 +1,6 @@
 package edu.brown.cs.student.main.server;
 
 import edu.brown.cs.student.main.server.RecipeData.Datasource.*;
-import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGenerator;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.Mode;
@@ -84,7 +83,7 @@ public class FuzzTestMealPlanGenerator {
     int count = 0;
     for (int i = 0; i < 10; i++) {
       try {
-        MealPlan mealPlan = this.mealPlanGenerator.generatePlan();
+        this.mealPlanGenerator.generatePlan();
       } catch (RecipeVolumeException e) {
         count++;
       }
