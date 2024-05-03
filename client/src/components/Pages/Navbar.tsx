@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/Navbar.css"; // Import CSS file for styling
+import "../../styles/Navbar.css"; // Import CSS file for styling
 
 interface NavbarProps {
   handleLogout: () => void; // Logout handler function

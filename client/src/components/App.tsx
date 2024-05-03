@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/App.css";
 import React from "react";
-import Navbar from "./Navbar";
+import Navbar from "./Pages/Navbar";
 import Home from "./Pages/Home";
 
 import { initializeApp } from "firebase/app";

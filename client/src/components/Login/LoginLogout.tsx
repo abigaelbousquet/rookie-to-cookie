@@ -8,7 +8,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { AccountCreation } from "./AccountCreation";
-import { ControlledInput } from "./ControlledInput";
+import { ControlledInput } from "../SelectionTypes/ControlledInput";
 import { addLoginCookie } from "../../utils/cookie";
 
 export interface ILoginPageProps {

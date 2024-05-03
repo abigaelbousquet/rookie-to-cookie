@@ -4,7 +4,7 @@ import { clearUser, getDislikes, getLikes, getUser } from "../../utils/api";
 import Recipe from "../RecipeCard/Recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { AccountUpdate } from "../Login/AccountUpdate";
-import { ControlledInput } from "../Login/ControlledInput";
+import { ControlledInput } from "../SelectionTypes/ControlledInput";
 import { parseRecipe } from "../RecipeCard/ParseRecipe";
 import { getLikeDislike } from "../MealPlan/ParseMealPlan";
 

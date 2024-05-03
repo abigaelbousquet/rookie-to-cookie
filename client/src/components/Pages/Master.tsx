@@ -5,7 +5,7 @@ import {
   mockRecipeHistory,
   mockRecipeList,
 } from "../../data/MockedRecipeHistory";
-import Navbar from "../Navbar";
+import Navbar from "./Navbar";
 import Calendar from "./Calendar";
 import Home from "./Home";
 import Profile from "./Profile";

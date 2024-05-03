@@ -5,7 +5,7 @@ import Select from "react-select";
 import "../../styles/AccountUpdate.css";
 
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { ControlledInput } from "./ControlledInput";
+import { ControlledInput } from "../SelectionTypes/ControlledInput";
 import Creatable from "react-select/creatable";
 import { addUser, getUser } from "../../utils/api";
 export interface profileProps {
