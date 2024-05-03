@@ -40,8 +40,16 @@
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   position: relative; /* Added */
-  width: 1400px; /* Adjust the width as needed */
-  height: 500px;
+  width: 100%; /* Adjust the width as needed */
+  min-height: 500px;
+}
+.mealplan-popup {
+  margin-top: 30px;
+}
+.mealplan-text {
+  font-size: x-large;
+  font-weight: 650;
+  margin-top: 30px;
 }
 .close-button-save {
   position: absolute;
