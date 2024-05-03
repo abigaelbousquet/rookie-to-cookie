@@ -19,7 +19,7 @@ Marissa Shaffer (mshaffe3) -
 abousque - 23 (hours week 1) + 23 (hours week 2) + 25 (hours week 3) = 71 hours total  
 ffnaqvi -  
 ddedona -  
-mshaffe3 -
+mshaffe3 - 14 (hours week 1) +18 (hours week 2) + 30 (hours week 3) = 63 hours
 
 ### Repository
 
@@ -119,6 +119,6 @@ Then, go to http:/localhost:8000 in a browser window to use Rookie to Cookie!
 - Regenerate your meal plan as many times as you would like by clicking "Generate" repeatedly
 - Save a meal plan to your account by clicking the "Save" button at the bottom of the Home page after generation and following directions there
 - Look at your saved meal plans by heading to the Calendar tab and clicking on the orange tile next to the week of interest
-- Like or dislike a recipe by finding it in the Calendar tab and then toggling the "heart" button to a thumbs up or thumbs down in the top right corner of the recipe card
+- Like or dislike a recipe once you've cooked it and tried it by finding it in the Calendar tab and then toggling the "heart" button to a thumbs up or thumbs down in the top right corner of the recipe card
 - Sign out at any time by clicking the "Sign Out" button at the bottom of any page
-- Log back in by entering the same email and password as the account was created with into the Login screen
+- Log back in by entering the same email and password as the account was created with into the Login screen to see all of your protected account data

@@ -12,22 +12,15 @@ import Profile from "./Profile";
 import About from "./About";
 import CalendarPage from "./Calendar";
 import { clearUser } from "../../utils/api";
-interface profileLoadedProps {
-  setAuthing: React.Dispatch<React.SetStateAction<number>>;
-}
 
-const Master: React.FC<profileLoadedProps> = ({ setAuthing }) => {
-  const recipeHistoryToPassIn = mockRecipeHistory();
+const Master: React.FC = () => {
   return (
     <Router>
       <div className="App">
         <Navbar handleLogout={() => null} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/calendar"
-            element={<CalendarPage recipeHistory={recipeHistoryToPassIn} />}
-          />
+          <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/about" element={<About></About>}></Route>
           {/* Add more routes as needed */}

@@ -25,11 +25,7 @@ interface listItem {
   ];
 }
 
-interface CalendarProps {
-  recipeHistory: RecipeHistory[];
-}
-
-const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
+const CalendarPage: React.FC = () => {
   const [value, onChange] = useState<Value>(new Date());
   const [showPopup, setShowPopup] = useState<boolean>();
   const [mealPlan, setMealPlan] = useState(emptyMealPlan);
