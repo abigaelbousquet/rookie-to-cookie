@@ -68,3 +68,26 @@ test('test entering wrong password show create account page', async ({ page }) =
   await expect(page.locator('#account-header')).toContainText('Create Account');
   await page.getByPlaceholder('Nim Telson').click();
 });
+
+test('test updating account information', async ({ page }) => {
+  await page.getByRole('link', { name: 'Profile' }).click();
+  await expect(page.locator('#root')).toContainText('Faizah TestMaster ChefDiet:VeganIntolerances:PeanutCooking for 3Update Account');
+  await page.getByRole('button', { name: 'Update Account' }).click();
+  await page.getByRole('slider').click();
+  await page.locator('span:nth-child(2)').first().click();
+  await page.locator('.css-1hwfws3').first().click();
+  await page.getByText('Primal', { exact: true }).click();
+  await page.locator('div').filter({ hasText: /^Select\.\.\.$/ }).nth(3).click();
+  await page.getByText('Tree nut', { exact: true }).click();
+  await page.locator('div').filter({ hasText: /^Tree nut$/ }).nth(1).click();
+  await page.getByText('Egg', { exact: true }).click();
+  await page.getByPlaceholder('2').click();
+  await page.getByPlaceholder('2').fill('6');
+  await page.getByRole('button', { name: 'Update', exact: true }).click();
+  await page.getByPlaceholder('josiah_carberry@brown.edu').click();
+  await page.getByPlaceholder('josiah_carberry@brown.edu').fill('faizah_test@brown.edu');
+  await page.getByPlaceholder('ilovecooking').click();
+  await page.getByPlaceholder('ilovecooking').fill('ilovecooking');
+  await page.getByLabel('Login').click();
+  await expect(page.locator('#root')).toContainText('Faizah TestBeginner ChefDiet:PrimalIntolerances:Tree nut, EggCooking for 6Update Account');
+});
