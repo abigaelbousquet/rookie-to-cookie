@@ -37,20 +37,23 @@ public class MealPlanGenerator {
    * Constructor for the MealPlanGenerator class to initialize private instance variables for the
    * class
    *
-   * @param recipeSource
-   * @param mode
-   * @param daysOfWeek
-   * @param servings
-   * @param cuisine
-   * @param excludeCuisine
-   * @param diet
-   * @param intolerances
-   * @param maxReadyTime
-   * @param firebaseData
-   * @param uid
-   * @throws ExecutionException
-   * @throws InterruptedException
-   * @throws IOException
+   * @param recipeSource the source to draw Recipes for this meal plan from
+   * @param mode the mode to generate a plan with, either "minimize" to minimize food waste or
+   *     "personalize" to base results on a user's personal taste
+   * @param daysOfWeek a comma-separated string of the unabbreviated days of the week to plan for
+   * @param servings the minimum number of servings that each recipe in the meal plan should be
+   *     scaled to
+   * @param cuisine a comma-separated string of cuisines that recipes should fit
+   * @param excludeCuisine a comma-separated string of cuisines that recipes should not fit
+   * @param diet a comma-separated string of diets that recipes should match
+   * @param intolerances a comma-separated string of intolerances to avoid in recipes
+   * @param maxReadyTime the maximum number of minutes a recipe should take to prepare
+   * @param firebaseData a StorageInterface managing storage of user data
+   * @param uid the unique id associated with the user this plan is for
+   * @throws ExecutionException if unable to gather liked and disliked recipes from firebaseData
+   * @throws InterruptedException if unable to gather liked and disliked recipes from firebaseData
+   * @throws IOException if unable to convert firebaseData's liked/disliked recipe jsons into Recipe
+   *     objects
    */
   public MealPlanGenerator(
       RecipeDatasource recipeSource,
@@ -114,8 +117,9 @@ public class MealPlanGenerator {
   /**
    * Method to create a meal plan object from a list of recipes.
    *
-   * @param recipes
-   * @return
+   * @param recipes a list of at most 7 recipes to organize through the week
+   * @return a MealPlan object with the recipes in recipes at the intended days as managed by
+   *     DAYS_TO_PLAN
    */
   private MealPlan createMealPlanFromRecipeList(List<Recipe> recipes) {
     Recipe[] orderedWeekOfRecipes = {null, null, null, null, null, null, null}; // index 0 is Sunday
@@ -136,9 +140,10 @@ public class MealPlanGenerator {
   }
 
   /**
-   * Method to parse the intolerances and allergens from a cs string
+   * Parses the intolerances and allergens from a comma-separated string into separate lists: 1 of
+   * Spoonacular-supported intolerances, and 1 of other intolerances to exclude.
    *
-   * @param fullString
+   * @param fullString the full comma-separated string of intolerances
    */
   private void setIntolerancesAndAllergens(String fullString) {
     if (fullString == null || fullString.isEmpty()) {
@@ -317,9 +322,6 @@ public class MealPlanGenerator {
     // PART 1 - get a starting list of quality recipes fitting user needs
     List<Recipe> goodResults =
         this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN * 6, this.NUM_DAYS_TO_PLAN * 3, null);
-
-    // TODO: if the above throws a RecipeVolumeException, should I check if just NUM_DAYS_TO_PLAN
-    // recipes are available, and if so return that?
 
     if (this.dislikedRecipes.size() > 0) {
       // PART 2 - eliminate Recipes most similar to user's disliked Recipes
