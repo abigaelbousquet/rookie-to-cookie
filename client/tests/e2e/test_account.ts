@@ -5,27 +5,15 @@ import { test, expect } from '@playwright/test';
  */
 test.beforeEach(async ({ page }) => {
   await page.goto("http://localhost:8000/");
-});
-
-test('test creating account and mealplan', async ({ page }) => {
   await page.getByPlaceholder('josiah_carberry@brown.edu').click();
   await page.getByPlaceholder('josiah_carberry@brown.edu').fill('faizah_test@brown.edu');
   await page.getByPlaceholder('ilovecooking').click();
+
+});
+
+test('test creating account and mealplan', async ({ page }) => {
   await page.getByPlaceholder('ilovecooking').fill('ilovecooking');
   await page.getByLabel('Login').click();
-  await page.getByPlaceholder('Nim Telson').click();
-  await page.getByPlaceholder('Nim Telson').fill('Faizah Test');
-  await page.getByRole('slider').click();
-  await page.locator('span:nth-child(2)').first().click();
-  await page.locator('.css-1hwfws3').first().click();
-  await page.getByText('Vegan', { exact: true }).click();
-  await page.locator('div').filter({ hasText: /^Select\.\.\.$/ }).nth(3).click();
-  await page.getByText('Soy', { exact: true }).click();
-  await page.locator('div').filter({ hasText: /^Soy$/ }).nth(1).click();
-  await page.getByText('Peanut', { exact: true }).click();
-  await page.getByPlaceholder('2').click();
-  await page.getByPlaceholder('2').fill('4');
-  await page.getByRole('button', { name: 'Create Account' }).click();
   await page.getByRole('link', { name: 'Profile' }).click();
   await expect(page.locator('h1')).toContainText('Faizah Test');
   await expect(page.locator('#root')).toContainText('Vegan');
@@ -50,9 +38,6 @@ test('test creating account and mealplan', async ({ page }) => {
 });
 
 test('test signing out retains information', async ({ page }) => {
-  await page.getByPlaceholder('josiah_carberry@brown.edu').click();
-  await page.getByPlaceholder('josiah_carberry@brown.edu').fill('faizah_test@brown.edu');
-  await page.getByPlaceholder('ilovecooking').click();
   await page.getByPlaceholder('ilovecooking').fill('ilovecooking');
   await page.getByLabel('Login').click();
   await page.getByRole('link', { name: 'Profile' }).click();
@@ -66,24 +51,18 @@ test('test signing out retains information', async ({ page }) => {
   await expect(page.locator('h1')).toContainText('Faizah Test');
 });
 
-test('test entering wrong password show create account page', async ({ page }) => {
-  await page.getByPlaceholder('josiah_carberry@brown.edu').click();
-  await page.getByPlaceholder('josiah_carberry@brown.edu').fill('new_user@brown.edu');
-  await page.getByPlaceholder('ilovecooking').click();
+
+test('test a liked recipe is in the liked recipe list on a profile', async ({ page }) => {
   await page.getByPlaceholder('ilovecooking').fill('ilovecooking');
   await page.getByLabel('Login').click();
-  await page.getByPlaceholder('Nim Telson').click();
-  await page.getByPlaceholder('Nim Telson').fill('New');
-  await page.locator('span:nth-child(2)').first().click();
-  await page.locator('.css-1hwfws3').first().click();
-  await page.getByText('Paleo', { exact: true }).click();
-  await page.getByRole('button', { name: 'Create Account' }).click();
   await page.getByRole('link', { name: 'Profile' }).click();
-  await expect(page.locator('h4')).toContainText('Cooking for 0');
-  await page.getByLabel('Sign Out').click();
-  await page.getByPlaceholder('josiah_carberry@brown.edu').click();
-  await page.getByPlaceholder('josiah_carberry@brown.edu').fill('new_user@brown.edu');
-  await page.getByPlaceholder('ilovecooking').click();
+  await page.getByText('Liked Recipes:North African').click();
+  await expect(page.locator('#root')).toContainText('Liked Recipes:North African Chickpea Soup (Leblebi)Cuisine: AfricanTime: 45Instructions: ...View Recipe');
+});
+
+
+test('test entering wrong password show create account page', async ({ page }) => {
+ 
   await page.getByPlaceholder('ilovecooking').fill('wrongpassword');
   await page.getByLabel('Login').click();
   await expect(page.locator('#account-header')).toContainText('Create Account');
