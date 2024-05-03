@@ -11,13 +11,13 @@ Abigael Bousquet (abousque) - Spoonacular integration, meal plan generator algor
 Faizah Naqvi (ffnaqvi) - Firebase integration, API endpoints and handlers
 
 **Front-End Software Engineers:**  
-Daniela DeDona (ddedona) -  
-Marissa Shaffer (mshaffe3) -
+Daniela DeDona (ddedona) - Home page, recipecard and mealplan displays
+Marissa Shaffer (mshaffe3) - Backend querying, Account creation, Profile page
 
 ### Total Estimated Time for Project:
 
 abousque - 23 (hours week 1) + 23 (hours week 2) + 25 (hours week 3) = 71 hours total  
-ffnaqvi -  
+ffnaqvi -  13 (hours week 1) + 19 (hours week 2) + 13 (hours week 3) = 45 hours total
 ddedona -  
 mshaffe3 - 14 (hours week 1) + 18 (hours week 2) + 30 (hours week 3) = 63 hours
 
@@ -35,7 +35,17 @@ Explain the relationships between classes/interfaces.
 
 ### Front-End
 
-**TODO:** FILL IN
+The components package contains all of the major components of the webapp, from the individual SelectionTypes to the top-level Pages, which organize the elements.
+
+- Login uses firebase to create accounts, take in user input, and moderates the auth state to show the login, create account, or master components. Account update is also contained in this package, but found by the user in the profile page.
+- MealPlan contains the front end parser of meal plans from the back end, the weekview display, the save and view past meal plan popups.
+- Pages contains the Profile, Home, Calendar, and About pages, as well as a Master component, which houses them all, and the navbar, used to move between them.
+- RecipeCard has the front end recipe parser, the infoview popup with recipe instructions and ingredients, our recipe interface, recipe card display found on profile likes and meal plans, and the three-state like button used to keep track of user preferences.
+- SelectionTypes has the more complicated selection options and input types.
+
+The utils package contains the cookie handling and functions which perform queries to the back end for both spoonacular and firebase data.
+
+The styles package organizes all the css files for various components.
 
 ### Back-End
 
@@ -66,7 +76,8 @@ Runtime/ space optimizations you made (if applicable).
 
 ### Front-End
 
-**TODO:** FILL IN
+- Accessibility: We chose to use checkboxes on the recipes for visual cues and attention tracking, requested by one of our user stories, as well as aria labels and flexboxes in order to make our application as accessible as possible, as well as selecting a color palette which retained good contrast in grayscale.
+- Security: We chose to require that a user was logged in before accessing our application for a few reasons. First, it protects us from having bots spam our generator and cost us money. Secondly, it allows us to track the login flow more efficiently, rather than having to decide exactly which features are accessible to a non-logged in user, such as having to restrict access to certain algorithms, liking features, history, saving, and profiles. We also just believed it would enhance and make the user experience less confusing to be able to use the webapp to its full extent (requiring a login). However, we did not require a google account, as we have in previous sprints; rather, we let users use their own email so as not to specifically be forcing users to use a certain provider that collects data aside from us.
 
 ### Back-End
 
@@ -78,7 +89,7 @@ We chose to gather Recipes for a user's liked and disliked Recipes from Firebase
 
 # Errors/Bugs
 
-**TODO:** FILL IN (Write reproduction steps for all the bugs in your program. If the mentor TA finds an error and knows how to reproduce it, they will be able to leave better feedback. If the mentor TA finds the bug without proper documentation, they will assume you did not test your program properly.)
+There is a bug in account creation where multiple users can be created under the same email if a new password is used. The profile page will only ever be able to display the first one that is created but it will allow the user to create another account and store the other information in firebase. The original account is unaffected; if the user logs out and logs back in with the correct password, the app should work as planned. Though, it is something that we would want to fix given a little more time.
 
 # Tests
 
@@ -86,7 +97,7 @@ Explain the testing suites that you implemented for your program and how each te
 
 ### Front-End
 
-**TODO:** FILL IN
+The bulk of front end testing concerned end to end testing, as this was a full stack application, which was testable visually in the mocking stage and the functions unmocked were mostly unable to be unit tested. However, we did use Vitest in order to test our two parsing functions: mealplan parsing and recipe parsing, as these are the most complex queries received from the back end.
 
 ### Back-End
 
@@ -124,12 +135,19 @@ In a bash terminal:
 2. mvn package
 3. ./run
 
-In a terminal:
+In a terminal: e2e
 
 1. cd client
 2. npm install
 3. npx playwright install (!!!)
-4. npm test
+4. npm run test:e2e
+
+In a terminal: unit
+
+1. cd client
+2. npm install
+3. npm i vitest
+4. npm run test:unit
 
 ## Build & Run (For User-Interaction):
 

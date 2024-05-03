@@ -5,7 +5,7 @@ import "./../../styles/login.css";
 import Select from "react-select";
 
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { ControlledInput } from "./ControlledInput";
+import { ControlledInput } from "../SelectionTypes/ControlledInput";
 import Creatable from "react-select/creatable";
 import { addUser } from "../../utils/api";
 import { createUserWithEmailAndPassword } from "firebase/auth";

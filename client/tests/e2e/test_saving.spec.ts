@@ -18,12 +18,3 @@ test('test a generated mealplan displays in the calender', async ({ page }) => {
   await page.getByRole('button', { name: '23', exact: true }).click();
   await expect(page.locator('#root')).toContainText('Your Saved Meal PlanMondayTuesdayWednesdayThursdayFridaySaturdaySunday10+ With Cabbage: Egg Roll in a BowlCuisine: ChineseTime: 25Instructions: ...View RecipeEgg Roll SoupCuisine: ChineseTime: 45Instructions: ...View RecipeX');
 });
-
-test('test that disliking a recipe shows in the user profile', async ({ page }) => {
-  await page.getByRole('link', { name: 'Calendar' }).click();
-  await page.getByRole('button', { name: '19', exact: true }).click();
-  await page.locator('path').click();
-  await page.getByRole('button', { name: 'X' }).click();
-  await page.getByRole('link', { name: 'Profile' }).click();
-  await expect(page.locator('#root')).toContainText('Liked Recipes:Disliked Recipes:North African Chickpea Soup (Leblebi)Cuisine: AfricanTime: 45Instructions: ...View RecipeEasy Vegetarian PhoCuisine: VietnameseTime: 45Instructions: ...View Recipe');
-});

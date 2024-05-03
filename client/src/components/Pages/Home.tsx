@@ -4,8 +4,8 @@ import Select from "react-select";
 import InfoView from "../RecipeCard/InfoView";
 import MultiSelectInput from "../SelectionTypes/MultiSelectInput";
 import IntegerInput from "../SelectionTypes/IntegerInput";
-import WeekView from "../HomeComponents/WeekView";
-import DaysOfTheWeekButtons from "../HomeComponents/DaysOfTheWeekButtons";
+import WeekView from "../MealPlan/WeekView";
+import DaysOfTheWeekButtons from "../SelectionTypes/DaysOfTheWeekButtons";
 
 import { generateMealPlan, getUser, saveMealPlan } from "../../utils/api";
 import { cuisineOptions, intoleranceOptions } from "../../data/Spoonacular";

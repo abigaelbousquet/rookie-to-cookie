@@ -1,6 +1,6 @@
 import "../../styles/MealPlanSave.css";
 import React, { useState } from "react";
-import WeekView from "../HomeComponents/WeekView";
+import WeekView from "./WeekView";
 
 interface MealPlanPopupProps {
   onClose: () => void;
