@@ -222,6 +222,19 @@ const Home: React.FC = () => {
     }
   };
 
+  /**
+   * Handles when a user clicks the save button. Accounts for edge
+   * case of trying to save before generation by checking if currMealPlan is
+   * empty first.
+   */
+  const handleSave = () => {
+    if (currMealPlan === emptyMealPlan) {
+      alert("You must generate a meal plan before saving it!");
+    } else {
+      toggleShowSave();
+    }
+  };
+
   const toggleShowSave = () => {
     console.log("toggling");
     setSavePopup(!showSavePopup);
@@ -389,7 +402,7 @@ const Home: React.FC = () => {
 
       {/* Button for saving data */}
       <div className="save-data-button-container">
-        <button className="save-button" onClick={toggleShowSave}>
+        <button className="save-button" onClick={handleSave}>
           Save
         </button>
         {showSavePopup && (

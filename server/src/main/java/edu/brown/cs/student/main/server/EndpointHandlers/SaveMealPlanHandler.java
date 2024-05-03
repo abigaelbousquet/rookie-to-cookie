@@ -35,11 +35,13 @@ public class SaveMealPlanHandler implements Route {
       String uid = request.queryParams("uid");
       String mondayDate = request.queryParams("dateOfMonday");
       List<String> dateList = this.parseDates(mondayDate);
-      this.userCurrPlan.get(uid).setDates(dateList);
 
       if (this.userCurrPlan.get(uid) == null) {
-        throw new RuntimeException("No meal plans have been generated for the current user");
+        throw new IllegalArgumentException(
+            "No meal plans have been generated for the current user.");
       }
+
+      this.userCurrPlan.get(uid).setDates(dateList);
 
       responseMap.put(dateList.get(0), this.userCurrPlan.get(uid));
 
