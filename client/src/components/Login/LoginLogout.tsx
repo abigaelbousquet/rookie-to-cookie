@@ -38,19 +38,24 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
         alert("invalid email");
         props.setAuthing(0);
       } else if (error.message.includes("WEAK_PASSWORD")) {
-        props.setAuthing(2);
+        props.setAuthing(0);
       } else {
-        try {
-          const response = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
-          addLoginCookie(response.user.uid);
-          console.log("acct created");
-          props.setAuthing(2);
-        } catch (error) {
-          props.setAuthing(2);
+        if (!password || password.length < 6) {
+          alert("Password should be at least 6 characters long");
+          props.setAuthing(0);
+        } else {
+          try {
+            const response = await createUserWithEmailAndPassword(
+              auth,
+              email,
+              password
+            );
+            addLoginCookie(response.user.uid);
+            console.log("acct created");
+            props.setAuthing(2);
+          } catch (error) {
+            props.setAuthing(2);
+          }
         }
       }
     }

@@ -162,7 +162,7 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
             </div>
             <button
               className="butt"
-              onClick={() =>
+              onClick={() => {
                 handleSubmit(
                   {
                     name: userName,
@@ -172,8 +172,11 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
                     intolerances: allergen.map((val) => val.value),
                   },
                   onClose
-                )
-              }
+                );
+                alert(
+                  "Successfully updated account. Sign out then in again to see changes."
+                );
+              }}
               type="submit"
             >
               Update
