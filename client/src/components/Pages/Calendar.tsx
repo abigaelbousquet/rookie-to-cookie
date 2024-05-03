@@ -39,8 +39,8 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
     <div className="calendar-page">
       <h3>Cooking History</h3>
       <p>
-        Click on a week number below to view your meal plan saved to that week.
-        You can like and unlike recipes from this page!
+        Click on a week (orange tile) below to view your meal plan saved to that
+        week. You can like and unlike recipes from this page!
       </p>
       <Calendar
         className="big-cal"

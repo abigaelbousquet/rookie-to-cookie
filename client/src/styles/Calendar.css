@@ -84,3 +84,25 @@
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #c6d48d;
 }
+
+.react-calendar__month-view__weekNumbers .react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  background-color: #e58a44;
+  color: #e58a44;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.react-calendar__month-view__weekNumbers .react-calendar__tile:hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  background-color: #fab375;
+  color: #fab375;
+  font-size: 0.75em;
+  font-weight: bold;
+}
