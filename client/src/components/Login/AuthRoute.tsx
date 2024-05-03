@@ -13,9 +13,9 @@ const AuthRoute = () => {
   const [masterComponent, setMasterComponent] = useState<React.ReactNode>(null);
   useEffect(() => {
     const fetchData = async () => {
-      if (!authing && import.meta.env.VITE_APP_NODE_ENV === "test") {
-        setAuthing(1);
-      }
+      //   if (!authing && import.meta.env.VITE_APP_NODE_ENV === "test") {
+      //     setAuthing(1);
+      //   }
       const masterElement = await Master({
         setAuthing: setAuthing,
       }); // Load Master component

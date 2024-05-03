@@ -29,6 +29,12 @@ In a bash terminal:
 
 ## Run frontend test
 
+(Start server) In a terminal:
+
+1. cd server
+2. mvn package
+3. ./run
+
 In a terminal:
 
 1. cd client
