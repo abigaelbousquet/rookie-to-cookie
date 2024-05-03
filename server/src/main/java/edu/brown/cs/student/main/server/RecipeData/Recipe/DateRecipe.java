@@ -8,20 +8,30 @@ public class DateRecipe {
   private final Date date;
 
   /**
-   * COnstructor
+   * Constructor for the DateRecipe class.
    *
-   * @param recipe
-   * @param date
+   * @param recipe the Recipe associated with this DateRecipe
+   * @param date the Date associated with this DateRecipe
    */
   public DateRecipe(Recipe recipe, Date date) {
     this.date = date;
     this.recipe = recipe;
   }
 
+  /**
+   * Gets the Recipe associated with this DateRecipe
+   *
+   * @return a defensive copy of this.recipe
+   */
   public Recipe getRecipe() {
-    return this.recipe;
+    return new Recipe(this.recipe);
   }
 
+  /**
+   * Gets the Date associated with this DateRecipe.
+   *
+   * @return this.date
+   */
   public Date getDate() {
     return this.date;
   }
