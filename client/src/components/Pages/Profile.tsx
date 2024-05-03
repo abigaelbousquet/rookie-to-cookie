@@ -94,7 +94,12 @@ const ProfilePage: React.FC = () => {
           <p>{user.intolerances.join(", ")}</p>
         </div>
         <h4>{"Cooking for " + user.fam_size}</h4>
-        <button onClick={() => setShowPopup(true)}>Update Account</button>
+        <button
+          className="update-acct-button"
+          onClick={() => setShowPopup(true)}
+        >
+          Update Account
+        </button>
         {showPopup && (
           <div className="popup-container">
             {showPopup && <AccountUpdate onClose={() => setShowPopup(false)} />}
