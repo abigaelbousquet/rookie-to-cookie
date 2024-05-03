@@ -96,7 +96,9 @@ const ProfilePage: React.FC = () => {
         <h4>{"Cooking for " + user.fam_size}</h4>
         <button
           className="update-acct-button"
-          onClick={() => setShowPopup(true)}
+          onClick={() => {
+            setShowPopup(true);
+          }}
         >
           Update Account
         </button>
