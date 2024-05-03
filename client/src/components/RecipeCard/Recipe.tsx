@@ -9,5 +9,6 @@ interface Recipe {
   image: string;
   credit: string;
   id: string;
+  servings: string;
 }
 export default Recipe;

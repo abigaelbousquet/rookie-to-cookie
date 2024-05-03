@@ -23,7 +23,6 @@ public class FuzzTestMealPlanGenerator {
   private Recipe recipe4;
   private Recipe recipe5;
   private List<Recipe> recipeList;
-
   private Random random;
 
   @Before

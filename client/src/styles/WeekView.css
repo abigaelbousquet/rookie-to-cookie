@@ -37,8 +37,9 @@
 }
 
 .grid-cell.recipe-not-exists {
-  min-width: 100px; /* Set a smaller min width for cells without recipes */
+  min-width: 90px; /* Set a smaller min width for cells without recipes */
   border-radius: 0; /* Remove border radius for cells without recipes */
+  min-height: 300px;
 }
 /* 
 .recipe-header {

@@ -10,6 +10,36 @@ interface InfoViewProps {
   liked: number;
 }
 
+/**
+ * Displays a list of Strings as a 2-column table, dividing items between
+ * the 2 columns.
+ *
+ * @param items the list of items to divide and display
+ * @returns a 2-column table with items divided between the 2 columns
+ */
+const TwoColumnTable = (items: string[]) => {
+  return (
+    <div className="two-column-table">
+      <div className="column">
+        {/* 1st half of items in the first column */}
+        {items.slice(0, Math.ceil(items.length / 2)).map((item, index) => (
+          <div key={index} className="table-item">
+            {item}
+          </div>
+        ))}
+      </div>
+      <div className="column">
+        {/* 2nd half of items in the second column */}
+        {items.slice(Math.ceil(items.length / 2)).map((item, index) => (
+          <div key={index} className="table-item">
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const InfoView: React.FC<InfoViewProps> = ({
   recipe,
   onClose,
@@ -45,7 +75,15 @@ const InfoView: React.FC<InfoViewProps> = ({
                 <strong>Time:</strong> {recipe.time}
               </p>
               <p>
-                <strong>Ingredients:</strong> {recipe.ingredients.join(", ")}
+                <strong>Servings:</strong> {recipe.servings}
+              </p>
+              <p>
+                <strong>Ingredients: </strong>
+                {/* {recipe.ingredients.map((ingredient, index) => {
+                  return <p>{ingredient}</p>;
+                })} */}
+                {/* {recipe.ingredients.join(", ")} */}
+                {TwoColumnTable(recipe.ingredients)}
               </p>
             </div>
           </div>

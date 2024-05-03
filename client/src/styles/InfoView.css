@@ -12,6 +12,8 @@
 }
 
 .popup-content {
+  display: flex;
+  flex-direction: column;
   background-color: white;
   padding: 20px;
   min-height: 20vh;
@@ -38,6 +40,7 @@
 
 .close-button:hover {
   color: #333;
+  background-color: transparent;
 }
 
 .like-button-container-info {
@@ -112,4 +115,26 @@
 
 .steps {
   padding-top: 20px;
+}
+
+.info-container p {
+  /* Style paragraphs within the info container */
+  margin: 5px 0; /* Set margin top and bottom to 5px (adjust as needed) */
+  padding: 0; /* Reset padding to 0 to minimize additional spacing */
+}
+
+.two-column-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+  gap: 10px; /* Spacing between columns */
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-item {
+  padding: 0px;
+  border: 1px solid #ccc;
 }
