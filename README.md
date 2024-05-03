@@ -7,7 +7,7 @@ Rookie to Cookie aims to help people who don’t currently cook as well as peopl
 ### Team Members
 
 **Back-End Software Engineers:**  
-Abigael Bousquet (abousque) - Spoonacular integration, meal plan generator algorithms  
+Abigael Bousquet (abousque) - Spoonacular integration, meal plan generator algorithm  
 Faizah Naqvi (ffnaqvi) - Firebase integration, API endpoints and handlers
 
 **Front-End Software Engineers:**  
@@ -17,9 +17,9 @@ Marissa Shaffer (mshaffe3) - Backend querying, Account creation, Profile page
 ### Total Estimated Time for Project:
 
 abousque - 23 (hours week 1) + 23 (hours week 2) + 25 (hours week 3) = 71 hours total  
-ffnaqvi -  
+ffnaqvi -  13 (hours week 1) + 19 (hours week 2) + 13 (hours week 3) = 45 hours total
 ddedona -  
-mshaffe3 - 14 (hours week 1) +18 (hours week 2) + 30 (hours week 3) = 63 hours
+mshaffe3 - 14 (hours week 1) + 18 (hours week 2) + 30 (hours week 3) = 63 hours
 
 ### Repository
 
@@ -100,6 +100,21 @@ Explain the testing suites that you implemented for your program and how each te
 The bulk of front end testing concerned end to end testing, as this was a full stack application, which was testable visually in the mocking stage and the functions unmocked were mostly unable to be unit tested. However, we did use Vitest in order to test our two parsing functions: mealplan parsing and recipe parsing, as these are the most complex queries received from the back end.
 
 ### Back-End
+
+Please see javadocs for details on what each test specifically asserts.
+
+In brief summary:
+
+- TestDeserialize contains tests checking that Recipe and Mealplan deserialization from json to java Object works as expected.
+- TestRecipe unit tests the scaling of a recipe to new numbers of servings.
+- TestTDTree contains tests checking the creation of and k-nearest-neighbors searching of RecipeRecommendationKDTrees.
+- TestRecipeDatasource tests mocked and real RecipeSources for functionality and expected query results.
+- TestRecommenderAlgorithms contains tests verifying expected results of the two meal plan generation algorithms: minimizeFoodWaste and personalized.
+- TestGeneratorUtility unit tests the helper methods involved in meal plan generation.
+- TestMealPlanGenerator tests the whole of generating a meal plan with MealPlanGenerator objects.
+- TestEndpoint tests that all endpoints can be called in our Server.
+- IntegrationTests tests the full server pipeline (e.g., generating and saving meal plans).
+- FullTestMealPlanGenerator contains fuzz testing of our generate-mealplan endpoint with random inputs, asserting no unexpected exceptions are encountered.
 
 # How-To:
 
