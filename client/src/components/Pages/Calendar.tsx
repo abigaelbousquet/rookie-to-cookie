@@ -34,7 +34,10 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
   const [showPopup, setShowPopup] = useState<boolean>();
   const [mealPlan, setMealPlan] = useState(emptyMealPlan);
   const [likedRecipes, setLikedRecipes] = useState<any[]>([]); // Add state for liked recipes
-
+  const changePopup = () => {
+    setShowPopup(false);
+    setMealPlan(emptyMealPlan);
+  };
   return (
     <div className="calendar-page">
       <h3>Cooking History</h3>
@@ -61,19 +64,17 @@ const CalendarPage: React.FC<CalendarProps> = ({ recipeHistory }) => {
           console.log(formattedDate);
           try {
             const mealplanJson = await getMealPlan(formattedDate1);
-            const mealPlanDate = mealplanJson["Mealplan"];
+            const mealPlanDate = await mealplanJson["Mealplan"];
             const mealPlan = await parseMealPlan(mealPlanDate[formattedDate]);
-            setMealPlan(mealPlan);
+            await setMealPlan(mealPlan);
           } catch (error) {
-            console.error(error)
+            setMealPlan(emptyMealPlan);
+            alert("No plan saved for week of " + formattedDate);
           }
         }}
       />
       {showPopup && (
-        <MealPlanPopup
-          mealPlan={mealPlan}
-          onClose={() => setShowPopup(false)}
-        />
+        <MealPlanPopup mealPlan={mealPlan} onClose={() => changePopup()} />
       )}
     </div>
   );
