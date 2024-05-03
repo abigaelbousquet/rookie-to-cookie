@@ -20,13 +20,6 @@ import spark.Spark;
 
 public class IntegrationTests {
 
-  //   private Recipe recipe1;
-  //   private Recipe recipe2;
-  //   private Recipe recipe3;
-  //   private Recipe recipe4;
-  //   private Recipe recipe5;
-  //   private List<Recipe> recipeList;
-
   @BeforeClass
   public static void setup_before_everything() {
     // Set the Spark port number.

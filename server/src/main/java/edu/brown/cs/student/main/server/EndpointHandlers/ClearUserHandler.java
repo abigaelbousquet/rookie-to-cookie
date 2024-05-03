@@ -8,6 +8,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/** Class to delete the entire user from the Firebase Datastore */
 public class ClearUserHandler implements Route {
 
   public StorageInterface storageHandler;

@@ -8,6 +8,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/** Class to delete a recipe from the disliked recipes in Firebase datastore */
 public class ClearDislikedRecipesHandler implements Route {
 
   public StorageInterface storageHandler;

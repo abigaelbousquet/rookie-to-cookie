@@ -10,6 +10,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/** Class to save the mealplan associated with the user to the firebase datastore */
 public class SaveMealPlanHandler implements Route {
 
   public StorageInterface storageHandler;
@@ -48,6 +49,13 @@ public class SaveMealPlanHandler implements Route {
     return FirebaseUtilities.MAP_STRING_OBJECT_JSON_ADAPTER.toJson(responseMap);
   }
 
+  /**
+   * Class to parse the given String of MM/DD/YYYY into all the dates of the week in the format
+   * MM-DD-YYYY
+   *
+   * @param dayOfMonday is the String of the day
+   * @return a list of all of the dates
+   */
   private List<String> parseDates(String dayOfMonday) {
     System.out.println("dayOfMonday: " + dayOfMonday);
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");

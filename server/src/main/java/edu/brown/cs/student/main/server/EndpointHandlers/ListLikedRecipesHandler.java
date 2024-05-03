@@ -9,6 +9,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/** Class to retrieve the list of liked recipes for a specific user from the Firebase datastore */
 public class ListLikedRecipesHandler implements Route {
 
   public StorageInterface storageHandler;

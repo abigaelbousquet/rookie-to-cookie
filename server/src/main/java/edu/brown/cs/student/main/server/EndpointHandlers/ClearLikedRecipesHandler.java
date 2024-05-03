@@ -8,6 +8,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/** Class to delete a recipe from the liked recipes in Firebase datastore */
 public class ClearLikedRecipesHandler implements Route {
 
   public StorageInterface storageHandler;

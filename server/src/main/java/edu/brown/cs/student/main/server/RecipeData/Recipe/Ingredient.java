@@ -71,21 +71,6 @@ public class Ingredient {
     return name;
   }
 
-  //    /**
-  //     * A toString method for an Ingredient.
-  //     *
-  //     * @return the String representation of this Ingredient
-  //     */
-  //    @Override
-  //    public String toString() {
-  //        return "Name: "
-  //            + this.getName()
-  //            + ", Meta: "
-  //            + this.getMeta()
-  //            + ", Measures: "
-  //            + this.getMeasures().toString();
-  //    }
-
   /**
    * An equals method for an Ingredient.
    *
@@ -125,8 +110,6 @@ public class Ingredient {
     jsonBuilder.append("}");
     return jsonBuilder.toString();
   }
-
-  // Other methods
 
   /**
    * A helper method to serialize a list of strings into JSON format.
