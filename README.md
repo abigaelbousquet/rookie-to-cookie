@@ -39,6 +39,26 @@ Explain the relationships between classes/interfaces.
 
 ### Back-End
 
+All of the API endpoints in Server.java have handler classes in EndpointHandlers. These handler classes all implement the Route interface to be compatible with the server.
+
+The handlers that interact with firebase and/or recipe sources take an object implementing the StoreInterface and/or RecipeSource interfaces respectively so that the handlers can work with mocked or real sources depending on caller needs.
+
+The RecipeData package contains all of the classes related to Recipes and sources of Recipes.
+
+- The Datsource sub-package contains the RecipeSource interface, which both MockedRecipeSource and SpoonacularRecipeSource implement. This package also contains the SearchResult class which describes a result object which wraps the List of Recipes obtained by calling a RecipeSource's query method.
+- The Recipe sub-package contains all classes describing the pieces of a whole Recipe object, which RecipeSource.query returns a List of.
+- The MealPlan class describes a meal plan object, which associates Recipe objects with different days.
+
+The RecommenderAlgorithm package contains all classes related to meal plan generation.
+
+- The KDTree sub-package contains the classes involved in creating a KDTree of candidate Recipes for the "personalized" meal plan generation algorithm. A RecipeRecommendationKDTree contains RecipeNodes, and uses DistanceRecipePairs with the DistanceRecipePairComparator (which implements the Comparator interface) to find nearest neighbors of a given Recipe in the tree.
+- The MealPlanGeneratorUtilities contains the helper classes involved in meal plan generation, and exists primarily for readability of the MealPlanGenerator class.
+- The MealPlanGenerator contains the 2 different algorithms for meal plan generation, and uses classes in the two above sub-packages to do so. The Mode class outlines an ENUM for mode choice used in this class, as well as the RecipeVolumeException, which is a custom exception thrown when not enough quality recipes for a given set of constraints can be gathered from the RecipeSource associated with a MealPlanGenerator object.
+
+The storage package contains the StorageInterface interface and FirebaseUtilities (real) and MockedFirebase (mocked) which are classes both implementing the StorageInterface to interact with Firebase and data storage.
+
+The UserData package contains the Profile and ProfileUtilities classes, which organize data on user profiles stored in Firebase.
+
 ## Specific Choices
 
 Discuss any specific data structures you used, why you created it, and other high level explanations.
@@ -49,6 +69,12 @@ Runtime/ space optimizations you made (if applicable).
 **TODO:** FILL IN
 
 ### Back-End
+
+We chose to use classes rather than records for the Recipe object and its sub-classes because Firebase was having difficulties storing records. This was less clean for parsing/deserializing Spoonacular API responses into Recipes, but ultimately was what was necessary for integration with Firebase.
+
+We chose to use the specific types of RecipeRecommendationKDTrees (with RecipeNodes) in the algorithm generation because this data structure gave us a defined algorithm for determining k-nearest-neighbors to a particular recipe which was helpful for comparing candidate Recipes to a user's liked and/or disliked Recipes in the "personalized" meal plan generation algorithm.
+
+We chose to gather Recipes for a user's liked and disliked Recipes from Firebase rather than additional calls to the Spoonacular API to preserve our limited available requests for meal plan generation only.
 
 # Errors/Bugs
 
