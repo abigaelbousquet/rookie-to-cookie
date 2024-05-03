@@ -8,15 +8,15 @@ import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import spark.Filter;
 import spark.Spark;
 
 /** Top Level class for our project, utilizes spark to create and maintain our server. */
 public class Server {
-  public static Map<String, MealPlan> userCurrPlan;
+  private static Map<String, MealPlan> userCurrPlan;
 
   public static void setUpServer()
       throws IllegalArgumentException, InterruptedException, ExecutionException {
@@ -30,7 +30,7 @@ public class Server {
               response.header("Access-Control-Allow-Origin", "*");
               response.header("Access-Control-Allow-Methods", "*");
             });
-    Server.userCurrPlan = new HashMap<>();
+    userCurrPlan = new ConcurrentHashMap<>();
     StorageInterface firebaseUtils;
     try {
       firebaseUtils = new FirebaseUtilities();
@@ -44,9 +44,9 @@ public class Server {
       Spark.get("get-user", new GetUserHandler(firebaseUtils));
       Spark.get(
           "generate-mealplan",
-          new GenerateMealPlanHandler(firebaseUtils, new SpoonacularRecipeSource()));
+          new GenerateMealPlanHandler(firebaseUtils, new SpoonacularRecipeSource(), userCurrPlan));
       Spark.get("get-mealplan", new GetMealPlanHandler(firebaseUtils));
-      Spark.get("save-mealplan", new SaveMealPlanHandler(firebaseUtils));
+      Spark.get("save-mealplan", new SaveMealPlanHandler(firebaseUtils, userCurrPlan));
       Spark.get("clear-liked-recipes", new ClearLikedRecipesHandler(firebaseUtils));
       Spark.get("clear-disliked-recipes", new ClearDislikedRecipesHandler(firebaseUtils));
 

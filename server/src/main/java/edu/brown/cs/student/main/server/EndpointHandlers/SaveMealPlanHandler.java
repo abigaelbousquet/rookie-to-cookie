@@ -1,6 +1,6 @@
 package edu.brown.cs.student.main.server.EndpointHandlers;
 
-import edu.brown.cs.student.main.server.Server;
+import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.text.ParseException;
@@ -13,10 +13,12 @@ import spark.Route;
 /** Class to save the mealplan associated with the user to the firebase datastore */
 public class SaveMealPlanHandler implements Route {
 
-  public StorageInterface storageHandler;
+  public final StorageInterface storageHandler;
+  private final Map<String, MealPlan> userCurrPlan;
 
-  public SaveMealPlanHandler(StorageInterface storageHandler) {
+  public SaveMealPlanHandler(StorageInterface storageHandler, Map<String, MealPlan> userCurrPlan) {
     this.storageHandler = storageHandler;
+    this.userCurrPlan = userCurrPlan;
   }
 
   /**
@@ -33,8 +35,8 @@ public class SaveMealPlanHandler implements Route {
       String uid = request.queryParams("uid");
       String mondayDate = request.queryParams("dateOfMonday");
       List<String> dateList = this.parseDates(mondayDate);
-      Server.userCurrPlan.get(uid).setDates(dateList);
-      responseMap.put(dateList.get(0), Server.userCurrPlan.get(uid));
+      this.userCurrPlan.get(uid).setDates(dateList);
+      responseMap.put(dateList.get(0), this.userCurrPlan.get(uid));
 
       this.storageHandler.addDocument(uid, "Mealplans", dateList.get(0), responseMap);
       responseMap.put("response_type", "success");

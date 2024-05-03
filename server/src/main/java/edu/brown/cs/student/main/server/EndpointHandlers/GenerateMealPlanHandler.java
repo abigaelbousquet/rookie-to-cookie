@@ -4,7 +4,6 @@ import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeDatasource;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.MealPlanGenerator;
 import edu.brown.cs.student.main.server.RecommenderAlgorithm.Mode;
-import edu.brown.cs.student.main.server.Server;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.util.*;
@@ -15,12 +14,17 @@ import spark.Route;
 /** Class to generate a mealplan and store it in the server based on the queried params */
 public class GenerateMealPlanHandler implements Route {
 
-  private StorageInterface storageHandler;
-  private RecipeDatasource datasource;
+  private final StorageInterface storageHandler;
+  private final RecipeDatasource datasource;
+  private final Map<String, MealPlan> userCurrPlan;
 
-  public GenerateMealPlanHandler(StorageInterface storageHandler, RecipeDatasource datasource) {
+  public GenerateMealPlanHandler(
+      StorageInterface storageHandler,
+      RecipeDatasource datasource,
+      Map<String, MealPlan> userCurrPlan) {
     this.storageHandler = storageHandler;
     this.datasource = datasource;
+    this.userCurrPlan = userCurrPlan;
   }
 
   /**
@@ -70,7 +74,7 @@ public class GenerateMealPlanHandler implements Route {
               uid,
               null);
       MealPlan plan = planGenerator.generatePlan();
-      Server.userCurrPlan.put(uid, plan); // stores plan under uid inServer variable
+      this.userCurrPlan.put(uid, plan); // stores plan under uid inServer variable
       responseMap.put("response_type", "success");
       responseMap.put("Mealplan", plan);
     } catch (Exception e) {
