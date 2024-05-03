@@ -6,7 +6,7 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import { AccountUpdate } from "../Login/AccountUpdate";
 import { ControlledInput } from "../Login/ControlledInput";
 import { parseRecipe } from "../RecipeCard/ParseRecipe";
-import { getLikeDislike } from "../MealPlan/MealPlanGenerate";
+import { getLikeDislike } from "../MealPlan/ParseMealPlan";
 
 export interface User {
   name: string;

@@ -2,6 +2,12 @@ import { getDislikes, getLikes } from "../../utils/api";
 import { parseRecipe } from "../RecipeCard/ParseRecipe";
 import Recipe from "../RecipeCard/Recipe";
 
+export interface mealPlanDay {
+  day: string;
+  recipeExists: boolean;
+  recipe: Recipe | null;
+  liked: number | null;
+}
 export const dayToRecipe = (day: string, recipeList): Recipe | null => {
   if (recipeList !== undefined) {
     const recipeJson = recipeList[day];
@@ -32,7 +38,9 @@ export const getLikeDislike = async (recipeId): Promise<number> => {
     return 0;
   }
 };
-export const parseMealPlan = async (recipeList) => {
+export const parseMealPlanLikes = async (
+  recipeList
+): Promise<mealPlanDay[]> => {
   const sunRecipe = dayToRecipe("sunday", recipeList);
   const monRecipe = dayToRecipe("monday", recipeList);
   const tuesRecipe = dayToRecipe("tuesday", recipeList);
@@ -83,6 +91,63 @@ export const parseMealPlan = async (recipeList) => {
       recipeExists: recipeList["sunday"] !== undefined,
       recipe: sunRecipe,
       liked: await getLikeDislike(sunRecipe !== null ? sunRecipe.id : null),
+    },
+  ];
+  return newMealPlan;
+};
+export const parseMealPlanWithoutLikes = (
+  recipeList
+): mealPlanDay[] => {
+  const sunRecipe = dayToRecipe("sunday", recipeList);
+  const monRecipe = dayToRecipe("monday", recipeList);
+  const tuesRecipe = dayToRecipe("tuesday", recipeList);
+  const wedRecipe = dayToRecipe("wednesday", recipeList);
+  const thursRecipe = dayToRecipe("thursday", recipeList);
+  const friRecipe = dayToRecipe("friday", recipeList);
+  const satRecipe = dayToRecipe("saturday", recipeList);
+  console.log(monRecipe);
+  const newMealPlan = [
+    {
+      day: "Monday",
+      recipeExists: recipeList["monday"] !== undefined,
+      recipe: monRecipe,
+      liked: monRecipe !== null ? 0 : null,
+    },
+    {
+      day: "Tuesday",
+      recipeExists: recipeList["tuesday"] !== undefined,
+      recipe: tuesRecipe || null,
+      liked: tuesRecipe !== null ? 0 : null,
+    },
+    {
+      day: "Wednesday",
+      recipeExists: recipeList["wednesday"] !== undefined,
+      recipe: wedRecipe || null,
+      liked: wedRecipe !== null ? 0 : null,
+    },
+    {
+      day: "Thursday",
+      recipeExists: recipeList["thursday"] !== undefined,
+      recipe: thursRecipe || null,
+      liked: thursRecipe !== null ? 0 : null,
+    },
+    {
+      day: "Friday",
+      recipeExists: recipeList["friday"] !== undefined,
+      recipe: friRecipe || null,
+      liked: friRecipe !== null ? 0 : null,
+    },
+    {
+      day: "Saturday",
+      recipeExists: recipeList["saturday"] !== undefined,
+      recipe: satRecipe || null,
+      liked: satRecipe !== null ? 0 : null,
+    },
+    {
+      day: "Sunday",
+      recipeExists: recipeList["sunday"] !== undefined,
+      recipe: sunRecipe,
+      liked: sunRecipe !== null ? 0 : null,
     },
   ];
   return newMealPlan;

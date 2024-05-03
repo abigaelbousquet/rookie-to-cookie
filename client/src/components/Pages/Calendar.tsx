@@ -8,7 +8,7 @@ import "../../styles/Calendar.css";
 import InfoView from "../RecipeCard/InfoView";
 import MealPlanSave from "../MealPlan/MealPlanSave";
 import { getMealPlan } from "../../utils/api";
-import { parseMealPlan } from "../MealPlan/MealPlanGenerate";
+import { parseMealPlanLikes } from "../MealPlan/ParseMealPlan";
 import MealPlanPopup from "../MealPlan/MealPlanPopup";
 import { emptyMealPlan } from "../../data/MockedRecipeHistory";
 
@@ -61,7 +61,9 @@ const CalendarPage: React.FC = () => {
           try {
             const mealplanJson = await getMealPlan(formattedDate1);
             const mealPlanDate = await mealplanJson["Mealplan"];
-            const mealPlan = await parseMealPlan(mealPlanDate[formattedDate]);
+            const mealPlan = await parseMealPlanLikes(
+              mealPlanDate[formattedDate]
+            );
             await setMealPlan(mealPlan);
           } catch (error) {
             setMealPlan(emptyMealPlan);

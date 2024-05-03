@@ -77,14 +77,14 @@ const InfoView: React.FC<InfoViewProps> = ({
               <p>
                 <strong>Servings:</strong> {recipe.servings}
               </p>
-              <p>
+              <div>
                 <strong>Ingredients: </strong>
                 {/* {recipe.ingredients.map((ingredient, index) => {
                   return <p>{ingredient}</p>;
                 })} */}
                 {/* {recipe.ingredients.join(", ")} */}
                 {TwoColumnTable(recipe.ingredients)}
-              </p>
+              </div>
             </div>
           </div>
         </div>

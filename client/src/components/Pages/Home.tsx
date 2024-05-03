@@ -11,7 +11,7 @@ import { generateMealPlan, getUser, saveMealPlan } from "../../utils/api";
 import { cuisineOptions, intoleranceOptions } from "../../data/Spoonacular";
 import MealPlanSave from "../MealPlan/MealPlanSave";
 import Recipe from "../RecipeCard/Recipe";
-import { parseMealPlan } from "../MealPlan/MealPlanGenerate";
+import { parseMealPlanWithoutLikes } from "../MealPlan/ParseMealPlan";
 import { emptyMealPlan } from "../../data/MockedRecipeHistory";
 
 const Home: React.FC = () => {
@@ -172,7 +172,7 @@ const Home: React.FC = () => {
         }
       } else {
         const recipeList = mealPlanJson["Mealplan"];
-        const newMealPlan = await parseMealPlan(recipeList);
+        const newMealPlan = await parseMealPlanWithoutLikes(recipeList);
         setCurrMealPlan(newMealPlan);
         console.log(currMealPlan);
       }
@@ -234,7 +234,7 @@ const Home: React.FC = () => {
     <div className="Home Page">
       <div className="paragraph-container">
         {/* Add your paragraph content here */}
-        <p>Welcome to Rookie to Cookie!</p>
+        <h3>Welcome to Rookie to Cookie!</h3>
         <p>
           Our meal planning web application is designed to seamlessly integrate
           cooking into your daily routine. Whether you're a beginner starting
