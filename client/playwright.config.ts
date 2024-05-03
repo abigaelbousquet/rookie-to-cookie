@@ -71,13 +71,8 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: [
     {
-      command: "npm test",
+      command: "npm start",
       url: "http://localhost:8000",
-      reuseExistingServer: !process.env.CI,
-    },
-    {
-      command: "node ../server/trivial_backend.js",
-      url: "http://localhost:3232",
       reuseExistingServer: !process.env.CI,
     },
   ],
