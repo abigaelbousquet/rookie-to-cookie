@@ -3,7 +3,7 @@ import "../../styles/profile.css";
 import { clearUser, getDislikes, getLikes, getUser } from "../../utils/api";
 import Recipe from "../RecipeCard/Recipe";
 import RecipeCard from "../RecipeCard/RecipeCard";
-import { AccountCreation } from "../Login/AccountCreation";
+import { AccountUpdate } from "../Login/AccountUpdate";
 import { ControlledInput } from "../Login/ControlledInput";
 import { parseRecipe } from "../RecipeCard/ParseRecipe";
 import { getLikeDislike } from "../MealPlan/MealPlanGenerate";
@@ -94,6 +94,12 @@ const ProfilePage: React.FC = () => {
           <p>{user.intolerances.join(", ")}</p>
         </div>
         <h4>{"Cooking for " + user.fam_size}</h4>
+        <button onClick={() => setShowPopup(true)}>Update Account</button>
+        {showPopup && (
+          <div className="popup-container">
+            {showPopup && <AccountUpdate onClose={() => setShowPopup(false)} />}
+          </div>
+        )}
       </div>
       <div className="right-side">
         <div className="likes">
