@@ -6,7 +6,7 @@ const WeekView = ({ mealPlan, saved }) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
 
   return (
-    <div className="week-calendar">
+    <div className="week-calendar" aria-label="mealplan-week-view">
       <div className="top-grid">
         {/* Render week name cells */}
         <div

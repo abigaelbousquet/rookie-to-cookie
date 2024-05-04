@@ -28,8 +28,8 @@ test("test create a new account", async ({ page }) => {
     .nth(3)
     .click();
   await page.getByText("Nut", { exact: true }).click();
-  await page.getByPlaceholder("1").click();
-  await page.getByPlaceholder("1").fill("6");
+  await page.getByRole("button", { name: "1", exact: true }).click();
+  await page.getByRole("button", { name: "1", exact: true }).fill("6");
   await page.getByRole("button", { name: "Create Account" }).click();
   await page.getByRole("link", { name: "Profile" }).click();
   await expect(page.locator("#root")).toContainText(
@@ -80,12 +80,13 @@ test("test a liked recipe is in the liked recipe list on a profile", async ({
     "Rookie To CookieHomeCalendarAboutProfileFaizah TestBeginner ChefDiet:PrimalIntolerances:Tree nut, EggCooking for 6Update AccountLiked Recipes:Disliked Recipes:North African Chickpea Soup (Leblebi)Cuisine: AfricanTime: 45Instructions: ...View RecipeEasy Vegetarian PhoCuisine: VietnameseTime: 45Instructions: ...View RecipeSign Out"
   );
 });
-//TODO: fix!!
+
 test("test creating and updating an account", async ({ page }) => {
+  const newEmailNumber: number = Math.random() * 512;
   await page.getByPlaceholder("josiah_carberry@brown.edu").click();
   await page
     .getByPlaceholder("josiah_carberry@brown.edu")
-    .fill("marissa_test@brown.edu");
+    .fill(`marissa_test_${newEmailNumber}@brown.edu`);
   await page.getByPlaceholder("ilovecooking").click();
   await page.getByPlaceholder("ilovecooking").fill("ilovecooking");
   await page.getByLabel("Login").click();
@@ -100,8 +101,8 @@ test("test creating and updating an account", async ({ page }) => {
     .nth(3)
     .click();
   await page.getByText("Nut", { exact: true }).click();
-  await page.getByPlaceholder("1").click();
-  await page.getByPlaceholder("1").fill("6");
+  await page.getByRole("button", { name: "1", exact: true }).click();
+  await page.getByRole("button", { name: "1", exact: true }).fill("6");
   await page.getByRole("button", { name: "Create Account" }).click();
   await page.getByRole("link", { name: "Profile" }).click();
   await expect(page.locator("#root")).toContainText(
@@ -114,4 +115,20 @@ test("test creating and updating an account", async ({ page }) => {
   await page.getByRole("button", { name: "Update Account" }).click();
   await expect(page.locator("#account-header")).toContainText("Update Account");
   await page.locator("span:nth-child(3)").first().click();
+  await page.locator(".css-1hwfws3").first().click();
+  await page.getByText("Vegetarian", { exact: true }).click();
+  await page
+    .locator("div")
+    .filter({ hasText: /^Select\.\.\.$/ })
+    .nth(3)
+    .click();
+  await page.getByText("Shellfish", { exact: true }).click();
+  await page.getByRole("button", { name: "1", exact: true }).click();
+  await page.getByRole("button", { name: "1", exact: true }).fill("4");
+  await page.getByRole("button", { name: "Update" }).click();
+  await page.getByRole("link", { name: "About" }).click();
+  await page.getByRole("link", { name: "Profile" }).click();
+  await expect(page.locator("#root")).toContainText(
+    "Testing testExperienced ChefDiet:VegetarianIntolerances:ShellfishCooking for 4Update Account"
+  );
 });

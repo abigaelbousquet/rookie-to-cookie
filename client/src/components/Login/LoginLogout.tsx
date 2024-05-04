@@ -4,11 +4,8 @@ import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
   getAuth,
-  GoogleAuthProvider,
   signInWithEmailAndPassword,
-  signInWithPopup,
 } from "firebase/auth";
-import { AccountCreation } from "./AccountCreation";
 import { ControlledInput } from "../SelectionTypes/ControlledInput";
 import { addLoginCookie } from "../../utils/cookie";
 

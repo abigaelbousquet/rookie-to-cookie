@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * This component renders information about our project!
+ * @returns About page component
+ */
 const About: React.FC = () => {
   return (
     <div className="About">

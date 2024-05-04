@@ -52,7 +52,11 @@ export const AccountCreation: React.FC<acctProps> = ({ setAuthing }) => {
     // Handle form submission here, e.g., send data to server
     if (
       props.name === undefined ||
+      props.name === "" ||
+      props.name === null ||
       props.exp === undefined ||
+      props.exp === "" ||
+      props.exp === null ||
       props.fam_size === undefined
     ) {
       alert("Please enter name, experience, and family size.");

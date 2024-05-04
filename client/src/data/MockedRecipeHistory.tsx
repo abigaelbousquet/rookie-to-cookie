@@ -139,3 +139,14 @@ export const mockRecipeList = () => {
 export const mockEmptyRecipeList = () => {
   return [];
 };
+const spaghetti = {
+  name: "Spaghetti Carbonara",
+  cuisine: "Italian",
+  instructions: ["Step 1", "Step 2", "Step 1000"],
+  time: 10,
+  liked: 0,
+  ingredients: ["Pasta", "Sauce", "Something more"],
+  image: "https://placeholder.com/312x231",
+  credit: "Unknown",
+  id: 123,
+};

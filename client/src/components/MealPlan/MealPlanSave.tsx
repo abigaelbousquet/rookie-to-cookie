@@ -23,6 +23,7 @@ const MealPlanSave: React.FC<MealPlanSaveProps> = ({ onClose }) => {
           <p>Select the week for the mealplan:</p>
           {/* Calendar display */}
           <Calendar
+            aria-label="cooking-history"
             className="small-cal"
             onChange={onChange}
             value={value}

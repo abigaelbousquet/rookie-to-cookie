@@ -1,12 +1,8 @@
-import Recipe from "../RecipeCard/Recipe";
-import RecipeHistory from "../RecipeCard/RecipeHistory";
 import { useState } from "react";
 import Calendar from "react-calendar";
 import React from "react";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/Calendar.css";
-import InfoView from "../RecipeCard/InfoView";
-import MealPlanSave from "../MealPlan/MealPlanSave";
 import { getMealPlan } from "../../utils/api";
 import { parseMealPlanLikes } from "../../RecipeUtils/ParseMealPlan";
 import MealPlanPopup from "../MealPlan/MealPlanPopup";
@@ -14,22 +10,14 @@ import { emptyMealPlan } from "../../data/MockedRecipeHistory";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-interface listItem {
-  day: number;
-  events: [
-    {
-      title: string;
-      details: {};
-    }
-  ];
-}
-
+/**
+ * This component renders the calendar page and manages mealplan popups
+ * @returns calendar page
+ */
 const CalendarPage: React.FC = () => {
   const [value, onChange] = useState<Value>(new Date());
   const [showPopup, setShowPopup] = useState<boolean>();
   const [mealPlan, setMealPlan] = useState(emptyMealPlan);
-  const [likedRecipes, setLikedRecipes] = useState<any[]>([]); // Add state for liked recipes
   const changePopup = () => {
     setShowPopup(false);
     setMealPlan(emptyMealPlan);
@@ -42,6 +30,7 @@ const CalendarPage: React.FC = () => {
         week. You can like and unlike recipes from this page!
       </p>
       <Calendar
+        aria-label="cooking-history-calendar"
         className="big-cal"
         onChange={onChange}
         value={value}
@@ -59,14 +48,16 @@ const CalendarPage: React.FC = () => {
             .replace("/", "-");
           console.log(formattedDate);
           try {
+            //queries back end for meal plan saved
             const mealplanJson = await getMealPlan(formattedDate1);
             const mealPlanDate = await mealplanJson["Mealplan"];
+            //check if liked or not, to display recipe card correctly
             const mealPlan = await parseMealPlanLikes(
               mealPlanDate[formattedDate]
             );
-            await setMealPlan(mealPlan);
+            await setMealPlan(mealPlan); //sets current mealplan to set to the popup display
           } catch (error) {
-            setMealPlan(emptyMealPlan);
+            setMealPlan(emptyMealPlan); //sets mealplan to empty if no plan saved to that week
             alert("No plan saved for week of " + formattedDate);
           }
         }}

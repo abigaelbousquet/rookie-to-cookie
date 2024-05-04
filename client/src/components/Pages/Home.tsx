@@ -1,33 +1,21 @@
 import "../../styles/Home.css";
 import React, { useState } from "react";
 import Select from "react-select";
-import InfoView from "../RecipeCard/InfoView";
 import MultiSelectInput from "../SelectionTypes/MultiSelectInput";
 import IntegerInput from "../SelectionTypes/IntegerInput";
 import WeekView from "../MealPlan/WeekView";
 import DaysOfTheWeekButtons from "../SelectionTypes/DaysOfTheWeekButtons";
-
-import { generateMealPlan, getUser, saveMealPlan } from "../../utils/api";
+import { generateMealPlan, getUser } from "../../utils/api";
 import { cuisineOptions, intoleranceOptions } from "../../data/Spoonacular";
 import MealPlanSave from "../MealPlan/MealPlanSave";
-import Recipe from "../RecipeCard/Recipe";
 import { parseMealPlanWithoutLikes } from "../../RecipeUtils/ParseMealPlan";
 import { emptyMealPlan } from "../../data/MockedRecipeHistory";
 
+/**
+ * Home page with generation prompts
+ * @returns Home/Generate page
+ */
 const Home: React.FC = () => {
-  // Define the options array for the dropdown
-  const spaghetti = {
-    name: "Spaghetti Carbonara",
-    cuisine: "Italian",
-    instructions: ["Step 1", "Step 2", "Step 1000"],
-    time: 10,
-    liked: 0,
-    ingredients: ["Pasta", "Sauce", "Something more"],
-    image: "https://placeholder.com/312x231",
-    credit: "Unknown",
-    id: 123,
-  };
-
   // State to keep track of selected buttons
   const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
   const [selectedOptionsCuisine, setSelectedOptionsCuisine] = useState<
@@ -152,7 +140,7 @@ const Home: React.FC = () => {
         daysToPlan: convertDaysOfWeekToCSVString(),
         maxReadyTime: maxTime.toString(),
         diet: userData["diet"].toString(),
-        intolerances: newIntols.toString(),
+        intolerances: intols.toString(),
         cuisine: cuisineLabels.toString(),
         requestedServings: numberOfPeople.toString(),
         exp: userData["exp"],
@@ -245,7 +233,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="Home Page">
-      <div className="paragraph-container">
+      <div className="paragraph-container" aria-label="welcome-text">
         {/* Add your paragraph content here */}
         <h3>Welcome to Rookie to Cookie!</h3>
         <p>
@@ -268,6 +256,7 @@ const Home: React.FC = () => {
         {/* Section of days of the week buttons */}
         <div className="days-of-the-week-buttons">
           <DaysOfTheWeekButtons
+            aria-label="days-of-the-week-select-buttons"
             selectedButtons={selectedButtons}
             handleButtonClick={handleButtonClick}
           />
@@ -282,6 +271,7 @@ const Home: React.FC = () => {
         {/* Section of cuisine dropdown box */}
         <div className="cuisine-options-box">
           <Select
+            aria-label="cuisine-selection"
             options={cuisineOptions}
             value={selectedOptionsCuisine}
             onChange={setSelectedOptionsCuisine}
@@ -298,8 +288,12 @@ const Home: React.FC = () => {
         </div>
         {/* Algorithm options */}
         <div className="algorithm-options-box">
-          <div className="radio-container">
+          <div
+            className="radio-container"
+            aria-label="algorithm-selection-buttons"
+          >
             <input
+              aria-label="minimize-food-waste"
               type="radio"
               id="minimize_foodwaste"
               name="algorithm"
@@ -318,6 +312,7 @@ const Home: React.FC = () => {
           </div>
           <div className="radio-container">
             <input
+              aria-label="prioritize-user-taste"
               type="radio"
               id="prioritize_user_taste"
               name="algorithm"
@@ -345,6 +340,7 @@ const Home: React.FC = () => {
         {/* Section of cuisine dropdown box */}
         <div className="intolerances-options-box">
           <Select
+            aria-label="intolerance-selector"
             options={intoleranceOptions}
             value={selectedOptionsIntolerance}
             onChange={setSelectedOptionsIntolerance}
@@ -353,7 +349,6 @@ const Home: React.FC = () => {
           />
         </div>
       </div>
-
       <div className="people-container">
         {/* Section of number of people cookign for prompt */}
         <div className="num-people-prompt-text">
@@ -382,27 +377,35 @@ const Home: React.FC = () => {
           Specify max cooking time (min):
         </div>
         {/* Section of max time integer input */}
-        <div className="max-time-options-box">
+        <div className="max-time-options-box" aria-label="max-time">
           <IntegerInput value={maxTime} onChange={setMaxTime} minValue={20} />
         </div>
       </div>
 
       {/* Button for generating */}
       <div className="generate-button-container">
-        <button onClick={handleGenerate} className="generate-button">
+        <button
+          onClick={handleGenerate}
+          aria-label="generate-button"
+          className="generate-button"
+        >
           Generate
         </button>
       </div>
 
       {/* Container for week calendar view */}
-      <div className="week-calendar-container">
+      <div className="week-calendar-container" aria-label="week-plan">
         <WeekView mealPlan={currMealPlan} saved={saved} />{" "}
         {/* causes a white screen */}
       </div>
 
       {/* Button for saving data */}
       <div className="save-data-button-container">
-        <button className="save-button" onClick={handleSave}>
+        <button
+          className="save-button"
+          aria-label="save-button"
+          onClick={handleSave}
+        >
           Save
         </button>
         {showSavePopup && (

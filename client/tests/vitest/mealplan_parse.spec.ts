@@ -1,6 +1,6 @@
 import { parseMealPlanWithoutLikes } from "../../src/RecipeUtils/ParseMealPlan";
-import { parseRecipe } from "../../src/utils/ParseRecipe";
 import { test, expect } from "vitest";
+import { parseRecipe } from "../../src/RecipeUtils/ParseRecipe";
 /**
  * Helper function to go to the page before each test;
  */
