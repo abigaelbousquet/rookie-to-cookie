@@ -58,6 +58,31 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
     }
   };
 
+  useEffect(() => {
+    // Add event listener to listen for Enter key press on the document body
+    document.body.addEventListener("keypress", handleKeyPress);
+    return () => {
+      // Cleanup: remove event listener when component unmounts
+      document.body.removeEventListener("keypress", handleKeyPress);
+    };
+  }, []);
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      // Press enter to trigger login button click
+      handleSubmit(
+        {
+          name: userName,
+          exp: exp,
+          diet: diet,
+          fam_size: fam_size.toString(),
+          intolerances: allergen.map((val) => val.value),
+        },
+        onClose
+      );
+    }
+  };
+
   // Updated handleSubmit function to be asynchronous
   const handleSubmit = async (props: profileProps, onClose: () => void) => {
     onClose();

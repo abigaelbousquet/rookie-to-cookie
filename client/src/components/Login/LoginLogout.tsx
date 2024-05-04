@@ -1,5 +1,5 @@
 import "../../styles/profile.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
@@ -22,6 +22,21 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  useEffect(() => {
+    // Add event listener to listen for Enter key press on the document body
+    document.body.addEventListener("keypress", handleKeyPress);
+    return () => {
+      // Cleanup: remove event listener when component unmounts
+      document.body.removeEventListener("keypress", handleKeyPress);
+    };
+  }, []);
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      // Press enter to trigger login button click
+      handleClick();
+    }
+  };
   const handleClick = async () => {
     if (password === "" || email === "") {
       alert("Please enter your email and password");

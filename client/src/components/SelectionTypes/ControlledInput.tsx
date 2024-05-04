@@ -11,6 +11,7 @@ interface ControlledInputProps {
   ariaLabel: string;
   placeholder: string;
   styleID: string;
+  onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 /**
@@ -24,6 +25,7 @@ export function ControlledInput({
   ariaLabel,
   placeholder,
   styleID,
+  onKeyPress,
 }: ControlledInputProps) {
   return (
     <input

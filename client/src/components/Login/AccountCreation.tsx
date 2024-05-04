@@ -48,6 +48,28 @@ export const AccountCreation: React.FC<acctProps> = ({ setAuthing }) => {
     4: "master",
   }; //marks for the experience slider
 
+  useEffect(() => {
+    // Add event listener to listen for Enter key press on the document body
+    document.body.addEventListener("keypress", handleKeyPress);
+    return () => {
+      // Cleanup: remove event listener when component unmounts
+      document.body.removeEventListener("keypress", handleKeyPress);
+    };
+  }, []);
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      // Press enter to trigger login button click
+      handleSubmit({
+        name: name,
+        exp: exp,
+        diet: diet,
+        fam_size: fam_size.toString(),
+        intolerances: allergen.map((val) => val.value),
+      });
+    }
+  };
+
   const handleSubmit = async (props: profileProps) => {
     // Handle form submission here, e.g., send data to server
     if (
