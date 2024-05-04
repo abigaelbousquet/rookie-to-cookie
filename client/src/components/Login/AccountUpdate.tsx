@@ -104,6 +104,9 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
     } catch (error) {
       alert(error);
     }
+    alert(
+      "Successfully updated account. Sign out then in again to see changes."
+    );
   };
 
   return (
@@ -175,9 +178,6 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
                     intolerances: allergen.map((val) => val.value),
                   },
                   onClose
-                );
-                alert(
-                  "Successfully updated account. Sign out then in again to see changes."
                 );
               }}
               type="submit"
