@@ -2,6 +2,7 @@ import "../../styles/profile.css";
 import React, { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
   getAuth,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -22,40 +23,57 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleClick = async () => {
-    if (password === null || email === null) {
+    if (password === "" || email === "") {
       alert("Please enter your email and password");
-    }
-    try {
+    } else {
       //0= login page
       //1=home page
       //2= create account page
-      const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response);
-      props.setAuthing(1);
-      addLoginCookie(response.user.uid);
-    } catch (error: any) {
-      if (error.message.includes("auth/invalid-email")) {
-        alert("invalid email");
-        props.setAuthing(0);
-      } else if (error.message.includes("WEAK_PASSWORD")) {
-        props.setAuthing(0);
-      } else {
-        if (!password || password.length < 6) {
-          alert("Password should be at least 6 characters long");
-          props.setAuthing(0);
-        } else {
-          try {
-            const response = await createUserWithEmailAndPassword(
-              auth,
-              email,
-              password
-            );
-            addLoginCookie(response.user.uid);
-            console.log("acct created");
-            props.setAuthing(2);
-          } catch (error) {
-            props.setAuthing(2);
+
+      const loginOptions: string[] = await fetchSignInMethodsForEmail(
+        auth,
+        email
+      );
+      console.log(loginOptions);
+
+      if (loginOptions.length === 0) {
+        // new user
+        try {
+          const response = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          addLoginCookie(response.user.uid);
+          console.log("acct created");
+          props.setAuthing(2);
+        } catch (error: any) {
+          if (error.message.includes("auth/invalid-email")) {
+            alert("invalid email");
+            props.setAuthing(0);
+          } else if (error.message.includes("WEAK_PASSWORD")) {
+            props.setAuthing(0);
+          } else {
+            if (!password || password.length < 6) {
+              alert("Password should be at least 6 characters long");
+              props.setAuthing(0);
+            }
           }
+        }
+      } else {
+        // returning user
+        try {
+          const response = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          console.log(response);
+          props.setAuthing(1);
+          addLoginCookie(response.user.uid);
+        } catch (error: any) {
+          alert("Incorrect password for email given. Please try again.");
+          props.setAuthing(0);
         }
       }
     }
