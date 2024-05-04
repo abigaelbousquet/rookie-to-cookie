@@ -1,5 +1,5 @@
-import { parseMealPlanWithoutLikes } from "../../src/components/MealPlan/ParseMealPlan";
-import { parseRecipe } from "../../src/components/RecipeCard/ParseRecipe";
+import { parseMealPlanWithoutLikes } from "../../src/RecipeUtils/ParseMealPlan";
+import { parseRecipe } from "../../src/utils/ParseRecipe";
 import { test, expect } from "vitest";
 /**
  * Helper function to go to the page before each test;

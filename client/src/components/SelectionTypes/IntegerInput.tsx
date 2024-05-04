@@ -1,6 +1,9 @@
 import "../../styles/IntegerInput.css"; // Import the CSS file
 import React, { useState } from "react";
 
+/**
+ * Component used in generation and account creation for numerical values
+ */
 interface IntegerInputProps {
   value: number;
   onChange: (value: number) => void;

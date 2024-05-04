@@ -1,11 +1,13 @@
 import React, { KeyboardEventHandler } from "react";
 import CreatableSelect from "react-select/creatable";
 
+/**
+ * Component for creatable multi-select intolerances/exclude box
+ */
 interface Option {
   readonly label: string;
   readonly value: string;
 }
-
 interface MultiSelectInputProps {
   onSelectChange: (selectedOptions: Option[]) => void;
 }

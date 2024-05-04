@@ -8,7 +8,7 @@ import "../../styles/Calendar.css";
 import InfoView from "../RecipeCard/InfoView";
 import MealPlanSave from "../MealPlan/MealPlanSave";
 import { getMealPlan } from "../../utils/api";
-import { parseMealPlanLikes } from "../MealPlan/ParseMealPlan";
+import { parseMealPlanLikes } from "../../RecipeUtils/ParseMealPlan";
 import MealPlanPopup from "../MealPlan/MealPlanPopup";
 import { emptyMealPlan } from "../../data/MockedRecipeHistory";
 

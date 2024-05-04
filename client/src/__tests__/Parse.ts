@@ -1,4 +1,4 @@
-import { parseRecipe } from "../components/RecipeCard/ParseRecipe";
+import { parseRecipe } from "../utils/ParseRecipe";
 
 describe("parseRecipe function", () => {
   it("should parse recipe data correctly", () => {

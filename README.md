@@ -16,10 +16,10 @@ Marissa Shaffer (mshaffe3) - Backend querying, Authentication, Account creation,
 
 ### Total Estimated Time for Project:
 
-- abousque - 23 (hours week 1) + 23 (hours week 2) + 25 (hours week 3) = 71 hours total  
-- ffnaqvi - 13 (hours week 1) + 19 (hours week 2) + 13 (hours week 3) = 45 hours total  
-- ddedona -  20 (hours week 1) + 22 (hours week 2) + 10 (hours week 3) = 52 hours total
-- mshaffe3 - 14 (hours week 1) + 18 (hours week 2) + 30 (hours week 3) = 63 hours
+- abousque - 23 (hours week 1) + 23 (hours week 2) + 25 (hours week 3) = 71 hours total
+- ffnaqvi - 13 (hours week 1) + 19 (hours week 2) + 13 (hours week 3) = 45 hours total
+- ddedona - 20 (hours week 1) + 22 (hours week 2) + 10 (hours week 3) = 52 hours total
+- mshaffe3 - 14 (hours week 1) + 18 (hours week 2) + 25 (hours week 3) = 58 hours
 
 ### Repository
 
@@ -77,7 +77,8 @@ Runtime/ space optimizations you made (if applicable).
 ### Front-End
 
 - Accessibility: We chose to use checkboxes on the recipes for visual cues and attention tracking, requested by one of our user stories, as well as aria labels and flexboxes in order to make our application as accessible as possible, as well as selecting a color palette which retained good contrast in grayscale.
-- Security: We chose to require that a user was logged in before accessing our application for a few reasons. First, it protects us from having bots spam our generator and cost us money. Secondly, it allows us to track the login flow more efficiently, rather than having to decide exactly which features are accessible to a non-logged in user, such as having to restrict access to certain algorithms, liking features, history, saving, and profiles. We also just believed it would enhance and make the user experience less confusing to be able to use the webapp to its full extent (requiring a login). However, we did not require a google account, as we have in previous sprints; rather, we let users use their own email so as not to specifically be forcing users to use a certain provider that collects data aside from us.
+- Security:
+  We chose to require that a user was logged in before accessing our application for a few reasons. First, it protects us from having bots spam our generator and cost us money. Secondly, it allows us to track the login flow more efficiently, rather than having to decide exactly which features are accessible to a non-logged in user, such as having to restrict access to certain algorithms, liking features, history, saving, and profiles. We also just believed it would enhance and make the user experience less confusing to be able to use the webapp to its full extent (requiring a login). However, we did not require a google account, as we have in previous sprints; rather, we let users use their own email so as not to specifically be forcing users to use a certain provider that collects data aside from us.
 
 ### Back-End
 
@@ -89,8 +90,6 @@ We chose to gather Recipes for a user's liked and disliked Recipes from Firebase
 
 # Errors/Bugs
 
-There is a bug in account creation where multiple users can be created under the same email if a new password is used. The profile page will only ever be able to display the first one that is created but it will allow the user to create another account and store the other information in firebase. The original account is unaffected; if the user logs out and logs back in with the correct password, the app should work as planned. Though, it is something that we would want to fix given a little more time.
-
 # Tests
 
 Explain the testing suites that you implemented for your program and how each test ensures that a part of the program works.
@@ -98,6 +97,10 @@ Explain the testing suites that you implemented for your program and how each te
 ### Front-End
 
 The bulk of front end testing concerned end to end testing, as this was a full stack application, which was testable visually in the mocking stage and the functions unmocked were mostly unable to be unit tested. However, we did use Vitest in order to test our two parsing functions: mealplan parsing and recipe parsing, as these are the most complex queries received from the back end.
+
+e2e:
+
+- test_accout tests functionality for firebase profile data
 
 ### Back-End
 

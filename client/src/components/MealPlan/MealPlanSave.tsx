@@ -4,21 +4,24 @@ import "../../styles/MealPlanSave.css";
 import React, { useState } from "react";
 import { getMealPlan, saveMealPlan } from "../../utils/api";
 
+/**
+ * This component pops up when you click save on a generated meal plan,
+ *  and allows you to select a week on a calendar to save it to your cooking history.
+ */
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
-
 interface MealPlanSaveProps {
   onClose: () => void;
 }
 
 const MealPlanSave: React.FC<MealPlanSaveProps> = ({ onClose }) => {
-  const [value, onChange] = useState<Value>(new Date());
-  const [weekChosen, setWeekChosen] = useState<ValuePiece>(null);
+  const [value, onChange] = useState<Value>(new Date()); //Value of a calendar tile
   return (
     <div className="popup-save-overlay">
       <div className="popup-save-content">
         <div>
           <p>Select the week for the mealplan:</p>
+          {/* Calendar display */}
           <Calendar
             className="small-cal"
             onChange={onChange}
@@ -26,7 +29,9 @@ const MealPlanSave: React.FC<MealPlanSaveProps> = ({ onClose }) => {
             showWeekNumbers={true}
             tileDisabled={() => true}
             onClickWeekNumber={async (weekNumber, date) => {
-              setWeekChosen(date);
+              {
+                /* Handler function for saving the plan*/
+              }
               const formattedDate = date.toLocaleDateString("en-US", {
                 month: "2-digit",
                 day: "2-digit",

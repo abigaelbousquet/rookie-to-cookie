@@ -10,10 +10,13 @@ import {
   removeLike,
 } from "../../utils/api";
 
+/**
+ * Recipe card, displayed in meal plan views and like/dislike sections of the webapp
+ */
 interface RecipeCardProps {
   recipe: Recipe;
   saved: boolean;
-  isLiked:number;
+  isLiked: number;
   setShowPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -23,19 +26,16 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved, isLiked }) => {
   const toggleShowFullRecipe = () => {
     setShowFullRecipe(!showFullRecipe);
   };
+  //Use effect handles like click by updating firestore
   useEffect(() => {
     const updateLikes = async () => {
       if (liked == 1) {
         await addLike(recipe.id);
-        console.log("added liked to firestore: " + recipe.id);
       } else if (liked == 2) {
         await removeLike(recipe.id);
-        console.log("removed like from firestore: " + recipe.id);
         await addDislike(recipe.id);
-        console.log("added disliked to firestore: " + recipe.id);
       } else {
         await removeDislike(recipe.id);
-        console.log("removed disliked from firestore: " + recipe.id);
       }
     };
     updateLikes();
@@ -69,7 +69,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved, isLiked }) => {
             <strong>Instructions: </strong>
             {"..."}
           </p>
-
+          {/*Button that toggles the infoview popup*/}
           <button className="recipe-button" onClick={toggleShowFullRecipe}>
             View Recipe
           </button>

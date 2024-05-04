@@ -1,7 +1,10 @@
 import "../../styles/MealPlanSave.css";
-import React, { useState } from "react";
+import React from "react";
 import WeekView from "./WeekView";
 
+/**
+ * This component is seen on the Calendar page, when a week is selected. It displays the meal plan saved to that week in a popup.
+ */
 interface MealPlanPopupProps {
   onClose: () => void;
   mealPlan: any;

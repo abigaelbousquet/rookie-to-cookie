@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/profile.css";
-import { clearUser, getDislikes, getLikes, getUser } from "../../utils/api";
-import Recipe from "../RecipeCard/Recipe";
+import { getDislikes, getLikes, getUser } from "../../utils/api";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { AccountUpdate } from "../Login/AccountUpdate";
-import { ControlledInput } from "../SelectionTypes/ControlledInput";
-import { parseRecipe } from "../RecipeCard/ParseRecipe";
-import { getLikeDislike } from "../MealPlan/ParseMealPlan";
+import { parseRecipe } from "../../RecipeUtils/ParseRecipe";
 
+/**
+ * This component houses the profile page
+ */
 export interface User {
   name: string;
   experienceLevel: string;
@@ -21,7 +21,7 @@ export interface User {
 const ProfilePage: React.FC = () => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
-
+  //Gets and sets user data asynchronously
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,10 +31,10 @@ const ProfilePage: React.FC = () => {
         console.error("Error fetching user data:", error);
       }
     };
-
     fetchData();
   }, []);
 
+  //Combines user profile data and likes/dislikes
   const getProfileData = async () => {
     const response = await getLikes();
     const likes = response["Recipes"];
@@ -54,6 +54,7 @@ const ProfilePage: React.FC = () => {
     };
   };
 
+  //Displayed if still fetching data
   if (!user) {
     return <div>Loading...</div>;
   }
@@ -102,6 +103,7 @@ const ProfilePage: React.FC = () => {
         >
           Update Account
         </button>
+        {/*Account update button*/}
         {showPopup && (
           <div className="popup-container">
             {showPopup && <AccountUpdate onClose={() => setShowPopup(false)} />}
@@ -112,6 +114,7 @@ const ProfilePage: React.FC = () => {
         <div className="likes">
           <h3>Liked Recipes:</h3>
           <div>
+            {/*Recipe cards of liked recipes*/}
             {user.likedRecipes.map((recipe) => (
               <div>
                 <RecipeCard
@@ -126,6 +129,7 @@ const ProfilePage: React.FC = () => {
         </div>
         <div className="dislikes">
           <h3>Disliked Recipes:</h3>
+          {/*Recipe cards of disliked recipes*/}
           {user.dislikedRecipes.map((recipe) => (
             <div>
               <RecipeCard

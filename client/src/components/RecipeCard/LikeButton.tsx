@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { AiFillDislike, AiFillHeart, AiFillLike } from "react-icons/ai";
-import { addLike } from "../../utils/api";
 
+/**
+ * This component is a three state button which can either show liked, disliked, or non-liked/disliked status
+ */
 interface likeButtonProps {
   liked: number;
   setLiked: React.Dispatch<React.SetStateAction<number>>;

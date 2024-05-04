@@ -89,3 +89,13 @@ h2 {
   color: white;
   font-size: 40px;
 }
+
+.rc-slider-mark-text {
+  color: white;
+}
+.rc-slider-mark-text-active {
+  color: rgb(207, 207, 207);
+}
+.rc-slider-mark {
+  font-size: 13px;
+}

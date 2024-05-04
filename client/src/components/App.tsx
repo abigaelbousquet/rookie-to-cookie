@@ -6,12 +6,10 @@ import Home from "./Pages/Home";
 
 import { initializeApp } from "firebase/app";
 import AuthRoute from "./Login/AuthRoute";
-import {
-  mockRecipeHistory,
-  mockEmptyRecipeList,
-} from "../data/MockedRecipeHistory";
-import Calendar from "./Pages/Calendar";
 
+/**
+ * High level App component, which initializes authroute and firebase
+ */
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,

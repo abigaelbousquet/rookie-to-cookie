@@ -1,5 +1,6 @@
-import { useState } from "react";
-
+/**
+ * Recipe interface
+ */
 interface Recipe {
   name: string;
   cuisine: string;

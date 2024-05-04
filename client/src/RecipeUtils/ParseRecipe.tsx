@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Recipe from "../RecipeCard/Recipe";
+import Recipe from "../components/RecipeCard/Recipe";
 
 export function parseRecipe(recipeData: any): Recipe {
   const name: string = recipeData.title;

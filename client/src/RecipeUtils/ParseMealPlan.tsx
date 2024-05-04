@@ -1,13 +1,22 @@
-import { getDislikes, getLikes } from "../../utils/api";
-import { parseRecipe } from "../RecipeCard/ParseRecipe";
-import Recipe from "../RecipeCard/Recipe";
+import { getDislikes, getLikes } from "../utils/api";
+import { parseRecipe } from "./ParseRecipe";
+import Recipe from "../components/RecipeCard/Recipe";
 
+/**
+ * This class parses meal plans into a format that WeekView can support
+ */
 export interface mealPlanDay {
   day: string;
   recipeExists: boolean;
   recipe: Recipe | null;
   liked: number | null;
 }
+/**
+ * This helper method parses a single recipe from the mealplan json given a day
+ * @param day day of the week string
+ * @param recipeList data containing list of days planned for
+ * @returns
+ */
 export const dayToRecipe = (day: string, recipeList): Recipe | null => {
   if (recipeList !== undefined) {
     const recipeJson = recipeList[day];
@@ -19,6 +28,12 @@ export const dayToRecipe = (day: string, recipeList): Recipe | null => {
   }
   return null;
 };
+
+/**
+ *
+ * @param recipeId id of recipe
+ * @returns an integer of whether a given recipe is liked or disliked
+ */
 export const getLikeDislike = async (recipeId): Promise<number> => {
   const response = await getLikes();
   const likes: any[] = response["Recipes"];
@@ -95,9 +110,7 @@ export const parseMealPlanLikes = async (
   ];
   return newMealPlan;
 };
-export const parseMealPlanWithoutLikes = (
-  recipeList
-): mealPlanDay[] => {
+export const parseMealPlanWithoutLikes = (recipeList): mealPlanDay[] => {
   const sunRecipe = dayToRecipe("sunday", recipeList);
   const monRecipe = dayToRecipe("monday", recipeList);
   const tuesRecipe = dayToRecipe("tuesday", recipeList);

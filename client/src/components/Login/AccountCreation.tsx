@@ -3,12 +3,16 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "./../../styles/login.css";
 import Select from "react-select";
-
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { ControlledInput } from "../SelectionTypes/ControlledInput";
 import Creatable from "react-select/creatable";
 import { addUser } from "../../utils/api";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { diets, intoleranceOptions } from "../../data/Spoonacular";
+import IntegerInput from "../SelectionTypes/IntegerInput";
+
+/**
+ * This interface includes the attributes stored to firestore for a user profile account
+ */
 export interface profileProps {
   name: string;
   exp: string;
@@ -16,50 +20,36 @@ export interface profileProps {
   fam_size: string;
   intolerances: string[];
 }
+
+/**
+ * The authing setStateAction is passed in by the AuthRoute class to switch to logged in mode after account is created.
+ */
 interface acctProps {
-  onClose: () => void;
   setAuthing: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const AccountCreation: React.FC<acctProps> = ({
-  onClose,
-  setAuthing,
-}) => {
+/**
+ * This component is the account creation seen by a new user upon entering an email and password
+ * @param param0 setAuthing
+ * @returns Account creation component
+ */
+export const AccountCreation: React.FC<acctProps> = ({ setAuthing }) => {
   const [name, setName] = useState("");
   const [exp, setExp] = useState("1");
   const [diet, setDiet] = useState("");
   const [allergen, setAllergen] = useState<{ label: string; value: string }[]>(
     []
   );
-  const [fam_size, setFam_Size] = useState("");
+  const [fam_size, setFam_Size] = useState(1);
   const heightMarks = {
     1: "novice",
     2: "beginner",
     3: "moderate",
     4: "master",
-  };
-  const diets = [
-    { label: "Vegetarian", value: "Vegetarian" },
-    { label: "Vegan", value: "Vegan" },
-    { label: "Pescetarian", value: "Pescetarian" },
-    { label: "Paleo", value: "Paleo" },
-    { label: "Primal", value: "Primal" },
-  ];
-  let intolerance = [
-    { label: "Shellfish", value: "Shellfish" },
-    { label: "Egg", value: "Egg" },
-    { label: "Peanut", value: "Peanut" },
-    { label: "Nut", value: "Nut" },
-    { label: "Soy", value: "Soy" },
-    { label: "Sesame", value: "Sesame" },
-    { label: "Tree nut", value: "Tree nut" },
-    { label: "Sulfite", value: "Sulfite" },
-    { label: "Dairy", value: "Dairy" },
-    { label: "Gluten", value: "Gluten" },
-  ];
+  }; //marks for the experience slider
+
   const handleSubmit = async (props: profileProps) => {
     // Handle form submission here, e.g., send data to server
-    //await addUser(props);
     if (
       props.name === undefined ||
       props.exp === undefined ||
@@ -68,26 +58,13 @@ export const AccountCreation: React.FC<acctProps> = ({
       alert("Please enter name, experience, and family size.");
     } else {
       try {
-        await addUser(props);
-        console.log(
-          "?name=" +
-            props.name +
-            "&exp=" +
-            props.exp +
-            "&diet=" +
-            props.diet.toString() +
-            "&fam-size=" +
-            props.fam_size +
-            "&intolerances=" +
-            props.intolerances.toString()
-        );
-        setAuthing(1);
+        await addUser(props); //add user to firestore
+        setAuthing(1); //log in
       } catch (error) {
-        alert(error);
+        alert(error); //display error
       }
     }
   };
-
   return (
     <div className="popup">
       <div className="popup-inner">
@@ -133,7 +110,7 @@ export const AccountCreation: React.FC<acctProps> = ({
               <legend>Intolerances:</legend>
               <div className="selector">
                 <Creatable
-                  options={intolerance}
+                  options={intoleranceOptions}
                   isMulti
                   onChange={(opt) => {
                     console.log(allergen);
@@ -144,14 +121,10 @@ export const AccountCreation: React.FC<acctProps> = ({
             </div>
             <div className="acct-elt">
               <legend>Family Size:</legend>
-              <ControlledInput
-                type="text"
+              <IntegerInput
                 value={fam_size}
-                setValue={setFam_Size}
-                ariaLabel="family-size"
-                placeholder="2"
-                styleID="input-box"
-              />
+                onChange={(num) => setFam_Size(num)}
+              ></IntegerInput>
             </div>
 
             <button
@@ -161,7 +134,7 @@ export const AccountCreation: React.FC<acctProps> = ({
                   name: name,
                   exp: exp,
                   diet: diet,
-                  fam_size: fam_size,
+                  fam_size: fam_size.toString(),
                   intolerances: allergen.map((val) => val.value),
                 })
               }

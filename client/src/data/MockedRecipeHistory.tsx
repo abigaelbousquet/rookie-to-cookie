@@ -1,5 +1,7 @@
+/**
+ * Mocked recipes used in testing
+ */
 import Recipe from "../components/RecipeCard/Recipe";
-import RecipeHistory from "../components/RecipeCard/RecipeHistory";
 export const emptyMealPlan = [
   { day: "sunday", recipeExists: false },
   { day: "monday", recipeExists: false },
@@ -119,71 +121,6 @@ const dish10: Recipe = {
   credit: "Unknown",
   id: "10",
 };
-
-/**
- * Mocked history items
- */
-const h1: RecipeHistory = {
-  recipe: dish1,
-  month: "May",
-  day: 1,
-  year: 2024,
-};
-const h2: RecipeHistory = {
-  recipe: dish2,
-  month: "May",
-  day: 2,
-  year: 2024,
-};
-const h3: RecipeHistory = {
-  recipe: dish3,
-  month: "May",
-  day: 3,
-  year: 2024,
-};
-const h4: RecipeHistory = {
-  recipe: dish4,
-  month: "May",
-  day: 4,
-  year: 2024,
-};
-const h5: RecipeHistory = {
-  recipe: dish4,
-  month: "May",
-  day: 15,
-  year: 2024,
-};
-const h6: RecipeHistory = {
-  recipe: dish4,
-  month: "May",
-  day: 18,
-  year: 2024,
-};
-const h7: RecipeHistory = {
-  recipe: dish4,
-  month: "May",
-  day: 19,
-  year: 2024,
-};
-const h8: RecipeHistory = {
-  recipe: dish4,
-  month: "May",
-  day: 22,
-  year: 2024,
-};
-const h9: RecipeHistory = {
-  recipe: dish4,
-  month: "May",
-  day: 27,
-  year: 2024,
-};
-const h10: RecipeHistory = {
-  recipe: dish4,
-  month: "May",
-  day: 28,
-  year: 2024,
-};
-
 export const mockRecipeList = () => {
   return [
     dish1,
@@ -197,9 +134,6 @@ export const mockRecipeList = () => {
     dish9,
     dish10,
   ];
-};
-export const mockRecipeHistory = () => {
-  return [h1, h2, h3, h4, h5, h6, h7, h8, h9, h10];
 };
 
 export const mockEmptyRecipeList = () => {

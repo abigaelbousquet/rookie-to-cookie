@@ -1,5 +1,5 @@
 import "../../styles/profile.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
@@ -12,6 +12,9 @@ import { AccountCreation } from "./AccountCreation";
 import { ControlledInput } from "../SelectionTypes/ControlledInput";
 import { addLoginCookie } from "../../utils/cookie";
 
+/**
+ * This component houses the login functionality, querying firebase and the backend, and has the signout button
+ */
 export interface ILoginPageProps {
   authing: number;
   setAuthing: React.Dispatch<React.SetStateAction<number>>;
@@ -26,10 +29,6 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
     if (password === "" || email === "") {
       alert("Please enter your email and password");
     } else {
-      //0= login page
-      //1=home page
-      //2= create account page
-
       const loginOptions: string[] = await fetchSignInMethodsForEmail(
         auth,
         email

@@ -3,6 +3,9 @@ import Recipe from "./Recipe";
 import LikeButton from "./LikeButton";
 import "../../styles/InfoView.css";
 
+/**
+ * Displays a recipe that can be followed step by step, with an ingredient list, image, like button, and other information
+ */
 interface InfoViewProps {
   recipe: Recipe;
   onClose: () => void;
@@ -79,10 +82,6 @@ const InfoView: React.FC<InfoViewProps> = ({
               </p>
               <div>
                 <strong>Ingredients: </strong>
-                {/* {recipe.ingredients.map((ingredient, index) => {
-                  return <p>{ingredient}</p>;
-                })} */}
-                {/* {recipe.ingredients.join(", ")} */}
                 {TwoColumnTable(recipe.ingredients)}
               </div>
             </div>

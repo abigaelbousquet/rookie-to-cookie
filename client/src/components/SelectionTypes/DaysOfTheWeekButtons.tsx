@@ -2,6 +2,11 @@
 import "../../styles/DaysOfTheWeekButtons.css";
 import React from "react";
 
+/**
+ * Buttons to select days of the week on home page
+ * @param param0 selected buttons, button click handler
+ * @returns component to be rendered
+ */
 const DaysOfTheWeekButtons = ({ selectedButtons, handleButtonClick }) => {
   return (
     <div className="days-of-the-week-buttons">

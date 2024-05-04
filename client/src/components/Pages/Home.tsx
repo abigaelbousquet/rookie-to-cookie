@@ -11,7 +11,7 @@ import { generateMealPlan, getUser, saveMealPlan } from "../../utils/api";
 import { cuisineOptions, intoleranceOptions } from "../../data/Spoonacular";
 import MealPlanSave from "../MealPlan/MealPlanSave";
 import Recipe from "../RecipeCard/Recipe";
-import { parseMealPlanWithoutLikes } from "../MealPlan/ParseMealPlan";
+import { parseMealPlanWithoutLikes } from "../../RecipeUtils/ParseMealPlan";
 import { emptyMealPlan } from "../../data/MockedRecipeHistory";
 
 const Home: React.FC = () => {

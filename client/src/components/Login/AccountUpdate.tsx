@@ -4,17 +4,16 @@ import "./../../styles/login.css";
 import Select from "react-select";
 import "../../styles/AccountUpdate.css";
 
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ControlledInput } from "../SelectionTypes/ControlledInput";
 import Creatable from "react-select/creatable";
 import { addUser, getUser } from "../../utils/api";
-export interface profileProps {
-  name: string;
-  exp: string;
-  diet: string;
-  fam_size: string;
-  intolerances: string[];
-}
+import { diets, intoleranceOptions } from "../../data/Spoonacular";
+import { profileProps } from "./AccountCreation";
+import IntegerInput from "../SelectionTypes/IntegerInput";
+/**
+ * This component is very similar to the account creation one, but does not have a name field and pops up over the profile page.
+ */
 interface acctProps {
   onClose: () => void;
 }
@@ -25,33 +24,13 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
   const [allergen, setAllergen] = useState<{ label: string; value: string }[]>(
     []
   );
-  const [fam_size, setFam_Size] = useState("");
+  const [fam_size, setFam_Size] = useState(1);
   const heightMarks = {
     1: "novice",
     2: "beginner",
     3: "moderate",
     4: "master",
   };
-  const diets = [
-    { label: "Vegetarian", value: "Vegetarian" },
-    { label: "Vegan", value: "Vegan" },
-    { label: "Pescetarian", value: "Pescetarian" },
-    { label: "Paleo", value: "Paleo" },
-    { label: "Primal", value: "Primal" },
-  ];
-  let intolerance = [
-    { label: "Shellfish", value: "Shellfish" },
-    { label: "Egg", value: "Egg" },
-    { label: "Peanut", value: "Peanut" },
-    { label: "Nut", value: "Nut" },
-    { label: "Soy", value: "Soy" },
-    { label: "Sesame", value: "Sesame" },
-    { label: "Tree nut", value: "Tree nut" },
-    { label: "Sulfite", value: "Sulfite" },
-    { label: "Dairy", value: "Dairy" },
-    { label: "Gluten", value: "Gluten" },
-  ];
-
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
@@ -85,7 +64,6 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
     try {
       // Get the user's name asynchronously
       const userName = await getUserName();
-
       if (props.exp === undefined || props.fam_size === undefined) {
         alert("Please enter experience and family size.");
       } else {
@@ -104,7 +82,7 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="popup">
+    <div className="popup" aria-label="update-account-popup">
       <div className="popup-inner">
         <div className="acct-inmost">
           <button className="close-button" onClick={onClose}>
@@ -115,10 +93,11 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
               <h2>Update Account</h2>
             </div>
           </div>
-          <div className="form">
+          <div className="form" aria-label="account-update-form">
             <div className="exp-slider">
               <legend>Cooking Experience:</legend>
               <Slider
+                ariaLabelForHandle={"experience-selector"}
                 defaultValue={1}
                 min={1}
                 max={4}
@@ -126,21 +105,23 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
                 marks={heightMarks}
               />
             </div>
-            <div className="acct-elt">
+            <div className="acct-elt" aria-label="diet-selector">
               <legend>Diet:</legend>
               <div className="selector">
                 <Select
+                  aria-label="diet-drop-down"
                   options={diets}
                   onChange={(opt) => setDiet(opt.value)}
                   defaultValue={"None"}
                 />
               </div>
             </div>
-            <div className="acct-elt">
+            <div className="acct-elt" aria-label="intolerances-selector">
               <legend>Intolerances:</legend>
               <div className="selector">
                 <Creatable
-                  options={intolerance}
+                  aria-label="intolerances-input"
+                  options={intoleranceOptions}
                   isMulti
                   onChange={(opt) => {
                     console.log(allergen);
@@ -149,18 +130,15 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
                 />
               </div>
             </div>
-            <div className="acct-elt">
+            <div className="acct-elt" aria-label="family-size">
               <legend>Family Size:</legend>
-              <ControlledInput
-                type="text"
+              <IntegerInput
                 value={fam_size}
-                setValue={setFam_Size}
-                ariaLabel="family-size"
-                placeholder="2"
-                styleID="input-box"
-              />
+                onChange={(num) => setFam_Size(num)}
+              ></IntegerInput>
             </div>
             <button
+              aria-label="update-button"
               className="butt"
               onClick={() => {
                 handleSubmit(
@@ -168,7 +146,7 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
                     name: userName,
                     exp: exp,
                     diet: diet,
-                    fam_size: fam_size,
+                    fam_size: fam_size.toString(),
                     intolerances: allergen.map((val) => val.value),
                   },
                   onClose

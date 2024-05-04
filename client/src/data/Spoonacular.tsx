@@ -1,3 +1,6 @@
+/**
+ * Constant values for spoonacular generation
+ */
 export const cuisineOptions = [
   { label: "african", value: "african" },
   { label: "chinese", value: "chinese" },
@@ -36,4 +39,12 @@ export const intoleranceOptions = [
   { label: "Sulfite", value: "Sulfite" },
   { label: "Dairy", value: "Dairy" },
   { label: "Gluten", value: "Gluten" },
+];
+
+export const diets = [
+  { label: "Vegetarian", value: "Vegetarian" },
+  { label: "Vegan", value: "Vegan" },
+  { label: "Pescetarian", value: "Pescetarian" },
+  { label: "Paleo", value: "Paleo" },
+  { label: "Primal", value: "Primal" },
 ];
