@@ -11,13 +11,13 @@ Abigael Bousquet (abousque) - Spoonacular integration, meal plan generator algor
 Faizah Naqvi (ffnaqvi) - Firebase integration, API endpoints and handlers
 
 **Front-End Software Engineers:**  
-Daniela DeDona (ddedona) - Home page, recipecard and mealplan displays
+Daniela DeDona (ddedona) - Home page, recipecard and mealplan displays  
 Marissa Shaffer (mshaffe3) - Backend querying, Account creation, Profile page
 
 ### Total Estimated Time for Project:
 
 abousque - 23 (hours week 1) + 23 (hours week 2) + 25 (hours week 3) = 71 hours total  
-ffnaqvi -  13 (hours week 1) + 19 (hours week 2) + 13 (hours week 3) = 45 hours total
+ffnaqvi - 13 (hours week 1) + 19 (hours week 2) + 13 (hours week 3) = 45 hours total  
 ddedona -  
 mshaffe3 - 14 (hours week 1) + 18 (hours week 2) + 30 (hours week 3) = 63 hours
 
