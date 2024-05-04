@@ -86,9 +86,11 @@ We chose to use classes rather than records for the Recipe object and its sub-cl
 
 We chose to use the specific types of RecipeRecommendationKDTrees (with RecipeNodes) in the algorithm generation because this data structure gave us a defined algorithm for determining k-nearest-neighbors to a particular recipe which was helpful for comparing candidate Recipes to a user's liked and/or disliked Recipes in the "personalized" meal plan generation algorithm.
 
-We chose to gather Recipes for a user's liked and disliked Recipes from Firebase rather than additional calls to the Spoonacular API to preserve our limited available requests for meal plan generation only.
+We chose to gather Recipes for a user's liked and disliked Recipes from Firebase rather than additional calls to the Spoonacular API to preserve our limited available requests for meal plan generation only. This led to saving more data in firebase which wasn't very space-efficient, but was more cost-efficient.
 
 # Errors/Bugs
+
+In testing the back end with mocked data and mocked firebase (in TestEndpoint), we have run into a bug with unexpected NullPointerExceptions in the workflow of adding a user then generating and saving a meal plan then liking a recipe in the plan. With more time, we would/will look into this further but with our e2e testing with real data and real firebase we have been unable to replicate the bug. As such, this is a bug that appears to be isolated to the fully mocked case and so we have prioritized addressing other, user-facing bugs with our limited time.
 
 # Tests
 
