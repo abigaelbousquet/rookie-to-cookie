@@ -320,10 +320,14 @@ public class MealPlanGenerator {
    */
   public List<Recipe> personalized() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting list of quality recipes fitting user needs
-    List<Recipe> goodResults =
-        this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN * 6, this.NUM_DAYS_TO_PLAN * 3, null);
+    int necessaryQueryMultiplier = 1;
+    if (!this.dislikedRecipes.isEmpty()) { necessaryQueryMultiplier++;}
+    if (!this.likedRecipes.isEmpty()) { necessaryQueryMultiplier++;}
 
-    if (this.dislikedRecipes.size() > 0) {
+    List<Recipe> goodResults =
+        this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN * necessaryQueryMultiplier * 2, this.NUM_DAYS_TO_PLAN * necessaryQueryMultiplier, null);
+
+    if (!this.dislikedRecipes.isEmpty()) {
       // PART 2 - eliminate Recipes most similar to user's disliked Recipes
       PriorityQueue<RecipeFrequencyPair> badQueue =
           GeneratorUtilities.getNearestNeighborsToListRecipes(
@@ -337,7 +341,7 @@ public class MealPlanGenerator {
     }
 
     List<Recipe> bestRecipes = new ArrayList<>();
-    if (this.likedRecipes.size() > 0) {
+    if (!this.likedRecipes.isEmpty()) {
       // PART 3 - get the top NUM_DAYS_TO_PLAN Recipes most similar to the most liked Recipes
       PriorityQueue<RecipeFrequencyPair> goodQueue =
           GeneratorUtilities.getNearestNeighborsToListRecipes(
