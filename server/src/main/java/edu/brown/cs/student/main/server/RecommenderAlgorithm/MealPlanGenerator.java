@@ -321,11 +321,18 @@ public class MealPlanGenerator {
   public List<Recipe> personalized() throws DatasourceException, RecipeVolumeException {
     // PART 1 - get a starting list of quality recipes fitting user needs
     int necessaryQueryMultiplier = 1;
-    if (!this.dislikedRecipes.isEmpty()) { necessaryQueryMultiplier++;}
-    if (!this.likedRecipes.isEmpty()) { necessaryQueryMultiplier++;}
+    if (!this.dislikedRecipes.isEmpty()) {
+      necessaryQueryMultiplier++;
+    }
+    if (!this.likedRecipes.isEmpty()) {
+      necessaryQueryMultiplier++;
+    }
 
     List<Recipe> goodResults =
-        this.queryQualitySearchResults(this.NUM_DAYS_TO_PLAN * necessaryQueryMultiplier * 2, this.NUM_DAYS_TO_PLAN * necessaryQueryMultiplier, null);
+        this.queryQualitySearchResults(
+            this.NUM_DAYS_TO_PLAN * necessaryQueryMultiplier * 2,
+            this.NUM_DAYS_TO_PLAN * necessaryQueryMultiplier,
+            null);
 
     if (!this.dislikedRecipes.isEmpty()) {
       // PART 2 - eliminate Recipes most similar to user's disliked Recipes
