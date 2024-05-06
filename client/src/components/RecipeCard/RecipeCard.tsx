@@ -19,14 +19,28 @@ interface RecipeCardProps {
   isLiked: number;
   setShowPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
+/**
+ * Component representing a recipe card.
+ * @param recipe - The recipe data to display on the card.
+ * @param saved - Boolean indicating whether the recipe is saved.
+ * @param isLiked - Boolean indicating whether the recipe is liked.
+ * @returns A React component representing a recipe card.
+ */
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved, isLiked }) => {
   const [showFullRecipe, setShowFullRecipe] = useState(false);
   const [liked, setLiked] = useState(isLiked);
+
+  /**
+   * Toggles the visibility of the full recipe details.
+   */
   const toggleShowFullRecipe = () => {
     setShowFullRecipe(!showFullRecipe);
   };
   //Use effect handles like click by updating firestore
+
+  /**
+   * Updates the like status of the recipe in the database based on user interaction.
+   */
   useEffect(() => {
     const updateLikes = async () => {
       if (liked == 1) {
