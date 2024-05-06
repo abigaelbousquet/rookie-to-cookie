@@ -415,3 +415,315 @@ const mockMealPlanJson = {
   },
   response_type: "success",
 };
+
+test("parse mealplan 2", () => {
+  const mealplanParsed2 = parseMealPlanWithoutLikes(mockMealPlanJson2.Mealplan);
+  const mockMealPlan2 = mockMealPlanJson2.Mealplan;
+  const mealPlanExpected2 = [
+    { day: "monday", recipeExists: false },
+    { day: "tuesday", recipeExists: false },
+    {
+      day: "wednesday",
+      recipeExists: true,
+      recipe: parseRecipe(mockMealPlan2.wednesday),
+      liked: 0,
+    },
+    {
+      day: "thursday",
+      recipeExists: true,
+      recipe: parseRecipe(mockMealPlan2.thursday),
+      liked: 0,
+    },
+    {
+      day: "friday",
+      recipeExists: true,
+      recipe: parseRecipe(mockMealPlan2.friday),
+      liked: 0,
+    },
+    { day: "saturday", recipeExists: false },
+  ];
+
+  expect(JSON.stringify(mealplanParsed2) == JSON.stringify(mealPlanExpected2));
+});
+
+const mockMealPlanJson2 = {
+  Mealplan: {
+    friday: {
+      analyzedInstructions: [
+        {
+          name: "",
+          steps: [
+            {
+              number: 1,
+              step: "On 12 wooden skewers, alternately thread the strawberries, grapes and cheese cubes. For dip, in a small bowl, combine the yogurt, sour cream, honey and cinnamon.",
+            },
+            { number: 2, step: "Serve immediately or refrigerate." },
+          ],
+        },
+      ],
+      creditsText: "Taste of Home",
+      cuisines: [],
+      dairyFree: false,
+      diets: ["gluten free", "lacto ovo vegetarian", "primal"],
+      extendedIngredients: [
+        {
+          measures: { us: { amount: 1.5, unitLong: "cups" } },
+          meta: ["green"],
+          name: "grapes",
+        },
+        {
+          measures: { us: { amount: 0.5, unitLong: "teaspoons" } },
+          meta: [],
+          name: "ground cinnamon",
+        },
+        {
+          measures: { us: { amount: 2.0, unitLong: "Tbsps" } },
+          meta: [],
+          name: "honey",
+        },
+        {
+          measures: { us: { amount: 8.0, unitLong: "ounces" } },
+          meta: [],
+          name: "cheddar and monterey jack cheese cubes",
+        },
+        {
+          measures: { us: { amount: 0.5, unitLong: "cups" } },
+          meta: ["sour"],
+          name: "cream",
+        },
+        {
+          measures: { us: { amount: 1.325, unitLong: "pints" } },
+          meta: ["fresh", "halved"],
+          name: "strawberries",
+        },
+        {
+          measures: { us: { amount: 8.0, unitLong: "ounces" } },
+          meta: [],
+          name: "vanilla yogurt",
+        },
+      ],
+      glutenFree: true,
+      id: 445873,
+      image: "https://img.spoonacular.com/recipes/445873-312x231.jpg",
+      readyInMinutes: 20,
+      servings: 6,
+      spoonacularScore: 69.87470245361328,
+      title: "Fruit and Cheese Kabobs",
+      vegan: false,
+      vegetarian: true,
+    },
+    thursday: {
+      analyzedInstructions: [
+        {
+          name: "",
+          steps: [
+            { number: 1, step: "Cook pasta according package directions." },
+            { number: 2, step: "Drain." },
+            {
+              number: 3,
+              step: "While the pasta is cooking, heat the sesame oil in a large skillet over medium heat.",
+            },
+            {
+              number: 4,
+              step: "Add the sliced bell peppers and saute for about 7 minutes until tender.",
+            },
+            {
+              number: 5,
+              step: "In a bowl, add the peanut butter, ginger, soy sauce, vinegar, and water. Stir until smooth and set aside.",
+            },
+            {
+              number: 6,
+              step: "Once the pasta is done, add the sauce to the skillet over medium heat with the peppers.",
+            },
+            {
+              number: 7,
+              step: "Add in the cooked pasta and toss to coat in the sauce. Season with salt to taste.",
+            },
+            {
+              number: 8,
+              step: "Serve. Top each bowl with some chopped peanuts and cilantro.",
+            },
+          ],
+        },
+      ],
+      creditsText: "Eat Drink Love",
+      cuisines: [],
+      dairyFree: true,
+      diets: ["dairy free", "lacto ovo vegetarian", "vegan"],
+      extendedIngredients: [
+        {
+          measures: { us: { amount: 8.0, unitLong: "ounces" } },
+          meta: [],
+          name: "linguine",
+        },
+        {
+          measures: { us: { amount: 1.0, unitLong: "Tbsp" } },
+          meta: [],
+          name: "sesame oil",
+        },
+        {
+          measures: { us: { amount: 1.0, unitLong: "" } },
+          meta: ["green", "seeded", "thinly sliced"],
+          name: "bell pepper",
+        },
+        {
+          measures: { us: { amount: 1.0, unitLong: "" } },
+          meta: ["red", "seeded", "thinly sliced"],
+          name: "bell pepper",
+        },
+        {
+          measures: { us: { amount: 1.0, unitLong: "teaspoon" } },
+          meta: ["minced"],
+          name: "ginger",
+        },
+        {
+          measures: { us: { amount: 0.33333334, unitLong: "cups" } },
+          meta: [],
+          name: "creamy peanut butter",
+        },
+        {
+          measures: { us: { amount: 3.0, unitLong: "Tbsps" } },
+          meta: ["low sodium"],
+          name: "soy sauce",
+        },
+        {
+          measures: { us: { amount: 1.0, unitLong: "Tbsp" } },
+          meta: ["(or cider vinegar)"],
+          name: "rice vinegar",
+        },
+        {
+          measures: { us: { amount: 0.33333334, unitLong: "cups" } },
+          meta: ["hot"],
+          name: "water",
+        },
+        {
+          measures: { us: { amount: 4.0, unitLong: "servings" } },
+          meta: ["to taste"],
+          name: "salt",
+        },
+        {
+          measures: { us: { amount: 0.5, unitLong: "cups" } },
+          meta: ["chopped"],
+          name: "peanuts",
+        },
+        {
+          measures: { us: { amount: 0.5, unitLong: "cups" } },
+          meta: ["chopped"],
+          name: "cilantro",
+        },
+      ],
+      glutenFree: false,
+      id: 1451781,
+      image: "https://img.spoonacular.com/recipes/1451781-312x231.jpg",
+      readyInMinutes: 25,
+      servings: 4,
+      spoonacularScore: 82.7579345703125,
+      title: "Easy Peanut Noodles",
+      vegan: true,
+      vegetarian: true,
+    },
+    wednesday: {
+      analyzedInstructions: [
+        {
+          name: "",
+          steps: [
+            {
+              number: 1,
+              step: "Slice the tempeh and fry in oil. After a couple of minutes add the soy sauce, vinegar and maple syrup. Stir and cook for another 3-4 minutes.",
+            },
+            { number: 2, step: "In the meantime, chop the dried tomatoes." },
+            {
+              number: 3,
+              step: "Spoon the flesh out of the avocado and add to a bowl along with the lemon juice and salt and pepper. Give it a mash together.",
+            },
+            {
+              number: 4,
+              step: "Spread the avocado over half the slices of bread.",
+            },
+            {
+              number: 5,
+              step: "Rinse the rocket and lay it on the slices of bread.",
+            },
+            { number: 6, step: "Add the chopped dried tomatoes." },
+            {
+              number: 7,
+              step: "When the tempeh is ready, lay it on the rocket slices of bread.",
+            },
+            { number: 8, step: "Place the avocado breads on top. Done!" },
+          ],
+        },
+      ],
+      creditsText: "Hurry The Food Up",
+      cuisines: [],
+      dairyFree: true,
+      diets: ["dairy free", "lacto ovo vegetarian", "vegan"],
+      extendedIngredients: [
+        {
+          measures: { us: { amount: 4.0, unitLong: "slices" } },
+          meta: [],
+          name: "wholegrain bread",
+        },
+        {
+          measures: { us: { amount: 3.0, unitLong: "ounces" } },
+          meta: ["((in 8 slices)"],
+          name: "tempeh )",
+        },
+        {
+          measures: { us: { amount: 2.0, unitLong: "handfuls" } },
+          meta: ["((arugula)"],
+          name: "rocket )",
+        },
+        {
+          measures: { us: { amount: 0.5, unitLong: "cups" } },
+          meta: ["in oil"],
+          name: "sun-dried tomatoes",
+        },
+        {
+          measures: { us: { amount: 1.0, unitLong: "Tbsp" } },
+          meta: [],
+          name: "olive oil",
+        },
+        {
+          measures: { us: { amount: 2.0, unitLong: "Tbsps" } },
+          meta: ["((balsamic, malt or wine vinegar)"],
+          name: "vinegar )",
+        },
+        {
+          measures: { us: { amount: 2.0, unitLong: "Tbsps" } },
+          meta: [],
+          name: "soy sauce",
+        },
+        {
+          measures: { us: { amount: 2.0, unitLong: "teaspoons" } },
+          meta: [],
+          name: "maple syrup",
+        },
+        {
+          measures: { us: { amount: 1.0, unitLong: "" } },
+          meta: [],
+          name: "avocado",
+        },
+        {
+          measures: { us: { amount: 0.5, unitLong: "" } },
+          meta: ["juiced", "(()"],
+          name: "juice of lemon",
+        },
+        {
+          measures: { us: { amount: 2.0, unitLong: "servings" } },
+          meta: ["to taste"],
+          name: "salt and pepper",
+        },
+      ],
+      glutenFree: false,
+      id: 1768341,
+      image: "https://img.spoonacular.com/recipes/1768341-312x231.jpg",
+      readyInMinutes: 10,
+      servings: 2,
+      spoonacularScore: 72.55925750732422,
+      title: "Vegan Tempeh Sandwich",
+      vegan: true,
+      vegetarian: true,
+    },
+  },
+  response_type: "success",
+};
