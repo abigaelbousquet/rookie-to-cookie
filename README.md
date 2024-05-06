@@ -102,7 +102,9 @@ The bulk of front end testing concerned end to end testing, as this was a full s
 
 e2e:
 
-- test_accout tests functionality for firebase profile data
+- test_accout tests functionality for firebase profile data and login flow
+- test_generation tests functionality of e2e mealplan generation
+- test_saving and test_calendar test the saving process
 
 ### Back-End
 
