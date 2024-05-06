@@ -28,8 +28,8 @@ test("test create a new account", async ({ page }) => {
     .nth(3)
     .click();
   await page.getByText("Nut", { exact: true }).click();
-  await page.getByRole("button", { name: "1", exact: true }).click();
-  await page.getByRole("button", { name: "1", exact: true }).fill("6");
+  await page.getByLabel("integer-input").click();
+  await page.getByLabel("integer-input").fill("6");
   await page.getByRole("button", { name: "Create Account" }).click();
   await page.getByRole("link", { name: "Profile" }).click();
   await expect(page.locator("#root")).toContainText(
@@ -101,8 +101,8 @@ test("test creating and updating an account", async ({ page }) => {
     .nth(3)
     .click();
   await page.getByText("Nut", { exact: true }).click();
-  await page.getByRole("button", { name: "1", exact: true }).click();
-  await page.getByRole("button", { name: "1", exact: true }).fill("6");
+  await page.getByLabel("integer-input").click();
+  await page.getByLabel("integer-input").fill("6");
   await page.getByRole("button", { name: "Create Account" }).click();
   await page.getByRole("link", { name: "Profile" }).click();
   await expect(page.locator("#root")).toContainText(
@@ -112,7 +112,7 @@ test("test creating and updating an account", async ({ page }) => {
     .locator("div")
     .filter({ hasText: /^Liked Recipes:$/ })
     .click();
-  await page.getByRole("button", { name: "Update Account" }).click();
+  await page.getByLabel("update-account-button").click();
   await expect(page.locator("#account-header")).toContainText("Update Account");
   await page.locator("span:nth-child(3)").first().click();
   await page.locator(".css-1hwfws3").first().click();
@@ -123,9 +123,9 @@ test("test creating and updating an account", async ({ page }) => {
     .nth(3)
     .click();
   await page.getByText("Shellfish", { exact: true }).click();
-  await page.getByRole("button", { name: "1", exact: true }).click();
-  await page.getByRole("button", { name: "1", exact: true }).fill("4");
-  await page.getByRole("button", { name: "Update" }).click();
+  await page.getByLabel("integer-input").click();
+  await page.getByLabel("integer-input").fill("4");
+  await page.getByLabel("update-button").click();
   await page.getByRole("link", { name: "About" }).click();
   await page.getByRole("link", { name: "Profile" }).click();
   await expect(page.locator("#root")).toContainText(

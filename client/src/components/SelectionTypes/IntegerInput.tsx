@@ -55,6 +55,7 @@ const IntegerInput: React.FC<IntegerInputProps> = ({
 
   return (
     <input
+      aria-label="integer-input"
       type="number"
       value={inputValue}
       onChange={handleInputChange}

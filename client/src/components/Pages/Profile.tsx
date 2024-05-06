@@ -96,6 +96,7 @@ const ProfilePage: React.FC = () => {
         </div>
         <h4>{"Cooking for " + user.fam_size}</h4>
         <button
+          aria-label="update-account-button"
           className="update-acct-button"
           onClick={() => {
             setShowPopup(true);
