@@ -33,7 +33,6 @@ test("test that a meal plan genereates and saves", async ({ page }) => {
   await page.getByRole("button", { name: "Generate" }).click();
   await page.getByRole("button", { name: "View Recipe" }).click();
   const stepsText = await page.locator(".steps").innerText();
-
   await page.getByRole("button", { name: "X" }).click();
   await page.getByRole("button", { name: "Save" }).click();
   await page.getByRole("button", { name: "20", exact: true }).click();

@@ -1,17 +1,32 @@
 import { test, expect } from "@playwright/test";
 
 /**
- * Helper function to go to the page before each test
+ * Helper function to create an account before each test to ensure that 
+ * the liking interaction works properly without interference from
+ * other actions
  */
 test.beforeEach(async ({ page }) => {
   await page.goto("http://localhost:8000/");
   await page.getByPlaceholder("josiah_carberry@brown.edu").click();
+  const newEmailNumber: number = Math.random() * 512;
   await page
     .getByPlaceholder("josiah_carberry@brown.edu")
-    .fill("faizah_test@brown.edu");
+    .fill(`test_new_user_${newEmailNumber}@brown.edu`);
   await page.getByPlaceholder("ilovecooking").click();
   await page.getByPlaceholder("ilovecooking").fill("ilovecooking");
   await page.getByLabel("Login").click();
+  await page.getByPlaceholder("Nim Telson").fill("Testing test");
+  await page.locator("span:nth-child(2)").first().click();
+  await page.locator(".css-1hwfws3").first().click();
+  await page.getByText("Pescetarian", { exact: true }).click();
+  await page
+    .locator("div")
+    .filter({ hasText: /^Select\.\.\.$/ })
+    .nth(3)
+    .click();
+  await page.getByText("Nut", { exact: true }).click();
+  await page.getByLabel("integer-input").fill("6");
+  await page.getByRole("button", { name: "Create Account" }).click();
 });
 
 test("test alert on liking recipe before saving", async ({ page }) => {
@@ -28,4 +43,20 @@ test("test alert on liking recipe before saving", async ({ page }) => {
   });
 });
 
-//TODO: save a meal plan, like the recipe, and check that it shows up on profile/calendar page
+//save a meal plan, like the recipe, and check that it shows up on profile/calendar page
+test('test that liking a saved meal plan is displayed on the profile', async ({ page }) => {
+  await page.getByRole("button", { name: "Tu" }).click();
+  await page.getByRole("button", { name: "Generate" }).click();
+  await page.getByRole("button", { name: "View Recipe" }).click();
+  const stepsText = await page.locator(".steps").innerText();
+  await page.getByRole("button", { name: "X" }).click();
+  await page.getByRole("button", { name: "Save" }).click();
+  await page.getByRole("button", { name: "20", exact: true }).click();
+  await page.getByLabel("like-button-container").click();
+  //give it time to load
+  await page.getByRole('link', { name: 'About' }).click();
+  await page.getByRole('link', { name: 'Profile' }).click();
+  await page.click('div.likes > div > div > div > div > div.recipe-content > button');
+  await page.locator('.steps').click();
+  expect(await page.locator(".steps").innerText()).toEqual(stepsText);
+});
