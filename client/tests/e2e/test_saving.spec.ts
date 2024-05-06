@@ -22,3 +22,5 @@ test("test a generated mealplan displays in the calender", async ({ page }) => {
     "Your Saved Meal PlanMondayTuesdayWednesdayThursdayFridaySaturdaySunday10+ With Cabbage: Egg Roll in a BowlCuisine: ChineseTime: 25Instructions: ...View RecipeEgg Roll SoupCuisine: ChineseTime: 45Instructions: ...View RecipeX"
   );
 });
+
+//TODO: add test for week not containing a recipe?

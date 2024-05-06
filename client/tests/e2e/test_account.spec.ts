@@ -17,7 +17,6 @@ test("test create a new account", async ({ page }) => {
   await page.getByPlaceholder("ilovecooking").click();
   await page.getByPlaceholder("ilovecooking").fill("ilovecooking");
   await page.getByLabel("Login").click();
-  await page.getByPlaceholder("Nim Telson").click();
   await page.getByPlaceholder("Nim Telson").fill("Testing test");
   await page.locator("span:nth-child(2)").first().click();
   await page.locator(".css-1hwfws3").first().click();
@@ -28,7 +27,6 @@ test("test create a new account", async ({ page }) => {
     .nth(3)
     .click();
   await page.getByText("Nut", { exact: true }).click();
-  await page.getByLabel("integer-input").click();
   await page.getByLabel("integer-input").fill("6");
   await page.getByRole("button", { name: "Create Account" }).click();
   await page.getByRole("link", { name: "Profile" }).click();

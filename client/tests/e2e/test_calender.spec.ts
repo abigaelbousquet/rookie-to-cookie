@@ -36,4 +36,17 @@ test("test that viewing a recipe works correctly", async ({ page }) => {
   );
 });
 
-//TODO: add test for week not containing a recipe?
+test("test alert appears on weeks already saved for", async ({ page }) => {
+  await page.getByRole("button", { name: "Tu" }).click();
+  await page.getByRole("button", { name: "Generate" }).click();
+  await page.getByRole("button", { name: "Save" }).click();
+  await page.getByRole("button", { name: "21", exact: true }).click();
+  page.on("dialog", async (dialog) => {
+    // const dialog = await page.waitForEvent("dialog", { timeout: 10000 });
+    // // Check the alert message
+    expect(dialog.type()).toBe("alert");
+    expect(dialog.message()).toBe("Unable to save. Week already planned for");
+    // Dismiss the alert
+    await dialog.accept();
+  });
+});
