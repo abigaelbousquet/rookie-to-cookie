@@ -18,6 +18,10 @@ const CalendarPage: React.FC = () => {
   const [value, onChange] = useState<Value>(new Date());
   const [showPopup, setShowPopup] = useState<boolean>();
   const [mealPlan, setMealPlan] = useState(emptyMealPlan);
+  
+  /**
+   * Function to change the state to hide the popup and reset the meal plan.
+   */
   const changePopup = () => {
     setShowPopup(false);
     setMealPlan(emptyMealPlan);
