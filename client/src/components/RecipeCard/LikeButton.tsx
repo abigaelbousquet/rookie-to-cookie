@@ -28,13 +28,32 @@ function LikeButton(props: likeButtonProps) {
     }
   };
   if (props.liked === 1) {
-    return <AiFillLike color="#7a9364" size="30" onClick={handleLikeClick} />;
+    return (
+      <AiFillLike
+        aria-Label="thumbs-up"
+        color="#7a9364"
+        size="30"
+        onClick={handleLikeClick}
+      />
+    );
   } else if (props.liked === 2)
     return (
-      <AiFillDislike color="#e58a44" size="30" onClick={handleLikeClick} />
+      <AiFillDislike
+        aria-Label="thumbs-down"
+        color="#e58a44"
+        size="30"
+        onClick={handleLikeClick}
+      />
     );
   else {
-    return <AiFillHeart color="grey" size="30" onClick={handleLikeClick} />;
+    return (
+      <AiFillHeart
+        aria-Label="unliked-button"
+        color="grey"
+        size="30"
+        onClick={handleLikeClick}
+      />
+    );
   }
 }
 export default LikeButton;

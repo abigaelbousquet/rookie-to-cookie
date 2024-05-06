@@ -23,4 +23,15 @@ test("test a generated mealplan displays in the calender", async ({ page }) => {
   );
 });
 
-//TODO: add test for week not containing a recipe?
+test("test alert on looking for week with no plan saved", async ({ page }) => {
+  await page.getByRole("link", { name: "Calendar" }).click();
+  await page.getByRole("button", { name: "›" }).click();
+  await page.getByRole("button", { name: "24", exact: true }).click();
+  page.on("dialog", async (dialog) => {
+    // Check the alert message
+    expect(dialog.type()).toBe("alert");
+    expect(dialog.message()).toBe("No plan saved for week of 06-10-2024");
+    // Dismiss the alert
+    await dialog.accept();
+  });
+});

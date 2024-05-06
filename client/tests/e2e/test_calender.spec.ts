@@ -50,3 +50,18 @@ test("test alert appears on weeks already saved for", async ({ page }) => {
     await dialog.accept();
   });
 });
+
+test("test alert appears if no button selected for generate", async ({
+  page,
+}) => {
+  await page.getByRole("button", { name: "Generate" }).click();
+  page.on("dialog", async (dialog) => {
+    // Check the alert message
+    expect(dialog.type()).toBe("alert");
+    expect(dialog.message()).toBe(
+      "You must select at least one day of the week to generate a recipe for."
+    );
+    // Dismiss the alert
+    await dialog.accept();
+  });
+});

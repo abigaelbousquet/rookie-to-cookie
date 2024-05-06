@@ -59,8 +59,16 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved, isLiked }) => {
       <div className="recipe-card">
         <div className="recipe-header">
           <div className="recipe-title">{recipe.name}</div>
-          <div className="like-button-container">
-            <LikeButton liked={liked} setLiked={setLiked} canLike={saved} />
+          <div
+            className="like-button-container"
+            aria-label="like-button-container"
+          >
+            <LikeButton
+              aria-label="like-button"
+              liked={liked}
+              setLiked={setLiked}
+              canLike={saved}
+            />
           </div>
         </div>
         {showFullRecipe && (
