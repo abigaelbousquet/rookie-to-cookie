@@ -33,7 +33,15 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
   };
   const [userName, setUserName] = useState("");
 
+  /**
+   * useEffect hook to fetch the user's name asynchronously when the component mounts.
+   * Sets the user's name in the state variable.
+   */
   useEffect(() => {
+    /**
+     * Function to fetch the user's name asynchronously.
+     * @returns {Promise<string|null>} A promise resolving to the user's name or null if an error occurs.
+     */
     const fetchUserName = async () => {
       try {
         const name = await getUserName(); // Retrieve the user's name asynchronously
@@ -46,6 +54,10 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
     fetchUserName(); // Call the function to fetch the user's name
   }, []);
 
+  /**
+   * Function to retrieve the user's name asynchronously.
+   * @returns {Promise<string|null>} A promise resolving to the user's name or null if an error occurs.
+   */
   const getUserName = async () => {
     try {
       const user = await getUser();
@@ -58,6 +70,10 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
     }
   };
 
+  /**
+   * useEffect hook to add event listener for Enter key press on document body when the component mounts.
+   * Removes event listener when component unmounts.
+   */
   useEffect(() => {
     // Add event listener to listen for Enter key press on the document body
     document.body.addEventListener("keypress", handleKeyPress);
@@ -83,6 +99,11 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
     }
   };
 
+  /**
+   * Handles form submission for updating user profile.
+   * @param {profileProps} props - The props containing user profile data.
+   * @param {Function} onClose - Callback function to close the update account popup.
+   */
   // Updated handleSubmit function to be asynchronous
   const handleSubmit = async (props: profileProps, onClose: () => void) => {
     onClose();
