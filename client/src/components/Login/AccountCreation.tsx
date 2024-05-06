@@ -70,6 +70,10 @@ export const AccountCreation: React.FC<acctProps> = ({ setAuthing }) => {
     }
   };
 
+  /**
+   * Handles form submission for creating a new user profile.
+   * @param {profileProps} props - The props containing user profile data.
+   */
   const handleSubmit = async (props: profileProps) => {
     // Handle form submission here, e.g., send data to server
     if (
