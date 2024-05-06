@@ -3,7 +3,6 @@ package edu.brown.cs.student.main.server.EndpointHandlers;
 import edu.brown.cs.student.main.server.RecipeData.Datasource.RecipeUtilities;
 import edu.brown.cs.student.main.server.RecipeData.MealPlan;
 import edu.brown.cs.student.main.server.RecipeData.Recipe.Recipe;
-import edu.brown.cs.student.main.server.RecommenderAlgorithm.RecipeVolumeException;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.util.*;
@@ -65,9 +64,6 @@ public class AddLikedRecipeHandler implements Route {
         }
       }
 
-      if (data.size() == 0) {
-        throw new RecipeVolumeException("No recipe in past mealplans found");
-      }
       System.out.println("adding recipeId: " + recipeId + " for user: " + uid);
 
       // use the storage handler to add the document to the database
