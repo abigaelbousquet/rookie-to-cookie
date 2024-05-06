@@ -104,7 +104,12 @@ e2e:
 
 - test_accout tests functionality for firebase profile data and login flow
 - test_generation tests functionality of e2e mealplan generation
-- test_saving and test_calendar test the saving process
+- test_saving and test_calendar test the saving process and the calendar displays
+
+unit:
+
+- mealplan parsing tests deserialization of the meal plan JSON from the backend, used in generation and displaying in calendar
+- recipe parsing tests the deserialization of the recipe JSONs from the backend, used in likes/dislikes, generation, and calendar!
 
 ### Back-End
 
