@@ -17,11 +17,21 @@ export interface ILoginPageProps {
   setAuthing: React.Dispatch<React.SetStateAction<number>>;
 }
 
+/**
+ * Component for handling user login.
+ * @param {ILoginPageProps} props - Props for the login component.
+ * @returns {JSX.Element} The JSX element for the login component.
+ */
 const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   const auth = getAuth();
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  /**
+   * useEffect hook to add event listener for Enter key press on the document body when the component mounts.
+   * Removes event listener when component unmounts.
+   */
   useEffect(() => {
     // Add event listener to listen for Enter key press on the document body
     document.body.addEventListener("keypress", handleKeyPress);
@@ -37,6 +47,11 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       handleClick();
     }
   };
+
+  /**
+   * Handles user login.
+   * @returns {void}
+   */
   const handleClick = async () => {
     if (password === "" || email === "") {
       alert("Please enter your email and password");
