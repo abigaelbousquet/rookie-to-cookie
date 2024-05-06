@@ -33,18 +33,13 @@ test("test that a new account wiht no name creates an alert", async ({
   await page.getByRole("button", { name: "Create Account" }).click();
 
   // Wait for the alert
-  try {
-    const dialog = await page.waitForEvent("dialog", { timeout: 10000 });
+  page.on("dialog", async (dialog) => {
     // Check the alert message
     expect(dialog.type()).toBe("alert");
     expect(dialog.message()).toBe(
       "Please enter name, experience, and family size."
     );
-
     // Dismiss the alert
-    await dialog.dismiss();
-  } catch (error) {
-    console.error("Error waiting for dialog:", error);
-    // Handle timeout error
-  }
+    await dialog.accept();
+  });
 });
