@@ -1,4 +1,4 @@
-import {useState } from "react";
+import { useState } from "react";
 import LoginLogout from "./LoginLogout";
 import React from "react";
 import { AccountCreation } from "./AccountCreation";
@@ -9,8 +9,8 @@ import Master from "../Pages/Master";
  * 0 = logged out
  * 1 = signed in
  * 2 = creating new account
- * @returns Correct screen based on login status 
- * 
+ * @returns Correct screen based on login status
+ *
  */
 const AuthRoute = () => {
   const [authing, setAuthing] = useState(0);
