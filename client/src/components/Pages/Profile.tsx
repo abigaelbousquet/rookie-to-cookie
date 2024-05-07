@@ -4,6 +4,7 @@ import { getDislikes, getLikes, getUser } from "../../utils/api";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { AccountUpdate } from "../Login/AccountUpdate";
 import { parseRecipe } from "../../RecipeUtils/ParseRecipe";
+import { useRecipeContext } from "../RecipeCard/RecipeProvider";
 
 /**
  * This component houses the profile page
@@ -21,19 +22,34 @@ export interface User {
 const ProfilePage: React.FC = () => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
+  const { likedRecipes, dislikedRecipes } = useRecipeContext();
+
   //Gets and sets user data asynchronously
   useEffect(() => {
+    let isMounted = true;
+
     const fetchData = async () => {
       try {
-        const userData = await getProfileData();
-        setUser(userData);
+        const timer = setTimeout(async () => {
+          const userData = await getProfileData();
+          if (isMounted) {
+            setUser(userData);
+          }
+        }, 500); // delayed so that it works on click instead of having the use effect work before updating data
+
+        // Clear the timeout if the component unmounts before the delay
+        return () => clearTimeout(timer);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
-    fetchData();
-  }, []);
 
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [likedRecipes, dislikedRecipes]);
   //Combines user profile data and likes/dislikes
   const getProfileData = async () => {
     const response = await getLikes();
@@ -114,30 +130,32 @@ const ProfilePage: React.FC = () => {
       <div className="right-side">
         <div className="likes">
           <h3>Liked Recipes:</h3>
-          <div>
-            {/*Recipe cards of liked recipes*/}
-            {user.likedRecipes.map((recipe) => (
-              <div>
+          {user.likedRecipes.map((recipe) => {
+            if (dislikedRecipes.some((disliked) => disliked.id === recipe.id)) {
+              return null; // Don't render if the recipe is disliked
+            }
+            return (
+              <div key={recipe.id}>
                 <RecipeCard
                   recipe={parseRecipe(recipe)}
                   setShowPopup={setShowPopup}
-                  isLiked={1}
                   saved={true}
+                  isLiked={1}
                 />
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
         <div className="dislikes">
           <h3>Disliked Recipes:</h3>
           {/*Recipe cards of disliked recipes*/}
           {user.dislikedRecipes.map((recipe) => (
-            <div>
+            <div key={recipe.id}>
               <RecipeCard
                 recipe={parseRecipe(recipe)}
                 setShowPopup={setShowPopup}
-                isLiked={2}
                 saved={true}
+                isLiked={2}
               />
             </div>
           ))}
