@@ -90,7 +90,15 @@ We chose to gather Recipes for a user's liked and disliked Recipes from Firebase
 
 # Errors/Bugs
 
-In testing the back end with mocked data and mocked firebase (in TestEndpoint), we have run into a bug with unexpected NullPointerExceptions in the workflow of adding a user then generating and saving a meal plan then liking a recipe in the plan. With more time, we would/will look into this further but with our e2e testing with real data and real firebase we have been unable to replicate the bug. As such, this is a bug that appears to be isolated to the fully mocked case and so we have prioritized addressing other, user-facing bugs with our limited time.
+Recipe information (ingredient strings and instruction steps) are sometimes a little wonky, for example:
+
+- Including seemingly multiple or all steps in a single "step 1".
+- Funky meta data for an ingredient (e.g., "() cheddar cheese (4 slices)")
+
+These are oddities in the data we get from Spoonacular via their endpoint. We chose to use Spoonacular as a source
+of recipes, so these are not things we can fix ourselves persay. However, since interpretability is very important
+for the experience of new chefs, we would consider trying to find a more reliable recipe source if we were to
+deploy Rookie to Cookie.
 
 # Tests
 
@@ -200,4 +208,3 @@ Then, go to http:/localhost:8000 in a browser window to use Rookie to Cookie!
 - radio buttons: https://medium.com/@christinaroise/how-to-create-a-reusable-custom-radiobutton-in-react-with-typescript-3ae7fc704e09
 - react creatable objects: https://react-select.com/creatable
 - like and dislike buttons: https://medium.com/@mpcodes/how-to-create-an-interactive-like-and-dislike-button-component-in-react-c023f1417174
-
