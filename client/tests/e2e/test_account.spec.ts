@@ -77,7 +77,6 @@ test("test signing out retains information", async ({ page }) => {
   await expect(page.locator("#root")).toContainText(
     "Faizah TestNovice ChefDiet:Intolerances:Cooking for 1Update Account"
   );
-
 });
 
 test("test a liked recipe is in the liked recipe list on a profile", async ({
@@ -106,17 +105,19 @@ test("test a liked recipe is in the liked recipe list on a profile", async ({
   await page.getByRole("button", { name: "Tu" }).click();
   await page.getByRole("button", { name: "Generate" }).click();
   await page.getByRole("button", { name: "View Recipe" }).click();
-  const stepsText = await page.locator(".steps").innerText();
+  const title = await page.getByLabel("recipe-title").innerText();
   await page.getByRole("button", { name: "X" }).click();
   await page.getByRole("button", { name: "Save" }).click();
   await page.getByRole("button", { name: "20", exact: true }).click();
   await page.getByLabel("like-button-container").click();
   //give it time to load
-  await page.getByRole('link', { name: 'About' }).click();
-  await page.getByRole('link', { name: 'Profile' }).click();
-  await page.click('div.likes > div > div > div > div > div.recipe-content > button');
-  await page.locator('.steps').click();
-  expect(await page.locator(".steps").innerText()).toEqual(stepsText);
+  await page.getByRole("link", { name: "About" }).click();
+  await page.getByRole("link", { name: "Profile" }).click();
+  await page
+    .getByLabel("liked-recipes")
+    .getByRole("button", { name: "View Recipe" })
+    .click();
+  expect(await page.getByLabel("recipe-title").innerText()).toEqual(title);
 });
 
 test("test creating and updating an account", async ({ page }) => {
