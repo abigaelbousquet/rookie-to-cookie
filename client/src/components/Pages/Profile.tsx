@@ -134,7 +134,7 @@ const ProfilePage: React.FC = () => {
         )}
       </div>
       <div className="right-side">
-        <div className="likes">
+        <div aria-label="liked-recipes" className="likes">
           <h3>Liked Recipes:</h3>
           {user.likedRecipes.map((recipe) => {
             if (dislikedRecipes.some((disliked) => disliked.id === recipe.id)) {

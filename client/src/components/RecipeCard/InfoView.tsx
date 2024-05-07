@@ -52,7 +52,7 @@ const InfoView: React.FC<InfoViewProps> = ({
   return (
     <div className="popup-overlay">
       <div className="popup-content">
-        <div className="recipe-title">
+        <div aria-label="recipe-title" className="recipe-title">
           {recipe.name}
           <button className="close-button" onClick={onClose}>
             X
