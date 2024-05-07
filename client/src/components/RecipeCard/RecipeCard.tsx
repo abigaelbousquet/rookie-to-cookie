@@ -3,12 +3,8 @@ import Recipe from "./Recipe";
 import InfoView from "./InfoView";
 import LikeButton from "./LikeButton";
 import "../../styles/RecipeCard.css";
-import {
-  addDislike,
-  addLike,
-  removeDislike,
-  removeLike,
-} from "../../utils/api";
+
+import { useRecipeContext } from "./RecipeProvider";
 
 /**
  * Recipe card, displayed in meal plan views and like/dislike sections of the webapp
@@ -27,6 +23,13 @@ interface RecipeCardProps {
  * @returns A React component representing a recipe card.
  */
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved, isLiked }) => {
+  const {
+    likedRecipes,
+    addLikedRecipe,
+    removeLikedRecipe,
+    addDislikedRecipe,
+    removeDislikedRecipe,
+  } = useRecipeContext();
   const [showFullRecipe, setShowFullRecipe] = useState(false);
   const [liked, setLiked] = useState(isLiked);
 
@@ -44,12 +47,12 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved, isLiked }) => {
   useEffect(() => {
     const updateLikes = async () => {
       if (liked == 1) {
-        await addLike(recipe.id);
+        addLikedRecipe(recipe.id);
       } else if (liked == 2) {
-        await removeLike(recipe.id);
-        await addDislike(recipe.id);
+        removeLikedRecipe(recipe.id);
+        addDislikedRecipe(recipe.id);
       } else {
-        await removeDislike(recipe.id);
+        removeDislikedRecipe(recipe.id);
       }
     };
     updateLikes();
