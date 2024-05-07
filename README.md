@@ -11,7 +11,7 @@ Abigael Bousquet (abousque) - Spoonacular integration, meal plan generator algor
 Faizah Naqvi (ffnaqvi) - Firebase integration, API endpoints and handlers
 
 **Front-End Software Engineers:**  
-Daniela DeDona (ddedona) - Home page, recipecard and mealplan displays  
+Daniela DeDona (ddedona) - Home page, recipecard and mealplan displays, rendering
 Marissa Shaffer (mshaffe3) - Backend querying, Authentication, Account creation, Profile page
 
 ### Total Estimated Time for Project:
@@ -193,3 +193,11 @@ Then, go to http:/localhost:8000 in a browser window to use Rookie to Cookie!
 - Like or dislike a recipe once you've cooked it and tried it by finding it in the Calendar tab and then toggling the "heart" button to a thumbs up or thumbs down in the top right corner of the recipe card
 - Sign out at any time by clicking the "Sign Out" button at the bottom of any page
 - Log back in by entering the same email and password as the account was created with into the Login screen to see all of your protected account data
+
+**Outside Source Credit**
+
+- dropdown selection: https://www.digitalocean.com/community/tutorials/react-react-select
+- radio buttons: https://medium.com/@christinaroise/how-to-create-a-reusable-custom-radiobutton-in-react-with-typescript-3ae7fc704e09
+- react creatable objects: https://react-select.com/creatable
+- like and dislike buttons: https://medium.com/@mpcodes/how-to-create-an-interactive-like-and-dislike-button-component-in-react-c023f1417174
+
