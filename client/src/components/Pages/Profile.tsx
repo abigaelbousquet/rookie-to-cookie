@@ -123,7 +123,13 @@ const ProfilePage: React.FC = () => {
         {/*Account update button*/}
         {showPopup && (
           <div className="popup-container">
-            {showPopup && <AccountUpdate onClose={() => setShowPopup(false)} />}
+            {showPopup && (
+              <AccountUpdate
+                onClose={() => setShowPopup(false)}
+                getProfileData={getProfileData}
+                setUser={setUser}
+              />
+            )}
           </div>
         )}
       </div>
