@@ -4,21 +4,29 @@ import "./../../styles/login.css";
 import Select from "react-select";
 import "../../styles/AccountUpdate.css";
 
-import React, { useEffect, useState } from "react";
-import { ControlledInput } from "../SelectionTypes/ControlledInput";
+import React, { useEffect, useState, useRef } from "react";
 import Creatable from "react-select/creatable";
 import { addUser, getUser } from "../../utils/api";
 import { diets, intoleranceOptions } from "../../data/Spoonacular";
 import { profileProps } from "./AccountCreation";
 import IntegerInput from "../SelectionTypes/IntegerInput";
+
+import { User } from "../Pages/Profile";
+
 /**
  * This component is very similar to the account creation one, but does not have a name field and pops up over the profile page.
  */
 interface acctProps {
   onClose: () => void;
+  getProfileData: () => Promise<User>; // Function to fetch profile data asynchronously
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
-export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
+export const AccountUpdate: React.FC<acctProps> = ({
+  onClose,
+  getProfileData,
+  setUser,
+}) => {
   const [exp, setExp] = useState("1");
   const [diet, setDiet] = useState("");
   const [allergen, setAllergen] = useState<{ label: string; value: string }[]>(
@@ -83,19 +91,31 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
     };
   }, []);
 
+  // Reference to the submit button
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+
+  // useEffect to focus on the submit button when the component mounts
+  useEffect(() => {
+    // Focus on the submit button when the component mounts
+    if (submitButtonRef.current) {
+      submitButtonRef.current.focus();
+    }
+  }, []);
+
+  // Function to trigger submit button click
+  const triggerSubmitButtonClick = () => {
+    if (submitButtonRef.current) {
+      submitButtonRef.current.click();
+    }
+  };
+
+  // handleKeyPress function modified to trigger submit button click
   const handleKeyPress = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
-      // Press enter to trigger login button click
-      handleSubmit(
-        {
-          name: userName,
-          exp: exp,
-          diet: diet,
-          fam_size: fam_size.toString(),
-          intolerances: allergen.map((val) => val.value),
-        },
-        onClose
-      );
+      // Prevent the default behavior of the Enter key
+      event.preventDefault();
+      // Trigger submit button click
+      triggerSubmitButtonClick();
     }
   };
 
@@ -121,13 +141,14 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
         console.log(
           `?name=${userName}&exp=${props.exp}&diet=${props.diet}&fam-size=${props.fam_size}&intolerances=${props.intolerances}`
         );
+
+        // Fetch and update user profile data after updating the account
+        const userData = await getProfileData();
+        setUser(userData); // Update the user state with the new data
       }
     } catch (error) {
       alert(error);
     }
-    alert(
-      "Successfully updated account. Sign out then in again to see changes."
-    );
   };
 
   return (
@@ -189,6 +210,7 @@ export const AccountUpdate: React.FC<acctProps> = ({ onClose }) => {
             <button
               aria-label="update-button"
               className="butt"
+              ref={submitButtonRef}
               onClick={() => {
                 handleSubmit(
                   {
