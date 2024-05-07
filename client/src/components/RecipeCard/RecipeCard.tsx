@@ -58,9 +58,9 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved, isLiked }) => {
     updateLikes();
   }, [liked]);
   return (
-    <div className="recipe-card-container">
-      <div className="recipe-card">
-        <div className="recipe-header">
+    <div aria-label="recipe-card-container" className="recipe-card-container">
+      <div aria-label="recipe-card" className="recipe-card">
+        <div aria-label="recipe-header" className="recipe-header">
           <div className="recipe-title">{recipe.name}</div>
           <div
             className="like-button-container"
@@ -82,7 +82,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved, isLiked }) => {
             liked={liked}
           />
         )}
-        <div className="recipe-content">
+        <div aria-label="recipe-brief-info" className="recipe-content">
           <p>
             <strong>Cuisine:</strong> {recipe.cuisine}
           </p>
@@ -95,7 +95,11 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, saved, isLiked }) => {
             {"..."}
           </p>
           {/*Button that toggles the infoview popup*/}
-          <button className="recipe-button" onClick={toggleShowFullRecipe}>
+          <button
+            aria-label="recipe-full-info-button"
+            className="recipe-button"
+            onClick={toggleShowFullRecipe}
+          >
             View Recipe
           </button>
         </div>

@@ -247,9 +247,15 @@ const Home: React.FC = () => {
           intolerances on your profile in addition to what you enter here.
         </p>
       </div>
-      <div className="days-of-the-week-container">
+      <div
+        aria-label="days-of-the-week-container"
+        className="days-of-the-week-container"
+      >
         {/* Section of days of the week prompt */}
-        <div className="days-of-the-week-prompt-text">
+        <div
+          aria-label="days-of-week-prompt"
+          className="days-of-the-week-prompt-text"
+        >
           Select the days of the week you would like to plan for:
         </div>
 
@@ -366,7 +372,10 @@ const Home: React.FC = () => {
           Specify any ingredients to exclude:
         </div>
         {/* Section of excluded ingredients input box */}
-        <div className="exclude-options-box">
+        <div
+          aria-label="exclude-ingredients-input"
+          className="exclude-options-box"
+        >
           <MultiSelectInput onSelectChange={handleExcludedIngredientsChange} />
         </div>
       </div>

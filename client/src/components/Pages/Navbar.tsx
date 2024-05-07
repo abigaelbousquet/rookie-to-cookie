@@ -8,24 +8,24 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ handleLogout }) => {
   return (
-    <nav className="navbar">
-      <ul className="nav-list">
-        <li className="nav-item">
+    <nav aria-label="navigation-bar" className="navbar">
+      <ul aria-label="navigation-options" className="nav-list">
+        <li aria-label="home-link" className="nav-item">
           <Link to="/" className="nav-link">
             Home
           </Link>
         </li>
-        <li className="nav-item">
+        <li aria-label="calendar-link" className="nav-item">
           <Link to="/calendar" className="nav-link">
             Calendar
           </Link>
         </li>
-        <li className="nav-item">
+        <li aria-label="about-link" className="nav-item">
           <Link to="/about" className="nav-link">
             About
           </Link>
         </li>
-        <li className="nav-item">
+        <li aria-label="profile-link" className="nav-item">
           <Link to="/profile" className="nav-link">
             Profile
           </Link>

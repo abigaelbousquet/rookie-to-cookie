@@ -22,19 +22,19 @@ interface InfoViewProps {
  */
 const TwoColumnTable = (items: string[]) => {
   return (
-    <div className="two-column-table">
-      <div className="column">
+    <div aria-label="ingredients-table" className="two-column-table">
+      <div aria-label="ingredients-table-column" className="column">
         {/* 1st half of items in the first column */}
         {items.slice(0, Math.ceil(items.length / 2)).map((item, index) => (
-          <div key={index} className="table-item">
+          <div key={index} aria-label="ingredient" className="table-item">
             {item}
           </div>
         ))}
       </div>
-      <div className="column">
+      <div aria-label="ingredients-table-column" className="column">
         {/* 2nd half of items in the second column */}
         {items.slice(Math.ceil(items.length / 2)).map((item, index) => (
-          <div key={index} className="table-item">
+          <div key={index} aria-label="ingredient" className="table-item">
             {item}
           </div>
         ))}
@@ -50,24 +50,38 @@ const InfoView: React.FC<InfoViewProps> = ({
   liked,
 }) => {
   return (
-    <div className="popup-overlay">
-      <div className="popup-content">
+    <div aria-label="recipe-info-view-popup-overlay" className="popup-overlay">
+      <div
+        aria-label="recipe-info-view-popup-content"
+        className="popup-content"
+      >
         <div aria-label="recipe-title" className="recipe-title">
           {recipe.name}
-          <button className="close-button" onClick={onClose}>
+          <button
+            aria-label="close-recipe-info-popup-button"
+            className="close-button"
+            onClick={onClose}
+          >
             X
           </button>
         </div>
-        <div className="grid-container">
-          <div className="recipe-image-container">
+        <div
+          aria-label="recipe-image-grid-container"
+          className="grid-container"
+        >
+          <div
+            aria-label="recipe-image-container"
+            className="recipe-image-container"
+          >
             <img
               src={recipe.image}
               alt={recipe.name}
+              aria-label="recipe-image"
               className="recipe-image"
             />
           </div>
-          <div className="recipe-info">
-            <div className="info-container">
+          <div aria-label="recipe-info" className="recipe-info">
+            <div aria-label="recipe-info-container" className="info-container">
               <p>
                 <strong>Source:</strong> {recipe.credit}
               </p>
@@ -87,7 +101,7 @@ const InfoView: React.FC<InfoViewProps> = ({
             </div>
           </div>
         </div>
-        <div className="steps">
+        <div aria-label="recipe-steps" className="steps">
           <ol style={{ listStyleType: "none" }}>
             {recipe.instructions.map((step, index) => (
               <li key={index}>
@@ -112,8 +126,16 @@ const InfoView: React.FC<InfoViewProps> = ({
           </ol>
         </div>
         {/* Heart button for toggling like status */}
-        <div className="like-button-container-info">
-          <LikeButton liked={liked} setLiked={setLiked} canLike={true} />
+        <div
+          aria-label="like-button-container-info"
+          className="like-button-container-info"
+        >
+          <LikeButton
+            aria-label="like-button"
+            liked={liked}
+            setLiked={setLiked}
+            canLike={true}
+          />
         </div>
       </div>
     </div>

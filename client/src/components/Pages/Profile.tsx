@@ -97,17 +97,31 @@ const ProfilePage: React.FC = () => {
   }
 
   return (
-    <div className="profile-container">
-      <div className="left-side">
-        <div className={"exp" + user.experienceLevel}></div>
-        <h1 className="name-display">{user.name}</h1>
-        <h3 className="exp_description">{getExp(user.experienceLevel)}</h3>
+    <div aria-label="profile-container" className="profile-container">
+      <div aria-label="profile-user-info" className="left-side">
+        <div
+          aria-label="user-experience-level"
+          className={"exp" + user.experienceLevel}
+        ></div>
+        <h1 aria-label="user-name" className="name-display">
+          {user.name}
+        </h1>
+        <h3
+          aria-label="user-experience-description"
+          className="exp_description"
+        >
+          {getExp(user.experienceLevel)}
+        </h3>
         <div>
-          <h3 className="diet">Diet:</h3>
+          <h3 aria-label="user-diet" className="diet">
+            Diet:
+          </h3>
           <p>{user.diet}</p>
         </div>
         <div>
-          <h3 className="diet">Intolerances:</h3>
+          <h3 aria-label="user-intolerances" className="diet">
+            Intolerances:
+          </h3>
           <p>{user.intolerances.join(", ")}</p>
         </div>
         <h4>{"Cooking for " + user.fam_size}</h4>
@@ -122,7 +136,10 @@ const ProfilePage: React.FC = () => {
         </button>
         {/*Account update button*/}
         {showPopup && (
-          <div className="popup-container">
+          <div
+            aria-label="account-update-popup-container"
+            className="popup-container"
+          >
             {showPopup && (
               <AccountUpdate
                 onClose={() => setShowPopup(false)}
@@ -133,7 +150,7 @@ const ProfilePage: React.FC = () => {
           </div>
         )}
       </div>
-      <div className="right-side">
+      <div aria-label="profile-recipe-history" className="right-side">
         <div aria-label="liked-recipes" className="likes">
           <h3>Liked Recipes:</h3>
           {user.likedRecipes.map((recipe) => {
@@ -152,7 +169,7 @@ const ProfilePage: React.FC = () => {
             );
           })}
         </div>
-        <div className="dislikes">
+        <div aria-label="disliked-recipes" className="dislikes">
           <h3>Disliked Recipes:</h3>
           {/*Recipe cards of disliked recipes*/}
           {user.dislikedRecipes.map((recipe) => (
