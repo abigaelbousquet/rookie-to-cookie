@@ -43,28 +43,45 @@ test("test create a new account", async ({ page }) => {
 });
 
 test("test signing out retains information", async ({ page }) => {
-  await page.getByPlaceholder('josiah_carberry@brown.edu').click();
-  await page.getByPlaceholder('josiah_carberry@brown.edu').fill('faizah_test@brown.edu');
-  await page.getByPlaceholder('ilovecooking').click();
-  await page.getByPlaceholder('ilovecooking').fill('ilovecooking');
-  await page.getByLabel('Login').click();
-  await page.getByRole('link', { name: 'Profile' }).click();
-  await page.locator('div').filter({ hasText: /^Faizah TestNovice ChefDiet:Intolerances:Cooking for 1Update Account$/ }).locator('div').first().click({
-    button: 'right'
-  });
-  await page.getByRole('heading', { name: 'Rookie To Cookie' }).click();
-  await expect(page.locator('h1')).toContainText('Faizah Test');
-  await expect(page.locator('#root')).toContainText('Faizah TestNovice ChefDiet:Intolerances:Cooking for 1Update Account');
-  await expect(page.locator('#root')).toContainText('Faizah TestNovice ChefDiet:Intolerances:Cooking for 1Update AccountLiked Recipes:Disliked Recipes:North African Chickpea Soup (Leblebi)Cuisine: AfricanTime: 45Instructions: ...View RecipeEasy Vegetarian PhoCuisine: VietnameseTime: 45Instructions: ...View Recipe');
-  await page.getByLabel('Sign Out').click();
-  await page.getByPlaceholder('josiah_carberry@brown.edu').click();
-  await page.getByPlaceholder('josiah_carberry@brown.edu').fill('faizah_test@brown.edu');
-  await page.getByPlaceholder('ilovecooking').click();
-  await page.getByPlaceholder('ilovecooking').fill('ilovecooking');
-  await page.getByLabel('Login').click();
-  await expect(page.locator('h1')).toContainText('Faizah Test');
-  await expect(page.locator('#root')).toContainText('Faizah TestNovice ChefDiet:Intolerances:Cooking for 1Update Account');
-  await expect(page.locator('#root')).toContainText('Faizah TestNovice ChefDiet:Intolerances:Cooking for 1Update AccountLiked Recipes:Disliked Recipes:North African Chickpea Soup (Leblebi)Cuisine: AfricanTime: 45Instructions: ...View RecipeEasy Vegetarian PhoCuisine: VietnameseTime: 45Instructions: ...View Recipe');
+  await page.getByPlaceholder("josiah_carberry@brown.edu").click();
+  await page
+    .getByPlaceholder("josiah_carberry@brown.edu")
+    .fill("faizah_test@brown.edu");
+  await page.getByPlaceholder("ilovecooking").click();
+  await page.getByPlaceholder("ilovecooking").fill("ilovecooking");
+  await page.getByLabel("Login").click();
+  await page.getByRole("link", { name: "Profile" }).click();
+  await page
+    .locator("div")
+    .filter({
+      hasText:
+        /^Faizah TestNovice ChefDiet:Intolerances:Cooking for 1Update Account$/,
+    })
+    .locator("div")
+    .first()
+    .click({
+      button: "right",
+    });
+  await page.getByRole("heading", { name: "Rookie To Cookie" }).click();
+  await expect(page.locator("h1")).toContainText("Faizah Test");
+  await expect(page.locator("#root")).toContainText(
+    "Rookie To CookieHomeCalendarAboutProfileFaizah TestNovice ChefDiet:Intolerances:Cooking for 1Update AccountLiked Recipes:Disliked Recipes:North African Chickpea Soup (Leblebi)Cuisine: AfricanTime: 45Instructions: ...View RecipeEasy Vegetarian PhoCuisine: VietnameseTime: 45Instructions: ...View Recipe"
+  );
+  await page.getByLabel("Sign Out").click();
+  await page.getByPlaceholder("josiah_carberry@brown.edu").click();
+  await page
+    .getByPlaceholder("josiah_carberry@brown.edu")
+    .fill("faizah_test@brown.edu");
+  await page.getByPlaceholder("ilovecooking").click();
+  await page.getByPlaceholder("ilovecooking").fill("ilovecooking");
+  await page.getByLabel("Login").click();
+  await expect(page.locator("h1")).toContainText("Faizah Test");
+  await expect(page.locator("#root")).toContainText(
+    "Faizah TestNovice ChefDiet:Intolerances:Cooking for 1Update Account"
+  );
+  await expect(page.locator("#root")).toContainText(
+    "Faizah TestNovice ChefDiet:Intolerances:Cooking for 1Update AccountLiked Recipes:Disliked Recipes:North African Chickpea Soup (Leblebi)Cuisine: AfricanTime: 45Instructions: ...View RecipeEasy Vegetarian PhoCuisine: VietnameseTime: 45Instructions: ...View Recipe"
+  );
 });
 
 test("test a liked recipe is in the liked recipe list on a profile", async ({
@@ -78,8 +95,16 @@ test("test a liked recipe is in the liked recipe list on a profile", async ({
   await page.getByPlaceholder("ilovecooking").fill("ilovecooking");
   await page.getByLabel("Login").click();
   await page.getByRole("link", { name: "Profile" }).click();
-  await expect (page.locator("#root > div > div.App > div > div.right-side > div.dislikes > div:nth-child(2) > div > div > div.recipe-header > div.recipe-title")).toContainText("North African Chickpea Soup (Leblebi)");
-  await expect (page.locator("#root > div > div.App > div > div.right-side > div.dislikes > div:nth-child(3) > div > div > div.recipe-header > div.recipe-title")).toContainText("Easy Vegetarian Pho");
+  await expect(
+    page.locator(
+      "#root > div > div.App > div > div.right-side > div.dislikes > div:nth-child(2) > div > div > div.recipe-header > div.recipe-title"
+    )
+  ).toContainText("North African Chickpea Soup (Leblebi)");
+  await expect(
+    page.locator(
+      "#root > div > div.App > div > div.right-side > div.dislikes > div:nth-child(3) > div > div > div.recipe-header > div.recipe-title"
+    )
+  ).toContainText("Easy Vegetarian Pho");
 });
 
 test("test creating and updating an account", async ({ page }) => {

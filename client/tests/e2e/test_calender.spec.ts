@@ -39,11 +39,12 @@ test("test that viewing a recipe works correctly", async ({ page }) => {
 test("test alert appears on weeks already saved for", async ({ page }) => {
   await page.getByRole("button", { name: "Tu" }).click();
   await page.getByRole("button", { name: "Generate" }).click();
+  await page.getByRole("button", { name: "View Recipe" }).click();
+  await page.getByRole("button", { name: "X" }).click();
   await page.getByRole("button", { name: "Save" }).click();
   // await page.locator(".popup-save-overlay").click();
-  // await page.getByRole("button", { name: "21", exact: true }).click();
+  await page.getByRole("button", { name: "21", exact: true }).click();
 
-  await page.click("#root > div > div.App > div > div.save-data-button-container > div.popup-save-overlay > div.popup-save-content > div > div.react-calendar small_cal > div.react-calendar__viewContainer > div > div > div.react-calendar__month-view__weekNumbers > button:nth-child(4)");
   page.on("dialog", async (dialog) => {
     // const dialog = await page.waitForEvent("dialog", { timeout: 10000 });
     // // Check the alert message
