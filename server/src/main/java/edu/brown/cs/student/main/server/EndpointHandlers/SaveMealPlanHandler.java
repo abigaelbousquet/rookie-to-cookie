@@ -66,7 +66,6 @@ public class SaveMealPlanHandler implements Route {
    * @return a list of all of the dates
    */
   private List<String> parseDates(String dayOfMonday) {
-    System.out.println("dayOfMonday: " + dayOfMonday);
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     SimpleDateFormat dateFormatDash = new SimpleDateFormat("MM-dd-yyyy");
 
@@ -82,9 +81,6 @@ public class SaveMealPlanHandler implements Route {
         calendar.add(Calendar.DAY_OF_MONTH, 1); // Add one day
 
         Date nextDay = calendar.getTime();
-
-        System.out.println("Today:" + date);
-        System.out.println("Next Day: " + nextDay);
         date = nextDay;
         dateList.add(dateFormatDash.format(date));
       }
