@@ -28,7 +28,7 @@ test.beforeEach(async ({ page }) => {
   await page.getByRole("link", { name: "Home" }).click();
 });
 
-test("test that a meal plan genereates and saves", async ({ page }) => {
+test("test that a meal plan generates and saves", async ({ page }) => {
   await page.getByRole("button", { name: "Tu" }).click();
   await page.getByRole("button", { name: "Generate" }).click();
   await page.getByRole("button", { name: "View Recipe" }).click();
