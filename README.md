@@ -208,3 +208,5 @@ Then, go to http:/localhost:8000 in a browser window to use Rookie to Cookie!
 - radio buttons: https://medium.com/@christinaroise/how-to-create-a-reusable-custom-radiobutton-in-react-with-typescript-3ae7fc704e09
 - react creatable objects: https://react-select.com/creatable
 - like and dislike buttons: https://medium.com/@mpcodes/how-to-create-an-interactive-like-and-dislike-button-component-in-react-c023f1417174
+- calendar https://www.npmjs.com/package/react-calendar
+- Slider https://www.npmjs.com/package/rc-slider
