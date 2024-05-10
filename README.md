@@ -100,6 +100,8 @@ of recipes, so these are not things we can fix ourselves persay. However, since 
 for the experience of new chefs, we would consider trying to find a more reliable recipe source if we were to
 deploy Rookie to Cookie.
 
+Clicking enter on login does not always work, but it does for the other keyHandlers.
+
 # Tests
 
 Explain the testing suites that you implemented for your program and how each test ensures that a part of the program works.
