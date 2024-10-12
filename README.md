@@ -4,6 +4,8 @@
 
 Rookie to Cookie aims to help people who don’t currently cook as well as people who are seeking to branch out or looking to cook within constraints, by providing specialized, encouraging, and clear meal plans. The plans will take away the overwhelming nature of creating one’s own cooking-101-curricula by creating plans in a timeline that is personalized for the individual. While people can use services like Hello Fresh to simplify cooking processes, these services can be expensive, as well as wasteful, as they have shipping materials and individually packaged ingredients. This program will add a similar level of planning structure, but be more financially accessible, and environmentally friendly to ultimately make the process of meal planning as beginner chefs more efficient and encouraging. We aim to be inclusive of different user priorities by offering 2 algorithmic options for meal plan generation: minimizing food waste across a week's ingredients, or creating a plan tailored to a user's liked and disliked recipe history.
 
+**You can view a video walkthrough of our app linked [here](https://drive.google.com/file/d/1BiGyfk7Az7HO91c34d1VogRFH3klZpL4/view?usp=sharing)** (video was too large to upload to github) :)  
+
 ### Team Members
 
 **Back-End Software Engineers:**  
